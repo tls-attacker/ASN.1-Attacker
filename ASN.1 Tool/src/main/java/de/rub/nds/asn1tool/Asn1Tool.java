@@ -72,7 +72,6 @@ public class Asn1Tool {
 
                 ModifiableBoolean.class,
                 BooleanExplicitValueModification.class,
-                BooleanToogleModification.class,
 
                 ModifiableByteArray.class,
                 ByteArrayDeleteModification.class,
