@@ -135,7 +135,8 @@ public class Asn1Tool {
                 Asn1RawField.class,
                 Asn1Sequence.class,
                 Asn1Set.class,
-                Asn1RawBytes.class
+                Asn1RawBytes.class,
+                Asn1Implicit.class
 
                 // Todo: Support all native ASN.1 types. So far, only the types relevant for X.509 are supported.
         };
