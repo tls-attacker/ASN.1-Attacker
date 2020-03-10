@@ -28,18 +28,23 @@ public class ContextComponentOption<T extends Asn1Encodable> {
 
     public int computeScore(final int tagClass, final boolean tagConstructed, final int tagNumber, final boolean hasChildren) {
         int score = 0;
+                
         if(this.tagClass == tagClass) {
             score++;
-            if(this.tagConstructed == tagConstructed) {
-                score++;
-                if(this.tagNumber == tagNumber) {
-                    score++;
-                    if(this.hasChildren == hasChildren) {
-                        score++;
-                    }
-                }
-            }
         }
+      
+        if(this.tagConstructed == tagConstructed) {
+            score++;
+        }       
+        
+        if(this.tagNumber == tagNumber) {
+            score++;
+        }
+        
+        if(this.hasChildren == hasChildren) {
+            score++;
+        }
+        
         return score;
     }
 }
