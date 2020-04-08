@@ -120,6 +120,7 @@ public class Asn1Tool {
                 Asn1EncapsulatingBitString.class,
                 Asn1EncapsulatingOctetString.class,
                 Asn1EndOfContent.class,
+                Asn1Enumerated.class,
                 Asn1Explicit.class,
                 Asn1Field.class,
                 Asn1Integer.class,
