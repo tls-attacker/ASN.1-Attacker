@@ -21,9 +21,19 @@ public class Asn1Parser {
 
     private final boolean isStrictMode;
 
+    private final boolean convertImplicitToSequence;
+
     public Asn1Parser(final byte[] bytes, final boolean strictMode) {
         this.byteArrayBuffer = new ByteArrayBuffer(bytes);
         this.isStrictMode = strictMode;
+        this.convertImplicitToSequence = false;
+
+    }
+
+    public Asn1Parser(final byte[] bytes, final boolean strictMode, final boolean convertImplicitToSequence) {
+        this.byteArrayBuffer = new ByteArrayBuffer(bytes);
+        this.isStrictMode = strictMode;
+        this.convertImplicitToSequence = convertImplicitToSequence;
     }
 
     public List<Asn1Encodable> parse(final String contextName) throws ParserException {
@@ -48,6 +58,20 @@ public class Asn1Parser {
             int tagNumber = this.parseTagNumber();
             BigInteger length = this.parseLength();
             byte[] content = this.parseContent(length);
+
+            // HACK: Some standards use implicit tags for what appear to be normal sequences.
+            // Therefore, if set as an option, we just change the tags during parsing so they appear as ordinary sequences.
+
+            if (this.convertImplicitToSequence)
+            {
+                if (tagClass == 2) // if CONTEXT_SPECIFIC
+                {
+                    // convert to ordinary SEQUENCE
+                    tagClass = 0;
+                    tagNumber = 16; 
+                }
+            }
+
             return new IntermediateAsn1Field(tagClass, tagConstructed, tagNumber, length, content);
         } catch(RuntimeException e) {
             throw new ParserException(e);
@@ -121,7 +145,7 @@ public class Asn1Parser {
         for (ContentUnpacker contentUnpacker : contentUnpackers) {
             try {
                 byte[] unpacked = contentUnpacker.unpack(intermediateAsn1Field.getContent());
-                Asn1Parser childParser = new Asn1Parser(unpacked, this.isStrictMode);
+                Asn1Parser childParser = new Asn1Parser(unpacked, this.isStrictMode, this.convertImplicitToSequence);
                 children = childParser.parseIntermediateFields();
                 intermediateAsn1Field.setChildren(children);
                 break; // No break is executed if an exception is thrown, e.g. because unpacking is not successful
