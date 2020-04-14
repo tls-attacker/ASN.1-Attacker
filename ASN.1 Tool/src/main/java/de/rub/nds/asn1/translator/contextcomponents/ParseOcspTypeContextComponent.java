@@ -38,6 +38,7 @@ public class ParseOcspTypeContextComponent extends ContextComponent {
             new Asn1OcspA1ContextSequenceCCO(ParseOcspTypesContext.NAME),
             new Asn1OcspA2ContextSequenceCCO(ParseOcspTypesContext.NAME),
             new Asn1OcspA3ContextSequenceCCO(ParseOcspTypesContext.NAME),
+            new Asn1OcspCertificateGoodNullCCO(),
             new Asn1SetCCO(ParseOcspTypesContext.NAME)
     };
 
