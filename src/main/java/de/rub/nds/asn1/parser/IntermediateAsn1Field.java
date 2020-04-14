@@ -6,6 +6,8 @@ import java.util.List;
 
 public class IntermediateAsn1Field {
 
+    private int tag = 0;
+
     private int tagClass = 0;
 
     private boolean tagConstructed = false;
@@ -22,12 +24,21 @@ public class IntermediateAsn1Field {
 
     }
 
-    public IntermediateAsn1Field(int tagClass, boolean tagConstructed, int tagNumber, BigInteger length, byte[] content) {
+    public IntermediateAsn1Field(int tag, int tagClass, boolean tagConstructed, int tagNumber, BigInteger length, byte[] content) {
+        this.tag = tag;
         this.tagClass = tagClass;
         this.tagConstructed = tagConstructed;
         this.tagNumber = tagNumber;
         this.length = length;
         this.content = content;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
     public int getTagClass() {

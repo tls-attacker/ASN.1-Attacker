@@ -53,6 +53,7 @@ public class Asn1Parser {
 
     private IntermediateAsn1Field parseAsn1Field() throws ParserException {
         try {
+            int tag = this.parseTag();
             int tagClass = this.parseTagClass();
             boolean tagConstructed = this.parseTagConstructed();
             int tagNumber = this.parseTagNumber();
@@ -72,10 +73,14 @@ public class Asn1Parser {
                 }
             }
 
-            return new IntermediateAsn1Field(tagClass, tagConstructed, tagNumber, length, content);
+            return new IntermediateAsn1Field(tag, tagClass, tagConstructed, tagNumber, length, content);
         } catch(RuntimeException e) {
             throw new ParserException(e);
         }
+    }
+
+    private int parseTag() {
+        return this.byteArrayBuffer.peekByte();
     }
 
     private int parseTagClass() {
