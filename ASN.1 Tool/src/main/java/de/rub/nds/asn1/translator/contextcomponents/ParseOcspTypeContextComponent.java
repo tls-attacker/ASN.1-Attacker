@@ -24,7 +24,7 @@ public class ParseOcspTypeContextComponent extends ContextComponent {
             new Asn1EnumeratedCCO(),
             new Asn1IntegerCCO(),
             new Asn1NullCCO(),
-            new Asn1ObjectIdentifierCCO(),
+            new Asn1OcspObjectIdentifierCCO(),
             new Asn1PrimitiveBitStringCCO(),
             new Asn1PrimitiveGeneralizedTimeCCO(),
             new Asn1PrimitiveIa5StringCCO(),
@@ -39,6 +39,7 @@ public class ParseOcspTypeContextComponent extends ContextComponent {
             new Asn1OcspA2ContextSequenceCCO(ParseOcspTypesContext.NAME),
             new Asn1OcspA3ContextSequenceCCO(ParseOcspTypesContext.NAME),
             new Asn1OcspCertificateGoodNullCCO(),
+            new Asn1OcspRevocationUrlContextIA5StringCCO(),
             new Asn1SetCCO(ParseOcspTypesContext.NAME)
     };
 
