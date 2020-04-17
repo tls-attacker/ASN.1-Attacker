@@ -56,7 +56,7 @@ public class Asn1Parser {
     }
 
     private int parseTag() {
-        return this.byteArrayBuffer.peekByte();
+        return this.byteArrayBuffer.peekByte() & 0xFF;
     }
 
     private int parseTagClass() {
