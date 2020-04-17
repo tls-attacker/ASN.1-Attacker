@@ -2,6 +2,8 @@ package de.rub.nds.asn1.translator.fieldtranslators;
 
 import de.rub.nds.asn1.model.Asn1Sequence;
 import de.rub.nds.asn1.parser.IntermediateAsn1Field;
+
+import java.util.Arrays;
 import java.math.BigInteger;
 
 public final class Asn1OcspContextSequenceFT extends Asn1FieldFT<Asn1Sequence> {
@@ -22,7 +24,12 @@ public final class Asn1OcspContextSequenceFT extends Asn1FieldFT<Asn1Sequence> {
 
     @Override
     public Asn1Sequence translate(final String identifier, final String type) {
-        this.asn1Sequence.setIdentifierOctets(BigInteger.valueOf(this.intermediateAsn1Field.getTag()).toByteArray());
+        byte[] originalTag = BigInteger.valueOf(this.intermediateAsn1Field.getTag()).toByteArray();
+        if (originalTag[0] == 0x00 && originalTag.length == 2) {
+            originalTag = Arrays.copyOfRange(originalTag, 1, originalTag.length);
+        }
+        this.asn1Sequence.setIdentifierOctets(originalTag);
+
         return super.translate(identifier, type);
     }
 }
