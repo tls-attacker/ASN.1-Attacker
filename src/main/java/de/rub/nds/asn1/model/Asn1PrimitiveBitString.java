@@ -1,0 +1,57 @@
+package de.rub.nds.asn1.model;
+
+import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
+import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.asn1.serializer.Asn1PrimitiveBitStringSerializer;
+import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public final class Asn1PrimitiveBitString extends Asn1Field {
+
+    private static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
+
+    private static final boolean TAG_CONSTRUCTED = TagConstructed.PRIMITIVE.getBooleanValue();
+
+    private static final int TAG_NUMBER = TagNumber.BIT_STRING.getIntValue();
+
+    @XmlElement(name = "unusedBits")
+    private int unusedBits = 0;
+
+    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
+    @XmlElement(name = "value")
+    private byte[] value = new byte[0];
+
+    public Asn1PrimitiveBitString() {
+        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
+    }
+
+    public int getUnusedBits() {
+        return unusedBits;
+    }
+
+    public void setUnusedBits(int unusedBits) {
+        this.unusedBits = unusedBits;
+    }
+
+    public byte[] getValue() {
+        return value;
+    }
+
+    public void setValue(byte[] value) {
+        this.value = value;
+    }
+
+    @Override
+    public Asn1Serializer getSerializer() {
+        return new Asn1PrimitiveBitStringSerializer(this);
+    }
+}
