@@ -2,21 +2,20 @@ package de.rub.nds.asn1.translator.ocspcontextcomponentoptions;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
-import de.rub.nds.asn1.TagNumber;
-import de.rub.nds.asn1.model.Asn1Sequence;
+import de.rub.nds.asn1.model.Asn1Explicit;
 import de.rub.nds.asn1.translator.ContextComponentOption;
-import de.rub.nds.asn1.translator.fieldtranslators.Asn1OcspContextSequenceFT;
+import de.rub.nds.asn1.translator.fieldtranslators.Asn1OcspExplicitFT;
 
-public class Asn1OcspA0ContextSequenceCCO extends ContextComponentOption<Asn1Sequence> {
+public class Asn1OcspA2ExplicitCCO extends ContextComponentOption<Asn1Explicit> {
 
-    public Asn1OcspA0ContextSequenceCCO(final String subContextName) {
+    public Asn1OcspA2ExplicitCCO(final String subContextName) {
         super(
-                0xA0,
+                0xA2,
                 TagClass.CONTEXT_SPECIFIC.getIntValue(),
                 TagConstructed.CONSTRUCTED.getBooleanValue(),
                 0,
                 true,
-                Asn1OcspContextSequenceFT.class,
+                Asn1OcspExplicitFT.class,
                 subContextName
         );
     }
