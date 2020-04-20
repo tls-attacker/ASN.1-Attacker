@@ -29,7 +29,7 @@ public final class Asn1ObjectIdentifierFT extends Asn1FieldFT<Asn1ObjectIdentifi
     private String decodeValue(final byte[] content) {
         String result = "";
         if(content.length > 0) {
-            result += (content[0] % 40) + "." + (content[0] / 40);
+            result += (content[0] / 40) + "." + (content[0] % 40);
             int contentPos = 1;
             while(contentPos < content.length) {
                 long oidPart = 0;

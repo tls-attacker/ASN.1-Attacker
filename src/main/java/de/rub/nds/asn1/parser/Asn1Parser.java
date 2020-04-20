@@ -118,15 +118,14 @@ public class Asn1Parser {
     private List<IntermediateAsn1Field> parseChildren(final IntermediateAsn1Field intermediateAsn1Field) throws ParserException {
         List<IntermediateAsn1Field> children = new LinkedList<>();
         List<ContentUnpacker> contentUnpackers = ContentUnpackerRegister.getInstance().getContentUnpackers();
-        for(ContentUnpacker contentUnpacker : contentUnpackers) {
+        for (ContentUnpacker contentUnpacker : contentUnpackers) {
             try {
                 byte[] unpacked = contentUnpacker.unpack(intermediateAsn1Field.getContent());
                 Asn1Parser childParser = new Asn1Parser(unpacked, this.isStrictMode);
                 children = childParser.parseIntermediateFields();
                 intermediateAsn1Field.setChildren(children);
                 break; // No break is executed if an exception is thrown, e.g. because unpacking is not successful
-            }
-            catch(Throwable e) {
+            } catch (Throwable e) {
                 LOGGER.debug(e);
             }
         }

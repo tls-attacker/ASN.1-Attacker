@@ -72,7 +72,6 @@ public class Asn1Tool {
 
                 ModifiableBoolean.class,
                 BooleanExplicitValueModification.class,
-                BooleanToogleModification.class,
 
                 ModifiableByteArray.class,
                 ByteArrayDeleteModification.class,
@@ -121,6 +120,7 @@ public class Asn1Tool {
                 Asn1EncapsulatingBitString.class,
                 Asn1EncapsulatingOctetString.class,
                 Asn1EndOfContent.class,
+                Asn1Enumerated.class,
                 Asn1Explicit.class,
                 Asn1Field.class,
                 Asn1Integer.class,
@@ -135,7 +135,9 @@ public class Asn1Tool {
                 Asn1PrimitiveUtf8String.class,
                 Asn1RawField.class,
                 Asn1Sequence.class,
-                Asn1Set.class
+                Asn1Set.class,
+                Asn1RawBytes.class,
+                Asn1Implicit.class
 
                 // Todo: Support all native ASN.1 types. So far, only the types relevant for X.509 are supported.
         };

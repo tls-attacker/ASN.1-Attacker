@@ -4,7 +4,7 @@ import de.rub.nds.asn1.parser.IntermediateAsn1Field;
 
 public class ContextComponent {
 
-    private static final int MIN_SCORE = 3;
+    private static int MIN_SCORE = 3;
 
     public final String identifier;
 
@@ -31,6 +31,14 @@ public class ContextComponent {
     public ContextComponentOption<?> getMatch(final IntermediateAsn1Field intermediateAsn1Field) {
         int maxScore = 0;
         ContextComponentOption bestMatch = null;
+        if(isOptional) {
+            //if a ContextCoponent is optional, we want a perfect Match with one of the ContextComponentOptions, otherwise it can be not detected if an optional asn1 field is not present
+            MIN_SCORE = 4;
+        }
+        else {
+            MIN_SCORE = 3;
+        }
+            
         for(ContextComponentOption contextComponentOption : this.contextComponentOptions) {
             int score = contextComponentOption.computeScore(intermediateAsn1Field.getTagClass(), intermediateAsn1Field.getTagConstructed(), intermediateAsn1Field.getTagNumber(), intermediateAsn1Field.containsChildren());
             if(score >= MIN_SCORE && score > maxScore) {
