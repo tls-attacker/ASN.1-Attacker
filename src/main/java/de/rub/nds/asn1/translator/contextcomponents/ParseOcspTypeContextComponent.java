@@ -22,6 +22,7 @@ public class ParseOcspTypeContextComponent extends ContextComponent {
             new Asn1EncapsulatingOctetStringCCO(ParseOcspTypesContext.NAME),
             new Asn1EndOfContentCCO(),
             new Asn1EnumeratedCCO(),
+            new Asn1OcspExplicitCCO(ParseOcspTypesContext.NAME),
             new Asn1IntegerCCO(),
             new Asn1NullCCO(),
             new Asn1OcspObjectIdentifierCCO(),
@@ -34,10 +35,6 @@ public class ParseOcspTypeContextComponent extends ContextComponent {
             new Asn1PrimitiveUtcTimeCCO(),
             new Asn1PrimitiveUtf8StringCCO(),
             new Asn1SequenceCCO(ParseOcspTypesContext.NAME),
-            new Asn1OcspA0ExplicitCCO(ParseOcspTypesContext.NAME),
-            new Asn1OcspA1ExplicitCCO(ParseOcspTypesContext.NAME),
-            new Asn1OcspA2ExplicitCCO(ParseOcspTypesContext.NAME),
-            new Asn1OcspA3ExplicitCCO(ParseOcspTypesContext.NAME),
             new Asn1OcspCertificateGoodNullCCO(),
             new Asn1OcspRevocationUrlContextIA5StringCCO(),
             new Asn1SetCCO(ParseOcspTypesContext.NAME)
