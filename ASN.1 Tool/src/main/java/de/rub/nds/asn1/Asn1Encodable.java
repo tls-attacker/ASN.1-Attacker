@@ -1,6 +1,9 @@
 package de.rub.nds.asn1;
 
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import java.io.IOException;
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 public interface Asn1Encodable {
     String getIdentifier();
@@ -11,4 +14,5 @@ public interface Asn1Encodable {
     String getAttribute(final String attributeName);
     void setAttribute(final String attributeName, final String attributeValue);
     Asn1Serializer getSerializer();
+    Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException;
 }

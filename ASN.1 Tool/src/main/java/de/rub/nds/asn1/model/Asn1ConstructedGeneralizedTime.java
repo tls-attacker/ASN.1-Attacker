@@ -3,11 +3,17 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Asn1ConstructedGeneralizedTime extends Asn1Container {
 
     public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
@@ -17,6 +23,7 @@ public class Asn1ConstructedGeneralizedTime extends Asn1Container {
     public static final int TAG_NUMBER = TagNumber.GENERALIZEDTIME.getIntValue();
 
     @XmlAnyElement(lax = true)
+    @HoldsModifiableVariable  
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1ConstructedGeneralizedTime() {

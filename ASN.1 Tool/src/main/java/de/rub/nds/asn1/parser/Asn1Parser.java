@@ -126,7 +126,7 @@ public class Asn1Parser {
                 intermediateAsn1Field.setChildren(children);
                 break; // No break is executed if an exception is thrown, e.g. because unpacking is not successful
             } catch (Throwable e) {
-                LOGGER.debug(e);
+                //LOGGER.debug(e);
             }
         }
         return children;

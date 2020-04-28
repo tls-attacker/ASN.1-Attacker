@@ -5,6 +5,7 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -24,6 +25,7 @@ public final class Asn1EncapsulatingBitString extends Asn1Container {
     public static final int TAG_NUMBER = TagNumber.BIT_STRING.getIntValue();
 
     @XmlAnyElement(lax = true)
+    @HoldsModifiableVariable  
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1EncapsulatingBitString() {

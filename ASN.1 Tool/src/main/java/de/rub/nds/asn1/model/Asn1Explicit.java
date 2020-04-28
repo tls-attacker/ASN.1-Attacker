@@ -4,6 +4,7 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ExplicitSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 
 import javax.xml.bind.annotation.*;
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ public final class Asn1Explicit extends Asn1Container {
     private int offset = 0;
 
     @XmlAnyElement(lax = true)
+    @HoldsModifiableVariable  
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1Explicit() {
