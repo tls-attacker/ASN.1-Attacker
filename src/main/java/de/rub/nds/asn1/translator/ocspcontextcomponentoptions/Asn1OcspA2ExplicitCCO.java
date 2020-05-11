@@ -13,7 +13,7 @@ public class Asn1OcspA2ExplicitCCO extends ContextComponentOption<Asn1Explicit> 
                 0xA2,
                 TagClass.CONTEXT_SPECIFIC.getIntValue(),
                 TagConstructed.CONSTRUCTED.getBooleanValue(),
-                0,
+                2,
                 true,
                 Asn1OcspExplicitFT.class,
                 subContextName

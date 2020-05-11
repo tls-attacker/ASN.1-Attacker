@@ -21,7 +21,7 @@ public final class Asn1OcspExplicitFT extends Asn1FieldFT<Asn1Explicit> {
 
     @Override
     public Asn1Explicit translate(final String identifier, final String type) {
-        this.asn1Explicit.setOffset(this.intermediateAsn1Field.getTag() ^ 0xA0);
+        this.asn1Explicit.setOffset(this.intermediateAsn1Field.getTagNumber());
         return super.translate(identifier, type);
     }
 }
