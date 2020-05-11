@@ -56,7 +56,13 @@ public class Asn1Parser {
     }
 
     private int parseTag() {
-        return this.byteArrayBuffer.peekByte() & 0xFF;
+        byte[] tagBytes = this.byteArrayBuffer.peekBytes(2);
+        if (tagBytes[0] == 0x1F) {
+            return ((tagBytes[0]  & 0xFF) << 8) | (tagBytes[1] & 0xFF);
+        }
+        else {
+            return tagBytes[0] & 0xFF;
+        }
     }
 
     private int parseTagClass() {
