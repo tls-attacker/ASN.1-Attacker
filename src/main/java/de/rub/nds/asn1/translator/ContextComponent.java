@@ -40,7 +40,7 @@ public class ContextComponent {
         }
             
         for(ContextComponentOption contextComponentOption : this.contextComponentOptions) {
-            int score = contextComponentOption.computeScore(intermediateAsn1Field.getTagClass(), intermediateAsn1Field.getTagConstructed(), intermediateAsn1Field.getTagNumber(), intermediateAsn1Field.containsChildren());
+            int score = contextComponentOption.computeScore(intermediateAsn1Field.getTag(), intermediateAsn1Field.getTagClass(), intermediateAsn1Field.getTagConstructed(), intermediateAsn1Field.getTagNumber(), intermediateAsn1Field.containsChildren());
             if(score >= MIN_SCORE && score > maxScore) {
                 maxScore = score;
                 bestMatch = contextComponentOption;
