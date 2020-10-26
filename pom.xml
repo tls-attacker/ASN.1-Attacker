@@ -6,7 +6,7 @@
 
     <groupId>de.rub.nds</groupId>
     <artifactId>Asn1Tool</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>ASN.1 Tool</name>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>de.rub.nds</groupId>
             <artifactId>ModifiableVariable</artifactId>
-            <version>2.7</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -62,14 +62,14 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>2.3.3</version>
+            <version>3.0.0-RC3</version>
             <scope>compile</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.3</version>
+            <version>3.0.0-M4</version>
         </dependency>
     </dependencies>
 
