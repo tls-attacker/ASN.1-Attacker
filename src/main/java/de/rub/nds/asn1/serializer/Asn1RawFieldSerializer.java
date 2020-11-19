@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1RawField;
@@ -19,10 +29,7 @@ public class Asn1RawFieldSerializer extends Asn1Serializer {
     @Override
     public final byte[] serialize() {
         this.updateLayers();
-        return ByteArrayUtils.merge(
-                this.rawField.getIdentifierOctets().getValue(),
-                this.rawField.getLengthOctets().getValue(),
-                this.rawField.getContentOctets().getValue()
-        );
+        return ByteArrayUtils.merge(this.rawField.getIdentifierOctets().getValue(), this.rawField.getLengthOctets()
+            .getValue(), this.rawField.getContentOctets().getValue());
     }
 }

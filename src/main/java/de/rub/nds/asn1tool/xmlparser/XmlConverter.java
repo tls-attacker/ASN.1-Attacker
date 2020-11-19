@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.asn1.adapters.BigIntegerAdapter;
@@ -38,7 +48,7 @@ public class XmlConverter {
             marshaller.marshal(asn1XmlContent, file);
         } catch (JAXBException e) {
             throw new RuntimeException(e);
-        }  catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
     }

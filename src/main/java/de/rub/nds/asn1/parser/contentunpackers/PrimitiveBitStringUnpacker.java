@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.parser.contentunpackers;
 
 public class PrimitiveBitStringUnpacker extends ContentUnpacker {
@@ -9,7 +19,7 @@ public class PrimitiveBitStringUnpacker extends ContentUnpacker {
     @Override
     public byte[] unpack(final byte[] content) {
         byte[] unpacked = new byte[0];
-        if(content.length > 1) {
+        if (content.length > 1) {
             unpacked = new byte[content.length - 1];
             System.arraycopy(content, 1, unpacked, 0, unpacked.length);
         }

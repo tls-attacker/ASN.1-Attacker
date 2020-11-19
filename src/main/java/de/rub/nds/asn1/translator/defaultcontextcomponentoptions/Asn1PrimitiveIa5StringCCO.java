@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.translator.defaultcontextcomponentoptions;
 
 import de.rub.nds.asn1.TagClass;
@@ -10,13 +20,7 @@ import de.rub.nds.asn1.translator.fieldtranslators.Asn1PrimitiveIa5StringFT;
 public class Asn1PrimitiveIa5StringCCO extends ContextComponentOption<Asn1PrimitiveIa5String> {
 
     public Asn1PrimitiveIa5StringCCO() {
-        super(
-                TagClass.UNIVERSAL.getIntValue(),
-                TagConstructed.PRIMITIVE.getBooleanValue(),
-                TagNumber.IA5STRING.getIntValue(),
-                false,
-                Asn1PrimitiveIa5StringFT.class,
-                null
-        );
+        super(TagClass.UNIVERSAL.getIntValue(), TagConstructed.PRIMITIVE.getBooleanValue(), TagNumber.IA5STRING
+            .getIntValue(), false, Asn1PrimitiveIa5StringFT.class, null);
     }
 }

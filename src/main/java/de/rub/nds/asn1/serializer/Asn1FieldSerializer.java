@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Field;
@@ -50,18 +60,17 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
 
     private byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
         byte[] result = null;
-        if(tagNumber < 0) {
+        if (tagNumber < 0) {
             LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
             tagNumber = 0;
         }
-        if(this.field.getLongTagNumberBytes() == 0 && tagNumber <= 0x1F) {
+        if (this.field.getLongTagNumberBytes() == 0 && tagNumber <= 0x1F) {
             result = new byte[] { firstIdentifierByte };
             result[0] |= (byte) (tagNumber & 0x1F);
-        }
-        else {
+        } else {
             int longTagNumberBytes = this.field.getLongTagNumberBytes();
             byte[] longEncoding = this.encodeLongTagNumber(firstIdentifierByte, tagNumber);
-            if(longEncoding.length < longTagNumberBytes) {
+            if (longEncoding.length < longTagNumberBytes) {
                 longEncoding = ByteArrayUtils.merge(new byte[longTagNumberBytes - longEncoding.length], longEncoding);
             }
             firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
@@ -74,7 +83,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
         int tagNumberByteCount = this.getTagNumberByteCount(tagNumber);
         byte[] result = new byte[tagNumberByteCount];
         byte moreFlag = 0x00;
-        for(int i = tagNumberByteCount - 1; i >= 0; i--) {
+        for (int i = tagNumberByteCount - 1; i >= 0; i--) {
             result[i] = (byte) (moreFlag | (tagNumber & 0x7F));
             tagNumber = tagNumber >> 7;
             moreFlag = (byte) 0x80;
@@ -84,7 +93,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
 
     private int getTagNumberByteCount(int tagNumber) {
         int result = 0;
-        while(tagNumber > 0) {
+        while (tagNumber > 0) {
             result++;
             tagNumber = tagNumber >> 7;
         }
@@ -95,14 +104,13 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
         byte[] result = null;
         this.field.setLength(contentLength);
         BigInteger length = this.field.getLength().getValue();
-        if(length.compareTo(BigInteger.ZERO) == -1) {
+        if (length.compareTo(BigInteger.ZERO) == -1) {
             LOGGER.warn("Field length is smaller than zero. Defaulting to zero!");
             length = BigInteger.ZERO;
         }
-        if(this.field.getLongLengthBytes() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
+        if (this.field.getLongLengthBytes() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
             result = new byte[] { (byte) length.byteValue() };
-        }
-        else {
+        } else {
             result = encodeLongLength(length);
         }
         return result;
@@ -112,16 +120,15 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
         byte[] result = null;
         byte[] longLength = length.toByteArray();
         int longLengthBytes = this.field.getLongLengthBytes();
-        if(longLength[0] == 0x00) {
-            if(longLength.length < (longLengthBytes + 1)) {
+        if (longLength[0] == 0x00) {
+            if (longLength.length < (longLengthBytes + 1)) {
                 longLength = ByteArrayUtils.merge(new byte[longLengthBytes + 1 - longLength.length], longLength);
             }
             longLength[0] = (byte) (0x80 | longLength.length - 1);
             result = longLength;
-        }
-        else {
+        } else {
             byte[] prefix = new byte[] { (byte) (0x80 | longLength.length) };
-            if(longLength.length < (longLengthBytes)) {
+            if (longLength.length < (longLengthBytes)) {
                 longLength = ByteArrayUtils.merge(new byte[longLengthBytes - longLength.length], longLength);
             }
             result = ByteArrayUtils.merge(prefix, longLength);

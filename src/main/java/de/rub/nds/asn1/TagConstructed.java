@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1;
 
 public enum TagConstructed {
@@ -23,8 +33,8 @@ public enum TagConstructed {
 
     public static TagConstructed fromIntValue(final int intValue) {
         TagConstructed tagConstructed = TagConstructed.PRIMITIVE;
-        for(TagConstructed currentTagConstructed : TagConstructed.values()) {
-            if(currentTagConstructed.getIntValue() == intValue) {
+        for (TagConstructed currentTagConstructed : TagConstructed.values()) {
+            if (currentTagConstructed.getIntValue() == intValue) {
                 tagConstructed = currentTagConstructed;
                 break;
             }
@@ -34,8 +44,8 @@ public enum TagConstructed {
 
     public static TagConstructed fromBooleanValue(final boolean booleanValue) {
         TagConstructed tagConstructed = TagConstructed.PRIMITIVE;
-        for(TagConstructed currentTagConstructed : TagConstructed.values()) {
-            if(currentTagConstructed.getBooleanValue() == booleanValue) {
+        for (TagConstructed currentTagConstructed : TagConstructed.values()) {
+            if (currentTagConstructed.getBooleanValue() == booleanValue) {
                 tagConstructed = currentTagConstructed;
                 break;
             }

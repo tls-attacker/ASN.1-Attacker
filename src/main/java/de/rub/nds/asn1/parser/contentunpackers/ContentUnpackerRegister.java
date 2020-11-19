@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.parser.contentunpackers;
 
 import java.util.LinkedList;
@@ -16,7 +26,7 @@ public class ContentUnpackerRegister {
     }
 
     public static ContentUnpackerRegister getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ContentUnpackerRegister();
         }
         return instance;
@@ -28,7 +38,7 @@ public class ContentUnpackerRegister {
     }
 
     public void registerContentUnpacker(final ContentUnpacker contentUnpacker) {
-        if(this.contentUnpackerClasses.contains(contentUnpacker.getClass()) == false) {
+        if (this.contentUnpackerClasses.contains(contentUnpacker.getClass()) == false) {
             this.contentUnpackerClasses.add(contentUnpacker.getClass());
             this.contentUnpackers.add(contentUnpacker);
         }

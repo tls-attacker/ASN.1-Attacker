@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -64,10 +74,7 @@ public class XmlParser {
             for (Asn1Encodable asn1Encodable : asn1Encodables) {
                 String identifier = this.indexAsn1Encodable(basePath, asn1Encodable);
                 if (asn1Encodable instanceof Asn1Container) {
-                    this.crawlAsn1EncodedContentRecursive(
-                            identifier,
-                            ((Asn1Container) asn1Encodable).getChildren()
-                    );
+                    this.crawlAsn1EncodedContentRecursive(identifier, ((Asn1Container) asn1Encodable).getChildren());
                 }
             }
         }

@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Implicit;
@@ -42,8 +52,8 @@ public class Asn1ImplicitSerializer extends Asn1FieldSerializer {
 
         // Figure out how many octets the length is comprised of
         int j = i;
-        while((content[j] & 0x80) == 1) {
-            j = j +1;
+        while ((content[j] & 0x80) == 1) {
+            j = j + 1;
         }
         // Extract the length
         byte[] length = Arrays.copyOfRange(content, i, j - i + 1);

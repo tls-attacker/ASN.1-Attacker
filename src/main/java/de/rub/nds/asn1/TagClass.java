@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1;
 
 public enum TagClass {
@@ -25,8 +35,8 @@ public enum TagClass {
 
     public static TagClass fromIntValue(int intValue) {
         TagClass result = null;
-        for(TagClass currentTagClass : TagClass.values()) {
-            if(currentTagClass.getIntValue() == intValue) {
+        for (TagClass currentTagClass : TagClass.values()) {
+            if (currentTagClass.getIntValue() == intValue) {
                 result = currentTagClass;
                 break;
             }
@@ -36,8 +46,8 @@ public enum TagClass {
 
     public static TagClass fromStringValue(String stringValue) {
         TagClass result = null;
-        for(TagClass currentTagClass : TagClass.values()) {
-            if(currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
+        for (TagClass currentTagClass : TagClass.values()) {
+            if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
                 result = currentTagClass;
                 break;
             }

@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.util;
 
 public class ByteArrayUtils {
@@ -11,7 +21,7 @@ public class ByteArrayUtils {
 
     public static byte[] merge(final byte[] byteArray1, final byte[] byteArray2, final byte[]... byteArrays) {
         byte[] result = merge(byteArray1, byteArray2);
-        for(final byte[] byteArrayN : byteArrays) {
+        for (final byte[] byteArrayN : byteArrays) {
             result = merge(result, byteArrayN);
         }
         return result;

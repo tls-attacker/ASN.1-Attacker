@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.parser;
 
 import java.math.BigInteger;
@@ -24,7 +34,8 @@ public class IntermediateAsn1Field {
 
     }
 
-    public IntermediateAsn1Field(int tag, int tagClass, boolean tagConstructed, int tagNumber, BigInteger length, byte[] content) {
+    public IntermediateAsn1Field(int tag, int tagClass, boolean tagConstructed, int tagNumber, BigInteger length,
+        byte[] content) {
         this.tag = tag;
         this.tagClass = tagClass;
         this.tagConstructed = tagConstructed;
@@ -94,8 +105,8 @@ public class IntermediateAsn1Field {
     }
 
     public void addChildren(List<IntermediateAsn1Field> intermediateAsn1Fields) {
-        if(intermediateAsn1Fields != null) {
-            for(IntermediateAsn1Field intermediateAsn1Field : intermediateAsn1Fields) {
+        if (intermediateAsn1Fields != null) {
+            for (IntermediateAsn1Field intermediateAsn1Field : intermediateAsn1Fields) {
                 this.addChild(intermediateAsn1Field);
             }
         }

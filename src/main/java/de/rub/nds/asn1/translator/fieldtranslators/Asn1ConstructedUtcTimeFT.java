@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.translator.fieldtranslators;
 
 import de.rub.nds.asn1.model.Asn1ConstructedUtcTime;
@@ -9,7 +19,8 @@ public final class Asn1ConstructedUtcTimeFT extends Asn1FieldFT<Asn1ConstructedU
         this(intermediateAsn1Field, new Asn1ConstructedUtcTime());
     }
 
-    protected Asn1ConstructedUtcTimeFT(final IntermediateAsn1Field intermediateAsn1Field, final Asn1ConstructedUtcTime asn1ConstructedUtcTime) {
+    protected Asn1ConstructedUtcTimeFT(final IntermediateAsn1Field intermediateAsn1Field,
+        final Asn1ConstructedUtcTime asn1ConstructedUtcTime) {
         super(intermediateAsn1Field, asn1ConstructedUtcTime);
     }
 }

@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.translator.ocspcontextcomponentoptions;
 
 import de.rub.nds.asn1.TagClass;
@@ -9,14 +19,7 @@ import de.rub.nds.asn1.translator.fieldtranslators.Asn1OcspExplicitFT;
 public class Asn1OcspA1ExplicitCCO extends ContextComponentOption<Asn1Explicit> {
 
     public Asn1OcspA1ExplicitCCO(final String subContextName) {
-        super(
-                0xA1,
-                TagClass.CONTEXT_SPECIFIC.getIntValue(),
-                TagConstructed.CONSTRUCTED.getBooleanValue(),
-                1,
-                true,
-                Asn1OcspExplicitFT.class,
-                subContextName
-        );
+        super(0xA1, TagClass.CONTEXT_SPECIFIC.getIntValue(), TagConstructed.CONSTRUCTED.getBooleanValue(), 1, true,
+            Asn1OcspExplicitFT.class, subContextName);
     }
 }

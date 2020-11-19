@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.translator.fieldtranslators;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveUtf8String;
@@ -15,7 +25,8 @@ public final class Asn1PrimitiveUtf8StringFT extends Asn1FieldFT<Asn1PrimitiveUt
         this(intermediateAsn1Field, new Asn1PrimitiveUtf8String());
     }
 
-    protected Asn1PrimitiveUtf8StringFT(final IntermediateAsn1Field intermediateAsn1Field, final Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
+    protected Asn1PrimitiveUtf8StringFT(final IntermediateAsn1Field intermediateAsn1Field,
+        final Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
         super(intermediateAsn1Field, asn1PrimitiveUtf8String);
         this.intermediateAsn1Field = intermediateAsn1Field;
         this.asn1PrimitiveUtf8String = asn1PrimitiveUtf8String;
@@ -27,7 +38,7 @@ public final class Asn1PrimitiveUtf8StringFT extends Asn1FieldFT<Asn1PrimitiveUt
             String value = new String(this.intermediateAsn1Field.getContent(), "UTF-8");
             this.asn1PrimitiveUtf8String.setValue(value);
             return super.translate(identifier, type);
-        } catch(UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }

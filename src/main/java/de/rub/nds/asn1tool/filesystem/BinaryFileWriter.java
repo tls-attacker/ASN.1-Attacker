@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1tool.filesystem;
 
 import java.io.File;
@@ -29,7 +39,7 @@ public class BinaryFileWriter {
     }
 
     public void write(byte[] content) throws IOException {
-        if(content != null) {
+        if (content != null) {
             this.write(content, 0, content.length);
         }
     }

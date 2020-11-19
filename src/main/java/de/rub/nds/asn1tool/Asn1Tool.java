@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1tool;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -46,46 +56,32 @@ public class Asn1Tool {
 
             // Write result to file in args[1]
             if (args.length < 3) {
-                throw new RuntimeException("Expected argument 1: Output file directory\nExpected argument 2: Output file name");
+                throw new RuntimeException(
+                    "Expected argument 1: Output file directory\nExpected argument 2: Output file name");
             }
             HexFileWriter hexFileWriter = new HexFileWriter(args[1], args[2]);
             hexFileWriter.write(encodedAsn1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassCastException e) {
-            throw new RuntimeException("An unknown object is found within the parsed ASN.1 structure! Did you use an unspecified element?", e);
+            throw new RuntimeException(
+                "An unknown object is found within the parsed ASN.1 structure! Did you use an unspecified element?", e);
         }
     }
 
     public static Class[] getAsn1ToolJaxbClasses() {
-        return new Class[]{
+        return new Class[] {
             // ModifiableVariables
-            ModifiableBigInteger.class,
-            BigIntegerAddModification.class,
-            BigIntegerExplicitValueModification.class,
-            BigIntegerInteractiveModification.class,
-            BigIntegerShiftLeftModification.class,
-            BigIntegerShiftRightModification.class,
-            BigIntegerSubtractModification.class,
-            BigIntegerXorModification.class,
-            ModifiableBoolean.class,
-            BooleanExplicitValueModification.class,
-            ModifiableByteArray.class,
-            ByteArrayDeleteModification.class,
-            ByteArrayDuplicateModification.class,
-            ByteArrayExplicitValueModification.class,
-            ByteArrayInsertModification.class,
-            ByteArrayPayloadModification.class,
-            ByteArrayShuffleModification.class,
-            ByteArrayXorModification.class,
-            ModifiableInteger.class,
-            IntegerAddModification.class,
-            IntegerExplicitValueModification.class,
-            IntegerShiftLeftModification.class,
-            IntegerShiftRightModification.class,
-            IntegerSubtractModification.class,
-            IntegerXorModification.class,
-            ModifiableLong.class,
+            ModifiableBigInteger.class, BigIntegerAddModification.class, BigIntegerExplicitValueModification.class,
+            BigIntegerInteractiveModification.class, BigIntegerShiftLeftModification.class,
+            BigIntegerShiftRightModification.class, BigIntegerSubtractModification.class,
+            BigIntegerXorModification.class, ModifiableBoolean.class, BooleanExplicitValueModification.class,
+            ModifiableByteArray.class, ByteArrayDeleteModification.class, ByteArrayDuplicateModification.class,
+            ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class,
+            ByteArrayPayloadModification.class, ByteArrayShuffleModification.class, ByteArrayXorModification.class,
+            ModifiableInteger.class, IntegerAddModification.class, IntegerExplicitValueModification.class,
+            IntegerShiftLeftModification.class, IntegerShiftRightModification.class, IntegerSubtractModification.class,
+            IntegerXorModification.class, ModifiableLong.class,
             LongAddModification.class,
             LongExplicitValueModification.class,
             LongSubtractModification.class,
@@ -98,37 +94,15 @@ public class Asn1Tool {
             ModifiableString.class,
             StringExplicitValueModification.class,
             // ASN.1 classes
-            Asn1XmlContent.class,
-            Asn1Boolean.class,
-            Asn1ConstructedBitString.class,
-            Asn1ConstructedIa5String.class,
-            Asn1ConstructedOctetString.class,
-            Asn1ConstructedPrintableString.class,
-            Asn1ConstructedT61String.class,
-            Asn1ConstructedUtcTime.class,
-            Asn1ConstructedUtf8String.class,
-            Asn1Container.class,
-            Asn1EncapsulatingBitString.class,
-            Asn1EncapsulatingOctetString.class,
-            Asn1EndOfContent.class,
-            Asn1Enumerated.class,
-            Asn1Explicit.class,
-            Asn1Field.class,
-            Asn1Integer.class,
-            Asn1Null.class,
-            Asn1ObjectIdentifier.class,
-            Asn1PrimitiveBitString.class,
-            Asn1PrimitiveIa5String.class,
-            Asn1PrimitiveOctetString.class,
-            Asn1PrimitivePrintableString.class,
-            Asn1PrimitiveT61String.class,
-            Asn1PrimitiveUtcTime.class,
-            Asn1PrimitiveUtf8String.class,
-            Asn1RawField.class,
-            Asn1Sequence.class,
-            Asn1Set.class,
-            Asn1RawBytes.class,
-            Asn1Implicit.class
+            Asn1XmlContent.class, Asn1Boolean.class, Asn1ConstructedBitString.class, Asn1ConstructedIa5String.class,
+            Asn1ConstructedOctetString.class, Asn1ConstructedPrintableString.class, Asn1ConstructedT61String.class,
+            Asn1ConstructedUtcTime.class, Asn1ConstructedUtf8String.class, Asn1Container.class,
+            Asn1EncapsulatingBitString.class, Asn1EncapsulatingOctetString.class, Asn1EndOfContent.class,
+            Asn1Enumerated.class, Asn1Explicit.class, Asn1Field.class, Asn1Integer.class, Asn1Null.class,
+            Asn1ObjectIdentifier.class, Asn1PrimitiveBitString.class, Asn1PrimitiveIa5String.class,
+            Asn1PrimitiveOctetString.class, Asn1PrimitivePrintableString.class, Asn1PrimitiveT61String.class,
+            Asn1PrimitiveUtcTime.class, Asn1PrimitiveUtf8String.class, Asn1RawField.class, Asn1Sequence.class,
+            Asn1Set.class, Asn1RawBytes.class, Asn1Implicit.class
 
         // Todo: Support all native ASN.1 types. So far, only the types relevant for X.509 are supported.
         };

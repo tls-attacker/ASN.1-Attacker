@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
@@ -58,7 +68,7 @@ public class Asn1ObjectIdentifierSerializer extends Asn1FieldSerializer {
     private byte[] encodeFirstTwoIdentifierStrings(String[] identifierStrings) {
         int identifier1 = Integer.parseInt(identifierStrings[0]);
         int identifier2 = Integer.parseInt(identifierStrings[1]);
-        return new byte[]{(byte) (identifier1 * 40 + identifier2)};
+        return new byte[] { (byte) (identifier1 * 40 + identifier2) };
     }
 
     private byte[] encodeSingleIdentifier(int identifierValue) {

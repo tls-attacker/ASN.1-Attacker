@@ -1,3 +1,13 @@
+/*
+ * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+ *
+ * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
+ * and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 package de.rub.nds.encoder;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -53,11 +63,12 @@ public class Asn1EncoderTest {
             // given
             byte[] expected;
 
-            // The octet identifier and encoded length of each children have to be considered in the total expected length
-            byte[] encodedIdentifierAndLength = new byte[]{0, 20};
+            // The octet identifier and encoded length of each children have to be considered in the total expected
+            // length
+            byte[] encodedIdentifierAndLength = new byte[] { 0, 20 };
             byte[] entriesAsBytes = TEST_EXPECTED_TWO_ENTRIES.getBytes();
             List<Asn1Container> asn1Containers = createAsn1Containers(2);
-            cut = new Asn1Encoder(asn1Containers.get(0), new Asn1Container[]{asn1Containers.get(1)});
+            cut = new Asn1Encoder(asn1Containers.get(0), new Asn1Container[] { asn1Containers.get(1) });
 
             expected = ByteArrayUtils.merge(encodedIdentifierAndLength, entriesAsBytes);
 
@@ -77,7 +88,6 @@ public class Asn1EncoderTest {
         List<Asn1Encodable> asn1Encodables = new ArrayList<>();
 
         for (int i = 0; i < amountOfEntries; i++) {
-
 
             int ctr = i;
             Asn1Encodable asn1Encodable = new Asn1Encodable() {
