@@ -11,10 +11,7 @@
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Implicit;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-
 import java.util.Arrays;
 
 public class Asn1ImplicitSerializer extends Asn1FieldSerializer {

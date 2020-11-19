@@ -13,7 +13,33 @@ package de.rub.nds.asn1.translator.contextcomponents;
 import de.rub.nds.asn1.translator.ContextComponent;
 import de.rub.nds.asn1.translator.ContextComponentOption;
 import de.rub.nds.asn1.translator.ParseNativeTypesContext;
-import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.*;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1BooleanCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedBitStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedGeneralizedTimeCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedIa5StringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedOctetStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedPrintableStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedT61StringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedUtcTimeCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ConstructedUtf8StringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1EncapsulatingBitStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1EncapsulatingOctetStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1EndOfContentCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1EnumeratedCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ExplicitCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1IntegerCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1NullCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1ObjectIdentifierCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveBitStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveGeneralizedTimeCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveIa5StringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveOctetStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitivePrintableStringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveT61StringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveUtcTimeCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1PrimitiveUtf8StringCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1SequenceCCO;
+import de.rub.nds.asn1.translator.defaultcontextcomponentoptions.Asn1SetCCO;
 
 public class ParseNativeTypeContextComponent extends ContextComponent {
 

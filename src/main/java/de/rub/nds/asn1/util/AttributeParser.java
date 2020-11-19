@@ -34,7 +34,7 @@ public class AttributeParser {
         try {
             result = parseBooleanAttribute(asn1Encodable, attributeName);
         } catch (Throwable e) {
-
+            LOGGER.debug(e.getMessage());
         }
         return result;
     }
@@ -55,7 +55,7 @@ public class AttributeParser {
         try {
             result = parseIntAttribute(asn1Encodable, attributeName);
         } catch (Throwable e) {
-
+            LOGGER.debug(e.getMessage());
         }
         return result;
     }
@@ -76,7 +76,7 @@ public class AttributeParser {
         try {
             result = parseLongAttribute(asn1Encodable, attributeName);
         } catch (Throwable e) {
-
+            LOGGER.debug(e.getMessage());
         }
         return result;
     }
@@ -97,7 +97,7 @@ public class AttributeParser {
         try {
             result = parseStringAttribute(asn1Encodable, attributeName);
         } catch (Throwable e) {
-
+            LOGGER.debug(e.getMessage());
         }
         return result;
     }

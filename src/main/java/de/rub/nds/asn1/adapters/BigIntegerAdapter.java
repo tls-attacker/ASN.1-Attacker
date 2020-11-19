@@ -10,8 +10,8 @@
 
 package de.rub.nds.asn1.adapters;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.math.BigInteger;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class BigIntegerAdapter extends XmlAdapter<String, BigInteger> {
 

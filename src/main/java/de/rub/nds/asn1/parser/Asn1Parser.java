@@ -16,12 +16,11 @@ import de.rub.nds.asn1.parser.contentunpackers.ContentUnpackerRegister;
 import de.rub.nds.asn1.translator.Asn1Translator;
 import de.rub.nds.util.ByteArrayBuffer;
 import de.rub.nds.util.ByteArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Asn1Parser {
 

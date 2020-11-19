@@ -43,7 +43,7 @@ public class ContextComponent {
         int maxScore = 0;
         ContextComponentOption bestMatch = null;
         if (isOptional) {
-            // if a ContextCoponent is optional, we want a perfect Match with one of the ContextComponentOptions,
+            // if a ContextComponent is optional, we want a perfect Match with one of the ContextComponentOptions,
             // otherwise it can be not detected if an optional asn1 field is not present
             MIN_SCORE = 4;
         } else {

@@ -13,9 +13,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveGeneralizedTimeSerializer;
-import de.rub.nds.asn1.serializer.Asn1PrimitiveIa5StringSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-
 import javax.xml.bind.annotation.XmlElement;
 
 public class Asn1PrimitiveGeneralizedTime extends Asn1Field {

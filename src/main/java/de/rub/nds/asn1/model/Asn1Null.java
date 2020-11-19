@@ -12,7 +12,6 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;

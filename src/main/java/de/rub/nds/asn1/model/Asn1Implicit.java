@@ -14,10 +14,13 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ImplicitSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-
-import javax.xml.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -10,11 +10,10 @@
 
 package de.rub.nds.asn1.encoder;
 
+import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.encoder.encodingoptions.Asn1EncodingOptions;
 import de.rub.nds.asn1.encoder.typeprocessors.Asn1TypeProcessor;
 import de.rub.nds.asn1.encoder.typeprocessors.DefaultAsn1TypeProcessor;
-import de.rub.nds.asn1.Asn1Encodable;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

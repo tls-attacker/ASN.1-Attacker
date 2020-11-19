@@ -12,10 +12,9 @@ package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.util.ByteArrayUtils;
+import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.math.BigInteger;
 
 public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
 

@@ -13,10 +13,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
-
-import javax.xml.bind.annotation.XmlAnyElement;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAnyElement;
 
 public class Asn1ConstructedGeneralizedTime extends Asn1Container {
 

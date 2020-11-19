@@ -15,13 +15,12 @@ import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.parser.IntermediateAsn1Field;
 import de.rub.nds.asn1.translator.fieldtranslators.Asn1AnonymousFieldFT;
 import de.rub.nds.asn1.translator.fieldtranslators.FieldTranslator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Asn1Translator {
 

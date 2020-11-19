@@ -30,16 +30,16 @@ public class JaxbClassList {
         return instance;
     }
 
-    public void addClass(Class _class) {
-        if (_class != null && this.classList.contains(_class) == false) {
-            this.classList.add(_class);
+    public void addClass(Class newClass) {
+        if (newClass != null && this.classList.contains(newClass) == false) {
+            this.classList.add(newClass);
         }
     }
 
     public void addClasses(Class... classes) {
         if (classes != null) {
-            for (Class _class : classes) {
-                this.addClass(_class);
+            for (Class tmpClass : classes) {
+                this.addClass(tmpClass);
             }
         }
     }
