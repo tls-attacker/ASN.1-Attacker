@@ -181,7 +181,6 @@
                 <artifactId>formatter-maven-plugin</artifactId>
                 <configuration>
                     <configFile>maven-eclipse-codestyle.xml</configFile>
-                    <lineEnding>CRLF</lineEnding>
                 </configuration>
                 <executions>
                     <execution>
