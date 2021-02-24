@@ -1,11 +1,10 @@
-/*
- * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
- * and Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.asn1.translator;
@@ -135,9 +134,8 @@ public class Asn1Translator {
         Asn1Encodable result = fieldTranslator.translate(contextComponent.identifier, contextComponent.type);
         if (result instanceof Asn1Container) {
             Asn1Container container = (Asn1Container) result;
-            Asn1Translator childTranslator =
-                new Asn1Translator(contextComponentOption.subContextName, intermediateAsn1Field.getChildren(),
-                    this.isStrictMode);
+            Asn1Translator childTranslator = new Asn1Translator(contextComponentOption.subContextName,
+                intermediateAsn1Field.getChildren(), this.isStrictMode);
             container.setChildren(childTranslator.translate());
         }
         return result;

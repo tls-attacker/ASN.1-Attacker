@@ -1,11 +1,10 @@
-/*
- * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
- * and Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.asn1.encoder;
@@ -88,7 +87,7 @@ public class Asn1Encoder {
     /**
      * Encodes a single Asn1Encodable and returns its serialized representation.
      * 
-     * @param asn1Encodable
+     * @param  asn1Encodable
      * @return
      */
     protected byte[] encodeSingleAsn1Encodable(final Asn1Encodable asn1Encodable) {
@@ -117,7 +116,7 @@ public class Asn1Encoder {
     /**
      * Invokes a new Asn1Encoder for encoding children.
      * 
-     * @param children
+     * @param  children
      * @return
      */
     protected Asn1Encoder invokeChildEncoder(List<Asn1Encodable> children) {

@@ -1,11 +1,10 @@
-/*
- * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
- * and Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.asn1tool;
@@ -137,17 +136,10 @@ public class Asn1Tool {
             ByteArrayPayloadModification.class, ByteArrayShuffleModification.class, ByteArrayXorModification.class,
             ModifiableInteger.class, IntegerAddModification.class, IntegerExplicitValueModification.class,
             IntegerShiftLeftModification.class, IntegerShiftRightModification.class, IntegerSubtractModification.class,
-            IntegerXorModification.class, ModifiableLong.class,
-            LongAddModification.class,
-            LongExplicitValueModification.class,
-            LongSubtractModification.class,
-            LongXorModification.class,
-            ModifiableByte.class,
-            ByteAddModification.class,
-            ByteExplicitValueModification.class,
-            ByteSubtractModification.class,
-            ByteXorModification.class,
-            ModifiableString.class,
+            IntegerXorModification.class, ModifiableLong.class, LongAddModification.class,
+            LongExplicitValueModification.class, LongSubtractModification.class, LongXorModification.class,
+            ModifiableByte.class, ByteAddModification.class, ByteExplicitValueModification.class,
+            ByteSubtractModification.class, ByteXorModification.class, ModifiableString.class,
             StringExplicitValueModification.class,
             // ASN.1 classes
             Asn1XmlContent.class, Asn1Boolean.class, Asn1ConstructedBitString.class, Asn1ConstructedIa5String.class,
@@ -160,7 +152,7 @@ public class Asn1Tool {
             Asn1PrimitiveUtcTime.class, Asn1PrimitiveUtf8String.class, Asn1RawField.class, Asn1Sequence.class,
             Asn1Set.class, Asn1RawBytes.class, Asn1Implicit.class
 
-        // Todo: Support all native ASN.1 types. So far, only the types relevant for X.509 are supported.
+            // Todo: Support all native ASN.1 types. So far, only the types relevant for X.509 are supported.
         };
     }
 }

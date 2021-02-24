@@ -1,11 +1,10 @@
-/*
- * TLS-Attacker - A Modular Penetration Testing Framework for TLS
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2020 Ruhr University Bochum, Paderborn University,
- * and Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.asn1.translator;
@@ -27,7 +26,8 @@ public class ContextComponent {
     public final boolean isRepetitive;
 
     public ContextComponent(final String identifier, final String type,
-        final ContextComponentOption<?>[] contextComponentOptions, final boolean isOptional, final boolean isRepetitive) {
+        final ContextComponentOption<?>[] contextComponentOptions, final boolean isOptional,
+        final boolean isRepetitive) {
         this.identifier = identifier;
         this.type = type;
         this.contextComponentOptions = contextComponentOptions;
@@ -51,10 +51,9 @@ public class ContextComponent {
         }
 
         for (ContextComponentOption contextComponentOption : this.contextComponentOptions) {
-            int score =
-                contextComponentOption.computeScore(intermediateAsn1Field.getTag(),
-                    intermediateAsn1Field.getTagClass(), intermediateAsn1Field.getTagConstructed(),
-                    intermediateAsn1Field.getTagNumber(), intermediateAsn1Field.containsChildren());
+            int score = contextComponentOption.computeScore(intermediateAsn1Field.getTag(),
+                intermediateAsn1Field.getTagClass(), intermediateAsn1Field.getTagConstructed(),
+                intermediateAsn1Field.getTagNumber(), intermediateAsn1Field.containsChildren());
             if (score >= MIN_SCORE && score > maxScore) {
                 maxScore = score;
                 bestMatch = contextComponentOption;

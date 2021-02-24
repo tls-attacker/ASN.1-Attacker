@@ -177,8 +177,9 @@
             </plugin>
             <!-- formats the code -->
             <plugin>
-                <groupId>net.revelc.code</groupId>
+                <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
+                <version>2.14.0</version>
                 <configuration>
                     <configFile>maven-eclipse-codestyle.xml</configFile>
                 </configuration>
@@ -202,9 +203,16 @@
                         <include>src/**/*.java</include>
                     </includes>
                     <properties>
-                        <year>${project.inceptionYear}</year>
+                        <startYear>2014</startYear>
+                        <year>${buildYear}</year>
+                        <description>A project for creating arbitrary ASN.1 structures</description>
                         <owner>Ruhr University Bochum, Paderborn University, Hackmanit GmbH</owner>
+                        <licenseName>Apache License, Version 2.0</licenseName>
+                        <licenseURL>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseURL>
                     </properties>
+                    <mapping>
+                        <java>JAVADOC_STYLE</java>
+                    </mapping>
                 </configuration>
                 <executions>
                     <execution>
@@ -280,6 +288,8 @@
     </build>
 
     <properties>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <buildYear>${maven.build.timestamp}</buildYear>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
