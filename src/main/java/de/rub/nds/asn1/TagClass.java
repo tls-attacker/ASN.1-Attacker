@@ -1,8 +1,17 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1;
 
 public enum TagClass {
     UNIVERSAL(0, "universal"),
-    APPLICATiON(1, "application"),
+    APPLICATION(1, "application"),
     CONTEXT_SPECIFIC(2, "context-specific"),
     PRIVATE(3, "private");
 
@@ -25,8 +34,8 @@ public enum TagClass {
 
     public static TagClass fromIntValue(int intValue) {
         TagClass result = null;
-        for(TagClass currentTagClass : TagClass.values()) {
-            if(currentTagClass.getIntValue() == intValue) {
+        for (TagClass currentTagClass : TagClass.values()) {
+            if (currentTagClass.getIntValue() == intValue) {
                 result = currentTagClass;
                 break;
             }
@@ -36,8 +45,8 @@ public enum TagClass {
 
     public static TagClass fromStringValue(String stringValue) {
         TagClass result = null;
-        for(TagClass currentTagClass : TagClass.values()) {
-            if(currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
+        for (TagClass currentTagClass : TagClass.values()) {
+            if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
                 result = currentTagClass;
                 break;
             }

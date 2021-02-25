@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.translator;
 
 import java.util.HashMap;
@@ -14,7 +23,7 @@ public class ContextRegister {
     }
 
     public static ContextRegister getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ContextRegister();
         }
         return instance;
@@ -22,10 +31,9 @@ public class ContextRegister {
 
     public void registerContext(final String contextName, final Class<? extends Context> contextClass) {
         String maskedInput = this.maskName(contextName);
-        if(this.contextClasses.containsKey(maskedInput) == false) {
+        if (this.contextClasses.containsKey(maskedInput) == false) {
             this.contextClasses.put(maskedInput, contextClass);
-        }
-        else {
+        } else {
             throw new RuntimeException("Cannot register context " + contextName + " more than once!");
         }
     }
@@ -35,9 +43,9 @@ public class ContextRegister {
             String maskedInput = this.maskName(contextName);
             Class<? extends Context> contextClass = this.contextClasses.get(maskedInput);
             return contextClass.newInstance();
-        } catch(InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
-        } catch(IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

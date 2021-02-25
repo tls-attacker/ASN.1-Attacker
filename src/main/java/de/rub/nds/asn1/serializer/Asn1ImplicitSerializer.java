@@ -1,10 +1,16 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Implicit;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-
 import java.util.Arrays;
 
 public class Asn1ImplicitSerializer extends Asn1FieldSerializer {
@@ -42,8 +48,8 @@ public class Asn1ImplicitSerializer extends Asn1FieldSerializer {
 
         // Figure out how many octets the length is comprised of
         int j = i;
-        while((content[j] & 0x80) == 1) {
-            j = j +1;
+        while ((content[j] & 0x80) == 1) {
+            j = j + 1;
         }
         // Extract the length
         byte[] length = Arrays.copyOfRange(content, i, j - i + 1);

@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Boolean;
@@ -19,7 +28,7 @@ public class Asn1BooleanSerializer extends Asn1FieldSerializer {
 
     private void encodeBoolean() {
         byte[] content = new byte[] { 0 };
-        if(this.asn1Boolean.getValue()) {
+        if (this.asn1Boolean.getValue()) {
             content[0] = (byte) 0xFF;
         }
         this.asn1Boolean.setContent(content);
