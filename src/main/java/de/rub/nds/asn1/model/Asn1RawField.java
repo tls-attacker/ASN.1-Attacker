@@ -10,12 +10,15 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.Asn1Encodable;
+import de.rub.nds.asn1.serializer.Asn1EncodableSerializer;
 import de.rub.nds.asn1.serializer.Asn1RawFieldSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -23,6 +26,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamException;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -137,5 +141,10 @@ public abstract class Asn1RawField implements Asn1Encodable {
     @Override
     public Asn1Serializer getSerializer() {
         return new Asn1RawFieldSerializer(this);
+    }
+
+    @Override
+    public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
+        return Asn1EncodableSerializer.copyAsn1Encodable(this);
     }
 }

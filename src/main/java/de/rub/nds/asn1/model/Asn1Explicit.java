@@ -13,13 +13,10 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ExplicitSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import java.util.LinkedList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -33,6 +30,7 @@ public final class Asn1Explicit extends Asn1Container {
     private int offset = 0;
 
     @XmlAnyElement(lax = true)
+    @HoldsModifiableVariable
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1Explicit() {

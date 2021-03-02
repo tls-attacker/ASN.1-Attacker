@@ -13,17 +13,21 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.encoder.Asn1Encoder;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.model.Asn1RawBytes;
+import de.rub.nds.asn1.serializer.Asn1EncodableSerializer;
 import de.rub.nds.asn1.serializer.Asn1RawBytesSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.util.ByteArrayUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Asn1EncoderTest {
+
     private Asn1Encoder cut;
     private static final String TEST_STRING_VALUE = "ASN1_TEST";
     private static final String TEST_EXPECTED_TWO_ENTRIES = TEST_STRING_VALUE + 0 + TEST_STRING_VALUE + 1;
@@ -123,6 +127,11 @@ public class Asn1EncoderTest {
                 @Override
                 public void setAttribute(String attributeName, String attributeValue) {
 
+                }
+
+                @Override
+                public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
+                    return Asn1EncodableSerializer.copyAsn1Encodable(this);
                 }
 
                 @Override

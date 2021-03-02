@@ -62,11 +62,16 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
             LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
             tagNumber = 0;
         }
-        if (this.field.getLongTagNumberBytes() == 0 && tagNumber <= 0x1F) {
+        if (this.field.getLongTagNumberBytes().getValue() == 0 && tagNumber <= 0x1F) {
             result = new byte[] { firstIdentifierByte };
             result[0] |= (byte) (tagNumber & 0x1F);
         } else {
-            int longTagNumberBytes = this.field.getLongTagNumberBytes();
+            int longTagNumberBytes = this.field.getLongTagNumberBytes().getValue();
+            // Quick Fix
+            if (longTagNumberBytes > 65535) {
+                LOGGER.warn("Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
+                longTagNumberBytes = 65535;
+            }
             byte[] longEncoding = this.encodeLongTagNumber(firstIdentifierByte, tagNumber);
             if (longEncoding.length < longTagNumberBytes) {
                 longEncoding = ByteArrayUtils.merge(new byte[longTagNumberBytes - longEncoding.length], longEncoding);
@@ -106,7 +111,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
             LOGGER.warn("Field length is smaller than zero. Defaulting to zero!");
             length = BigInteger.ZERO;
         }
-        if (this.field.getLongLengthBytes() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
+        if (this.field.getLongLengthBytes().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
             result = new byte[] { (byte) length.byteValue() };
         } else {
             result = encodeLongLength(length);
@@ -117,7 +122,12 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
     private byte[] encodeLongLength(BigInteger length) {
         byte[] result = null;
         byte[] longLength = length.toByteArray();
-        int longLengthBytes = this.field.getLongLengthBytes();
+        int longLengthBytes = this.field.getLongLengthBytes().getValue();
+        // Quick Fix
+        if (longLengthBytes > 65535) {
+            LOGGER.warn("Fix von longLengthBytes: critical value: " + longLengthBytes);
+            longLengthBytes = 65535;
+        }
         if (longLength[0] == 0x00) {
             if (longLength.length < (longLengthBytes + 1)) {
                 longLength = ByteArrayUtils.merge(new byte[longLengthBytes + 1 - longLength.length], longLength);
