@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -64,10 +73,7 @@ public class XmlParser {
             for (Asn1Encodable asn1Encodable : asn1Encodables) {
                 String identifier = this.indexAsn1Encodable(basePath, asn1Encodable);
                 if (asn1Encodable instanceof Asn1Container) {
-                    this.crawlAsn1EncodedContentRecursive(
-                            identifier,
-                            ((Asn1Container) asn1Encodable).getChildren()
-                    );
+                    this.crawlAsn1EncodedContentRecursive(identifier, ((Asn1Container) asn1Encodable).getChildren());
                 }
             }
         }

@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -33,7 +42,7 @@ public class Asn1Parser {
 
     public List<IntermediateAsn1Field> parseIntermediateFields() throws ParserException {
         List<IntermediateAsn1Field> intermediateAsn1Fields = new LinkedList<>();
-        while(this.byteArrayBuffer.getNumberOfRemainingBytes() > 0) {
+        while (this.byteArrayBuffer.getNumberOfRemainingBytes() > 0) {
             IntermediateAsn1Field intermediateAsn1Field = this.parseAsn1Field();
             this.parseChildren(intermediateAsn1Field);
             intermediateAsn1Fields.add(intermediateAsn1Field);
@@ -49,7 +58,7 @@ public class Asn1Parser {
             BigInteger length = this.parseLength();
             byte[] content = this.parseContent(length);
             return new IntermediateAsn1Field(tagClass, tagConstructed, tagNumber, length, content);
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             throw new ParserException(e);
         }
     }
@@ -64,7 +73,7 @@ public class Asn1Parser {
 
     private int parseTagNumber() {
         int tagNumber = this.byteArrayBuffer.readByte() & 0x1F;
-        if(tagNumber == 0x1F) {
+        if (tagNumber == 0x1F) {
             tagNumber = this.parseLongTagNumber();
         }
         return tagNumber;
@@ -76,25 +85,24 @@ public class Asn1Parser {
         do {
             nextByte = this.byteArrayBuffer.readByte();
             tagNumber = (tagNumber << 7) | (nextByte & 0x7F);
-        } while((nextByte & 0x80) > 0);
+        } while ((nextByte & 0x80) > 0);
         return tagNumber;
     }
 
     private BigInteger parseLength() throws ParserException {
         BigInteger length = BigInteger.ZERO;
         byte lengthByte = this.byteArrayBuffer.readByte();
-        if(lengthByte == 0x80) {
+        if (lengthByte == 0x80) {
             throw new ParserException("Indefinite lengths are currently not supported!");
         }
-        if(lengthByte == 0xFF) {
+        if (lengthByte == 0xFF) {
             throw new ParserException("Reserved length value!");
         }
-        if((lengthByte & 0xFF) < 128) {
+        if ((lengthByte & 0xFF) < 128) {
             length = BigInteger.valueOf(lengthByte & 0xFF);
-        }
-        else {
+        } else {
             int numberOfLengthBytes = (lengthByte & 0x7F);
-            for(int i = 0; i < numberOfLengthBytes; i++) {
+            for (int i = 0; i < numberOfLengthBytes; i++) {
                 length = length.shiftLeft(8);
                 length = length.or(BigInteger.valueOf(this.byteArrayBuffer.readByte() & 0xFF));
             }
@@ -104,9 +112,9 @@ public class Asn1Parser {
 
     private byte[] parseContent(BigInteger length) {
         byte[] content = new byte[0];
-        while(length.compareTo(BigInteger.ZERO) > 0) {
+        while (length.compareTo(BigInteger.ZERO) > 0) {
             int bytesToRead = 65536;
-            if(length.compareTo(BigInteger.valueOf(bytesToRead)) < 0) {
+            if (length.compareTo(BigInteger.valueOf(bytesToRead)) < 0) {
                 bytesToRead = length.intValue();
             }
             content = ByteArrayUtils.merge(content, this.byteArrayBuffer.readBytes(bytesToRead));
@@ -115,7 +123,8 @@ public class Asn1Parser {
         return content;
     }
 
-    private List<IntermediateAsn1Field> parseChildren(final IntermediateAsn1Field intermediateAsn1Field) throws ParserException {
+    private List<IntermediateAsn1Field> parseChildren(final IntermediateAsn1Field intermediateAsn1Field)
+        throws ParserException {
         List<IntermediateAsn1Field> children = new LinkedList<>();
         List<ContentUnpacker> contentUnpackers = ContentUnpackerRegister.getInstance().getContentUnpackers();
         for (ContentUnpacker contentUnpacker : contentUnpackers) {
@@ -132,7 +141,8 @@ public class Asn1Parser {
         return children;
     }
 
-    private List<Asn1Encodable> translateIntermediateFields(final String contextName, List<IntermediateAsn1Field> intermediateAsn1Fields) {
+    private List<Asn1Encodable> translateIntermediateFields(final String contextName,
+        List<IntermediateAsn1Field> intermediateAsn1Fields) {
         Asn1Translator asn1Translator = new Asn1Translator(contextName, intermediateAsn1Fields, this.isStrictMode);
         return asn1Translator.translate();
     }

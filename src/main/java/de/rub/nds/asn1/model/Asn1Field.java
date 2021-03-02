@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.serializer.Asn1Serializer;
@@ -91,7 +100,7 @@ public class Asn1Field extends Asn1RawField {
     public void setLongTagNumberBytes(ModifiableInteger longTagNumberBytes) {
         this.longTagNumberBytes = longTagNumberBytes;
     }
-    
+
     public void setLongTagNumberBytes(int longTagNumberBytes) {
         this.longTagNumberBytes.setModification(new IntegerExplicitValueModification(longTagNumberBytes));
     }
@@ -119,7 +128,7 @@ public class Asn1Field extends Asn1RawField {
     public void setLongLengthBytes(ModifiableInteger longLengthBytes) {
         this.longLengthBytes = longLengthBytes;
     }
-    
+
     public void setLongLengthBytes(int longLengthBytes) {
         this.longLengthBytes.setModification(new IntegerExplicitValueModification(longLengthBytes));
     }

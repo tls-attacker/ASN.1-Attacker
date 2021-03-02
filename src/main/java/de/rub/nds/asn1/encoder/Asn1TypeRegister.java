@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.encoder;
 
 import de.rub.nds.asn1.encoder.encodingoptions.Asn1EncodingOptions;
@@ -27,6 +36,7 @@ public class Asn1TypeRegister {
 
     /**
      * Singleton getInstance() method.
+     * 
      * @return An instance of Asn1AnyTypeRegister.
      */
     public static Asn1TypeRegister getInstance() {
@@ -45,7 +55,9 @@ public class Asn1TypeRegister {
 
     /**
      * Sets the default Asn1TypeProcessor.
-     * @param defaultTypeEncoderClass The new default Asn1TypeProcessor.
+     * 
+     * @param defaultTypeEncoderClass
+     *                                The new default Asn1TypeProcessor.
      */
     public void setDefaultTypeProcessorClass(Class<? extends Asn1TypeProcessor> defaultTypeEncoderClass) {
         this.defaultTypeProcessorClass = defaultTypeEncoderClass;
@@ -53,6 +65,7 @@ public class Asn1TypeRegister {
 
     /**
      * Prevent cloning of this object.
+     * 
      * @return This.
      */
     @Override
@@ -62,6 +75,7 @@ public class Asn1TypeRegister {
 
     /**
      * Registers a new type with the given typeEncoder.
+     * 
      * @param type
      * @param typeEncoder
      */
@@ -74,10 +88,12 @@ public class Asn1TypeRegister {
 
     /**
      * Creates an instance of Asn1TypeProcessor for the given Asn1Encodable.
-     * @param asn1Encodable
+     * 
+     * @param  asn1Encodable
      * @return
      */
-    public Asn1TypeProcessor createTypeProcessor(final Asn1EncodingOptions asn1EncodingOptions, final Asn1Encodable asn1Encodable) {
+    public Asn1TypeProcessor createTypeProcessor(final Asn1EncodingOptions asn1EncodingOptions,
+        final Asn1Encodable asn1Encodable) {
         String lowerType = asn1Encodable.getType().toLowerCase();
         Class<? extends Asn1TypeProcessor> typeEncoderClass = this.defaultTypeProcessorClass;
         if (this.registrations.containsKey(lowerType)) {
@@ -86,10 +102,12 @@ public class Asn1TypeRegister {
         return this.invokeTypeProcessor(typeEncoderClass, asn1EncodingOptions, asn1Encodable);
     }
 
-    private Asn1TypeProcessor invokeTypeProcessor(final Class<? extends Asn1TypeProcessor> typeEncoderClass, final Asn1EncodingOptions asn1EncodingOptions, final Asn1Encodable asn1Encodable) {
+    private Asn1TypeProcessor invokeTypeProcessor(final Class<? extends Asn1TypeProcessor> typeEncoderClass,
+        final Asn1EncodingOptions asn1EncodingOptions, final Asn1Encodable asn1Encodable) {
         Asn1TypeProcessor asn1TypeProcessor = null;
         try {
-            Constructor<? extends Asn1TypeProcessor> typeEncoderConstructor = typeEncoderClass.getDeclaredConstructor(Asn1EncodingOptions.class, Asn1Encodable.class);
+            Constructor<? extends Asn1TypeProcessor> typeEncoderConstructor =
+                typeEncoderClass.getDeclaredConstructor(Asn1EncodingOptions.class, Asn1Encodable.class);
             asn1TypeProcessor = typeEncoderConstructor.newInstance(asn1EncodingOptions, asn1Encodable);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -97,7 +115,7 @@ public class Asn1TypeRegister {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
-        } catch(InstantiationException e) {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }
         return asn1TypeProcessor;

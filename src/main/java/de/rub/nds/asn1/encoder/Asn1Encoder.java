@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.encoder;
 
 import de.rub.nds.asn1.encoder.encodingoptions.Asn1EncodingOptions;
@@ -18,6 +27,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
+     * 
      * @param encodables
      */
     public Asn1Encoder(final List<Asn1Encodable> encodables) {
@@ -26,6 +36,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
+     * 
      * @param asn1EncodingOptions
      * @param encodables
      */
@@ -36,6 +47,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
+     * 
      * @param firstAsn1Encodable
      * @param asn1Encodables
      */
@@ -45,26 +57,29 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
+     * 
      * @param asn1EncodingOptions
      * @param firstAsn1Encodable
      * @param asn1Encodables
      */
-    public Asn1Encoder(final Asn1EncodingOptions asn1EncodingOptions, final Asn1Encodable firstAsn1Encodable, final Asn1Encodable... asn1Encodables) {
+    public Asn1Encoder(final Asn1EncodingOptions asn1EncodingOptions, final Asn1Encodable firstAsn1Encodable,
+        final Asn1Encodable... asn1Encodables) {
         this.asn1EncodingOptions = asn1EncodingOptions;
         this.encodables = new LinkedList<>();
         this.encodables.add(firstAsn1Encodable);
-        for(Asn1Encodable asn1Encodable : asn1Encodables) {
+        for (Asn1Encodable asn1Encodable : asn1Encodables) {
             this.encodables.add(asn1Encodable);
         }
     }
 
     /**
      * Encodes the Asn1Encodables specified in the constructor and returns its serialized representations.
+     * 
      * @return
      */
     public byte[] encode() {
         byte[] encoded = new byte[0];
-        for(Asn1Encodable asn1Encodable : this.encodables) {
+        for (Asn1Encodable asn1Encodable : this.encodables) {
             encoded = ByteArrayUtils.merge(encoded, this.encodeSingleAsn1Encodable(asn1Encodable));
         }
         return encoded;
@@ -72,7 +87,8 @@ public class Asn1Encoder {
 
     /**
      * Encodes a single Asn1Encodable and returns its serialized representation.
-     * @param asn1Encodable
+     * 
+     * @param  asn1Encodable
      * @return
      */
     protected byte[] encodeSingleAsn1Encodable(final Asn1Encodable asn1Encodable) {
@@ -80,7 +96,7 @@ public class Asn1Encoder {
         Asn1TypeRegister typeRegister = Asn1TypeRegister.getInstance();
         Asn1TypeProcessor asn1TypeProcessor = typeRegister.createTypeProcessor(this.asn1EncodingOptions, asn1Encodable);
         asn1TypeProcessor.onBeforeChildEncode();
-        if(asn1Encodable instanceof Asn1Container) {
+        if (asn1Encodable instanceof Asn1Container) {
             this.encodeChildren((Asn1Container) asn1Encodable);
         }
         encoded = asn1TypeProcessor.encode();
@@ -89,6 +105,7 @@ public class Asn1Encoder {
 
     /**
      * Encodes the children of the given Asn1Container and stores the encoding in the Asn1Container.
+     * 
      * @param asn1Container
      */
     protected void encodeChildren(final Asn1Container asn1Container) {
@@ -99,7 +116,8 @@ public class Asn1Encoder {
 
     /**
      * Invokes a new Asn1Encoder for encoding children.
-     * @param children
+     * 
+     * @param  children
      * @return
      */
     protected Asn1Encoder invokeChildEncoder(List<Asn1Encodable> children) {

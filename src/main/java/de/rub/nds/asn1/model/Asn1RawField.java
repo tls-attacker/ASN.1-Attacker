@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -129,11 +138,10 @@ public abstract class Asn1RawField extends ModifiableVariableHolder implements A
     public Asn1Serializer getSerializer() {
         return new Asn1RawFieldSerializer(this);
     }
-    
+
     @Override
-    
-    public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException
-    {
+
+    public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
         return Asn1EncodableSerializer.copyAsn1Encodable(this);
     }
 }

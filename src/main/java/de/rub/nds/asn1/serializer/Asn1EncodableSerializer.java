@@ -1,3 +1,11 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
 
 package de.rub.nds.asn1.serializer;
 
@@ -46,15 +54,17 @@ public class Asn1EncodableSerializer {
         return context;
     }
 
-    
-
     /**
      * Writes an Asn1Encodable to an Outputstream
      *
-     * @param outputStream Outputstream to write to
-     * @param asn1Encdoable TestVector to serializ
-     * @throws JAXBException If something goes wrong
-     * @throws IOException If something goes wrong
+     * @param  outputStream
+     *                       Outputstream to write to
+     * @param  asn1Encdoable
+     *                       TestVector to serializ
+     * @throws JAXBException
+     *                       If something goes wrong
+     * @throws IOException
+     *                       If something goes wrong
      */
     public static void write(OutputStream outputStream, Asn1Encodable asn1Encdoable) throws JAXBException, IOException {
         context = getJAXBContext();
@@ -67,11 +77,15 @@ public class Asn1EncodableSerializer {
     /**
      * Reads a Asn1Encodable from an InputStream
      *
-     * @param inputStream Inputstream to read from
-     * @return Read TestVector
-     * @throws JAXBException If something goes wrong
-     * @throws IOException If something goes wrong
-     * @throws XMLStreamException If something goes wrong
+     * @param  inputStream
+     *                            Inputstream to read from
+     * @return                    Read TestVector
+     * @throws JAXBException
+     *                            If something goes wrong
+     * @throws IOException
+     *                            If something goes wrong
+     * @throws XMLStreamException
+     *                            If something goes wrong
      */
     public static Asn1Encodable read(InputStream inputStream) throws JAXBException, IOException, XMLStreamException {
         context = getJAXBContext();
@@ -85,21 +99,23 @@ public class Asn1EncodableSerializer {
         return asn1;
     }
 
-
     /**
-     * Returns a deep copy of the Asn1Encodable. 
+     * Returns a deep copy of the Asn1Encodable.
      *
-     * @param asn1Encodable Asn1Encodable to copy
+     * @param  asn1Encodable
+     *                                             Asn1Encodable to copy
      * @return
      * @throws javax.xml.bind.JAXBException
      * @throws java.io.IOException
      * @throws javax.xml.stream.XMLStreamException
      */
-    public static Asn1Encodable copyAsn1Encodable(Asn1Encodable asn1Encodable) throws JAXBException, IOException, XMLStreamException {
+    public static Asn1Encodable copyAsn1Encodable(Asn1Encodable asn1Encodable)
+        throws JAXBException, IOException, XMLStreamException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Asn1EncodableSerializer.write(stream, asn1Encodable);
         stream.flush();
-        Asn1Encodable copiedAsn1Encodable = Asn1EncodableSerializer.read(new ByteArrayInputStream(stream.toByteArray()));
+        Asn1Encodable copiedAsn1Encodable =
+            Asn1EncodableSerializer.read(new ByteArrayInputStream(stream.toByteArray()));
         return copiedAsn1Encodable;
     }
 
@@ -107,4 +123,3 @@ public class Asn1EncodableSerializer {
     }
 
 }
-

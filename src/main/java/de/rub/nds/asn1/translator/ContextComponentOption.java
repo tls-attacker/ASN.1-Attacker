@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.translator;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -17,7 +26,9 @@ public class ContextComponentOption<T extends Asn1Encodable> {
 
     public final String subContextName;
 
-    public ContextComponentOption(final int tagClass, final boolean tagConstructed, final int tagNumber, final boolean hasChildren, final Class<? extends FieldTranslator<T>> fieldTranslatorClass, final String subContextName) {
+    public ContextComponentOption(final int tagClass, final boolean tagConstructed, final int tagNumber,
+        final boolean hasChildren, final Class<? extends FieldTranslator<T>> fieldTranslatorClass,
+        final String subContextName) {
         this.tagClass = tagClass;
         this.tagConstructed = tagConstructed;
         this.tagNumber = tagNumber;
@@ -26,25 +37,26 @@ public class ContextComponentOption<T extends Asn1Encodable> {
         this.subContextName = subContextName;
     }
 
-    public int computeScore(final int tagClass, final boolean tagConstructed, final int tagNumber, final boolean hasChildren) {
+    public int computeScore(final int tagClass, final boolean tagConstructed, final int tagNumber,
+        final boolean hasChildren) {
         int score = 0;
-                
-        if(this.tagClass == tagClass) {
+
+        if (this.tagClass == tagClass) {
             score++;
         }
-      
-        if(this.tagConstructed == tagConstructed) {
-            score++;
-        }       
-        
-        if(this.tagNumber == tagNumber) {
+
+        if (this.tagConstructed == tagConstructed) {
             score++;
         }
-        
-        if(this.hasChildren == hasChildren) {
+
+        if (this.tagNumber == tagNumber) {
             score++;
         }
-        
+
+        if (this.hasChildren == hasChildren) {
+            score++;
+        }
+
         return score;
     }
 }

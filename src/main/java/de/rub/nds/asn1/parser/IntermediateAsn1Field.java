@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.parser;
 
 import java.math.BigInteger;
@@ -22,7 +31,8 @@ public class IntermediateAsn1Field {
 
     }
 
-    public IntermediateAsn1Field(int tagClass, boolean tagConstructed, int tagNumber, BigInteger length, byte[] content) {
+    public IntermediateAsn1Field(int tagClass, boolean tagConstructed, int tagNumber, BigInteger length,
+        byte[] content) {
         this.tagClass = tagClass;
         this.tagConstructed = tagConstructed;
         this.tagNumber = tagNumber;
@@ -83,8 +93,8 @@ public class IntermediateAsn1Field {
     }
 
     public void addChildren(List<IntermediateAsn1Field> intermediateAsn1Fields) {
-        if(intermediateAsn1Fields != null) {
-            for(IntermediateAsn1Field intermediateAsn1Field : intermediateAsn1Fields) {
+        if (intermediateAsn1Fields != null) {
+            for (IntermediateAsn1Field intermediateAsn1Field : intermediateAsn1Fields) {
                 this.addChild(intermediateAsn1Field);
             }
         }

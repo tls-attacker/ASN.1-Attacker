@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1;
 
 public enum TagConstructed {
@@ -23,8 +32,8 @@ public enum TagConstructed {
 
     public static TagConstructed fromIntValue(final int intValue) {
         TagConstructed tagConstructed = TagConstructed.PRIMITIVE;
-        for(TagConstructed currentTagConstructed : TagConstructed.values()) {
-            if(currentTagConstructed.getIntValue() == intValue) {
+        for (TagConstructed currentTagConstructed : TagConstructed.values()) {
+            if (currentTagConstructed.getIntValue() == intValue) {
                 tagConstructed = currentTagConstructed;
                 break;
             }
@@ -34,8 +43,8 @@ public enum TagConstructed {
 
     public static TagConstructed fromBooleanValue(final boolean booleanValue) {
         TagConstructed tagConstructed = TagConstructed.PRIMITIVE;
-        for(TagConstructed currentTagConstructed : TagConstructed.values()) {
-            if(currentTagConstructed.getBooleanValue() == booleanValue) {
+        for (TagConstructed currentTagConstructed : TagConstructed.values()) {
+            if (currentTagConstructed.getBooleanValue() == booleanValue) {
                 tagConstructed = currentTagConstructed;
                 break;
             }

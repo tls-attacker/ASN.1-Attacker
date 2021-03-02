@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
@@ -58,7 +67,7 @@ public class Asn1ObjectIdentifierSerializer extends Asn1FieldSerializer {
     private byte[] encodeFirstTwoIdentifierStrings(String[] identifierStrings) {
         int identifier1 = Integer.parseInt(identifierStrings[0]);
         int identifier2 = Integer.parseInt(identifierStrings[1]);
-        return new byte[]{(byte) (identifier1 * 40 + identifier2)};
+        return new byte[] { (byte) (identifier1 * 40 + identifier2) };
     }
 
     private byte[] encodeSingleIdentifier(int identifierValue) {
