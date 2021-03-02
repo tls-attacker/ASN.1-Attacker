@@ -14,10 +14,9 @@ import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ImplicitSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
-
-import javax.xml.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

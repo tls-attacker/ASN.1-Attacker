@@ -13,12 +13,11 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
-
-import javax.xml.bind.annotation.XmlAnyElement;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement

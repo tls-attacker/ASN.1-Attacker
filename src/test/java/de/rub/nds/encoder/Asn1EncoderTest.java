@@ -16,12 +16,11 @@ import de.rub.nds.asn1.model.Asn1RawBytes;
 import de.rub.nds.asn1.serializer.Asn1RawBytesSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.util.ByteArrayUtils;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Asn1EncoderTest {
     private Asn1Encoder cut;
