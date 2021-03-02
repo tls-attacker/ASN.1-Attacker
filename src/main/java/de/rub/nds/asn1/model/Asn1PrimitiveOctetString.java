@@ -13,7 +13,7 @@ import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveOctetStringSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -30,7 +30,7 @@ public final class Asn1PrimitiveOctetString extends Asn1Field {
 
     public static final int TAG_NUMBER = TagNumber.OCTET_STRING.getIntValue();
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     @XmlElement(name = "value")
     private byte[] value = new byte[0];
 
