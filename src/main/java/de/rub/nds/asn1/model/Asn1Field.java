@@ -164,9 +164,4 @@ public class Asn1Field extends Asn1RawField {
     public Asn1Serializer getSerializer() {
         return new Asn1FieldSerializer(this);
     }
-
-    @Override
-    public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
-        
-    }
 }
