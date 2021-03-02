@@ -10,7 +10,7 @@
 package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.asn1.adapters.BigIntegerAdapter;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -41,7 +41,7 @@ public class XmlConverter {
     private void convertToXml(final Asn1XmlContent asn1XmlContent, final File file) {
         try {
             Marshaller marshaller = this.jaxbContext.createMarshaller();
-            marshaller.setAdapter(new ByteArrayAdapter());
+            marshaller.setAdapter(new UnformattedByteArrayAdapter());
             marshaller.setAdapter(new BigIntegerAdapter());
             marshaller.marshal(asn1XmlContent, file);
         } catch (JAXBException e) {

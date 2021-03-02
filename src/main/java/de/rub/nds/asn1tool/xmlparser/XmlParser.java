@@ -12,7 +12,7 @@ package de.rub.nds.asn1tool.xmlparser;
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.adapters.BigIntegerAdapter;
 import de.rub.nds.asn1.model.Asn1Container;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +50,7 @@ public class XmlParser {
         try {
             StringReader stringReader = new StringReader(xml);
             Unmarshaller unmarshaller = this.jaxbContext.createUnmarshaller();
-            unmarshaller.setAdapter(new ByteArrayAdapter());
+            unmarshaller.setAdapter(new UnformattedByteArrayAdapter());
             unmarshaller.setAdapter(new BigIntegerAdapter());
             this.asn1XmlContent = (Asn1XmlContent) unmarshaller.unmarshal(stringReader);
         } catch (JAXBException e) {

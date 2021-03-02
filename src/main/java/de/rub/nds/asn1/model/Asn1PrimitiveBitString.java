@@ -14,7 +14,7 @@ import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveBitStringSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,7 +34,7 @@ public final class Asn1PrimitiveBitString extends Asn1Field {
     @XmlElement(name = "unusedBits")
     private int unusedBits = 0;
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     @XmlElement(name = "value")
     private byte[] value = new byte[0];
 
