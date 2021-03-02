@@ -14,6 +14,8 @@ import de.rub.nds.asn1.translator.fieldtranslators.FieldTranslator;
 
 public class ContextComponentOption<T extends Asn1Encodable> {
 
+    public final int tag;
+
     public final int tagClass;
 
     public final boolean tagConstructed;
@@ -29,6 +31,7 @@ public class ContextComponentOption<T extends Asn1Encodable> {
     public ContextComponentOption(final int tagClass, final boolean tagConstructed, final int tagNumber,
         final boolean hasChildren, final Class<? extends FieldTranslator<T>> fieldTranslatorClass,
         final String subContextName) {
+        this.tag = 0;
         this.tagClass = tagClass;
         this.tagConstructed = tagConstructed;
         this.tagNumber = tagNumber;
@@ -37,9 +40,25 @@ public class ContextComponentOption<T extends Asn1Encodable> {
         this.subContextName = subContextName;
     }
 
-    public int computeScore(final int tagClass, final boolean tagConstructed, final int tagNumber,
+    public ContextComponentOption(final int tag, final int tagClass, final boolean tagConstructed, final int tagNumber,
+        final boolean hasChildren, final Class<? extends FieldTranslator<T>> fieldTranslatorClass,
+        final String subContextName) {
+        this.tag = tag;
+        this.tagClass = tagClass;
+        this.tagConstructed = tagConstructed;
+        this.tagNumber = tagNumber;
+        this.hasChildren = hasChildren;
+        this.fieldTranslatorClass = fieldTranslatorClass;
+        this.subContextName = subContextName;
+    }
+
+    public int computeScore(final int tag, final int tagClass, final boolean tagConstructed, final int tagNumber,
         final boolean hasChildren) {
         int score = 0;
+
+        if (this.tag != 0 && this.tag == tag) {
+            score = score + 5;
+        }
 
         if (this.tagClass == tagClass) {
             score++;

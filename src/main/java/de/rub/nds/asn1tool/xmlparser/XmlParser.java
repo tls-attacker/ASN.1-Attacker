@@ -11,16 +11,15 @@ package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.adapters.BigIntegerAdapter;
-import de.rub.nds.asn1.model.*;
+import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 public class XmlParser {
 

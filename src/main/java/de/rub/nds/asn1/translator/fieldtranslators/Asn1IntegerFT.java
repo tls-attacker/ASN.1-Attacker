@@ -11,7 +11,6 @@ package de.rub.nds.asn1.translator.fieldtranslators;
 
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.asn1.parser.IntermediateAsn1Field;
-
 import java.math.BigInteger;
 
 public final class Asn1IntegerFT extends Asn1FieldFT<Asn1Integer> {

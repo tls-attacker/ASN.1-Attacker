@@ -12,10 +12,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveBitStringSerializer;
+import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;

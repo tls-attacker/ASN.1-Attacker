@@ -9,13 +9,12 @@
 
 package de.rub.nds.asn1.encoder;
 
+import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.encoder.encodingoptions.Asn1EncodingOptions;
 import de.rub.nds.asn1.encoder.encodingoptions.DefaultAsn1EncodingOptions;
 import de.rub.nds.asn1.encoder.typeprocessors.Asn1TypeProcessor;
 import de.rub.nds.asn1.model.Asn1Container;
-import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.util.ByteArrayUtils;
-
 import java.util.LinkedList;
 import java.util.List;
 

@@ -15,12 +15,11 @@ import de.rub.nds.asn1.parser.contentunpackers.ContentUnpackerRegister;
 import de.rub.nds.asn1.translator.Asn1Translator;
 import de.rub.nds.util.ByteArrayBuffer;
 import de.rub.nds.util.ByteArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Asn1Parser {
 
@@ -52,14 +51,24 @@ public class Asn1Parser {
 
     private IntermediateAsn1Field parseAsn1Field() throws ParserException {
         try {
+            int tag = this.parseTag();
             int tagClass = this.parseTagClass();
             boolean tagConstructed = this.parseTagConstructed();
             int tagNumber = this.parseTagNumber();
             BigInteger length = this.parseLength();
             byte[] content = this.parseContent(length);
-            return new IntermediateAsn1Field(tagClass, tagConstructed, tagNumber, length, content);
+            return new IntermediateAsn1Field(tag, tagClass, tagConstructed, tagNumber, length, content);
         } catch (RuntimeException e) {
             throw new ParserException(e);
+        }
+    }
+
+    private int parseTag() {
+        byte[] tagBytes = this.byteArrayBuffer.peekBytes(2);
+        if (tagBytes[0] == 0x1F) {
+            return ((tagBytes[0] & 0xFF) << 8) | (tagBytes[1] & 0xFF);
+        } else {
+            return tagBytes[0] & 0xFF;
         }
     }
 
@@ -135,7 +144,7 @@ public class Asn1Parser {
                 intermediateAsn1Field.setChildren(children);
                 break; // No break is executed if an exception is thrown, e.g. because unpacking is not successful
             } catch (Throwable e) {
-                LOGGER.warn(e);
+                LOGGER.debug(e);
             }
         }
         return children;

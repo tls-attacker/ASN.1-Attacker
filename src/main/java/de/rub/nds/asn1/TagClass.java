@@ -11,7 +11,7 @@ package de.rub.nds.asn1;
 
 public enum TagClass {
     UNIVERSAL(0, "universal"),
-    APPLICATiON(1, "application"),
+    APPLICATION(1, "application"),
     CONTEXT_SPECIFIC(2, "context-specific"),
     PRIVATE(3, "private");
 

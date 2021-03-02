@@ -11,7 +11,6 @@ package de.rub.nds.asn1.translator.fieldtranslators;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveUtf8String;
 import de.rub.nds.asn1.parser.IntermediateAsn1Field;
-
 import java.io.UnsupportedEncodingException;
 
 public final class Asn1PrimitiveUtf8StringFT extends Asn1FieldFT<Asn1PrimitiveUtf8String> {

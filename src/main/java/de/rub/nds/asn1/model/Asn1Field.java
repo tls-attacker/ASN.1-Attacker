@@ -9,6 +9,7 @@
 
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -18,9 +19,12 @@ import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
+import java.io.IOException;
 
 import javax.xml.bind.annotation.*;
 import java.math.BigInteger;
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -160,5 +164,10 @@ public class Asn1Field extends Asn1RawField {
     @Override
     public Asn1Serializer getSerializer() {
         return new Asn1FieldSerializer(this);
+    }
+
+    @Override
+    public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
+        
     }
 }

@@ -43,7 +43,7 @@ public class ContextComponent {
         int maxScore = 0;
         ContextComponentOption bestMatch = null;
         if (isOptional) {
-            // if a ContextCoponent is optional, we want a perfect Match with one of the ContextComponentOptions,
+            // if a ContextComponent is optional, we want a perfect Match with one of the ContextComponentOptions,
             // otherwise it can be not detected if an optional asn1 field is not present
             MIN_SCORE = 4;
         } else {
@@ -51,9 +51,9 @@ public class ContextComponent {
         }
 
         for (ContextComponentOption contextComponentOption : this.contextComponentOptions) {
-            int score = contextComponentOption.computeScore(intermediateAsn1Field.getTagClass(),
-                intermediateAsn1Field.getTagConstructed(), intermediateAsn1Field.getTagNumber(),
-                intermediateAsn1Field.containsChildren());
+            int score = contextComponentOption.computeScore(intermediateAsn1Field.getTag(),
+                intermediateAsn1Field.getTagClass(), intermediateAsn1Field.getTagConstructed(),
+                intermediateAsn1Field.getTagNumber(), intermediateAsn1Field.containsChildren());
             if (score >= MIN_SCORE && score > maxScore) {
                 maxScore = score;
                 bestMatch = contextComponentOption;
