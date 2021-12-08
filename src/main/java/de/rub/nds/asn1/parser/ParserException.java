@@ -9,7 +9,7 @@
 
 package de.rub.nds.asn1.parser;
 
-public class ParserException extends Exception {
+public class ParserException extends RuntimeException {
 
     public ParserException(Throwable e) {
         super(e);
