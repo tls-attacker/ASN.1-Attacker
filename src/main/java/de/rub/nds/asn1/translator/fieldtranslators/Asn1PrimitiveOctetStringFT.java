@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.translator.fieldtranslators;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
@@ -13,7 +22,8 @@ public final class Asn1PrimitiveOctetStringFT extends Asn1FieldFT<Asn1PrimitiveO
         this(intermediateAsn1Field, new Asn1PrimitiveOctetString());
     }
 
-    protected Asn1PrimitiveOctetStringFT(final IntermediateAsn1Field intermediateAsn1Field, final Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+    protected Asn1PrimitiveOctetStringFT(final IntermediateAsn1Field intermediateAsn1Field,
+        final Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
         super(intermediateAsn1Field, asn1PrimitiveOctetString);
         this.intermediateAsn1Field = intermediateAsn1Field;
         this.asn1PrimitiveOctetString = asn1PrimitiveOctetString;

@@ -1,3 +1,12 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1tool.filesystem;
 
 import java.io.File;
@@ -19,7 +28,7 @@ public class TextFileReader {
         this.filename = filename;
     }
 
-    public String read() throws IOException  {
+    public String read() throws IOException {
         StringBuilder content = new StringBuilder();
         File file = new File(this.filename);
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -27,10 +36,10 @@ public class TextFileReader {
         int bytesRead = 0;
         do {
             bytesRead = fileInputStream.read(buffer);
-            if(bytesRead > 0) {
+            if (bytesRead > 0) {
                 content.append(new String(buffer, 0, bytesRead));
             }
-        } while(bytesRead > 0);
+        } while (bytesRead > 0);
         fileInputStream.close();
         return content.toString();
     }

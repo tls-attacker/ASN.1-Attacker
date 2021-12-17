@@ -26,8 +26,9 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>rub-nexus</id>
+            <name>TLS-Attacker Internal Repository</name>
+            <url>https://hydrogen.cloud.nds.rub.de/nexus/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
@@ -55,11 +56,13 @@
             <groupId>de.rub.nds</groupId>
             <artifactId>ModifiableVariable</artifactId>
             <version>3.2.0</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -149,6 +152,7 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <useUniqueVersions>false</useUniqueVersions>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>de.rub.nds.asn1tool.Asn1Tool</mainClass>
@@ -175,11 +179,80 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- formats the code -->
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>2.14.0</version>
+                <configuration>
+                    <configFile>maven-eclipse-codestyle.xml</configFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Includes the license header -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <header>license_header_plain.txt</header>
+                    <strictCheck>true</strictCheck>
+                    <includes>
+                        <include>src/**/*.java</include>
+                    </includes>
+                    <properties>
+                        <startYear>2014</startYear>
+                        <year>${buildYear}</year>
+                        <description>A project for creating arbitrary ASN.1 structures</description>
+                        <owner>Ruhr University Bochum, Paderborn University, Hackmanit GmbH</owner>
+                        <licenseName>Apache License, Version 2.0</licenseName>
+                        <licenseURL>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseURL>
+                    </properties>
+                    <mapping>
+                        <java>JAVADOC_STYLE</java>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Allows to run checkstyle with Maven -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.37</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <violationSeverity>info</violationSeverity>
+                    <failOnViolation>false</failOnViolation>
+                </configuration>
+            </plugin>
             <!-- Following plugins handle the OOSRH distribution -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.4</version>
+                <configuration>
+                    <version>8</version>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -218,10 +291,17 @@
                     <autoReleaseAfterClose>false</autoReleaseAfterClose>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
         </plugins>
     </build>
 
     <properties>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <buildYear>${maven.build.timestamp}</buildYear>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>

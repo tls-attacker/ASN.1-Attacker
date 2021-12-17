@@ -1,20 +1,33 @@
+/**
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.encoder;
 
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.encoder.Asn1Encoder;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.model.Asn1RawBytes;
+import de.rub.nds.asn1.serializer.Asn1EncodableSerializer;
 import de.rub.nds.asn1.serializer.Asn1RawBytesSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.util.ByteArrayUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Asn1EncoderTest {
+
     private Asn1Encoder cut;
     private static final String TEST_STRING_VALUE = "ASN1_TEST";
     private static final String TEST_EXPECTED_TWO_ENTRIES = TEST_STRING_VALUE + 0 + TEST_STRING_VALUE + 1;
@@ -53,11 +66,12 @@ public class Asn1EncoderTest {
             // given
             byte[] expected;
 
-            // The octet identifier and encoded length of each children have to be considered in the total expected length
-            byte[] encodedIdentifierAndLength = new byte[]{0, 20};
+            // The octet identifier and encoded length of each children have to be considered in the total expected
+            // length
+            byte[] encodedIdentifierAndLength = new byte[] { 0, 20 };
             byte[] entriesAsBytes = TEST_EXPECTED_TWO_ENTRIES.getBytes();
             List<Asn1Container> asn1Containers = createAsn1Containers(2);
-            cut = new Asn1Encoder(asn1Containers.get(0), new Asn1Container[]{asn1Containers.get(1)});
+            cut = new Asn1Encoder(asn1Containers.get(0), new Asn1Container[] { asn1Containers.get(1) });
 
             expected = ByteArrayUtils.merge(encodedIdentifierAndLength, entriesAsBytes);
 
@@ -77,7 +91,6 @@ public class Asn1EncoderTest {
         List<Asn1Encodable> asn1Encodables = new ArrayList<>();
 
         for (int i = 0; i < amountOfEntries; i++) {
-
 
             int ctr = i;
             Asn1Encodable asn1Encodable = new Asn1Encodable() {
@@ -114,6 +127,11 @@ public class Asn1EncoderTest {
                 @Override
                 public void setAttribute(String attributeName, String attributeValue) {
 
+                }
+
+                @Override
+                public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
+                    return Asn1EncodableSerializer.copyAsn1Encodable(this);
                 }
 
                 @Override
