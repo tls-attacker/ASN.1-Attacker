@@ -14,7 +14,7 @@ In order to compile and use ASN.1-Tool, you need to have Java and Maven installe
 ```bash
 $ sudo apt-get install maven
 ```
-ASN.1-Tool currently needs Java JDK 8 to run. If you have the correct Java version you can install
+ASN.1-Tool currently needs Java JDK 11 to run. If you have the correct Java version you can install
  ASN.1-Tool as follows.
 ```bash
 $ git clone https://github.com/tls-attacker/ASN.1-Tool.git
