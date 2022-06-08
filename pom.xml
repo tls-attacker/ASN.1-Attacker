@@ -106,16 +106,34 @@
                 <version>3.1.2</version>
                 <executions>
                     <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>${project.packaging}</type>
+                                    <destFileName>${project.build.finalName}.${project.packaging}</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${maven.multiModuleProjectDirectory}/apps</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <outputDirectory>${maven.multiModuleProjectDirectory}/apps/lib</outputDirectory>
+                            <!--Ensures only runnable dependencies are included-->
+                            <includeScope>compile</includeScope>
                         </configuration>
                     </execution>
                 </executions>
@@ -184,7 +202,7 @@
                 <artifactId>formatter-maven-plugin</artifactId>
                 <version>2.14.0</version>
                 <configuration>
-                    <configFile>maven-eclipse-codestyle.xml</configFile>
+                    <configFile>${project.basedir}/maven-eclipse-codestyle.xml</configFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -201,7 +219,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>4.1</version>
                 <configuration>
-                    <header>license_header_plain.txt</header>
+                    <header>${project.basedir}/license_header_plain.txt</header>
                     <strictCheck>true</strictCheck>
                     <includes>
                         <include>src/**/*.java</include>
@@ -240,7 +258,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
+                    <configLocation>${project.basedir}/checkstyle.xml</configLocation>
                     <violationSeverity>info</violationSeverity>
                     <failOnViolation>false</failOnViolation>
                 </configuration>
