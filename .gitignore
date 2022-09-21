@@ -1,16 +1,25 @@
+# (build) artifacts
+apps/
 target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
 
-# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
-!/.mvn/wrapper/maven-wrapper.jar
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+.project
 
-# IntelliJ files
-.idea
+# Netbeans
+nbproject/
+nbactions.xml.project
+nbactions.xml
+
+# IntelliJ
+.idea/
 *.iml
+
+# Maven
+pom.xml.*
+release.properties
+
+# VS Code
+.factorypath

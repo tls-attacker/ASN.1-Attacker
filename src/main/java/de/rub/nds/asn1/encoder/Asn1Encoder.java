@@ -26,7 +26,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
-     * 
+     *
      * @param encodables
      */
     public Asn1Encoder(final List<Asn1Encodable> encodables) {
@@ -35,7 +35,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
-     * 
+     *
      * @param asn1EncodingOptions
      * @param encodables
      */
@@ -46,7 +46,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
-     * 
+     *
      * @param firstAsn1Encodable
      * @param asn1Encodables
      */
@@ -56,7 +56,7 @@ public class Asn1Encoder {
 
     /**
      * Constructor for an Asn1Encoder.
-     * 
+     *
      * @param asn1EncodingOptions
      * @param firstAsn1Encodable
      * @param asn1Encodables
@@ -73,7 +73,7 @@ public class Asn1Encoder {
 
     /**
      * Encodes the Asn1Encodables specified in the constructor and returns its serialized representations.
-     * 
+     *
      * @return
      */
     public byte[] encode() {
@@ -86,7 +86,7 @@ public class Asn1Encoder {
 
     /**
      * Encodes a single Asn1Encodable and returns its serialized representation.
-     * 
+     *
      * @param  asn1Encodable
      * @return
      */
@@ -104,7 +104,7 @@ public class Asn1Encoder {
 
     /**
      * Encodes the children of the given Asn1Container and stores the encoding in the Asn1Container.
-     * 
+     *
      * @param asn1Container
      */
     protected void encodeChildren(final Asn1Container asn1Container) {
@@ -115,7 +115,7 @@ public class Asn1Encoder {
 
     /**
      * Invokes a new Asn1Encoder for encoding children.
-     * 
+     *
      * @param  children
      * @return
      */

@@ -21,8 +21,8 @@ import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import java.io.IOException;
 import java.math.BigInteger;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
 
 @XmlRootElement

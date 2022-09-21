@@ -12,9 +12,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

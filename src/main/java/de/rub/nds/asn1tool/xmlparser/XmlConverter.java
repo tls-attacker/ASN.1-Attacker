@@ -12,9 +12,9 @@ package de.rub.nds.asn1tool.xmlparser;
 import de.rub.nds.asn1.adapters.BigIntegerAdapter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.io.File;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 public class XmlConverter {
 

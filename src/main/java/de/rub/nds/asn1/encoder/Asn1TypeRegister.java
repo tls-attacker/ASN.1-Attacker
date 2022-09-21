@@ -35,7 +35,7 @@ public class Asn1TypeRegister {
 
     /**
      * Singleton getInstance() method.
-     * 
+     *
      * @return An instance of Asn1AnyTypeRegister.
      */
     public static Asn1TypeRegister getInstance() {
@@ -54,7 +54,7 @@ public class Asn1TypeRegister {
 
     /**
      * Sets the default Asn1TypeProcessor.
-     * 
+     *
      * @param defaultTypeEncoderClass
      *                                The new default Asn1TypeProcessor.
      */
@@ -64,7 +64,7 @@ public class Asn1TypeRegister {
 
     /**
      * Prevent cloning of this object.
-     * 
+     *
      * @return This.
      */
     @Override
@@ -74,7 +74,7 @@ public class Asn1TypeRegister {
 
     /**
      * Registers a new type with the given typeEncoder.
-     * 
+     *
      * @param type
      * @param typeEncoder
      */
@@ -87,7 +87,7 @@ public class Asn1TypeRegister {
 
     /**
      * Creates an instance of Asn1TypeProcessor for the given Asn1Encodable.
-     * 
+     *
      * @param  asn1Encodable
      * @return
      */

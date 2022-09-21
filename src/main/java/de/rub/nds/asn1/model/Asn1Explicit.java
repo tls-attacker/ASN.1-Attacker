@@ -16,7 +16,7 @@ import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import java.util.LinkedList;
 import java.util.List;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
