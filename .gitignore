@@ -20,6 +20,7 @@ nbactions.xml
 # Maven
 pom.xml.*
 release.properties
+.flattened-pom.xml
 
 # VS Code
 .factorypath
