@@ -10,12 +10,15 @@ The tool is not intended to be used directly, but by other software projects as 
 # Installation
 
 In order to compile and use ASN.1-Tool, you need to have Java and Maven installed. On Ubuntu you can install Maven by
- running:
+running:
+
 ```bash
 $ sudo apt-get install maven
 ```
+
 ASN.1-Tool currently needs Java JDK 11 to run. If you have the correct Java version you can install
- ASN.1-Tool as follows.
+ASN.1-Tool as follows.
+
 ```bash
 $ git clone https://github.com/tls-attacker/ASN.1-Tool.git
 $ cd ASN.1-Tool
@@ -34,7 +37,9 @@ If you want to use this project as a dependency, you do not have to compile it y
 ```
 
 # Acknowledgements
-The framework was initially developed by Nils Kafka (nils.kafka@ruhr-uni-bochum.de) during his master thesis. 
+
+The framework was initially developed by Nils Kafka (nils.kafka@ruhr-uni-bochum.de) during his master thesis.
 
 # Projects
+
 This framework is used in future versions of TLS-Attacker (https://github.com/tls-attacker/TLS-Attacker-Development/)
