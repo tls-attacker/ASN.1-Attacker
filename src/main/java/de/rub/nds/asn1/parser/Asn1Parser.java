@@ -136,7 +136,7 @@ public class Asn1Parser {
             Asn1Parser childParser = new Asn1Parser(intermediateAsn1Field.getContent(), this.isStrictMode);
             children = childParser.parseIntermediateFields();
             intermediateAsn1Field.setChildren(children);
-        } catch (Throwable e) {
+        } catch (ParserException e) {
             LOGGER.debug(e);
         }
 
