@@ -9,8 +9,6 @@
 
 package de.rub.nds.asn1tool;
 
-import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.encoder.Asn1Encoder;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1ConstructedBitString;
 import de.rub.nds.asn1.model.Asn1ConstructedIa5String;
@@ -42,8 +40,6 @@ import de.rub.nds.asn1.model.Asn1RawField;
 import de.rub.nds.asn1.model.Asn1Sequence;
 import de.rub.nds.asn1.model.Asn1Set;
 import de.rub.nds.asn1tool.xmlparser.Asn1XmlContent;
-import de.rub.nds.asn1tool.xmlparser.JaxbClassList;
-import de.rub.nds.asn1tool.xmlparser.XmlParser;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
@@ -81,8 +77,6 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
-import java.io.IOException;
-import java.util.List;
 
 public class Asn1Tool {
 
