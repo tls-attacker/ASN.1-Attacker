@@ -14,11 +14,11 @@ import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1IntegerSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-import java.math.BigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -13,13 +13,13 @@ import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.adapters.BigIntegerAdapter;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
 
 public class XmlParser {
 

@@ -15,12 +15,12 @@ import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1EncapsulatingBitStringSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
-import java.util.LinkedList;
-import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.LinkedList;
+import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

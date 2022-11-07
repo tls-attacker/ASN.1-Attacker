@@ -11,12 +11,12 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.ReflectionHelper;
+import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import jakarta.xml.bind.annotation.XmlType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

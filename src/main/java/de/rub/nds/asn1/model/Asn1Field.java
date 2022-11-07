@@ -9,7 +9,6 @@
 
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -19,11 +18,8 @@ import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import java.io.IOException;
-import java.math.BigInteger;
-import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.*;
-import javax.xml.stream.XMLStreamException;
+import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

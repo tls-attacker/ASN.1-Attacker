@@ -10,8 +10,8 @@
 package de.rub.nds.asn1;
 
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-import java.io.IOException;
 import jakarta.xml.bind.JAXBException;
+import java.io.IOException;
 import javax.xml.stream.XMLStreamException;
 
 public interface Asn1Encodable {
