@@ -43,9 +43,7 @@ public class ContextRegister {
             String maskedInput = this.maskName(contextName);
             Class<? extends Context> contextClass = this.contextClasses.get(maskedInput);
             return contextClass.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -51,11 +50,7 @@ public class XmlParser {
             Unmarshaller unmarshaller = this.jaxbContext.createUnmarshaller();
             unmarshaller.setAdapter(new UnformattedByteArrayAdapter());
             this.asn1XmlContent = (Asn1XmlContent) unmarshaller.unmarshal(stringReader);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        } catch (ClassCastException e) {
-            throw new RuntimeException("Is the root element of type Asn1XmlContent?", e);
-        } catch (IllegalArgumentException e) {
+        } catch (JAXBException | IllegalArgumentException | ClassCastException e) {
             throw new RuntimeException(e);
         }
     }

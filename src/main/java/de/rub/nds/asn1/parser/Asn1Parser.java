@@ -6,12 +6,9 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.parser.contentunpackers.ContentUnpacker;
-import de.rub.nds.asn1.parser.contentunpackers.ContentUnpackerRegister;
 import de.rub.nds.asn1.translator.Asn1Translator;
 import de.rub.nds.util.ByteArrayBuffer;
 import de.rub.nds.util.ByteArrayUtils;
@@ -133,25 +130,21 @@ public class Asn1Parser {
     }
 
     private List<IntermediateAsn1Field> parseChildren(final IntermediateAsn1Field intermediateAsn1Field)
-        throws ParserException {
+            throws ParserException {
         List<IntermediateAsn1Field> children = new LinkedList<>();
-        List<ContentUnpacker> contentUnpackers = ContentUnpackerRegister.getInstance().getContentUnpackers();
-        for (ContentUnpacker contentUnpacker : contentUnpackers) {
-            try {
-                byte[] unpacked = contentUnpacker.unpack(intermediateAsn1Field.getContent());
-                Asn1Parser childParser = new Asn1Parser(unpacked, this.isStrictMode);
-                children = childParser.parseIntermediateFields();
-                intermediateAsn1Field.setChildren(children);
-                break; // No break is executed if an exception is thrown, e.g. because unpacking is not successful
-            } catch (Throwable e) {
-                LOGGER.debug(e);
-            }
+        try {
+            Asn1Parser childParser = new Asn1Parser(intermediateAsn1Field.getContent(), this.isStrictMode);
+            children = childParser.parseIntermediateFields();
+            intermediateAsn1Field.setChildren(children);
+        } catch (Throwable e) {
+            LOGGER.debug(e);
         }
+
         return children;
     }
 
     private List<Asn1Encodable> translateIntermediateFields(final String contextName,
-        List<IntermediateAsn1Field> intermediateAsn1Fields) {
+            List<IntermediateAsn1Field> intermediateAsn1Fields) {
         Asn1Translator asn1Translator = new Asn1Translator(contextName, intermediateAsn1Fields, this.isStrictMode);
         return asn1Translator.translate();
     }

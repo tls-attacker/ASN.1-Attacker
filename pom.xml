@@ -237,7 +237,6 @@
                             <useUniqueVersions>false</useUniqueVersions>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>de.rub.nds.asn1tool.Asn1Tool</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

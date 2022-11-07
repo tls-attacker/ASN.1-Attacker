@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1tool.xmlparser;
 
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
@@ -42,9 +41,7 @@ public class XmlConverter {
             Marshaller marshaller = this.jaxbContext.createMarshaller();
             marshaller.setAdapter(new UnformattedByteArrayAdapter());
             marshaller.marshal(asn1XmlContent, file);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalArgumentException e) {
+        } catch (JAXBException | IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
     }
