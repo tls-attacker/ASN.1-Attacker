@@ -6,23 +6,23 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.encoder;
 
 import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.encoder.encodingoptions.Asn1EncodingOptions;
 import de.rub.nds.asn1.encoder.typeprocessors.Asn1TypeProcessor;
 import de.rub.nds.asn1.encoder.typeprocessors.DefaultAsn1TypeProcessor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Asn1TypeRegister {
 
     private static Asn1TypeRegister instance = null;
 
-    private Map<String, TypeRegistration> registrations = new HashMap<>();
+    private final Map<String, TypeRegistration> registrations = new HashMap<>();
 
     private Class<? extends Asn1TypeProcessor> defaultTypeProcessorClass = DefaultAsn1TypeProcessor.class;
 
@@ -55,8 +55,7 @@ public class Asn1TypeRegister {
     /**
      * Sets the default Asn1TypeProcessor.
      *
-     * @param defaultTypeEncoderClass
-     *                                The new default Asn1TypeProcessor.
+     * @param defaultTypeEncoderClass The new default Asn1TypeProcessor.
      */
     public void setDefaultTypeProcessorClass(Class<? extends Asn1TypeProcessor> defaultTypeEncoderClass) {
         this.defaultTypeProcessorClass = defaultTypeEncoderClass;
@@ -88,49 +87,33 @@ public class Asn1TypeRegister {
     /**
      * Creates an instance of Asn1TypeProcessor for the given Asn1Encodable.
      *
-     * @param  asn1Encodable
+     * @param asn1Encodable
      * @return
      */
-    public Asn1TypeProcessor createTypeProcessor(final Asn1EncodingOptions asn1EncodingOptions,
-        final Asn1Encodable asn1Encodable) {
+    public Asn1TypeProcessor createTypeProcessor(final Asn1Encodable asn1Encodable) {
         String lowerType = asn1Encodable.getType().toLowerCase();
         Class<? extends Asn1TypeProcessor> typeEncoderClass = this.defaultTypeProcessorClass;
         if (this.registrations.containsKey(lowerType)) {
             typeEncoderClass = this.registrations.get(lowerType).typeEncoderClass;
         }
-        return this.invokeTypeProcessor(typeEncoderClass, asn1EncodingOptions, asn1Encodable);
+        return this.invokeTypeProcessor(typeEncoderClass, asn1Encodable);
     }
 
     private Asn1TypeProcessor invokeTypeProcessor(final Class<? extends Asn1TypeProcessor> typeEncoderClass,
-        final Asn1EncodingOptions asn1EncodingOptions, final Asn1Encodable asn1Encodable) {
+            final Asn1Encodable asn1Encodable) {
         Asn1TypeProcessor asn1TypeProcessor = null;
         try {
-            Constructor<? extends Asn1TypeProcessor> typeEncoderConstructor =
-                typeEncoderClass.getDeclaredConstructor(Asn1EncodingOptions.class, Asn1Encodable.class);
-            asn1TypeProcessor = typeEncoderConstructor.newInstance(asn1EncodingOptions, asn1Encodable);
+            Constructor<? extends Asn1TypeProcessor> typeEncoderConstructor
+                    = typeEncoderClass.getDeclaredConstructor(Asn1Encodable.class);
+            try {
+                asn1TypeProcessor = typeEncoderConstructor.newInstance(asn1Encodable);
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                throw new RuntimeException(ex);
+            }
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }
         return asn1TypeProcessor;
     }
 
-    private static class TypeRegistration {
-
-        public final String type;
-
-        public final Class<? extends Asn1TypeProcessor> typeEncoderClass;
-
-        // Future todo: Support specifying a context
-
-        public TypeRegistration(final String type, final Class<? extends Asn1TypeProcessor> typeEncoderClass) {
-            this.type = type;
-            this.typeEncoderClass = typeEncoderClass;
-        }
-    }
 }

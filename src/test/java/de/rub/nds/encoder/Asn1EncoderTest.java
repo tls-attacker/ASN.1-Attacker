@@ -71,7 +71,7 @@ public class Asn1EncoderTest {
             byte[] encodedIdentifierAndLength = new byte[] { 0, 20 };
             byte[] entriesAsBytes = TEST_EXPECTED_TWO_ENTRIES.getBytes();
             List<Asn1Container> asn1Containers = createAsn1Containers(2);
-            cut = new Asn1Encoder(asn1Containers.get(0), new Asn1Container[] { asn1Containers.get(1) });
+            cut = new Asn1Encoder(new Asn1Container[] { asn1Containers.get(0), asn1Containers.get(1) });
 
             expected = ByteArrayUtils.merge(encodedIdentifierAndLength, entriesAsBytes);
 
