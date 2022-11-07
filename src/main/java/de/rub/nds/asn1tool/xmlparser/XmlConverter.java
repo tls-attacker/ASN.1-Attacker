@@ -9,7 +9,6 @@
 
 package de.rub.nds.asn1tool.xmlparser;
 
-import de.rub.nds.asn1.adapters.BigIntegerAdapter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -42,7 +41,6 @@ public class XmlConverter {
         try {
             Marshaller marshaller = this.jaxbContext.createMarshaller();
             marshaller.setAdapter(new UnformattedByteArrayAdapter());
-            marshaller.setAdapter(new BigIntegerAdapter());
             marshaller.marshal(asn1XmlContent, file);
         } catch (JAXBException e) {
             throw new RuntimeException(e);
