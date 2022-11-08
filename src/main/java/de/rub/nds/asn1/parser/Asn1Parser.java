@@ -8,60 +8,54 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.translator.Asn1Translator;
-import de.rub.nds.util.ByteArrayBuffer;
+import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.util.ByteArrayUtils;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
-import java.util.LinkedList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1Parser {
+public abstract class Asn1Parser<T extends Asn1Field> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final ByteArrayBuffer byteArrayBuffer;
+    private final BufferedInputStream inputStream;
 
-    private final boolean isStrictMode;
-
-    public Asn1Parser(final byte[] bytes, final boolean strictMode) {
-        this.byteArrayBuffer = new ByteArrayBuffer(bytes);
-        this.isStrictMode = strictMode;
+    public Asn1Parser(InputStream inputStream) {
+        this.inputStream = new BufferedInputStream(inputStream);
     }
 
-    public List<Asn1Encodable> parse(final String contextName) throws ParserException {
-        List<IntermediateAsn1Field> intermediateAsn1Fields = this.parseIntermediateFields();
-        return this.translateIntermediateFields(contextName, intermediateAsn1Fields);
+    public abstract T parse();
+
+    protected void genericParse(T field) {
+        field.setTag(this.parseTag());
+        field.setTagClass(this.parseTagClass());
+        field.setTagConstructed(this.parseTagConstructed());
+        field.setTagNumber(this.parseTagNumber());
+        field.setLength(this.parseLength());
+        field.setContent(this.parseContent(field.getLength().getValue()));
     }
 
-    public List<IntermediateAsn1Field> parseIntermediateFields() throws ParserException {
-        List<IntermediateAsn1Field> intermediateAsn1Fields = new LinkedList<>();
-        while (this.byteArrayBuffer.getNumberOfRemainingBytes() > 0) {
-            IntermediateAsn1Field intermediateAsn1Field = this.parseAsn1Field();
-            this.parseChildren(intermediateAsn1Field);
-            intermediateAsn1Fields.add(intermediateAsn1Field);
-        }
-        return intermediateAsn1Fields;
-    }
-
-    private IntermediateAsn1Field parseAsn1Field() throws ParserException {
+    protected final byte[] peek(int length) {
+        inputStream.mark(length);
+        byte[] peekedBytes;
         try {
-            int tag = this.parseTag();
-            int tagClass = this.parseTagClass();
-            boolean tagConstructed = this.parseTagConstructed();
-            int tagNumber = this.parseTagNumber();
-            BigInteger length = this.parseLength();
-            byte[] content = this.parseContent(length);
-            return new IntermediateAsn1Field(tag, tagClass, tagConstructed, tagNumber, length, content);
-        } catch (RuntimeException e) {
-            throw new ParserException(e);
+            peekedBytes = inputStream.readNBytes(length);
+            inputStream.reset();
+            return peekedBytes;
+        } catch (IOException ex) {
+            throw new ParserException(ex);
         }
     }
 
-    private int parseTag() {
-        byte[] tagBytes = this.byteArrayBuffer.peekBytes(2);
+    protected final int peek() {
+        return peek(1)[0];
+    }
+
+    protected int parseTag() {
+        byte[] tagBytes = peek(2);
         if (tagBytes[0] == 0x1F) {
             return ((tagBytes[0] & 0xFF) << 8) | (tagBytes[1] & 0xFF);
         } else {
@@ -69,35 +63,49 @@ public class Asn1Parser {
         }
     }
 
-    private int parseTagClass() {
-        return ((this.byteArrayBuffer.peekByte() >> 6) & 0x03);
+    protected int parseTagClass() {
+        return ((peek()) >> 6) & 0x03;
     }
 
-    private boolean parseTagConstructed() {
-        return ((this.byteArrayBuffer.peekByte() >> 5) & 0x01) != 0;
+    protected boolean parseTagConstructed() {
+        return ((peek() >> 5) & 0x01) != 0;
     }
 
-    private int parseTagNumber() {
-        int tagNumber = this.byteArrayBuffer.readByte() & 0x1F;
+    protected int parseTagNumber() {
+        int tagNumber;
+        try {
+            tagNumber = inputStream.read() & 0x1F;
+        } catch (IOException ex) {
+            throw new ParserException(ex);
+        }
         if (tagNumber == 0x1F) {
             tagNumber = this.parseLongTagNumber();
         }
         return tagNumber;
     }
 
-    private int parseLongTagNumber() {
+    protected int parseLongTagNumber() {
         int tagNumber = 0;
         byte nextByte;
         do {
-            nextByte = this.byteArrayBuffer.readByte();
+            try {
+                nextByte = (byte) (inputStream.read() & 0xFF);
+            } catch (IOException ex) {
+                throw new ParserException(ex);
+            }
             tagNumber = (tagNumber << 7) | (nextByte & 0x7F);
         } while ((nextByte & 0x80) > 0);
         return tagNumber;
     }
 
-    private BigInteger parseLength() throws ParserException {
+    protected BigInteger parseLength() throws ParserException {
         BigInteger length = BigInteger.ZERO;
-        byte lengthByte = this.byteArrayBuffer.readByte();
+        byte lengthByte;
+        try {
+            lengthByte = (byte) (inputStream.read() & 0xFF);
+        } catch (IOException ex) {
+            throw new ParserException(ex);
+        }
         if (lengthByte == 0x80) {
             throw new ParserException("Indefinite lengths are currently not supported!");
         }
@@ -109,43 +117,31 @@ public class Asn1Parser {
         } else {
             int numberOfLengthBytes = (lengthByte & 0x7F);
             for (int i = 0; i < numberOfLengthBytes; i++) {
-                length = length.shiftLeft(8);
-                length = length.or(BigInteger.valueOf(this.byteArrayBuffer.readByte() & 0xFF));
+                try {
+                    length = length.shiftLeft(8);
+                    length = length.or(BigInteger.valueOf(inputStream.read() & 0xFF));
+                } catch (IOException ex) {
+                    throw new ParserException(ex);
+                }
             }
         }
         return length;
     }
 
-    private byte[] parseContent(BigInteger length) {
+    protected byte[] parseContent(BigInteger length) {
         byte[] content = new byte[0];
         while (length.compareTo(BigInteger.ZERO) > 0) {
             int bytesToRead = 65536;
             if (length.compareTo(BigInteger.valueOf(bytesToRead)) < 0) {
                 bytesToRead = length.intValue();
             }
-            content = ByteArrayUtils.merge(content, this.byteArrayBuffer.readBytes(bytesToRead));
+            try {
+                content = ByteArrayUtils.merge(content, inputStream.readNBytes(bytesToRead));
+            } catch (IOException ex) {
+                throw new ParserException(ex);
+            }
             length = length.subtract(BigInteger.valueOf(bytesToRead));
         }
         return content;
-    }
-
-    private List<IntermediateAsn1Field> parseChildren(final IntermediateAsn1Field intermediateAsn1Field)
-            throws ParserException {
-        List<IntermediateAsn1Field> children = new LinkedList<>();
-        try {
-            Asn1Parser childParser = new Asn1Parser(intermediateAsn1Field.getContent(), this.isStrictMode);
-            children = childParser.parseIntermediateFields();
-            intermediateAsn1Field.setChildren(children);
-        } catch (ParserException e) {
-            LOGGER.debug(e);
-        }
-
-        return children;
-    }
-
-    private List<Asn1Encodable> translateIntermediateFields(final String contextName,
-            List<IntermediateAsn1Field> intermediateAsn1Fields) {
-        Asn1Translator asn1Translator = new Asn1Translator(contextName, intermediateAsn1Fields, this.isStrictMode);
-        return asn1Translator.translate();
     }
 }

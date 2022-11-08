@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -24,6 +23,9 @@ import java.math.BigInteger;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Asn1Field extends Asn1RawField {
+
+    @XmlElement(name = "tag")
+    private ModifiableInteger tag = new ModifiableInteger();
 
     @XmlElement(name = "tagClass")
     private ModifiableInteger tagClass = new ModifiableInteger();
@@ -72,8 +74,16 @@ public class Asn1Field extends Asn1RawField {
         this.tagClass = ModifiableVariableFactory.safelySetValue(this.tagClass, tagClass);
     }
 
-    public void setTagClassModification(int tagClass) {
-        this.tagClass.setModification(new IntegerExplicitValueModification(tagClass));
+    public ModifiableInteger getTag() {
+        return tag;
+    }
+
+    public void setTag(ModifiableInteger tag) {
+        this.tag = tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = ModifiableVariableFactory.safelySetValue(this.tag, tag);
     }
 
     public ModifiableBoolean getTagConstructed() {
@@ -88,10 +98,6 @@ public class Asn1Field extends Asn1RawField {
         this.tagConstructed = ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
     }
 
-    public void setTagConstructedModification(boolean tagConstructed) {
-        this.tagConstructed.setModification(new BooleanExplicitValueModification(tagConstructed));
-    }
-
     public ModifiableInteger getLongTagNumberBytes() {
         return longTagNumberBytes;
     }
@@ -101,7 +107,7 @@ public class Asn1Field extends Asn1RawField {
     }
 
     public void setLongTagNumberBytes(int longTagNumberBytes) {
-        this.longTagNumberBytes.setModification(new IntegerExplicitValueModification(longTagNumberBytes));
+        this.longTagNumberBytes = ModifiableVariableFactory.safelySetValue(this.longTagNumberBytes, longTagNumberBytes);
     }
 
     public ModifiableInteger getTagNumber() {
@@ -116,10 +122,6 @@ public class Asn1Field extends Asn1RawField {
         this.tagNumber = ModifiableVariableFactory.safelySetValue(this.tagNumber, tagNumber);
     }
 
-    public void setTagNumberModification(int tagNumber) {
-        this.tagNumber.setModification(new IntegerExplicitValueModification(tagNumber));
-    }
-
     public ModifiableInteger getLongLengthBytes() {
         return longLengthBytes;
     }
@@ -129,7 +131,7 @@ public class Asn1Field extends Asn1RawField {
     }
 
     public void setLongLengthBytes(int longLengthBytes) {
-        this.longLengthBytes.setModification(new IntegerExplicitValueModification(longLengthBytes));
+        this.longLengthBytes = ModifiableVariableFactory.safelySetValue(this.longLengthBytes, longLengthBytes);
     }
 
     public ModifiableBigInteger getLength() {

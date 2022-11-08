@@ -28,7 +28,7 @@ public class Asn1BooleanSerializer extends Asn1FieldSerializer {
 
     private void encodeBoolean() {
         byte[] content = new byte[] { 0 };
-        if (this.asn1Boolean.getValue()) {
+        if (this.asn1Boolean.getValue().getValue()) {
             content[0] = (byte) 0xFF;
         }
         this.asn1Boolean.setContent(content);
