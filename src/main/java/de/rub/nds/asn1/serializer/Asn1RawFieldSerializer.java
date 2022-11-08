@@ -20,10 +20,6 @@ public class Asn1RawFieldSerializer extends Asn1Serializer {
         this.rawField = rawField;
     }
 
-    @Override
-    public void updateLayers() {
-        // Asn1RawField is bottom layer, hence there are no lower layers to write into.
-    }
 
     @Override
     public final byte[] serialize() {

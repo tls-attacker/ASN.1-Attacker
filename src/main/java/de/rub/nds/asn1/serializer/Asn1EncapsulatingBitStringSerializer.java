@@ -10,7 +10,8 @@
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1EncapsulatingBitString;
-import de.rub.nds.util.ByteArrayUtils;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class Asn1EncapsulatingBitStringSerializer extends Asn1FieldSerializer {
 
@@ -28,8 +29,14 @@ public class Asn1EncapsulatingBitStringSerializer extends Asn1FieldSerializer {
     }
 
     private void encodeEncapsulatingBitString() {
-        byte[] content = new byte[] { 0 }; // Number of unused bits is zero
-        content = ByteArrayUtils.merge(content, this.asn1EncapsulatingBitString.getEncodedChildren());
-        this.asn1EncapsulatingBitString.setContent(content);
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(new byte[1]); //TODO I think this is the number of unused bits
+            //TODO Encode Childrend
+            outputStream.write(this.asn1EncapsulatingBitString.getEncodedChildren().getValue());
+            this.asn1EncapsulatingBitString.setContent(outputStream.toByteArray());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

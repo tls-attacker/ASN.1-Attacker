@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Field;
@@ -15,22 +14,27 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
+public abstract class Asn1FieldSerializer {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final Asn1Field field;
 
     public Asn1FieldSerializer(final Asn1Field field) {
-        super(field);
         this.field = field;
     }
 
-    @Override
-    public void updateLayers() {
-        this.encodeField();
-        super.updateLayers();
+    /**
+     *
+     * @return
+     */
+    public final byte[] serialize() {
+        field.setContent(encodeContent());
+        field.setLength(encodeLength(field.getContent().getValue().length));
+        field.setIdentifierOctets(identifierOctets);
     }
+
+    protected abstract byte[] encodeContent();
 
     private void encodeField() {
         byte[] identifierOctets = this.encodeIdentifier();
@@ -63,7 +67,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
             tagNumber = 0;
         }
         if (this.field.getLongTagNumberBytes().getValue() == 0 && tagNumber <= 0x1F) {
-            result = new byte[] { firstIdentifierByte };
+            result = new byte[]{firstIdentifierByte};
             result[0] |= (byte) (tagNumber & 0x1F);
         } else {
             int longTagNumberBytes = this.field.getLongTagNumberBytes().getValue();
@@ -77,7 +81,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
                 longEncoding = ByteArrayUtils.merge(new byte[longTagNumberBytes - longEncoding.length], longEncoding);
             }
             firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-            result = ByteArrayUtils.merge(new byte[] { firstIdentifierByte }, longEncoding);
+            result = ByteArrayUtils.merge(new byte[]{firstIdentifierByte}, longEncoding);
         }
         return result;
     }
@@ -112,7 +116,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
             length = BigInteger.ZERO;
         }
         if (this.field.getLongLengthBytes().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
-            result = new byte[] { (byte) length.byteValue() };
+            result = new byte[]{(byte) length.byteValue()};
         } else {
             result = encodeLongLength(length);
         }
@@ -135,7 +139,7 @@ public class Asn1FieldSerializer extends Asn1RawFieldSerializer {
             longLength[0] = (byte) (0x80 | longLength.length - 1);
             result = longLength;
         } else {
-            byte[] prefix = new byte[] { (byte) (0x80 | longLength.length) };
+            byte[] prefix = new byte[]{(byte) (0x80 | longLength.length)};
             if (longLength.length < (longLengthBytes)) {
                 longLength = ByteArrayUtils.merge(new byte[longLengthBytes - longLength.length], longLength);
             }
