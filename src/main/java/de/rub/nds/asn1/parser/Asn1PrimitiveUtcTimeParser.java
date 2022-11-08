@@ -19,7 +19,9 @@ public class Asn1PrimitiveUtcTimeParser extends Asn1Parser<Asn1PrimitiveUtcTime>
 
     @Override
     public Asn1PrimitiveUtcTime parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitiveUtcTime asn1PrimitiveUtcTime = new Asn1PrimitiveUtcTime();
+        genericParse(asn1PrimitiveUtcTime);
+        return asn1PrimitiveUtcTime;
     }
 
 }

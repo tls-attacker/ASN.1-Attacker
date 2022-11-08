@@ -19,7 +19,9 @@ public class Asn1PrimitiveUtf8StringParser extends Asn1Parser<Asn1PrimitiveUtf8S
 
     @Override
     public Asn1PrimitiveUtf8String parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitiveUtf8String asn1PrimitiveUtf8String = new Asn1PrimitiveUtf8String();
+        genericParse(asn1PrimitiveUtf8String);
+        return asn1PrimitiveUtf8String;
     }
 
 }

@@ -19,7 +19,9 @@ public class Asn1PrimitiveT61StringParser extends Asn1Parser<Asn1PrimitiveT61Str
 
     @Override
     public Asn1PrimitiveT61String parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitiveT61String asn1PrimitiveT61String = new Asn1PrimitiveT61String();
+        genericParse(asn1PrimitiveT61String);
+        return asn1PrimitiveT61String;
     }
 
 }

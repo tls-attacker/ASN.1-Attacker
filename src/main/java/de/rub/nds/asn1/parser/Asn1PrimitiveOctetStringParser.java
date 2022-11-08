@@ -19,7 +19,9 @@ public class Asn1PrimitiveOctetStringParser extends Asn1Parser<Asn1PrimitiveOcte
 
     @Override
     public Asn1PrimitiveOctetString parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitiveOctetString asn1PrimitiveOctetString = new Asn1PrimitiveOctetString();
+        genericParse(asn1PrimitiveOctetString);
+        return asn1PrimitiveOctetString;
     }
 
 }

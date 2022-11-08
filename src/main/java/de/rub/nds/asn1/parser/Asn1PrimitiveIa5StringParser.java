@@ -19,7 +19,9 @@ public class Asn1PrimitiveIa5StringParser extends Asn1Parser<Asn1PrimitiveIa5Str
 
     @Override
     public Asn1PrimitiveIa5String parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitiveIa5String asn1PrimitiveIa5String = new Asn1PrimitiveIa5String();
+        genericParse(asn1PrimitiveIa5String);
+        return asn1PrimitiveIa5String;
     }
 
 }

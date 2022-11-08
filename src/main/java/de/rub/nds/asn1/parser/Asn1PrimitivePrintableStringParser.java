@@ -19,7 +19,9 @@ public class Asn1PrimitivePrintableStringParser extends Asn1Parser<Asn1Primitive
 
     @Override
     public Asn1PrimitivePrintableString parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitivePrintableString asn1PrintableString = new Asn1PrimitivePrintableString();
+        genericParse(asn1PrintableString);
+        return asn1PrintableString;
     }
 
 }

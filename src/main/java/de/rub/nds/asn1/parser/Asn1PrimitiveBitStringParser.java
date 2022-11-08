@@ -19,7 +19,9 @@ public class Asn1PrimitiveBitStringParser extends Asn1Parser<Asn1PrimitiveBitStr
 
     @Override
     public Asn1PrimitiveBitString parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1PrimitiveBitString asn1PrimitiveBitString = new Asn1PrimitiveBitString();
+        genericParse(asn1PrimitiveBitString);
+        return asn1PrimitiveBitString;
     }
 
 }

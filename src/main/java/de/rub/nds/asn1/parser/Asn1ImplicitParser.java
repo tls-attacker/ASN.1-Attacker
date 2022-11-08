@@ -19,6 +19,8 @@ public class Asn1ImplicitParser extends Asn1Parser<Asn1Implicit> {
 
     @Override
     public Asn1Implicit parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1Implicit asn1Implicit = new Asn1Implicit();
+        genericParse(asn1Implicit);
+        return asn1Implicit;
     }
 }

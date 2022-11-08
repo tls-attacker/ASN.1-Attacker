@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.model.Asn1EncapsulatingBitString;
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +24,8 @@ public class Asn1ObjectIdentifierParser extends Asn1Parser<Asn1ObjectIdentifier>
 
     @Override
     public Asn1ObjectIdentifier parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1ObjectIdentifier asn1ObjectIdentifier=  new Asn1ObjectIdentifier();
+        genericParse(asn1ObjectIdentifier);
+        return asn1ObjectIdentifier;
     }
 }

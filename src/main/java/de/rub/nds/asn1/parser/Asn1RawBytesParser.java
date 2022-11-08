@@ -19,7 +19,9 @@ public class Asn1RawBytesParser extends Asn1Parser<Asn1RawBytes> {
 
     @Override
     public Asn1RawBytes parse() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Asn1RawBytes asn1RawBytes = new Asn1RawBytes();
+        genericParse(asn1RawBytes);
+        return asn1RawBytes;
     }
 
 }
