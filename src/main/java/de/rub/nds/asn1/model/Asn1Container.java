@@ -12,6 +12,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.asn1.serializer.DefaultAsn1ContainerSerializer;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -23,19 +24,11 @@ import java.util.List;
 public abstract class Asn1Container extends Asn1Field {
 
     @XmlTransient
-    private byte[] encodedChildren = new byte[0];
+    private ModifiableByteArray encodedChildren;
 
     public Asn1Container() {
     }
 
-
-    public byte[] getEncodedChildren() {
-        return encodedChildren;
-    }
-
-    public void setEncodedChildren(byte[] encodedChildren) {
-        this.encodedChildren = encodedChildren;
-    }
 
     public abstract void addChild(final Asn1Encodable child);
 

@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.Asn1Encodable;
@@ -14,6 +13,7 @@ import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ImplicitSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
+import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +27,7 @@ public final class Asn1Implicit extends Asn1Container {
     public static final boolean IS_CONSTRUCTED = true;
 
     @XmlElement(name = "offset")
-    private int offset = 0;
+    private ModifiableInteger offset;
 
     @XmlAnyElement(lax = true)
     @HoldsModifiableVariable
@@ -36,11 +36,11 @@ public final class Asn1Implicit extends Asn1Container {
     public Asn1Implicit() {
     }
 
-    public int getOffset() {
+    public ModifiableInteger getOffset() {
         return offset;
     }
 
-    public void setOffset(int offset) {
+    public void setOffset(ModifiableInteger offset) {
         this.offset = offset;
     }
 

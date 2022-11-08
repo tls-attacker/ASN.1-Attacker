@@ -13,6 +13,7 @@ import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1ObjectIdentifierSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -27,16 +28,16 @@ public final class Asn1ObjectIdentifier extends Asn1Field {
     public static final int TAG_NUMBER = TagNumber.OBJECT_IDENTIFIER.getIntValue();
 
     @XmlElement(name = "value")
-    private String value = "";
+    private ModifiableString value;
 
     public Asn1ObjectIdentifier() {
     }
 
-    public String getValue() {
+    public ModifiableString getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(ModifiableString value) {
         this.value = value;
     }
 

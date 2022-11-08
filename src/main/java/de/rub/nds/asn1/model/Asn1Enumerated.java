@@ -13,6 +13,7 @@ import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1EnumeratedSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -30,16 +31,16 @@ public final class Asn1Enumerated extends Asn1Field {
     private static final int TAG_NUMBER = TagNumber.ENUMERATED.getIntValue();
 
     @XmlElement(name = "value")
-    private BigInteger value = BigInteger.ZERO;
+    private ModifiableBigInteger value;
 
     public Asn1Enumerated() {
     }
 
-    public BigInteger getValue() {
+    public ModifiableBigInteger getValue() {
         return value;
     }
 
-    public void setValue(BigInteger value) {
+    public void setValue(ModifiableBigInteger value) {
         this.value = value;
     }
 

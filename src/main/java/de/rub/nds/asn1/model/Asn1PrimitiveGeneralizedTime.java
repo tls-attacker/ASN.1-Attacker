@@ -6,13 +6,13 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveGeneralizedTimeSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -29,16 +29,16 @@ public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
     public static final int TAG_NUMBER = TagNumber.GENERALIZEDTIME.getIntValue();
 
     @XmlElement(name = "value")
-    private String value = "";
+    private ModifiableString value;
 
     public Asn1PrimitiveGeneralizedTime() {
     }
 
-    public String getValue() {
+    public ModifiableString getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(ModifiableString value) {
         this.value = value;
     }
 
