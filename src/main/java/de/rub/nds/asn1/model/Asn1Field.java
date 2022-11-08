@@ -146,9 +146,4 @@ public class Asn1Field extends Asn1RawField {
     public void setContent(byte[] content) {
         this.content = ModifiableVariableFactory.safelySetValue(this.content, content);
     }
-
-    @Override
-    public Asn1Serializer getSerializer() {
-        return new Asn1FieldSerializer(this);
-    }
 }

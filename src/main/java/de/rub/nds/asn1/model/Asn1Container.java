@@ -6,18 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.asn1.serializer.DefaultAsn1ContainerSerializer;
+import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedList;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -26,19 +28,37 @@ public abstract class Asn1Container extends Asn1Field {
     @XmlTransient
     private ModifiableByteArray encodedChildren;
 
+    @XmlAnyElement(lax = true)
+    @HoldsModifiableVariable
+    private Collection<Asn1Encodable> children = new LinkedList<>();
+
     public Asn1Container() {
     }
 
+    public ModifiableByteArray getEncodedChildren() {
+        return encodedChildren;
+    }
 
-    public abstract void addChild(final Asn1Encodable child);
+    public void setEncodedChildren(ModifiableByteArray encodedChildren) {
+        this.encodedChildren = encodedChildren;
+    }
 
-    public abstract void setChildren(final List<Asn1Encodable> children);
+    public void addChild(final Asn1Encodable child) {
+        this.children.add(child);
+    }
 
-    public abstract List<Asn1Encodable> getChildren();
+    public Collection<Asn1Encodable> getChildren() {
+        return children;
+    }
 
-    public abstract void clearChildren();
+    public void setChildren(Collection<Asn1Encodable> children) {
+        this.children = children;
+    }
 
-    @Override
+    public void clearChildren() {
+        this.children.clear();
+    }
+
     public Asn1Serializer getSerializer() {
         return new DefaultAsn1ContainerSerializer(this);
     }

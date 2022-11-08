@@ -8,15 +8,11 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ExplicitSerializer;
 import de.rub.nds.asn1.serializer.Asn1Serializer;
-import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.*;
-import java.util.LinkedList;
-import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -29,10 +25,6 @@ public final class Asn1Explicit extends Asn1Container {
     @XmlElement(name = "offset")
     private ModifiableInteger offset;
 
-    @XmlAnyElement(lax = true)
-    @HoldsModifiableVariable
-    private List<Asn1Encodable> children = new LinkedList<>();
-
     public Asn1Explicit() {
     }
 
@@ -42,26 +34,6 @@ public final class Asn1Explicit extends Asn1Container {
 
     public void setOffset(ModifiableInteger offset) {
         this.offset = offset;
-    }
-
-    @Override
-    public void addChild(final Asn1Encodable child) {
-        this.children.add(child);
-    }
-
-    @Override
-    public List<Asn1Encodable> getChildren() {
-        return children;
-    }
-
-    @Override
-    public void setChildren(List<Asn1Encodable> children) {
-        this.children = children;
-    }
-
-    @Override
-    public void clearChildren() {
-        this.children.clear();
     }
 
     @Override

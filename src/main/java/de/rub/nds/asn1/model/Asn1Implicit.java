@@ -29,10 +29,6 @@ public final class Asn1Implicit extends Asn1Container {
     @XmlElement(name = "offset")
     private ModifiableInteger offset;
 
-    @XmlAnyElement(lax = true)
-    @HoldsModifiableVariable
-    private List<Asn1Encodable> children = new LinkedList<>();
-
     public Asn1Implicit() {
     }
 
@@ -42,26 +38,6 @@ public final class Asn1Implicit extends Asn1Container {
 
     public void setOffset(ModifiableInteger offset) {
         this.offset = offset;
-    }
-
-    @Override
-    public void addChild(final Asn1Encodable child) {
-        this.children.add(child);
-    }
-
-    @Override
-    public List<Asn1Encodable> getChildren() {
-        return children;
-    }
-
-    @Override
-    public void setChildren(List<Asn1Encodable> children) {
-        this.children = children;
-    }
-
-    @Override
-    public void clearChildren() {
-        this.children.clear();
     }
 
     @Override
