@@ -30,7 +30,6 @@ public final class Asn1ObjectIdentifier extends Asn1Field {
     private String value = "";
 
     public Asn1ObjectIdentifier() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     public String getValue() {

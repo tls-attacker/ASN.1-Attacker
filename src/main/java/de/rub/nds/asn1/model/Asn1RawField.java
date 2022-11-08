@@ -51,9 +51,6 @@ public abstract class Asn1RawField implements Asn1Encodable {
     private ModifiableByteArray contentOctets = new ModifiableByteArray();
 
     public Asn1RawField() {
-        this.identifierOctets.setOriginalValue(new byte[0]);
-        this.lengthOctets.setOriginalValue(new byte[0]);
-        this.contentOctets.setOriginalValue(new byte[0]);
     }
 
     @Override

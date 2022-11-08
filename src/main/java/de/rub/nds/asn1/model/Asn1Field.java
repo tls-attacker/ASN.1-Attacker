@@ -49,17 +49,6 @@ public class Asn1Field extends Asn1RawField {
     private ModifiableByteArray content = new ModifiableByteArray();
 
     public Asn1Field() {
-        this(0, false, 0);
-    }
-
-    public Asn1Field(final int tagClass, final boolean tagConstructed, final int tagNumber) {
-        this.tagClass.setOriginalValue(tagClass);
-        this.tagConstructed.setOriginalValue(tagConstructed);
-        this.tagNumber.setOriginalValue(tagNumber);
-        this.length.setOriginalValue(BigInteger.ZERO);
-        this.content.setOriginalValue(new byte[0]);
-        this.longLengthBytes.setOriginalValue(0);
-        this.longTagNumberBytes.setOriginalValue(0);
     }
 
     public ModifiableInteger getTagClass() {

@@ -32,7 +32,6 @@ public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
     private String value = "";
 
     public Asn1PrimitiveGeneralizedTime() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     public String getValue() {

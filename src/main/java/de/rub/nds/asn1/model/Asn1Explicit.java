@@ -34,7 +34,6 @@ public final class Asn1Explicit extends Asn1Container {
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1Explicit() {
-        super(TAG_CLASS, IS_CONSTRUCTED, 0);
     }
 
     public int getOffset() {

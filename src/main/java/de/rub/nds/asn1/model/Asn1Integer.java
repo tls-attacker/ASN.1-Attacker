@@ -34,7 +34,6 @@ public final class Asn1Integer extends Asn1Field {
     private BigInteger value = BigInteger.ZERO;
 
     public Asn1Integer() {
-        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
     }
 
     public BigInteger getValue() {

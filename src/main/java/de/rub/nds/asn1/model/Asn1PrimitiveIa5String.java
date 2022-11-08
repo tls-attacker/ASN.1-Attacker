@@ -32,7 +32,6 @@ public final class Asn1PrimitiveIa5String extends Asn1Field {
     private String value = "";
 
     public Asn1PrimitiveIa5String() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     public String getValue() {

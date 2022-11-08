@@ -35,7 +35,6 @@ public final class Asn1RawBytes extends Asn1Field {
     private byte[] value = new byte[0];
 
     public Asn1RawBytes() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     public byte[] getValue() {

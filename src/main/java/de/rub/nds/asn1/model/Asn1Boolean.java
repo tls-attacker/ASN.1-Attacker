@@ -34,7 +34,6 @@ public final class Asn1Boolean extends Asn1Field {
     private ModifiableBoolean value;
 
     public Asn1Boolean() {
-        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
     }
 
     public ModifiableBoolean getValue() {

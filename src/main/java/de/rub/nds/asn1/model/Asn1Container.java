@@ -26,12 +26,8 @@ public abstract class Asn1Container extends Asn1Field {
     private byte[] encodedChildren = new byte[0];
 
     public Asn1Container() {
-        this(0, false, 0);
     }
 
-    public Asn1Container(final int tagClass, final boolean tagConstructed, final int tagNumber) {
-        super(tagClass, tagConstructed, tagNumber);
-    }
 
     public byte[] getEncodedChildren() {
         return encodedChildren;

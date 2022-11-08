@@ -26,6 +26,5 @@ public final class Asn1Null extends Asn1Field {
     public static final int TAG_NUMBER = TagNumber.NULL.getIntValue();
 
     public Asn1Null() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 }

@@ -39,7 +39,6 @@ public final class Asn1PrimitiveBitString extends Asn1Field {
     private byte[] value = new byte[0];
 
     public Asn1PrimitiveBitString() {
-        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
     }
 
     public int getUnusedBits() {

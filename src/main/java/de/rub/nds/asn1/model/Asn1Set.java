@@ -34,10 +34,6 @@ public final class Asn1Set extends Asn1Container {
     @HoldsModifiableVariable
     private List<Asn1Encodable> children = new LinkedList<>();
 
-    public Asn1Set() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
-    }
-
     @Override
     public void addChild(final Asn1Encodable child) {
         this.children.add(child);

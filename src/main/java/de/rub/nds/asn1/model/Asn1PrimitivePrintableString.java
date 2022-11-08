@@ -32,7 +32,6 @@ public final class Asn1PrimitivePrintableString extends Asn1Field {
     private String value = "";
 
     public Asn1PrimitivePrintableString() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     public String getValue() {

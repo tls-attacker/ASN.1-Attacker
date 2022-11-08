@@ -36,7 +36,6 @@ public final class Asn1ConstructedBitString extends Asn1Container {
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1ConstructedBitString() {
-        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
     }
 
     @Override

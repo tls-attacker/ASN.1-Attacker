@@ -21,5 +21,6 @@ public class Asn1IntegerParser extends Asn1Parser<Asn1Integer> {
     public Asn1Integer parse() {
         Asn1Integer asn1Integer = new Asn1Integer();
         genericParse(asn1Integer);
+        return asn1Integer;
     }
 }

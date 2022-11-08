@@ -35,7 +35,6 @@ public final class Asn1ConstructedIa5String extends Asn1Container {
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1ConstructedIa5String() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     @Override

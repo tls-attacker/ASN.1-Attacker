@@ -35,7 +35,6 @@ public final class Asn1ConstructedOctetString extends Asn1Container {
     private List<Asn1Encodable> children = new LinkedList<>();
 
     public Asn1ConstructedOctetString() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
     }
 
     @Override

@@ -27,6 +27,5 @@ public final class Asn1EndOfContent extends Asn1Field {
     private static final int TAG_NUMBER = TagNumber.END_OF_CONTENT.getIntValue();
 
     public Asn1EndOfContent() {
-        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
     }
 }
