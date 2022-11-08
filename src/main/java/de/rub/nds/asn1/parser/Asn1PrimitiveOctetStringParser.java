@@ -6,29 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
+import java.io.InputStream;
 
-public class Asn1PrimitiveOctetStringParser extends Asn1FieldParser {
+public class Asn1PrimitiveOctetStringParser extends Asn1Parser<Asn1PrimitiveOctetString> {
 
-    private final Asn1PrimitiveOctetString asn1PrimitiveOctetString;
-
-    public Asn1PrimitiveOctetStringParser(Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
-        super(asn1PrimitiveOctetString);
-        this.asn1PrimitiveOctetString = asn1PrimitiveOctetString;
+    public Asn1PrimitiveOctetStringParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveOctetString();
-        super.updateLayers();
+    public Asn1PrimitiveOctetString parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodePrimitiveOctetString() {
-        byte[] content = this.asn1PrimitiveOctetString.getValue();
-        this.asn1PrimitiveOctetString.setContent(content);
-    }
 }

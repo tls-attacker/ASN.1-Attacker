@@ -9,8 +9,8 @@
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Field;
-import de.rub.nds.util.ByteArrayUtils;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -129,19 +129,19 @@ public abstract class Asn1Parser<T extends Asn1Field> {
     }
 
     protected byte[] parseContent(BigInteger length) {
-        byte[] content = new byte[0];
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         while (length.compareTo(BigInteger.ZERO) > 0) {
             int bytesToRead = 65536;
             if (length.compareTo(BigInteger.valueOf(bytesToRead)) < 0) {
                 bytesToRead = length.intValue();
             }
             try {
-                content = ByteArrayUtils.merge(content, inputStream.readNBytes(bytesToRead));
+                outputStream.write(inputStream.readNBytes(bytesToRead));
             } catch (IOException ex) {
                 throw new ParserException(ex);
             }
             length = length.subtract(BigInteger.valueOf(bytesToRead));
         }
-        return content;
+        return outputStream.toByteArray();
     }
 }

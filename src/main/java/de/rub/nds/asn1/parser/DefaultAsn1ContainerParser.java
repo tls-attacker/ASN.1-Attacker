@@ -6,29 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1Container;
+import java.io.InputStream;
 
-public class DefaultAsn1ContainerParser extends Asn1FieldParser {
+public class DefaultAsn1ContainerParser extends Asn1Parser<Asn1Container> {
 
-    private final Asn1Container asn1Container;
-
-    public DefaultAsn1ContainerParser(final Asn1Container asn1Container) {
-        super(asn1Container);
-        this.asn1Container = asn1Container;
+    public DefaultAsn1ContainerParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodeContainer();
-        super.updateLayers();
+    public Asn1Container parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodeContainer() {
-        byte[] content = this.asn1Container.getEncodedChildren();
-        this.asn1Container.setContent(content);
-    }
 }

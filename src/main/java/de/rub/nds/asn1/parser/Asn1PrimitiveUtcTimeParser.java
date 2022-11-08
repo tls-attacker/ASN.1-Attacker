@@ -6,29 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveUtcTime;
+import java.io.InputStream;
 
-public class Asn1PrimitiveUtcTimeParser extends Asn1FieldParser {
+public class Asn1PrimitiveUtcTimeParser extends Asn1Parser<Asn1PrimitiveUtcTime> {
 
-    private final Asn1PrimitiveUtcTime asn1PrimitiveUtcTime;
-
-    public Asn1PrimitiveUtcTimeParser(Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
-        super(asn1PrimitiveUtcTime);
-        this.asn1PrimitiveUtcTime = asn1PrimitiveUtcTime;
+    public Asn1PrimitiveUtcTimeParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveUtcTime();
-        super.updateLayers();
+    public Asn1PrimitiveUtcTime parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodePrimitiveUtcTime() {
-        byte[] content = this.asn1PrimitiveUtcTime.getValue().getBytes();
-        this.asn1PrimitiveUtcTime.setContent(content);
-    }
 }

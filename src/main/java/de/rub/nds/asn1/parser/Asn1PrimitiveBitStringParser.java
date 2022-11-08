@@ -6,31 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
-import de.rub.nds.util.ByteArrayUtils;
+import java.io.InputStream;
 
-public class Asn1PrimitiveBitStringParser extends Asn1FieldParser {
+public class Asn1PrimitiveBitStringParser extends Asn1Parser<Asn1PrimitiveBitString> {
 
-    private final Asn1PrimitiveBitString asn1PrimitiveBitString;
-
-    public Asn1PrimitiveBitStringParser(final Asn1PrimitiveBitString asn1PrimitiveBitString) {
-        super(asn1PrimitiveBitString);
-        this.asn1PrimitiveBitString = asn1PrimitiveBitString;
+    public Asn1PrimitiveBitStringParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveBitString();
-        super.updateLayers();
+    public Asn1PrimitiveBitString parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodePrimitiveBitString() {
-        byte[] content = new byte[] { (byte) this.asn1PrimitiveBitString.getUnusedBits() };
-        content = ByteArrayUtils.merge(content, this.asn1PrimitiveBitString.getValue());
-        this.asn1PrimitiveBitString.setContent(content);
-    }
 }

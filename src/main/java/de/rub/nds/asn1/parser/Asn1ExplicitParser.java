@@ -6,29 +6,19 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Explicit;
+import java.io.InputStream;
 
-public class Asn1ExplicitParser extends Asn1FieldParser {
+public class Asn1ExplicitParser extends Asn1Parser<Asn1Explicit> {
 
-    private final Asn1Explicit asn1Explicit;
-
-    public Asn1ExplicitParser(final Asn1Explicit asn1Explicit) {
-        super(asn1Explicit);
-        this.asn1Explicit = asn1Explicit;
+    public Asn1ExplicitParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodeExplicit();
-        super.updateLayers();
-    }
-
-    private void encodeExplicit() {
-        int offset = this.asn1Explicit.getOffset();
-        this.asn1Explicit.getTagNumber().setOriginalValue(offset);
-        this.asn1Explicit.setContent(this.asn1Explicit.getEncodedChildren());
+    public Asn1Explicit parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

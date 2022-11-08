@@ -6,29 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
+import java.io.InputStream;
 
-public class Asn1PrimitivePrintableStringParser extends Asn1Parser {
+public class Asn1PrimitivePrintableStringParser extends Asn1Parser<Asn1PrimitivePrintableString> {
 
-    private final Asn1PrimitivePrintableString asn1PrimitivePrintableString;
-
-    public Asn1PrimitivePrintableStringParser(Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
-        super(asn1PrimitivePrintableString);
-        this.asn1PrimitivePrintableString = asn1PrimitivePrintableString;
+    public Asn1PrimitivePrintableStringParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitivePrintableString();
-        super.updateLayers();
+    public Asn1PrimitivePrintableString parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodePrimitivePrintableString() {
-        byte[] content = this.asn1PrimitivePrintableString.getValue().getBytes();
-        this.asn1PrimitivePrintableString.setContent(content);
-    }
 }

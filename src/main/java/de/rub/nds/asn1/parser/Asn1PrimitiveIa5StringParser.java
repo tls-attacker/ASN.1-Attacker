@@ -6,29 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
+import java.io.InputStream;
 
-public class Asn1PrimitiveIa5StringParser extends Asn1FieldParser {
+public class Asn1PrimitiveIa5StringParser extends Asn1Parser<Asn1PrimitiveIa5String> {
 
-    private final Asn1PrimitiveIa5String asn1PrimitiveIa5String;
-
-    public Asn1PrimitiveIa5StringParser(Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
-        super(asn1PrimitiveIa5String);
-        this.asn1PrimitiveIa5String = asn1PrimitiveIa5String;
+    public Asn1PrimitiveIa5StringParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveIa5String();
-        super.updateLayers();
+    public Asn1PrimitiveIa5String parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodePrimitiveIa5String() {
-        byte[] content = this.asn1PrimitiveIa5String.getValue().getBytes();
-        this.asn1PrimitiveIa5String.setContent(content);
-    }
 }

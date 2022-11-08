@@ -6,29 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveGeneralizedTime;
+import java.io.InputStream;
 
-public class Asn1PrimitiveGeneralizedTimeParser extends Asn1FieldParser {
+public class Asn1PrimitiveGeneralizedTimeParser extends Asn1Parser<Asn1PrimitiveGeneralizedTime> {
 
-    private final Asn1PrimitiveGeneralizedTime asn1PrimitiveGeneralizedTime;
-
-    public Asn1PrimitiveGeneralizedTimeParser(final Asn1PrimitiveGeneralizedTime asn1PrimitiveGeneralizedTime) {
-        super(asn1PrimitiveGeneralizedTime);
-        this.asn1PrimitiveGeneralizedTime = asn1PrimitiveGeneralizedTime;
+    public Asn1PrimitiveGeneralizedTimeParser(InputStream inputStream) {
+        super(inputStream);
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveIa5String();
-        super.updateLayers();
+    public Asn1PrimitiveGeneralizedTime parse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void encodePrimitiveIa5String() {
-        byte[] content = this.asn1PrimitiveGeneralizedTime.getValue().getBytes();
-        this.asn1PrimitiveGeneralizedTime.setContent(content);
-    }
 }
