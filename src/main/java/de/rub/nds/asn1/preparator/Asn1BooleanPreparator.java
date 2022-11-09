@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.serializer.*;
@@ -21,14 +20,12 @@ public class Asn1BooleanPreparator extends Asn1FieldPreparator {
         this.asn1Boolean = asn1Boolean;
     }
 
-    @Override
-    public void updateLayers() {
-        this.encodeBoolean();
-        super.updateLayers();
+    private void encodeBoolean() {
     }
 
-    private void encodeBoolean() {
-        byte[] content = new byte[] { 0 };
+    @Override
+    protected byte[] encodeContent() {
+        byte[] content = new byte[]{0};
         if (this.asn1Boolean.getValue().getValue()) {
             content[0] = (byte) 0xFF;
         }

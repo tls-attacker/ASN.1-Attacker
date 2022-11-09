@@ -20,13 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1EndOfContent extends Asn1Field {
 
-    private static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    private static final boolean TAG_CONSTRUCTED = TagConstructed.PRIMITIVE.getBooleanValue();
-
-    private static final int TAG_NUMBER = TagNumber.END_OF_CONTENT.getIntValue();
-
     public Asn1EndOfContent() {
+        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.END_OF_CONTENT);
     }
 
     @Override

@@ -10,6 +10,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1ObjectIdentifierSerializer;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
@@ -22,14 +23,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1ObjectIdentifier extends Asn1Field {
 
-    public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-    public static final boolean IS_CONSTRUCTED = false;
-    public static final int TAG_NUMBER = TagNumber.OBJECT_IDENTIFIER.getIntValue();
-
     @XmlElement(name = "value")
     private ModifiableString value;
 
     public Asn1ObjectIdentifier() {
+        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.OBJECT_IDENTIFIER);
     }
 
     public ModifiableString getValue() {

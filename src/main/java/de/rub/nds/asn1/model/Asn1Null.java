@@ -9,6 +9,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -19,13 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1Null extends Asn1Field {
 
-    public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    public static final boolean IS_CONSTRUCTED = false;
-
-    public static final int TAG_NUMBER = TagNumber.NULL.getIntValue();
-
     public Asn1Null() {
+        super(TagClass.UNIVERSAL,TagConstructed.CONSTRUCTED,TagNumber.NULL);
     }
 
     @Override

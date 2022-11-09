@@ -16,7 +16,7 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldPreparator {
+public abstract class Asn1FieldPreparator extends Preparator{
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -26,6 +26,12 @@ public abstract class Asn1FieldPreparator {
         this.field = field;
     }
 
+    @Override
+    public void prepare() {
+        encodeContent();
+        
+    }
+    
     /**
      *
      * @return
@@ -43,7 +49,7 @@ public abstract class Asn1FieldPreparator {
 
     }
 
-    protected abstract byte[] encodeContent();
+    protected abstract encodeContent();
 
     private void encodeField() {
         byte[] identifierOctets = this.encodeIdentifier();
@@ -155,9 +161,5 @@ public abstract class Asn1FieldPreparator {
             result = ByteArrayUtils.merge(prefix, longLength);
         }
         return result;
-    }
-
-    private final byte[] encodeContent() {
-        return field.getContent().getValue();
     }
 }

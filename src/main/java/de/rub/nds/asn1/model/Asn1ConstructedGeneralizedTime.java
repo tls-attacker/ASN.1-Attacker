@@ -9,6 +9,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -18,13 +19,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Asn1ConstructedGeneralizedTime extends Asn1Container {
 
-    public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    public static final boolean IS_CONSTRUCTED = true;
-
-    public static final int TAG_NUMBER = TagNumber.GENERALIZEDTIME.getIntValue();
-
     public Asn1ConstructedGeneralizedTime() {
+        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.GENERALIZEDTIME);
     }
 
 }

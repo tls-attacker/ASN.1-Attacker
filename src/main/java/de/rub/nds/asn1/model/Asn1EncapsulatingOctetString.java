@@ -10,6 +10,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -19,13 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1EncapsulatingOctetString extends Asn1Container {
 
-    public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    public static final boolean IS_CONSTRUCTED = false;
-
-    public static final int TAG_NUMBER = TagNumber.OCTET_STRING.getIntValue();
-
     public Asn1EncapsulatingOctetString() {
+        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE,TagNumber.OCTET_STRING);
     }
 
 }

@@ -8,6 +8,9 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
+import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
@@ -44,7 +47,14 @@ public abstract class Asn1Field extends Asn1RawField {
     @XmlElement(name = "content")
     private ModifiableByteArray content = new ModifiableByteArray();
 
-    public Asn1Field() {
+    private TagClass tagClassType;
+    private TagConstructed tagConstructedType;
+    private TagNumber tagNumberType;
+
+    public Asn1Field(TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
+        this.tagClassType = tagClassType;
+        this.tagConstructedType = tagConstructedType;
+        this.tagNumberType = tagNummerType;
     }
 
     public ModifiableInteger getTagClass() {

@@ -24,12 +24,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1PrimitiveBitString extends Asn1Field {
 
-    private static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    private static final boolean TAG_CONSTRUCTED = TagConstructed.PRIMITIVE.getBooleanValue();
-
-    private static final int TAG_NUMBER = TagNumber.BIT_STRING.getIntValue();
-
     @XmlElement(name = "unusedBits")
     private ModifiableInteger unusedBits;
 
@@ -37,6 +31,7 @@ public final class Asn1PrimitiveBitString extends Asn1Field {
     private ModifiableByteArray value;
 
     public Asn1PrimitiveBitString() {
+        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.BIT_STRING);
     }
 
     public ModifiableInteger getUnusedBits() {

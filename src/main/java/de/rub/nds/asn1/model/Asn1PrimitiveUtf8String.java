@@ -9,6 +9,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveUtf8StringSerializer;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
@@ -21,16 +22,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1PrimitiveUtf8String extends Asn1Field {
 
-    public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    public static final boolean IS_CONSTRUCTED = false;
-
-    public static final int TAG_NUMBER = TagNumber.UTF8STRING.getIntValue();
-
     @XmlElement(name = "value")
     private ModifiableString value;
 
     public Asn1PrimitiveUtf8String() {
+        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.UTF8STRING);
     }
 
     public ModifiableString getValue() {

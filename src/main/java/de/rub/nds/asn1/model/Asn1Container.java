@@ -9,6 +9,9 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.Asn1Encodable;
+import de.rub.nds.asn1.TagClass;
+import de.rub.nds.asn1.TagConstructed;
+import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.asn1.serializer.GenericAsn1ContainerSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
@@ -32,7 +35,8 @@ public abstract class Asn1Container extends Asn1Field {
     @HoldsModifiableVariable
     private Collection<Asn1Encodable> children = new LinkedList<>();
 
-    public Asn1Container() {
+    public Asn1Container(TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
+        super(tagClassType, tagConstructedType, tagNummerType);
     }
 
     public ModifiableByteArray getEncodedChildren() {

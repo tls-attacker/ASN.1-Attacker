@@ -22,16 +22,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1Enumerated extends Asn1Field {
 
-    private static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    private static final boolean TAG_CONSTRUCTED = TagConstructed.PRIMITIVE.getBooleanValue();
-
-    private static final int TAG_NUMBER = TagNumber.ENUMERATED.getIntValue();
-
     @XmlElement(name = "value")
     private ModifiableBigInteger value;
 
     public Asn1Enumerated() {
+        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.ENUMERATED);
     }
 
     public ModifiableBigInteger getValue() {

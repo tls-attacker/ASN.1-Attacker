@@ -23,16 +23,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1Boolean extends Asn1Field {
 
-    private static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    private static final boolean TAG_CONSTRUCTED = TagConstructed.PRIMITIVE.getBooleanValue();
-
-    private static final int TAG_NUMBER = TagNumber.BOOLEAN.getIntValue();
-
     @XmlElement(name = "value")
     private ModifiableBoolean value;
 
     public Asn1Boolean() {
+        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.BOOLEAN);
     }
 
     public ModifiableBoolean getValue() {
