@@ -6,24 +6,23 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-package de.rub.nds.asn1.serializer;
+package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.util.ByteArrayUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.logging.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldSerializer {
+public abstract class Asn1FieldPreparator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final Asn1Field field;
 
-    public Asn1FieldSerializer(final Asn1Field field) {
+    public Asn1FieldPreparator(final Asn1Field field) {
         this.field = field;
     }
 
