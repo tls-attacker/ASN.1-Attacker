@@ -12,7 +12,6 @@ import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1IntegerSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -44,7 +43,7 @@ public final class Asn1Integer extends Asn1Field {
     }
 
     @Override
-    public Asn1Serializer getSerializer() {
+    public Asn1IntegerSerializer getSerializer() {
         return new Asn1IntegerSerializer(this);
     }
 }

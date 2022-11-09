@@ -8,21 +8,17 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.*;
 import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Field extends Asn1RawField {
+public abstract class Asn1Field extends Asn1RawField {
 
     @XmlElement(name = "tag")
     private ModifiableInteger tag = new ModifiableInteger();
@@ -146,4 +142,5 @@ public class Asn1Field extends Asn1RawField {
     public void setContent(byte[] content) {
         this.content = ModifiableVariableFactory.safelySetValue(this.content, content);
     }
+
 }

@@ -6,15 +6,12 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1;
 
-import de.rub.nds.asn1.serializer.Asn1Serializer;
-import jakarta.xml.bind.JAXBException;
-import java.io.IOException;
-import javax.xml.stream.XMLStreamException;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 
 public interface Asn1Encodable {
+
     String getIdentifier();
 
     void setIdentifier(final String identifier);
@@ -29,7 +26,6 @@ public interface Asn1Encodable {
 
     void setAttribute(final String attributeName, final String attributeValue);
 
-    Asn1Serializer getSerializer();
+    Asn1FieldSerializer getSerializer();
 
-    Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException;
 }

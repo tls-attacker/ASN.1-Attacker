@@ -10,7 +10,6 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.serializer.Asn1ExplicitSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.*;
 
@@ -37,7 +36,7 @@ public final class Asn1Explicit extends Asn1Container {
     }
 
     @Override
-    public Asn1Serializer getSerializer() {
+    public Asn1ExplicitSerializer getSerializer() {
         return new Asn1ExplicitSerializer(this);
     }
 }

@@ -11,6 +11,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -27,4 +28,6 @@ public final class Asn1Null extends Asn1Field {
 
     public Asn1Null() {
     }
+
+    
 }

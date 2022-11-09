@@ -12,7 +12,6 @@ import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1BooleanSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -49,7 +48,7 @@ public final class Asn1Boolean extends Asn1Field {
     }
 
     @Override
-    public Asn1Serializer getSerializer() {
+    public Asn1BooleanSerializer getSerializer() {
         return new Asn1BooleanSerializer(this);
     }
 }

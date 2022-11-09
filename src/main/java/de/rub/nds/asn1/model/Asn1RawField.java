@@ -6,27 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.serializer.Asn1EncodableSerializer;
-import de.rub.nds.asn1.serializer.Asn1RawFieldSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAnyAttribute;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -135,13 +128,4 @@ public abstract class Asn1RawField implements Asn1Encodable {
         this.contentOctets = ModifiableVariableFactory.safelySetValue(this.contentOctets, contentOctets);
     }
 
-    @Override
-    public Asn1Serializer getSerializer() {
-        return new Asn1RawFieldSerializer(this);
-    }
-
-    @Override
-    public Asn1Encodable getCopy() throws JAXBException, IOException, XMLStreamException {
-        return Asn1EncodableSerializer.copyAsn1Encodable(this);
-    }
 }
