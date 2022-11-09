@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
@@ -36,7 +37,7 @@ public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator {
     private byte[] encodeFirstTwoIdentifierStrings(String[] identifierStrings) {
         int identifier1 = Integer.parseInt(identifierStrings[0]);
         int identifier2 = Integer.parseInt(identifierStrings[1]);
-        return new byte[]{(byte) (identifier1 * 40 + identifier2)};
+        return new byte[] { (byte) (identifier1 * 40 + identifier2) };
     }
 
     private byte[] encodeSingleIdentifier(int identifierValue) {

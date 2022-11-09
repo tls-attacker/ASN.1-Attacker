@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public final class Asn1Sequence extends Asn1Container {
 
     public Asn1Sequence() {
-        super(TagClass.UNIVERSAL,TagConstructed.CONSTRUCTED,TagNumber.SEQUENCE);
+        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SEQUENCE);
     }
 
 }

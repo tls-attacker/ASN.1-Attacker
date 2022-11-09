@@ -26,7 +26,7 @@ public final class Asn1ObjectIdentifier extends Asn1Field {
     private ModifiableString value;
 
     public Asn1ObjectIdentifier() {
-        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.OBJECT_IDENTIFIER);
+        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OBJECT_IDENTIFIER);
     }
 
     public ModifiableString getValue() {

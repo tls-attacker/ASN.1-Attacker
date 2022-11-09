@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
@@ -25,7 +26,7 @@ public class Asn1PrimitiveBitStringPreparator extends Asn1FieldPreparator {
     protected byte[] encodeContent() {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(new byte[]{this.asn1PrimitiveBitString.getUnusedBits().getValue()});
+            outputStream.write(new byte[] { this.asn1PrimitiveBitString.getUnusedBits().getValue() });
             outputStream.write(this.asn1PrimitiveBitString.getValue().getValue());
             return outputStream.toByteArray();
         } catch (IOException ex) {

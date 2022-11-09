@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -20,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public final class Asn1ConstructedIa5String extends Asn1Container {
 
     public Asn1ConstructedIa5String() {
-        super(TagClass.UNIVERSAL,TagConstructed.CONSTRUCTED, TagNumber.IA5STRING);
+        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.IA5STRING);
     }
 
 }

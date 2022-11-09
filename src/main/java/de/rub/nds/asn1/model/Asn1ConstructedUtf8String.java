@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public final class Asn1ConstructedUtf8String extends Asn1Container {
 
     public Asn1ConstructedUtf8String() {
-        super(TagClass.UNIVERSAL,TagConstructed.CONSTRUCTED,TagNumber.UTF8STRING);
+        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.UTF8STRING);
     }
 
 }

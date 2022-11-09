@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1EncapsulatingBitString;
@@ -25,8 +26,8 @@ public class Asn1EncapsulatingBitStringPreparator extends Asn1FieldPreparator {
     protected byte[] encodeContent() {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(new byte[1]); //TODO I think this is the number of unused bits
-            //TODO Encode Childrend
+            outputStream.write(new byte[1]); // TODO I think this is the number of unused bits
+            // TODO Encode Childrend
             outputStream.write(this.asn1EncapsulatingBitString.getEncodedChildren().getValue());
             return outputStream.toByteArray();
         } catch (IOException ex) {

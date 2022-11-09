@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -25,7 +26,7 @@ public final class Asn1Enumerated extends Asn1Field {
     private ModifiableBigInteger value;
 
     public Asn1Enumerated() {
-        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.ENUMERATED);
+        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.ENUMERATED);
     }
 
     public ModifiableBigInteger getValue() {

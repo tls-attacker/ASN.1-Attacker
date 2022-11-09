@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public final class Asn1EncapsulatingOctetString extends Asn1Container {
 
     public Asn1EncapsulatingOctetString() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE,TagNumber.OCTET_STRING);
+        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
     }
 
 }

@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -26,9 +27,8 @@ public final class Asn1RawBytes extends Asn1Field {
     private ModifiableByteArray value;
 
     public Asn1RawBytes() {
-        super(TagClass.PRIVATE,TagConstructed.CONSTRUCTED,TagNumber.OCTET_STRING);
+        super(TagClass.PRIVATE, TagConstructed.CONSTRUCTED, TagNumber.OCTET_STRING);
     }
-    
 
     public ModifiableByteArray getValue() {
         return value;
@@ -40,8 +40,8 @@ public final class Asn1RawBytes extends Asn1Field {
 
     @Override
     public Asn1FieldSerializer getSerializer() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
 }

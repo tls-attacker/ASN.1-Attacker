@@ -18,7 +18,6 @@ public class Asn1EncapsulatingBitStringParser extends Asn1Parser<Asn1Encapsulati
         super(inputStream);
     }
 
-
     @Override
     public Asn1EncapsulatingBitString parse() {
         Asn1EncapsulatingBitString asn1EncapsulatingBitString = new Asn1EncapsulatingBitString();

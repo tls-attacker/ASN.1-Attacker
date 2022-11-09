@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1Field;
@@ -60,7 +61,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             }
             if (this.field.getLongTagLength().getValue() == 0 && tagNumber <= 0x1F) {
 
-                byte[] result = new byte[]{firstIdentifierByte};
+                byte[] result = new byte[] { firstIdentifierByte };
                 result[0] |= (byte) (tagNumber & 0x1F);
                 resultStream.write(result);
             } else {
@@ -76,7 +77,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
                     longEncodingStream.write(longEncoding);
                 }
                 firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-                resultStream.write(new byte[]{firstIdentifierByte});
+                resultStream.write(new byte[] { firstIdentifierByte });
                 resultStream.write(longEncoding);
             }
         } catch (IOException ex) {
@@ -114,7 +115,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             length = BigInteger.ZERO;
         }
         if (this.field.getLongLength().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
-            return new byte[]{(byte) length.byteValue()};
+            return new byte[] { (byte) length.byteValue() };
         } else {
             return encodeLongLength(length);
         }
@@ -139,7 +140,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
                 longLengthBytes[0] = (byte) (0x80 | longLengthBytes.length - 1);
                 result = longLengthBytes;
             } else {
-                byte[] prefix = new byte[]{(byte) (0x80 | longLengthBytes.length)};
+                byte[] prefix = new byte[] { (byte) (0x80 | longLengthBytes.length) };
                 outputStream.write(prefix);
                 if (longLengthBytes.length < (longLengthBytesLength)) {
                     outputStream.write(new byte[longLengthBytesLength - longLengthBytes.length]);
