@@ -6,10 +6,8 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveT61String;
 
 public class Asn1PrimitiveT61StringPreparator extends Asn1FieldPreparator {
@@ -22,14 +20,9 @@ public class Asn1PrimitiveT61StringPreparator extends Asn1FieldPreparator {
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveT61String();
-        super.updateLayers();
-    }
-
-    private void encodePrimitiveT61String() {
-        byte[] content = this.asn1PrimitiveT61String.getValue().getBytes();
+    protected byte[] encodeContent() {
+        byte[] content = this.asn1PrimitiveT61String.getValue().getValue().getBytes();
         // Todo: Character set conversion
-        this.asn1PrimitiveT61String.setContent(content);
+        return content;
     }
 }

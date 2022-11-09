@@ -8,7 +8,6 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.model.Asn1EncapsulatingBitString;
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;

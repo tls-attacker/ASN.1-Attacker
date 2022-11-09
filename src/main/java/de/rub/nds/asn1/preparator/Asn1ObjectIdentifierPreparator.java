@@ -6,10 +6,8 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,36 +23,6 @@ public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator {
         this.asn1ObjectIdentifier = asn1ObjectIdentifier;
     }
 
-    @Override
-    public void updateLayers() {
-        this.encodeObjectIdentifier();
-        super.updateLayers();
-    }
-
-    private void encodeObjectIdentifier() {
-        byte[] content = null;
-        String fullIdentifierString = this.asn1ObjectIdentifier.getValue().trim();
-        String[] identifierStrings = fullIdentifierString.split("\\.");
-        if (identifierStrings.length >= 2) {
-            byte[][] encodedIdentifiers = this.encodeIdentifierStrings(identifierStrings);
-            int totalLength = 0;
-            int contentPos = 0;
-            for (int i = 0; i < encodedIdentifiers.length; i++) {
-                totalLength += encodedIdentifiers[i].length;
-            }
-            content = new byte[totalLength];
-            for (int i = 0; i < encodedIdentifiers.length; i++) {
-                for (int j = 0; j < encodedIdentifiers[i].length; j++) {
-                    content[contentPos] = encodedIdentifiers[i][j];
-                    contentPos++;
-                }
-            }
-        } else {
-            content = new byte[0];
-        }
-        this.asn1ObjectIdentifier.setContent(content);
-    }
-
     private byte[][] encodeIdentifierStrings(String[] identifierStrings) {
         byte[][] encodedIdentifiers = new byte[identifierStrings.length - 1][];
         encodedIdentifiers[0] = this.encodeFirstTwoIdentifierStrings(identifierStrings);
@@ -68,7 +36,7 @@ public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator {
     private byte[] encodeFirstTwoIdentifierStrings(String[] identifierStrings) {
         int identifier1 = Integer.parseInt(identifierStrings[0]);
         int identifier2 = Integer.parseInt(identifierStrings[1]);
-        return new byte[] { (byte) (identifier1 * 40 + identifier2) };
+        return new byte[]{(byte) (identifier1 * 40 + identifier2)};
     }
 
     private byte[] encodeSingleIdentifier(int identifierValue) {
@@ -91,5 +59,31 @@ public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator {
             identifierValue = identifierValue >> 7;
         }
         return numberOfIdentifierValueBytes;
+    }
+
+    @Override
+    protected byte[] encodeContent() {
+
+        String fullIdentifierString = this.asn1ObjectIdentifier.getValue().getValue().trim();
+        String[] identifierStrings = fullIdentifierString.split("\\.");
+        if (identifierStrings.length >= 2) {
+            byte[][] encodedIdentifiers = this.encodeIdentifierStrings(identifierStrings);
+            int totalLength = 0;
+            int contentPos = 0;
+            for (byte[] encodedIdentifier : encodedIdentifiers) {
+                totalLength += encodedIdentifier.length;
+            }
+            byte[] content = new byte[totalLength];
+            for (byte[] encodedIdentifier : encodedIdentifiers) {
+                for (int j = 0; j < encodedIdentifier.length; j++) {
+                    content[contentPos] = encodedIdentifier[j];
+                    contentPos++;
+                }
+            }
+            return content;
+        } else {
+
+            return new byte[0];
+        }
     }
 }

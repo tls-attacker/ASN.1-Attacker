@@ -6,10 +6,8 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1Integer;
 
 public class Asn1IntegerPreparator extends Asn1FieldPreparator {
@@ -22,13 +20,7 @@ public class Asn1IntegerPreparator extends Asn1FieldPreparator {
     }
 
     @Override
-    public void updateLayers() {
-        this.encodeInteger();
-        super.updateLayers();
-    }
-
-    private void encodeInteger() {
-        byte[] content = this.asn1Integer.getValue().toByteArray();
-        this.asn1Integer.setContent(content);
+    protected byte[] encodeContent() {
+        return this.asn1Integer.getValue().getByteArray();
     }
 }

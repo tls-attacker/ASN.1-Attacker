@@ -33,7 +33,7 @@ public abstract class Asn1Container extends Asn1Field {
 
     @XmlAnyElement(lax = true)
     @HoldsModifiableVariable
-    private Collection<Asn1Encodable> children = new LinkedList<>();
+    private Collection<Asn1Field> children = new LinkedList<>();
 
     public Asn1Container(TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
         super(tagClassType, tagConstructedType, tagNummerType);
@@ -47,15 +47,15 @@ public abstract class Asn1Container extends Asn1Field {
         this.encodedChildren = encodedChildren;
     }
 
-    public void addChild(final Asn1Encodable child) {
+    public void addChild(final Asn1Field child) {
         this.children.add(child);
     }
 
-    public Collection<Asn1Encodable> getChildren() {
+    public Collection<Asn1Field> getChildren() {
         return children;
     }
 
-    public void setChildren(Collection<Asn1Encodable> children) {
+    public void setChildren(Collection<Asn1Field> children) {
         this.children = children;
     }
 

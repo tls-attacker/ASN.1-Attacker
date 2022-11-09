@@ -6,10 +6,8 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1EncapsulatingBitString;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,18 +22,13 @@ public class Asn1EncapsulatingBitStringPreparator extends Asn1FieldPreparator {
     }
 
     @Override
-    public void updateLayers() {
-        this.encodeEncapsulatingBitString();
-        super.updateLayers();
-    }
-
-    private void encodeEncapsulatingBitString() {
+    protected byte[] encodeContent() {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             outputStream.write(new byte[1]); //TODO I think this is the number of unused bits
             //TODO Encode Childrend
             outputStream.write(this.asn1EncapsulatingBitString.getEncodedChildren().getValue());
-            this.asn1EncapsulatingBitString.setContent(outputStream.toByteArray());
+            return outputStream.toByteArray();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

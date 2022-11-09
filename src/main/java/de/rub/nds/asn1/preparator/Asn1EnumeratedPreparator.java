@@ -6,10 +6,8 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1Enumerated;
 
 public class Asn1EnumeratedPreparator extends Asn1FieldPreparator {
@@ -22,13 +20,7 @@ public class Asn1EnumeratedPreparator extends Asn1FieldPreparator {
     }
 
     @Override
-    public void updateLayers() {
-        this.encodeEnumerated();
-        super.updateLayers();
-    }
-
-    private void encodeEnumerated() {
-        byte[] content = this.asn1Enumerated.getValue().toByteArray();
-        this.asn1Enumerated.setContent(content);
+    protected byte[] encodeContent() {
+        return this.asn1Enumerated.getValue().getByteArray();
     }
 }

@@ -8,7 +8,6 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1Boolean;
 
 public class Asn1BooleanPreparator extends Asn1FieldPreparator {
@@ -20,15 +19,12 @@ public class Asn1BooleanPreparator extends Asn1FieldPreparator {
         this.asn1Boolean = asn1Boolean;
     }
 
-    private void encodeBoolean() {
-    }
-
     @Override
     protected byte[] encodeContent() {
-        byte[] content = new byte[]{0};
         if (this.asn1Boolean.getValue().getValue()) {
-            content[0] = (byte) 0xFF;
+            return new byte[]{(byte) 0xFF};
+        } else {
+            return new byte[1];
         }
-        this.asn1Boolean.setContent(content);
     }
 }

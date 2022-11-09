@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
@@ -14,7 +13,7 @@ import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1PrimitiveBitStringSerializer;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
+import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -25,20 +24,20 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public final class Asn1PrimitiveBitString extends Asn1Field {
 
     @XmlElement(name = "unusedBits")
-    private ModifiableInteger unusedBits;
+    private ModifiableByte unusedBits;
 
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
     public Asn1PrimitiveBitString() {
-        super(TagClass.UNIVERSAL,TagConstructed.PRIMITIVE,TagNumber.BIT_STRING);
+        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
     }
 
-    public ModifiableInteger getUnusedBits() {
+    public ModifiableByte getUnusedBits() {
         return unusedBits;
     }
 
-    public void setUnusedBits(ModifiableInteger unusedBits) {
+    public void setUnusedBits(ModifiableByte unusedBits) {
         this.unusedBits = unusedBits;
     }
 

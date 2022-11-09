@@ -6,10 +6,8 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
 
 public class Asn1PrimitiveIa5StringPreparator extends Asn1FieldPreparator {
@@ -22,13 +20,7 @@ public class Asn1PrimitiveIa5StringPreparator extends Asn1FieldPreparator {
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveIa5String();
-        super.updateLayers();
-    }
-
-    private void encodePrimitiveIa5String() {
-        byte[] content = this.asn1PrimitiveIa5String.getValue().getBytes();
-        this.asn1PrimitiveIa5String.setContent(content);
+    protected byte[] encodeContent() {
+        return this.asn1PrimitiveIa5String.getValue().getValue().getBytes();
     }
 }

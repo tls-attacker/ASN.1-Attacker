@@ -6,12 +6,11 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.serializer.*;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
-import de.rub.nds.util.ByteArrayUtils;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class Asn1PrimitiveBitStringPreparator extends Asn1FieldPreparator {
 
@@ -23,14 +22,14 @@ public class Asn1PrimitiveBitStringPreparator extends Asn1FieldPreparator {
     }
 
     @Override
-    public void updateLayers() {
-        this.encodePrimitiveBitString();
-        super.updateLayers();
-    }
-
-    private void encodePrimitiveBitString() {
-        byte[] content = new byte[] { (byte) this.asn1PrimitiveBitString.getUnusedBits() };
-        content = ByteArrayUtils.merge(content, this.asn1PrimitiveBitString.getValue());
-        this.asn1PrimitiveBitString.setContent(content);
+    protected byte[] encodeContent() {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(new byte[]{this.asn1PrimitiveBitString.getUnusedBits().getValue()});
+            outputStream.write(this.asn1PrimitiveBitString.getValue().getValue());
+            return outputStream.toByteArray();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

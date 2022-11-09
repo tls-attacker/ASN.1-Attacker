@@ -15,13 +15,13 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldPreparator extends Preparator {
+public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final Asn1Field field;
+    private final T field;
 
-    public Asn1FieldPreparator(final Asn1Field field) {
+    public Asn1FieldPreparator(final T field) {
         this.field = field;
     }
 
@@ -30,7 +30,7 @@ public abstract class Asn1FieldPreparator extends Preparator {
         field.setContent(encodeContent());
         field.setLength(BigInteger.valueOf(field.getContent().getValue().length));
         field.setLengthOctets(encodeLength(field.getLength().getValue()));
-        field.setIdentifierOctets(encodeIdentifier());
+        field.setTagOctets(encodeIdentifier());
     }
 
     protected abstract byte[] encodeContent();
@@ -58,13 +58,13 @@ public abstract class Asn1FieldPreparator extends Preparator {
                 LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
                 tagNumber = 0;
             }
-            if (this.field.getLongTagNumberBytes().getValue() == 0 && tagNumber <= 0x1F) {
+            if (this.field.getLongTagLength().getValue() == 0 && tagNumber <= 0x1F) {
 
                 byte[] result = new byte[]{firstIdentifierByte};
                 result[0] |= (byte) (tagNumber & 0x1F);
                 resultStream.write(result);
             } else {
-                int longTagNumberBytes = this.field.getLongTagNumberBytes().getValue();
+                int longTagNumberBytes = this.field.getLongTagLength().getValue();
                 // Quick Fix
                 if (longTagNumberBytes > 65535) {
                     LOGGER.warn("Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
@@ -113,7 +113,7 @@ public abstract class Asn1FieldPreparator extends Preparator {
             LOGGER.warn("Field length is smaller than zero. Defaulting to zero!");
             length = BigInteger.ZERO;
         }
-        if (this.field.getLongLengthBytes().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
+        if (this.field.getLongLength().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
             return new byte[]{(byte) length.byteValue()};
         } else {
             return encodeLongLength(length);
@@ -125,7 +125,7 @@ public abstract class Asn1FieldPreparator extends Preparator {
             byte[] result = null;
             byte[] longLengthBytes = length.toByteArray();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            int longLengthBytesLength = this.field.getLongLengthBytes().getValue();
+            int longLengthBytesLength = this.field.getLongLength().getValue();
             // Quick Fix
             if (longLengthBytesLength > 65535) {
                 LOGGER.warn("Fix von longLengthBytes: critical value: " + longLengthBytes);
