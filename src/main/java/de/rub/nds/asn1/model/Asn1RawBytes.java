@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagNumber;
-import de.rub.nds.asn1.serializer.Asn1RawBytesSerializer;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -42,7 +42,9 @@ public final class Asn1RawBytes extends Asn1Field {
     }
 
     @Override
-    public Asn1RawBytesSerializer getSerializer() {
-        return new Asn1RawBytesSerializer(this);
+    public Asn1FieldSerializer getSerializer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 }

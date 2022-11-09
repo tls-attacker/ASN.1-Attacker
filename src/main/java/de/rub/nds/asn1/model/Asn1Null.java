@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
@@ -29,5 +28,9 @@ public final class Asn1Null extends Asn1Field {
     public Asn1Null() {
     }
 
-    
+    @Override
+    public Asn1FieldSerializer getSerializer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

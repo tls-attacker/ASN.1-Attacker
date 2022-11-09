@@ -6,12 +6,12 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -28,4 +28,10 @@ public final class Asn1EndOfContent extends Asn1Field {
 
     public Asn1EndOfContent() {
     }
+
+    @Override
+    public Asn1FieldSerializer getSerializer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

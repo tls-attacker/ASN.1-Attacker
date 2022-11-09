@@ -11,11 +11,11 @@ package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Container;
 
-public class DefaultAsn1ContainerSerializer extends Asn1FieldSerializer {
+public class GenericAsn1ContainerSerializer extends Asn1FieldSerializer {
 
     private final Asn1Container asn1Container;
 
-    public DefaultAsn1ContainerSerializer(final Asn1Container asn1Container) {
+    public GenericAsn1ContainerSerializer(final Asn1Container asn1Container) {
         super(asn1Container);
         this.asn1Container = asn1Container;
     }
