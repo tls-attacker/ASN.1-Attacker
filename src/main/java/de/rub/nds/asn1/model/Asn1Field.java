@@ -8,10 +8,9 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.TagClass;
-import de.rub.nds.asn1.TagConstructed;
-import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
@@ -208,5 +207,10 @@ public abstract class Asn1Field implements Asn1Encodable {
     @Override
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
+    }
+
+    @Override
+    public Asn1FieldSerializer getSerializer() {
+        return new Asn1FieldSerializer(this);
     }
 }

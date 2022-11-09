@@ -8,12 +8,9 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.TagClass;
-import de.rub.nds.asn1.TagConstructed;
-import de.rub.nds.asn1.TagNumber;
-import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
-import de.rub.nds.asn1.serializer.GenericAsn1ContainerSerializer;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -62,10 +59,4 @@ public abstract class Asn1Container extends Asn1Field {
     public void clearChildren() {
         this.children.clear();
     }
-
-    @Override
-    public Asn1FieldSerializer getSerializer() {
-        return new GenericAsn1ContainerSerializer(this);
-    }
-
 }

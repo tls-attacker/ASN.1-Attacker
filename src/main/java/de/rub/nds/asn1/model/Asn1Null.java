@@ -8,9 +8,9 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.TagClass;
-import de.rub.nds.asn1.TagConstructed;
-import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

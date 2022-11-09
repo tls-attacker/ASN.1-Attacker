@@ -8,10 +8,9 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.TagClass;
-import de.rub.nds.asn1.TagConstructed;
-import de.rub.nds.asn1.TagNumber;
-import de.rub.nds.asn1.serializer.Asn1PrimitiveGeneralizedTimeSerializer;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -37,8 +36,4 @@ public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
         this.value = value;
     }
 
-    @Override
-    public Asn1PrimitiveGeneralizedTimeSerializer getSerializer() {
-        return new Asn1PrimitiveGeneralizedTimeSerializer(this);
-    }
 }
