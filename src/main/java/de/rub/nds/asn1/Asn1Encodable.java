@@ -12,20 +12,10 @@ import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 
 public interface Asn1Encodable {
 
-    String getIdentifier();
+    public String getIdentifier();
 
-    void setIdentifier(final String identifier);
+    public void setIdentifier(final String identifier);
 
-    String getType();
-
-    void setType(final String type);
-
-    boolean hasAttribute(final String attributeName);
-
-    String getAttribute(final String attributeName);
-
-    void setAttribute(final String attributeName, final String attributeValue);
-
-    Asn1FieldSerializer getSerializer();
+    public Asn1FieldSerializer getSerializer();
 
 }

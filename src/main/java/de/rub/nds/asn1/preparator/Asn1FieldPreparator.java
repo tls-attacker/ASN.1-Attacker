@@ -9,14 +9,13 @@
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1Field;
-import de.rub.nds.util.ByteArrayUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldPreparator extends Preparator{
+public abstract class Asn1FieldPreparator extends Preparator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -28,39 +27,15 @@ public abstract class Asn1FieldPreparator extends Preparator{
 
     @Override
     public void prepare() {
-        encodeContent();
-        
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public final byte[] serialize() {
-        try {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            stream.writeBytes(field.getIdentifierOctets().getValue());
-            stream.writeBytes(field.getLengthOctets().getValue());
-            stream.write(field.getContentOctets().getValue());
-            return stream.toByteArray();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
+        field.setContent(encodeContent());
+        field.setLength(BigInteger.valueOf(field.getContent().getValue().length));
+        field.setLengthOctets(encodeLength(field.getLength().getValue()));
+        field.setIdentifierOctets(encodeIdentifier());
     }
 
-    protected abstract encodeContent();
+    protected abstract byte[] encodeContent();
 
-    private void encodeField() {
-        byte[] identifierOctets = this.encodeIdentifier();
-        byte[] contentOctets = this.encodeContent();
-        byte[] lengthOctets = this.encodeLength(BigInteger.valueOf(contentOctets.length));
-        this.field.setIdentifierOctets(identifierOctets);
-        this.field.setLengthOctets(lengthOctets);
-        this.field.setContentOctets(contentOctets);
-    }
-
-    private final byte[] encodeIdentifier() {
+    private byte[] encodeIdentifier() {
         byte firstIdentifierByte = 0;
         firstIdentifierByte = this.encodeTagClass(firstIdentifierByte, this.field.getTagClass().getValue());
         firstIdentifierByte = this.encodeIsConstructed(firstIdentifierByte, this.field.getTagConstructed().getValue());
@@ -76,32 +51,41 @@ public abstract class Asn1FieldPreparator extends Preparator{
     }
 
     private byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
-        byte[] result = null;
-        if (tagNumber < 0) {
-            LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
-            tagNumber = 0;
-        }
-        if (this.field.getLongTagNumberBytes().getValue() == 0 && tagNumber <= 0x1F) {
-            result = new byte[]{firstIdentifierByte};
-            result[0] |= (byte) (tagNumber & 0x1F);
-        } else {
-            int longTagNumberBytes = this.field.getLongTagNumberBytes().getValue();
-            // Quick Fix
-            if (longTagNumberBytes > 65535) {
-                LOGGER.warn("Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
-                longTagNumberBytes = 65535;
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream longEncodingStream = new ByteArrayOutputStream();
+        try {
+            if (tagNumber < 0) {
+                LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
+                tagNumber = 0;
             }
-            byte[] longEncoding = this.encodeLongTagNumber(firstIdentifierByte, tagNumber);
-            if (longEncoding.length < longTagNumberBytes) {
-                longEncoding = ByteArrayUtils.merge(new byte[longTagNumberBytes - longEncoding.length], longEncoding);
+            if (this.field.getLongTagNumberBytes().getValue() == 0 && tagNumber <= 0x1F) {
+
+                byte[] result = new byte[]{firstIdentifierByte};
+                result[0] |= (byte) (tagNumber & 0x1F);
+                resultStream.write(result);
+            } else {
+                int longTagNumberBytes = this.field.getLongTagNumberBytes().getValue();
+                // Quick Fix
+                if (longTagNumberBytes > 65535) {
+                    LOGGER.warn("Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
+                    longTagNumberBytes = 65535;
+                }
+                byte[] longEncoding = this.encodeLongTagNumber(tagNumber);
+                if (longEncoding.length < longTagNumberBytes) {
+                    longEncodingStream.write(new byte[longTagNumberBytes - longEncoding.length]);
+                    longEncodingStream.write(longEncoding);
+                }
+                firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
+                resultStream.write(new byte[]{firstIdentifierByte});
+                resultStream.write(longEncoding);
             }
-            firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-            result = ByteArrayUtils.merge(new byte[]{firstIdentifierByte}, longEncoding);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
-        return result;
+        return resultStream.toByteArray();
     }
 
-    private byte[] encodeLongTagNumber(byte firstIdentifierByte, int tagNumber) {
+    private byte[] encodeLongTagNumber(int tagNumber) {
         int tagNumberByteCount = this.getTagNumberByteCount(tagNumber);
         byte[] result = new byte[tagNumberByteCount];
         byte moreFlag = 0x00;
@@ -122,8 +106,7 @@ public abstract class Asn1FieldPreparator extends Preparator{
         return result;
     }
 
-    private final byte[] encodeLength(BigInteger contentLength) {
-        byte[] result = null;
+    private byte[] encodeLength(BigInteger contentLength) {
         this.field.setLength(contentLength);
         BigInteger length = this.field.getLength().getValue();
         if (length.compareTo(BigInteger.ZERO) == -1) {
@@ -131,35 +114,41 @@ public abstract class Asn1FieldPreparator extends Preparator{
             length = BigInteger.ZERO;
         }
         if (this.field.getLongLengthBytes().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
-            result = new byte[]{(byte) length.byteValue()};
+            return new byte[]{(byte) length.byteValue()};
         } else {
-            result = encodeLongLength(length);
+            return encodeLongLength(length);
         }
-        return result;
     }
 
     private byte[] encodeLongLength(BigInteger length) {
-        byte[] result = null;
-        byte[] longLength = length.toByteArray();
-        int longLengthBytes = this.field.getLongLengthBytes().getValue();
-        // Quick Fix
-        if (longLengthBytes > 65535) {
-            LOGGER.warn("Fix von longLengthBytes: critical value: " + longLengthBytes);
-            longLengthBytes = 65535;
-        }
-        if (longLength[0] == 0x00) {
-            if (longLength.length < (longLengthBytes + 1)) {
-                longLength = ByteArrayUtils.merge(new byte[longLengthBytes + 1 - longLength.length], longLength);
+        try {
+            byte[] result = null;
+            byte[] longLengthBytes = length.toByteArray();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            int longLengthBytesLength = this.field.getLongLengthBytes().getValue();
+            // Quick Fix
+            if (longLengthBytesLength > 65535) {
+                LOGGER.warn("Fix von longLengthBytes: critical value: " + longLengthBytes);
+                longLengthBytesLength = 65535;
             }
-            longLength[0] = (byte) (0x80 | longLength.length - 1);
-            result = longLength;
-        } else {
-            byte[] prefix = new byte[]{(byte) (0x80 | longLength.length)};
-            if (longLength.length < (longLengthBytes)) {
-                longLength = ByteArrayUtils.merge(new byte[longLengthBytes - longLength.length], longLength);
+            if (longLengthBytes[0] == 0x00) {
+                if (longLengthBytes.length < (longLengthBytesLength + 1)) {
+                    outputStream.write(new byte[longLengthBytesLength + 1 - longLengthBytes.length]);
+                    outputStream.write(longLengthBytes);
+                }
+                longLengthBytes[0] = (byte) (0x80 | longLengthBytes.length - 1);
+                result = longLengthBytes;
+            } else {
+                byte[] prefix = new byte[]{(byte) (0x80 | longLengthBytes.length)};
+                outputStream.write(prefix);
+                if (longLengthBytes.length < (longLengthBytesLength)) {
+                    outputStream.write(new byte[longLengthBytesLength - longLengthBytes.length]);
+                    outputStream.write(longLengthBytes);
+                }
             }
-            result = ByteArrayUtils.merge(prefix, longLength);
+            return result;
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
-        return result;
     }
 }

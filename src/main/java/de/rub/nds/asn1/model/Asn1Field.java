@@ -8,9 +8,11 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.Asn1Encodable;
 import de.rub.nds.asn1.TagClass;
 import de.rub.nds.asn1.TagConstructed;
 import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
@@ -21,7 +23,7 @@ import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Field extends Asn1RawField {
+public abstract class Asn1Field implements Asn1Encodable {
 
     @XmlElement(name = "tag")
     private ModifiableInteger tag = new ModifiableInteger();
@@ -33,13 +35,13 @@ public abstract class Asn1Field extends Asn1RawField {
     private ModifiableBoolean tagConstructed = new ModifiableBoolean();
 
     @XmlElement(name = "longTagNumberBytes")
-    private ModifiableInteger longTagNumberBytes = new ModifiableInteger();
+    private ModifiableInteger longTagLength = new ModifiableInteger();
 
     @XmlElement(name = "tagNumber")
     private ModifiableInteger tagNumber = new ModifiableInteger();
 
     @XmlElement(name = "longLengthBytes")
-    private ModifiableInteger longLengthBytes = new ModifiableInteger();
+    private ModifiableInteger longLength = new ModifiableInteger();
 
     @XmlElement(name = "length")
     private ModifiableBigInteger length = new ModifiableBigInteger();
@@ -47,14 +49,35 @@ public abstract class Asn1Field extends Asn1RawField {
     @XmlElement(name = "content")
     private ModifiableByteArray content = new ModifiableByteArray();
 
-    private TagClass tagClassType;
-    private TagConstructed tagConstructedType;
-    private TagNumber tagNumberType;
+    @XmlAttribute(name = "identifier")
+    private String identifier = "";
+
+    @XmlElement(name = "tagOctets")
+    private ModifiableByteArray tagOctets = new ModifiableByteArray();
+
+    @XmlElement(name = "lengthOctets")
+    private ModifiableByteArray lengthOctets = new ModifiableByteArray();
+
+    private final TagClass tagClassType;
+    private final TagConstructed tagConstructedType;
+    private final TagNumber tagNumberType;
 
     public Asn1Field(TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;
         this.tagNumberType = tagNummerType;
+    }
+
+    public TagClass getTagClassType() {
+        return tagClassType;
+    }
+
+    public TagConstructed getTagConstructedType() {
+        return tagConstructedType;
+    }
+
+    public TagNumber getTagNumberType() {
+        return tagNumberType;
     }
 
     public ModifiableInteger getTagClass() {
@@ -93,16 +116,16 @@ public abstract class Asn1Field extends Asn1RawField {
         this.tagConstructed = ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
     }
 
-    public ModifiableInteger getLongTagNumberBytes() {
-        return longTagNumberBytes;
+    public ModifiableInteger getLongTagLength() {
+        return longTagLength;
     }
 
-    public void setLongTagNumberBytes(ModifiableInteger longTagNumberBytes) {
-        this.longTagNumberBytes = longTagNumberBytes;
+    public void setLongTagLength(ModifiableInteger longTagLength) {
+        this.longTagLength = longTagLength;
     }
 
-    public void setLongTagNumberBytes(int longTagNumberBytes) {
-        this.longTagNumberBytes = ModifiableVariableFactory.safelySetValue(this.longTagNumberBytes, longTagNumberBytes);
+    public void setLongTagLength(int longTagLength) {
+        this.longTagLength = ModifiableVariableFactory.safelySetValue(this.longTagLength, longTagLength);
     }
 
     public ModifiableInteger getTagNumber() {
@@ -117,16 +140,16 @@ public abstract class Asn1Field extends Asn1RawField {
         this.tagNumber = ModifiableVariableFactory.safelySetValue(this.tagNumber, tagNumber);
     }
 
-    public ModifiableInteger getLongLengthBytes() {
-        return longLengthBytes;
+    public ModifiableInteger getLongLength() {
+        return longLength;
     }
 
-    public void setLongLengthBytes(ModifiableInteger longLengthBytes) {
-        this.longLengthBytes = longLengthBytes;
+    public void setLongLength(ModifiableInteger longLength) {
+        this.longLength = longLength;
     }
 
-    public void setLongLengthBytes(int longLengthBytes) {
-        this.longLengthBytes = ModifiableVariableFactory.safelySetValue(this.longLengthBytes, longLengthBytes);
+    public void setLongLength(int longLength) {
+        this.longLength = ModifiableVariableFactory.safelySetValue(this.longLength, longLength);
     }
 
     public ModifiableBigInteger getLength() {
@@ -153,4 +176,37 @@ public abstract class Asn1Field extends Asn1RawField {
         this.content = ModifiableVariableFactory.safelySetValue(this.content, content);
     }
 
+    public ModifiableByteArray getTagOctets() {
+        return tagOctets;
+    }
+
+    public void setTagOctets(final ModifiableByteArray tagOctets) {
+        this.tagOctets = tagOctets;
+    }
+
+    public void setTagOctets(final byte[] tagOctets) {
+        this.tagOctets = ModifiableVariableFactory.safelySetValue(this.tagOctets, tagOctets);
+    }
+
+    public ModifiableByteArray getLengthOctets() {
+        return lengthOctets;
+    }
+
+    public void setLengthOctets(final ModifiableByteArray lengthOctets) {
+        this.lengthOctets = lengthOctets;
+    }
+
+    public void setLengthOctets(final byte[] lengthOctets) {
+        this.lengthOctets = ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
+    }
+
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
 }
