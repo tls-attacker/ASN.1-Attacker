@@ -59,10 +59,12 @@ public abstract class Asn1Choice implements Asn1Encodable {
         return selectedChoice;
     }
 
+    @Override
     public String getIdentifier() {
         return identifier;
     }
 
+    @Override
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
