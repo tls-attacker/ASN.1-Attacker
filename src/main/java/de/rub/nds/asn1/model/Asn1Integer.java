@@ -20,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1Integer extends Asn1Field {
+public class Asn1Integer extends Asn1Field {
 
     @XmlElement(name = "value")
     private ModifiableBigInteger value;
