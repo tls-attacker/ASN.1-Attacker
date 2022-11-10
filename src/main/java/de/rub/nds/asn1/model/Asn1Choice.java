@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1Choice implements Asn1Encodable {
 
-    private Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     
     private Asn1Field selectedChoice;
 
@@ -63,4 +63,14 @@ public abstract class Asn1Choice implements Asn1Encodable {
     public Asn1Field getSelectedChoice() {
         return selectedChoice;
     }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+    
+    
 }
