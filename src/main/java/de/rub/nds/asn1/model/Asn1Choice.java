@@ -18,13 +18,13 @@ import org.apache.logging.log4j.Logger;
 public abstract class Asn1Choice implements Asn1Encodable {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    
+
     private Asn1Field selectedChoice;
 
     private final List<SelectableChoice> choiceList;
 
     private String identifier;
-    
+
     public Asn1Choice(String identifier, Asn1Field... fields) {
         this.identifier = identifier;
         choiceList = new LinkedList<>();
@@ -33,13 +33,10 @@ public abstract class Asn1Choice implements Asn1Encodable {
         }
     }
 
-    public boolean canMakeValidChoice(BufferedInputStream stream)
-    {
+    public boolean canMakeValidChoice(BufferedInputStream stream) {
         byte[] tag = null; // = //read tag from stream;
-        for(SelectableChoice choice : choiceList)
-        {
-            if(choice.isSelectable(tag))
-            {
+        for (SelectableChoice choice : choiceList) {
+            if (choice.isSelectable(tag)) {
                 return true;
             }
         }
@@ -48,10 +45,8 @@ public abstract class Asn1Choice implements Asn1Encodable {
 
     public void makeSelection(BufferedInputStream stream) {
         byte[] tag = null; // = //read tag from stream;
-        for(SelectableChoice choice : choiceList)
-        {
-            if(choice.isSelectable(tag))
-            {
+        for (SelectableChoice choice : choiceList) {
+            if (choice.isSelectable(tag)) {
                 selectedChoice = choice.getField();
                 selectedChoice.setIdentifier(identifier);
                 return;
@@ -71,6 +66,5 @@ public abstract class Asn1Choice implements Asn1Encodable {
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
-    
-    
+
 }
