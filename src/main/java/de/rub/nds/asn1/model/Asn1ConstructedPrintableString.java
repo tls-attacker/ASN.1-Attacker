@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1ConstructedPrintableString extends Asn1Container {
+public class Asn1ConstructedPrintableString extends Asn1Container {
 
     public Asn1ConstructedPrintableString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.PRINTABLESTRING);

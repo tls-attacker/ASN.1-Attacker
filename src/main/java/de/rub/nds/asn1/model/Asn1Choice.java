@@ -10,6 +10,10 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.model.helper.SelectableChoice;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
+import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import java.io.BufferedInputStream;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,10 +24,15 @@ public abstract class Asn1Choice implements Asn1Encodable {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    @HoldsModifiableVariable
     private Asn1Field selectedChoice;
 
+    @XmlElementWrapper
+    @XmlElementRef
+    @HoldsModifiableVariable
     private final List<SelectableChoice> choiceList;
 
+    @XmlAttribute
     private String identifier;
 
     public Asn1Choice(String identifier, Asn1Field... fields) {

@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1ConstructedOctetString extends Asn1Container {
+public class Asn1ConstructedOctetString extends Asn1Container {
 
     public Asn1ConstructedOctetString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.OCTET_STRING);

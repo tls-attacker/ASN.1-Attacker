@@ -15,9 +15,9 @@ import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -25,10 +25,10 @@ import java.util.LinkedList;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Container extends Asn1Field {
 
-    @XmlTransient
     private ModifiableByteArray encodedChildren;
 
-    @XmlAnyElement(lax = true)
+    @XmlElementWrapper
+    @XmlElementRef
     @HoldsModifiableVariable
     private Collection<Asn1Field> children = new LinkedList<>();
 

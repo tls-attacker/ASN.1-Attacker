@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1ConstructedIa5String extends Asn1Container {
+public class Asn1ConstructedIa5String extends Asn1Container {
 
     public Asn1ConstructedIa5String(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.IA5STRING);

@@ -18,7 +18,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1EncapsulatingBitString extends Asn1Container {
+public class Asn1EncapsulatingBitString extends Asn1Container {
 
     public Asn1EncapsulatingBitString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
