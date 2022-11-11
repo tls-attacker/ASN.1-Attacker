@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1PrimitivePrintableStringParser extends Asn1Parser<Asn1PrimitivePrintableString> {
 
-    public Asn1PrimitivePrintableStringParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1PrimitivePrintableStringParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1PrimitivePrintableString parse() {
-        Asn1PrimitivePrintableString asn1PrintableString = new Asn1PrimitivePrintableString();
+        Asn1PrimitivePrintableString asn1PrintableString = new Asn1PrimitivePrintableString(identifier);
         genericParse(asn1PrintableString);
         return asn1PrintableString;
     }

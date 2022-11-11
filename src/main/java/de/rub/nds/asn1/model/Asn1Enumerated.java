@@ -25,8 +25,8 @@ public final class Asn1Enumerated extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableBigInteger value;
 
-    public Asn1Enumerated() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.ENUMERATED);
+    public Asn1Enumerated(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.ENUMERATED);
     }
 
     public ModifiableBigInteger getValue() {

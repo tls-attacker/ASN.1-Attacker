@@ -25,8 +25,8 @@ public final class Asn1PrimitiveUtcTime extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1PrimitiveUtcTime() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTCTIME);
+    public Asn1PrimitiveUtcTime(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTCTIME);
     }
 
     public ModifiableString getValue() {

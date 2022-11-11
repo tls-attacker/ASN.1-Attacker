@@ -25,8 +25,8 @@ public final class Asn1PrimitiveUtf8String extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1PrimitiveUtf8String() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTF8STRING);
+    public Asn1PrimitiveUtf8String(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTF8STRING);
     }
 
     public ModifiableString getValue() {

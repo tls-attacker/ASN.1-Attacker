@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1PrimitiveT61StringParser extends Asn1Parser<Asn1PrimitiveT61String> {
 
-    public Asn1PrimitiveT61StringParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1PrimitiveT61StringParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1PrimitiveT61String parse() {
-        Asn1PrimitiveT61String asn1PrimitiveT61String = new Asn1PrimitiveT61String();
+        Asn1PrimitiveT61String asn1PrimitiveT61String = new Asn1PrimitiveT61String(identifier);
         genericParse(asn1PrimitiveT61String);
         return asn1PrimitiveT61String;
     }

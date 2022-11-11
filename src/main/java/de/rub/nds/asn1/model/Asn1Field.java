@@ -50,7 +50,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     private ModifiableByteArray content = new ModifiableByteArray();
 
     @XmlAttribute(name = "identifier")
-    private String identifier = "";
+    private String identifier;
 
     @XmlElement(name = "tagOctets")
     private ModifiableByteArray tagOctets = new ModifiableByteArray();
@@ -62,7 +62,8 @@ public abstract class Asn1Field implements Asn1Encodable {
     private final TagConstructed tagConstructedType;
     private final TagNumber tagNumberType;
 
-    public Asn1Field(TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
+    public Asn1Field(String identifier, TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
+        this.identifier = identifier;
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;
         this.tagNumberType = tagNummerType;

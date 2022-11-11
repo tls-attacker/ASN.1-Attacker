@@ -29,8 +29,8 @@ public class Asn1PrimitiveBitString extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
-    public Asn1PrimitiveBitString() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
+    public Asn1PrimitiveBitString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
     }
 
     public ModifiableByte getUnusedBits() {

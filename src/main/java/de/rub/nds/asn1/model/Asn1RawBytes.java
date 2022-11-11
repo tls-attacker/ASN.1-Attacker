@@ -26,8 +26,8 @@ public final class Asn1RawBytes extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
-    public Asn1RawBytes() {
-        super(TagClass.PRIVATE, TagConstructed.CONSTRUCTED, TagNumber.OCTET_STRING);
+    public Asn1RawBytes(String identifier) {
+        super(identifier, TagClass.PRIVATE, TagConstructed.CONSTRUCTED, TagNumber.OCTET_STRING);
     }
 
     public ModifiableByteArray getValue() {

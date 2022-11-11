@@ -25,8 +25,8 @@ public final class Asn1PrimitiveT61String extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1PrimitiveT61String() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.T61STRING);
+    public Asn1PrimitiveT61String(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.T61STRING);
     }
 
     public ModifiableString getValue() {

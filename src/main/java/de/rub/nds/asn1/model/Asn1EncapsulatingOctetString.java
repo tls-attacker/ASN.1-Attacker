@@ -20,8 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1EncapsulatingOctetString extends Asn1Container {
 
-    public Asn1EncapsulatingOctetString() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
+    public Asn1EncapsulatingOctetString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
     }
 
 }

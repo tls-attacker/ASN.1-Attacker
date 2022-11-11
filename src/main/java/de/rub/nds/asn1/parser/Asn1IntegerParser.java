@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1IntegerParser extends Asn1Parser<Asn1Integer> {
 
-    public Asn1IntegerParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1IntegerParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1Integer parse() {
-        Asn1Integer asn1Integer = new Asn1Integer();
+        Asn1Integer asn1Integer = new Asn1Integer(identifier);
         genericParse(asn1Integer);
         return asn1Integer;
     }

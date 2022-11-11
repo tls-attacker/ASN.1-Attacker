@@ -21,8 +21,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1Null extends Asn1Field {
 
-    public Asn1Null() {
-        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.NULL);
+    public Asn1Null(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.NULL);
     }
 
     @Override

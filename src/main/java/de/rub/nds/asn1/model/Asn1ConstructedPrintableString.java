@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -20,7 +19,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1ConstructedPrintableString extends Asn1Container {
 
-    public Asn1ConstructedPrintableString() {
-        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.PRINTABLESTRING);
+    public Asn1ConstructedPrintableString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.PRINTABLESTRING);
     }
 }

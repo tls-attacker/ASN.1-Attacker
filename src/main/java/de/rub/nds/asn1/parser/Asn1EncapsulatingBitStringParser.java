@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1EncapsulatingBitStringParser extends Asn1Parser<Asn1EncapsulatingBitString> {
 
-    public Asn1EncapsulatingBitStringParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1EncapsulatingBitStringParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1EncapsulatingBitString parse() {
-        Asn1EncapsulatingBitString asn1EncapsulatingBitString = new Asn1EncapsulatingBitString();
+        Asn1EncapsulatingBitString asn1EncapsulatingBitString = new Asn1EncapsulatingBitString(identifier);
         genericParse(asn1EncapsulatingBitString);
         return asn1EncapsulatingBitString;
     }

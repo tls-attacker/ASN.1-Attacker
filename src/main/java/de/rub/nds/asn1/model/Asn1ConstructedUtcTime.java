@@ -20,8 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1ConstructedUtcTime extends Asn1Container {
 
-    public Asn1ConstructedUtcTime() {
-        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.UTCTIME);
+    public Asn1ConstructedUtcTime(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.UTCTIME);
     }
 
 }

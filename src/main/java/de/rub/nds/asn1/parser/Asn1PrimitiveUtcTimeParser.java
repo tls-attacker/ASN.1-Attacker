@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1PrimitiveUtcTimeParser extends Asn1Parser<Asn1PrimitiveUtcTime> {
 
-    public Asn1PrimitiveUtcTimeParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1PrimitiveUtcTimeParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1PrimitiveUtcTime parse() {
-        Asn1PrimitiveUtcTime asn1PrimitiveUtcTime = new Asn1PrimitiveUtcTime();
+        Asn1PrimitiveUtcTime asn1PrimitiveUtcTime = new Asn1PrimitiveUtcTime(identifier);
         genericParse(asn1PrimitiveUtcTime);
         return asn1PrimitiveUtcTime;
     }

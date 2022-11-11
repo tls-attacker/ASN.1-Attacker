@@ -25,8 +25,8 @@ public final class Asn1PrimitiveIa5String extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1PrimitiveIa5String() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.IA5STRING);
+    public Asn1PrimitiveIa5String(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.IA5STRING);
     }
 
     public ModifiableString getValue() {

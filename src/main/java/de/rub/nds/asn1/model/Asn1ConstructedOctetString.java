@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -20,7 +19,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1ConstructedOctetString extends Asn1Container {
 
-    public Asn1ConstructedOctetString() {
-        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.OCTET_STRING);
+    public Asn1ConstructedOctetString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.OCTET_STRING);
     }
 }

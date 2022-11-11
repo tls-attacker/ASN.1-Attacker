@@ -25,8 +25,8 @@ public class Asn1PrimitiveOctetString extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
-    public Asn1PrimitiveOctetString() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
+    public Asn1PrimitiveOctetString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
     }
 
     public ModifiableByteArray getValue() {

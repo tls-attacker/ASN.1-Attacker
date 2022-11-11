@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1PrimitiveUtf8StringParser extends Asn1Parser<Asn1PrimitiveUtf8String> {
 
-    public Asn1PrimitiveUtf8StringParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1PrimitiveUtf8StringParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1PrimitiveUtf8String parse() {
-        Asn1PrimitiveUtf8String asn1PrimitiveUtf8String = new Asn1PrimitiveUtf8String();
+        Asn1PrimitiveUtf8String asn1PrimitiveUtf8String = new Asn1PrimitiveUtf8String(identifier);
         genericParse(asn1PrimitiveUtf8String);
         return asn1PrimitiveUtf8String;
     }

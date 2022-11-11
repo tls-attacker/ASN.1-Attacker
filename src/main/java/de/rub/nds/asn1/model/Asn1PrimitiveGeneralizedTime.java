@@ -25,8 +25,8 @@ public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1PrimitiveGeneralizedTime() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.GENERALIZEDTIME);
+    public Asn1PrimitiveGeneralizedTime(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.GENERALIZEDTIME);
     }
 
     public ModifiableString getValue() {

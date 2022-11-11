@@ -9,6 +9,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.model.helper.SelectableChoice;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import java.io.BufferedInputStream;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +49,6 @@ public abstract class Asn1Choice implements Asn1Encodable {
         for (SelectableChoice choice : choiceList) {
             if (choice.isSelectable(tag)) {
                 selectedChoice = choice.getField();
-                selectedChoice.setIdentifier(identifier);
                 return;
             }
         }
@@ -69,4 +69,12 @@ public abstract class Asn1Choice implements Asn1Encodable {
         this.identifier = identifier;
     }
 
+    @Override
+    public Asn1FieldSerializer getSerializer() {
+        if (selectedChoice != null) {
+            return selectedChoice.getSerializer();
+        } else {
+            throw new RuntimeException("Tried to access serializer of choice before selecting a choice");
+        }
+    }
 }

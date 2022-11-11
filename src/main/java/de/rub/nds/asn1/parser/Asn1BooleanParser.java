@@ -18,13 +18,16 @@ public class Asn1BooleanParser extends Asn1Parser<Asn1Boolean> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1BooleanParser(InputStream stream) {
+    private final String identifier;
+    
+    public Asn1BooleanParser(String identifier, InputStream stream) {
         super(stream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1Boolean parse() {
-        Asn1Boolean asn1Boolean = new Asn1Boolean();
+        Asn1Boolean asn1Boolean = new Asn1Boolean(identifier);
         genericParse(asn1Boolean);
         if (asn1Boolean.getContent().getValue().length == 0) {
             LOGGER.warn("asn1Boolean content is encoded without any content. Assuming \"false\".");

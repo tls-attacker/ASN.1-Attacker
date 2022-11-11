@@ -21,8 +21,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Asn1EndOfContent extends Asn1Field {
 
-    public Asn1EndOfContent() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.END_OF_CONTENT);
+    public Asn1EndOfContent(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.END_OF_CONTENT);
     }
 
     @Override

@@ -25,8 +25,8 @@ public class Asn1Integer extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableBigInteger value;
 
-    public Asn1Integer() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.INTEGER);
+    public Asn1Integer(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.INTEGER);
     }
 
     public ModifiableBigInteger getValue() {

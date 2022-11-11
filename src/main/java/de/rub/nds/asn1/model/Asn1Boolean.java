@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -26,8 +25,8 @@ public final class Asn1Boolean extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableBoolean value;
 
-    public Asn1Boolean() {
-        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.BOOLEAN);
+    public Asn1Boolean(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.BOOLEAN);
     }
 
     public ModifiableBoolean getValue() {

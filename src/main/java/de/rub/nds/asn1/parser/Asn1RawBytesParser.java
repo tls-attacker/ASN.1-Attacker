@@ -14,13 +14,16 @@ import java.io.InputStream;
 
 public class Asn1RawBytesParser extends Asn1Parser<Asn1RawBytes> {
 
-    public Asn1RawBytesParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1RawBytesParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1RawBytes parse() {
-        Asn1RawBytes asn1RawBytes = new Asn1RawBytes();
+        Asn1RawBytes asn1RawBytes = new Asn1RawBytes(identifier);
         genericParse(asn1RawBytes);
         return asn1RawBytes;
     }

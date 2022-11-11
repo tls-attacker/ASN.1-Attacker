@@ -20,8 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Set extends Asn1Container {
 
-    public Asn1Set() {
-        super(TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SET);
+    public Asn1Set(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SET);
     }
 
 }

@@ -18,13 +18,16 @@ public class Asn1ObjectIdentifierParser extends Asn1Parser<Asn1ObjectIdentifier>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ObjectIdentifierParser(InputStream inputStream) {
+    private final String identifier;
+    
+    public Asn1ObjectIdentifierParser(String identifier, InputStream inputStream) {
         super(inputStream);
+        this.identifier = identifier;
     }
 
     @Override
     public Asn1ObjectIdentifier parse() {
-        Asn1ObjectIdentifier asn1ObjectIdentifier = new Asn1ObjectIdentifier();
+        Asn1ObjectIdentifier asn1ObjectIdentifier = new Asn1ObjectIdentifier(identifier);
         genericParse(asn1ObjectIdentifier);
         return asn1ObjectIdentifier;
     }

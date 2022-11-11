@@ -25,8 +25,8 @@ public final class Asn1PrimitivePrintableString extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1PrimitivePrintableString() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.PRINTABLESTRING);
+    public Asn1PrimitivePrintableString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.PRINTABLESTRING);
     }
 
     public ModifiableString getValue() {

@@ -25,8 +25,8 @@ public final class Asn1ObjectIdentifier extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
-    public Asn1ObjectIdentifier() {
-        super(TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OBJECT_IDENTIFIER);
+    public Asn1ObjectIdentifier(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OBJECT_IDENTIFIER);
     }
 
     public ModifiableString getValue() {
