@@ -12,6 +12,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Asn1NullPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -34,7 +35,7 @@ public class Asn1Null extends Asn1Field {
 
     @Override
     public Preparator getGenericPreparator() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Asn1NullPreparator(asn1Integer);
     }
 
 }
