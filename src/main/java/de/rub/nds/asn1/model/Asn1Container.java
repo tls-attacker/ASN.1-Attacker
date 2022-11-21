@@ -12,13 +12,17 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -46,6 +50,10 @@ public abstract class Asn1Container extends Asn1Field {
         this.encodedChildren = encodedChildren;
     }
 
+    public void setEncodedChildren(byte[] encodedChildren) {
+        this.encodedChildren = ModifiableVariableFactory.safelySetValue(this.encodedChildren, encodedChildren);
+    }
+
     public void addChild(final Asn1Encodable child) {
         this.children.add(child);
     }
@@ -60,5 +68,10 @@ public abstract class Asn1Container extends Asn1Field {
 
     public void clearChildren() {
         this.children.clear();
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        return new GenericAsn1ContainerPreparator(this);
     }
 }

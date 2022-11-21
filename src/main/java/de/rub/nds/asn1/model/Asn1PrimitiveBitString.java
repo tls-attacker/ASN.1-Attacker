@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
@@ -56,5 +58,10 @@ public class Asn1PrimitiveBitString extends Asn1Field {
 
     public void setValue(byte[] value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        return new Asn1PrimitiveBitStringPreparator(this);
     }
 }

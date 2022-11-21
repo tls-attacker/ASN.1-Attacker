@@ -12,6 +12,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Asn1PrimitiveIa5StringPreparator;
+import de.rub.nds.asn1.preparator.Asn1PrimitiveOctetStringPreparator;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -35,6 +38,11 @@ public class Asn1PrimitiveOctetString extends Asn1Field {
 
     public void setValue(ModifiableByteArray value) {
         this.value = value;
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        return new Asn1PrimitiveOctetStringPreparator(this);
     }
 
 }

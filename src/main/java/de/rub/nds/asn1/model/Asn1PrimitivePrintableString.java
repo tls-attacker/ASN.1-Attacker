@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Asn1PrimitivePrintableStringPreparator;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -35,6 +37,11 @@ public class Asn1PrimitivePrintableString extends Asn1Field {
 
     public void setValue(ModifiableString value) {
         this.value = value;
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        return new Asn1PrimitivePrintableStringPreparator(this);
     }
 
 }

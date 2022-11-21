@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -65,7 +66,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     private boolean optional = false;
 
     public Asn1Field(String identifier, TagClass tagClassType, TagConstructed tagConstructedType,
-            TagNumber tagNummerType) {
+        TagNumber tagNummerType) {
         this.identifier = identifier;
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;

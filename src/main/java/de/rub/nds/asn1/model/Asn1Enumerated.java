@@ -12,6 +12,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -35,6 +36,11 @@ public class Asn1Enumerated extends Asn1Field {
 
     public void setValue(ModifiableBigInteger value) {
         this.value = value;
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

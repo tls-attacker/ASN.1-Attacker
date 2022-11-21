@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Asn1IntegerPreparator;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -41,6 +43,11 @@ public class Asn1Integer extends Asn1Field {
 
     public void setValue(BigInteger value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        return new Asn1IntegerPreparator(this);
     }
 
 }

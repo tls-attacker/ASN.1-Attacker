@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.preparator.Asn1PrimitiveUtcTimePreparator;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -40,6 +42,11 @@ public class Asn1PrimitiveUtcTime extends Asn1Field {
 
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
+
+    @Override
+    public Preparator getPreparator() {
+        return new Asn1PrimitiveUtcTimePreparator(this);
     }
 
 }
