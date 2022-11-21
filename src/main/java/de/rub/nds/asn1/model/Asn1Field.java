@@ -34,14 +34,8 @@ public abstract class Asn1Field implements Asn1Encodable {
     @XmlElement(name = "tagConstructed")
     private ModifiableBoolean tagConstructed = new ModifiableBoolean();
 
-    @XmlElement(name = "longTagNumberBytes")
-    private ModifiableInteger longTagLength = new ModifiableInteger();
-
     @XmlElement(name = "tagNumber")
     private ModifiableInteger tagNumber = new ModifiableInteger();
-
-    @XmlElement(name = "longLengthBytes")
-    private ModifiableInteger longLength = new ModifiableInteger();
 
     @XmlElement(name = "length")
     private ModifiableBigInteger length = new ModifiableBigInteger();
@@ -129,18 +123,6 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.tagConstructed = ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
     }
 
-    public ModifiableInteger getLongTagLength() {
-        return longTagLength;
-    }
-
-    public void setLongTagLength(ModifiableInteger longTagLength) {
-        this.longTagLength = longTagLength;
-    }
-
-    public void setLongTagLength(int longTagLength) {
-        this.longTagLength = ModifiableVariableFactory.safelySetValue(this.longTagLength, longTagLength);
-    }
-
     public ModifiableInteger getTagNumber() {
         return tagNumber;
     }
@@ -151,18 +133,6 @@ public abstract class Asn1Field implements Asn1Encodable {
 
     public void setTagNumber(int tagNumber) {
         this.tagNumber = ModifiableVariableFactory.safelySetValue(this.tagNumber, tagNumber);
-    }
-
-    public ModifiableInteger getLongLength() {
-        return longLength;
-    }
-
-    public void setLongLength(ModifiableInteger longLength) {
-        this.longLength = longLength;
-    }
-
-    public void setLongLength(int longLength) {
-        this.longLength = ModifiableVariableFactory.safelySetValue(this.longLength, longLength);
     }
 
     public ModifiableBigInteger getLength() {

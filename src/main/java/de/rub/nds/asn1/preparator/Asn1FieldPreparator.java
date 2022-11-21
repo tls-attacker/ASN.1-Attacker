@@ -69,7 +69,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
                 result[0] |= (byte) (tagNumber & 0x1F);
                 resultStream.write(result);
             } else {
-                int longTagNumberBytes = this.field.getLongTagLength().getValue();
+                int longTagNumberBytes = getTagNumberByteCount(tagNumber);
                 // Quick Fix
                 if (longTagNumberBytes > 65535) {
                     LOGGER.warn("Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
@@ -110,6 +110,15 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         }
         return result;
     }
+    
+    private int getLengthByteCount(BigInteger length) {
+        int result = 0;
+        while (length.compareTo(BigInteger.ZERO) > 0) {
+            result++;
+            length.shiftRight(7);
+        }
+        return result;
+    }
 
     private byte[] encodeLength(BigInteger contentLength) {
         this.field.setLength(contentLength);
@@ -130,7 +139,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             byte[] result = null;
             byte[] longLengthBytes = length.toByteArray();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            int longLengthBytesLength = this.field.getLongLength().getValue();
+            int longLengthBytesLength = getLengthByteCount(length);
             // Quick Fix
             if (longLengthBytesLength > 65535) {
                 LOGGER.warn("Fix von longLengthBytes: critical value: " + longLengthBytes);
