@@ -6,10 +6,10 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.model.helper.SelectableChoice;
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -69,6 +69,10 @@ public abstract class Asn1Choice implements Asn1Encodable {
         return selectedChoice;
     }
 
+    public void setSelectedChoice(Asn1Field selectedChoice) {
+        this.selectedChoice = selectedChoice;
+    }
+
     @Override
     public String getIdentifier() {
         return identifier;
@@ -87,4 +91,14 @@ public abstract class Asn1Choice implements Asn1Encodable {
             throw new RuntimeException("Tried to access serializer of choice before selecting a choice");
         }
     }
+
+    @Override
+    public Preparator getGenericPreparator() {
+        if (selectedChoice != null) {
+            return selectedChoice.getGenericPreparator();
+        } else {
+            throw new RuntimeException("Tried to access preparator of choice before selecting a choice");
+        }
+    }
+
 }
