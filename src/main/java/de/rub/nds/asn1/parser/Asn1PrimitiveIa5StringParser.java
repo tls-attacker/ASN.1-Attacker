@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1PrimitiveIa5StringParser extends Asn1Parser<Asn1PrimitiveIa5String> {
 
     private final String identifier;
-    
+
     public Asn1PrimitiveIa5StringParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

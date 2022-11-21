@@ -12,6 +12,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -37,4 +38,7 @@ public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
         this.value = value;
     }
 
+    public void setValue(String value) {
+        this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
 }

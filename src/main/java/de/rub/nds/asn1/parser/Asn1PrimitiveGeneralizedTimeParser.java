@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1PrimitiveGeneralizedTimeParser extends Asn1Parser<Asn1PrimitiveGeneralizedTime> {
 
     private final String identifier;
-    
+
     public Asn1PrimitiveGeneralizedTimeParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

@@ -12,6 +12,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -41,6 +42,10 @@ public class Asn1PrimitiveBitString extends Asn1Field {
         this.unusedBits = unusedBits;
     }
 
+    public void setUnusedBits(byte unusedBits) {
+        this.unusedBits = ModifiableVariableFactory.safelySetValue(this.unusedBits, unusedBits);
+    }
+
     public ModifiableByteArray getValue() {
         return value;
     }
@@ -49,4 +54,7 @@ public class Asn1PrimitiveBitString extends Asn1Field {
         this.value = value;
     }
 
+    public void setValue(byte[] value) {
+        this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
 }

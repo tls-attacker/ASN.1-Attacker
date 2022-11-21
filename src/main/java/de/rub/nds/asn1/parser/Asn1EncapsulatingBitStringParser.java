@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1EncapsulatingBitStringParser extends Asn1Parser<Asn1EncapsulatingBitString> {
 
     private final String identifier;
-    
+
     public Asn1EncapsulatingBitStringParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

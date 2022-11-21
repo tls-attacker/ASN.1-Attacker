@@ -19,7 +19,7 @@ public class Asn1BooleanParser extends Asn1Parser<Asn1Boolean> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final String identifier;
-    
+
     public Asn1BooleanParser(String identifier, InputStream stream) {
         super(stream);
         this.identifier = identifier;

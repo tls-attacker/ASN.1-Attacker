@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1PrimitiveT61StringParser extends Asn1Parser<Asn1PrimitiveT61String> {
 
     private final String identifier;
-    
+
     public Asn1PrimitiveT61StringParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

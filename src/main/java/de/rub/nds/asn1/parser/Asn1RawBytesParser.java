@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1RawBytesParser extends Asn1Parser<Asn1RawBytes> {
 
     private final String identifier;
-    
+
     public Asn1RawBytesParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

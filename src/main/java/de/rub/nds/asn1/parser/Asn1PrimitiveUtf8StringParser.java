@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1PrimitiveUtf8StringParser extends Asn1Parser<Asn1PrimitiveUtf8String> {
 
     private final String identifier;
-    
+
     public Asn1PrimitiveUtf8StringParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

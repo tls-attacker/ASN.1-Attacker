@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -30,9 +31,10 @@ public abstract class Asn1Container extends Asn1Field {
     @XmlElementWrapper
     @XmlElementRef
     @HoldsModifiableVariable
-    private Collection<Asn1Field> children = new LinkedList<>();
+    private Collection<Asn1Encodable> children = new LinkedList<>();
 
-    public Asn1Container(String identifier, TagClass tagClassType, TagConstructed tagConstructedType, TagNumber tagNummerType) {
+    public Asn1Container(String identifier, TagClass tagClassType, TagConstructed tagConstructedType,
+        TagNumber tagNummerType) {
         super(identifier, tagClassType, tagConstructedType, tagNummerType);
     }
 
@@ -44,15 +46,15 @@ public abstract class Asn1Container extends Asn1Field {
         this.encodedChildren = encodedChildren;
     }
 
-    public void addChild(final Asn1Field child) {
+    public void addChild(final Asn1Encodable child) {
         this.children.add(child);
     }
 
-    public Collection<Asn1Field> getChildren() {
+    public Collection<Asn1Encodable> getChildren() {
         return children;
     }
 
-    public void setChildren(Collection<Asn1Field> children) {
+    public void setChildren(Collection<Asn1Encodable> children) {
         this.children = children;
     }
 

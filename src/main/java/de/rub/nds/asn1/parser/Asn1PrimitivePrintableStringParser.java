@@ -15,7 +15,7 @@ import java.io.InputStream;
 public class Asn1PrimitivePrintableStringParser extends Asn1Parser<Asn1PrimitivePrintableString> {
 
     private final String identifier;
-    
+
     public Asn1PrimitivePrintableStringParser(String identifier, InputStream inputStream) {
         super(inputStream);
         this.identifier = identifier;

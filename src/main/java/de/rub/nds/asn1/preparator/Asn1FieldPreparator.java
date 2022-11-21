@@ -20,7 +20,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final T field;
+    protected final T field;
 
     public Asn1FieldPreparator(final T field) {
         this.field = field;

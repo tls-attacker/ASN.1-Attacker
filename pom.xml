@@ -83,6 +83,11 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>4.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.12.1</version>
+        </dependency>
         <!-- scope: test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

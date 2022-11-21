@@ -9,6 +9,7 @@
 
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 
 public interface Asn1Encodable {
@@ -18,5 +19,7 @@ public interface Asn1Encodable {
     public void setIdentifier(final String identifier);
 
     public Asn1FieldSerializer getSerializer();
+
+    public Preparator getPreparator();
 
 }
