@@ -9,6 +9,7 @@
 
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.model.Asn1Field;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -31,6 +32,9 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         field.setContent(encodeContent());
         field.setLength(BigInteger.valueOf(field.getContent().getValue().length));
         field.setLengthOctets(encodeLength(field.getLength().getValue()));
+        field.setTagClass(field.getTagClassType().getIntValue());
+        field.setTagConstructed(field.getTagConstructedType() == TagConstructed.CONSTRUCTED);
+        field.setTagNumber(field.getTagNumberType().getIntValue());
         field.setTagOctets(encodeIdentifier());
     }
 
@@ -59,7 +63,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
                 LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
                 tagNumber = 0;
             }
-            if (this.field.getLongTagLength().getValue() == 0 && tagNumber <= 0x1F) {
+            if (tagNumber <= 0x1F) {
 
                 byte[] result = new byte[] { firstIdentifierByte };
                 result[0] |= (byte) (tagNumber & 0x1F);
@@ -114,7 +118,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             LOGGER.warn("Field length is smaller than zero. Defaulting to zero!");
             length = BigInteger.ZERO;
         }
-        if (this.field.getLongLength().getValue() == 0 && length.compareTo(BigInteger.valueOf(127)) <= 0) {
+        if (length.compareTo(BigInteger.valueOf(127)) <= 0) {
             return new byte[] { (byte) length.byteValue() };
         } else {
             return encodeLongLength(length);
