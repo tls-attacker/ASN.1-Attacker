@@ -30,7 +30,7 @@ public class Asn1FieldSerializer {
      */
     public final byte[] serialize() {
         try {
-            LOGGER.info("Serializing: {} ", field.getIdentifier());
+            LOGGER.trace("Serializing: {} ", field.getIdentifier());
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             stream.writeBytes(field.getTagOctets().getValue());
             stream.writeBytes(field.getLengthOctets().getValue());
