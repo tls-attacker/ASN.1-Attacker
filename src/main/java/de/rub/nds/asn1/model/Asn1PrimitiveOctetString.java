@@ -41,7 +41,7 @@ public class Asn1PrimitiveOctetString extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         return new Asn1PrimitiveOctetStringPreparator(this);
     }
 

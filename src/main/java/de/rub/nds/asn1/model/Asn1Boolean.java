@@ -45,7 +45,7 @@ public class Asn1Boolean extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         return new Asn1BooleanPreparator(this);
     }
 

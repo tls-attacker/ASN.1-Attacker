@@ -39,7 +39,7 @@ public class Asn1Enumerated extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

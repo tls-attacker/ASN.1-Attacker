@@ -40,7 +40,7 @@ public class Asn1PrimitiveT61String extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         return new Asn1PrimitiveT61StringPreparator(this);
     }
 

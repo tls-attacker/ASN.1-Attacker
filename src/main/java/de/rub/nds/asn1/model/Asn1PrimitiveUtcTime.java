@@ -45,7 +45,7 @@ public class Asn1PrimitiveUtcTime extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         return new Asn1PrimitiveUtcTimePreparator(this);
     }
 

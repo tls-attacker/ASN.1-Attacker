@@ -61,7 +61,7 @@ public class Asn1PrimitiveBitString extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         return new Asn1PrimitiveBitStringPreparator(this);
     }
 }

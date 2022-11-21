@@ -49,18 +49,18 @@ public class Asn1Any implements Asn1Encodable {
     }
 
     @Override
-    public Asn1FieldSerializer getSerializer() {
+    public Asn1FieldSerializer getGenericSerializer() {
         if (instantiation != null) {
-            return instantiation.getSerializer();
+            return instantiation.getGenericSerializer();
         } else {
             throw new RuntimeException("Tried to access serializer of any element before choosing instantiation");
         }
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         if (instantiation != null) {
-            return instantiation.getPreparator();
+            return instantiation.getGenericPreparator();
         } else {
             throw new RuntimeException("Tried to access preparator of any element before choosing instantiation");
         }

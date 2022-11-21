@@ -27,13 +27,13 @@ public class Asn1Null extends Asn1Field {
     }
 
     @Override
-    public Asn1FieldSerializer getSerializer() {
+    public Asn1FieldSerializer getGenericSerializer() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
                                                                        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

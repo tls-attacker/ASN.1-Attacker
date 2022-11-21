@@ -80,9 +80,9 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public Asn1FieldSerializer getSerializer() {
+    public Asn1FieldSerializer getGenericSerializer() {
         if (selectedChoice != null) {
-            return selectedChoice.getSerializer();
+            return selectedChoice.getGenericSerializer();
         } else {
             throw new RuntimeException("Tried to access serializer of choice before selecting a choice");
         }

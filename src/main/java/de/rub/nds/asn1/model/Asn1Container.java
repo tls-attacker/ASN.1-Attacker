@@ -70,7 +70,7 @@ public abstract class Asn1Container extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         return new GenericAsn1ContainerPreparator(this);
     }
 }

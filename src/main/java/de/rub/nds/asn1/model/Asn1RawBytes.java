@@ -40,12 +40,12 @@ public class Asn1RawBytes extends Asn1Field {
     }
 
     @Override
-    public Asn1FieldSerializer getSerializer() {
+    public Asn1FieldSerializer getGenericSerializer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getGenericPreparator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
