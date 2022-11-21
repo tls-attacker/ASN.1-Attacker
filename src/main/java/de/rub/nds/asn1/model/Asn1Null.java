@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -30,12 +29,12 @@ public class Asn1Null extends Asn1Field {
     @Override
     public Asn1FieldSerializer getGenericSerializer() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Preparator getGenericPreparator() {
-        return new Asn1NullPreparator(asn1Integer);
+        return new Asn1NullPreparator(this);
     }
 
 }
