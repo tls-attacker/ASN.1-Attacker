@@ -54,10 +54,10 @@ public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator {
 
     private int computeNumberOfIdentifierValueBytes(int identifierValue) {
         int numberOfIdentifierValueBytes = 1;
-        identifierValue = identifierValue >> 7;
-        while (identifierValue > 0) {
+        int tempIdentifierValue = identifierValue >> 7;
+        while (tempIdentifierValue > 0) {
             numberOfIdentifierValueBytes++;
-            identifierValue = identifierValue >> 7;
+            tempIdentifierValue >>= 7;
         }
         return numberOfIdentifierValueBytes;
     }
