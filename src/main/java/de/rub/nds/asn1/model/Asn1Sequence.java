@@ -30,7 +30,5 @@ public abstract class Asn1Sequence extends Asn1Container {
     public Preparator getGenericPreparator() {
         return new GenericAsn1ContainerPreparator(this);
     }
-    
-    
 
 }

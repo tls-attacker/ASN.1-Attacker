@@ -6,11 +6,11 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.model.Asn1Field;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -29,6 +29,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
 
     @Override
     public void prepare() {
+        LOGGER.info("Preparing: {}", field.getIdentifier());
         field.setContent(encodeContent());
         field.setLength(BigInteger.valueOf(field.getContent().getValue().length));
         field.setLengthOctets(encodeLength(field.getLength().getValue()));
@@ -65,7 +66,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             }
             if (tagNumber <= 0x1F) {
 
-                byte[] result = new byte[] { firstIdentifierByte };
+                byte[] result = new byte[]{firstIdentifierByte};
                 result[0] |= (byte) (tagNumber & 0x1F);
                 resultStream.write(result);
             } else {
@@ -81,7 +82,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
                     longEncodingStream.write(longEncoding);
                 }
                 firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-                resultStream.write(new byte[] { firstIdentifierByte });
+                resultStream.write(new byte[]{firstIdentifierByte});
                 resultStream.write(longEncoding);
             }
         } catch (IOException ex) {
@@ -110,14 +111,9 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         }
         return result;
     }
-    
+
     private int getLengthByteCount(BigInteger length) {
-        int result = 0;
-        while (length.compareTo(BigInteger.ZERO) > 0) {
-            result++;
-            length.shiftRight(7);
-        }
-        return result;
+        return ((length.bitLength() / 8) / 8) + 1;
     }
 
     private byte[] encodeLength(BigInteger contentLength) {
@@ -128,41 +124,17 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             length = BigInteger.ZERO;
         }
         if (length.compareTo(BigInteger.valueOf(127)) <= 0) {
-            return new byte[] { (byte) length.byteValue() };
+            return new byte[]{(byte) length.byteValue()};
         } else {
             return encodeLongLength(length);
         }
     }
 
     private byte[] encodeLongLength(BigInteger length) {
-        try {
-            byte[] result = null;
-            byte[] longLengthBytes = length.toByteArray();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            int longLengthBytesLength = getLengthByteCount(length);
-            // Quick Fix
-            if (longLengthBytesLength > 65535) {
-                LOGGER.warn("Fix von longLengthBytes: critical value: " + longLengthBytes);
-                longLengthBytesLength = 65535;
-            }
-            if (longLengthBytes[0] == 0x00) {
-                if (longLengthBytes.length < (longLengthBytesLength + 1)) {
-                    outputStream.write(new byte[longLengthBytesLength + 1 - longLengthBytes.length]);
-                    outputStream.write(longLengthBytes);
-                }
-                longLengthBytes[0] = (byte) (0x80 | longLengthBytes.length - 1);
-                result = longLengthBytes;
-            } else {
-                byte[] prefix = new byte[] { (byte) (0x80 | longLengthBytes.length) };
-                outputStream.write(prefix);
-                if (longLengthBytes.length < (longLengthBytesLength)) {
-                    outputStream.write(new byte[longLengthBytesLength - longLengthBytes.length]);
-                    outputStream.write(longLengthBytes);
-                }
-            }
-            return result;
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        int numberOfBytes = getLengthByteCount(length);
+        outputStream.write(numberOfBytes | 0x80);
+        outputStream.writeBytes(ArrayConverter.intToBytes(length.bitLength() / 8, numberOfBytes));
+        return outputStream.toByteArray();
     }
 }

@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -26,31 +25,31 @@ import java.math.BigInteger;
 public abstract class Asn1Field implements Asn1Encodable {
 
     @XmlElement(name = "tag")
-    private ModifiableInteger tag = new ModifiableInteger();
+    private ModifiableInteger tag;
 
     @XmlElement(name = "tagClass")
-    private ModifiableInteger tagClass = new ModifiableInteger();
+    private ModifiableInteger tagClass;
 
     @XmlElement(name = "tagConstructed")
-    private ModifiableBoolean tagConstructed = new ModifiableBoolean();
+    private ModifiableBoolean tagConstructed;
 
     @XmlElement(name = "tagNumber")
-    private ModifiableInteger tagNumber = new ModifiableInteger();
+    private ModifiableInteger tagNumber;
 
     @XmlElement(name = "length")
-    private ModifiableBigInteger length = new ModifiableBigInteger();
+    private ModifiableBigInteger length;
 
     @XmlElement(name = "content")
-    private ModifiableByteArray content = new ModifiableByteArray();
+    private ModifiableByteArray content;
 
     @XmlAttribute(name = "identifier")
     private String identifier;
 
     @XmlElement(name = "tagOctets")
-    private ModifiableByteArray tagOctets = new ModifiableByteArray();
+    private ModifiableByteArray tagOctets;
 
     @XmlElement(name = "lengthOctets")
-    private ModifiableByteArray lengthOctets = new ModifiableByteArray();
+    private ModifiableByteArray lengthOctets;
 
     private final TagClass tagClassType;
     private final TagConstructed tagConstructedType;
@@ -60,7 +59,10 @@ public abstract class Asn1Field implements Asn1Encodable {
     private boolean optional = false;
 
     public Asn1Field(String identifier, TagClass tagClassType, TagConstructed tagConstructedType,
-        TagNumber tagNummerType) {
+            TagNumber tagNummerType) {
+        assert (identifier != null);
+        assert (tagClassType != null);
+        assert (tagConstructedType != null);
         this.identifier = identifier;
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;

@@ -30,10 +30,11 @@ public class GenericAsn1ContainerPreparator extends Asn1FieldPreparator {
     @Override
     protected byte[] encodeContent() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        for (Asn1Encodable field : asn1Container.getChildren()) {
-            field.getGenericPreparator().prepare();
+        for (Asn1Encodable asn1Field : asn1Container.getChildren()) {
+            LOGGER.info("Preparing:" + asn1Field.getIdentifier());
+            asn1Field.getGenericPreparator().prepare();
             try {
-                outputStream.write(field.getGenericSerializer().serialize());
+                outputStream.write(asn1Field.getGenericSerializer().serialize());
             } catch (IOException ex) {
                 LOGGER.error("Could not encoded child", ex);
             }
