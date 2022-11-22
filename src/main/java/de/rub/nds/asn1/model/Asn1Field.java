@@ -48,8 +48,11 @@ public abstract class Asn1Field implements Asn1Encodable {
     @XmlElement(name = "lengthOctets")
     private ModifiableByteArray lengthOctets;
 
-    private final TagClass tagClassType;
-    private final TagConstructed tagConstructedType;
+    private TagClass tagClassType;
+
+    private TagConstructed tagConstructedType;
+
+    @XmlTransient
     private final TagNumber tagNumberType;
 
     @XmlTransient
@@ -64,6 +67,14 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;
         this.tagNumberType = tagNummerType;
+    }
+
+    public void setTagClassType(TagClass tagClassType) {
+        this.tagClassType = tagClassType;
+    }
+
+    public void setTagConstructedType(TagConstructed tagConstructedType) {
+        this.tagConstructedType = tagConstructedType;
     }
 
     public boolean isOptional() {

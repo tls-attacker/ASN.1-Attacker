@@ -35,8 +35,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         field.setLengthOctets(encodeLength(field.getLength().getValue()));
         field.setTagClass(field.getTagClassType().getIntValue());
         field.setTagConstructed(field.getTagConstructedType() == TagConstructed.CONSTRUCTED);
-        field.setTagNumber(field.getTagNumberType().getIntValue());
-        
+        field.setTagNumber(field.getTagNumberType().getIntValue());    
         field.setTagOctets(encodeIdentifier());
     }
 

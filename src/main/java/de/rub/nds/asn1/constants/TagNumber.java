@@ -6,10 +6,10 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.constants;
 
 public enum TagNumber {
+    EXPLICIT(0, "explicit"),
     END_OF_CONTENT(0, "end-of-content"),
     BOOLEAN(1, "boolean"),
     INTEGER(2, "integer"),
