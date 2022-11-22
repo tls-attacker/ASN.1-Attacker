@@ -36,6 +36,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         field.setTagClass(field.getTagClassType().getIntValue());
         field.setTagConstructed(field.getTagConstructedType() == TagConstructed.CONSTRUCTED);
         field.setTagNumber(field.getTagNumberType().getIntValue());
+        
         field.setTagOctets(encodeIdentifier());
     }
 
@@ -134,7 +135,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int numberOfBytes = getLengthByteCount(length);
         outputStream.write(numberOfBytes | 0x80);
-        outputStream.writeBytes(ArrayConverter.intToBytes(length.bitLength() / 8, numberOfBytes));
+        outputStream.writeBytes(ArrayConverter.bigIntegerToByteArray(length, length.bitLength() / 8, true));
         return outputStream.toByteArray();
     }
 }

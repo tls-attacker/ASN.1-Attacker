@@ -24,9 +24,6 @@ import java.math.BigInteger;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Field implements Asn1Encodable {
 
-    @XmlElement(name = "tag")
-    private ModifiableInteger tag;
-
     @XmlElement(name = "tagClass")
     private ModifiableInteger tagClass;
 
@@ -99,18 +96,6 @@ public abstract class Asn1Field implements Asn1Encodable {
 
     public void setTagClass(int tagClass) {
         this.tagClass = ModifiableVariableFactory.safelySetValue(this.tagClass, tagClass);
-    }
-
-    public ModifiableInteger getTag() {
-        return tag;
-    }
-
-    public void setTag(ModifiableInteger tag) {
-        this.tag = tag;
-    }
-
-    public void setTag(int tag) {
-        this.tag = ModifiableVariableFactory.safelySetValue(this.tag, tag);
     }
 
     public ModifiableBoolean getTagConstructed() {
