@@ -31,7 +31,7 @@ public abstract class Asn1Parser<T extends Asn1Field> {
     public abstract T parse();
 
     protected void genericParse(T field) {
-        field.setTag(this.parseTag());
+        field.setTagOctets(this.parseTag());
         field.setTagClass(this.parseTagClass());
         field.setTagConstructed(this.parseTagConstructed());
         field.setTagNumber(this.parseTagNumber());
@@ -55,13 +55,8 @@ public abstract class Asn1Parser<T extends Asn1Field> {
         return peek(1)[0];
     }
 
-    protected int parseTag() {
-        byte[] tagBytes = peek(2);
-        if (tagBytes[0] == 0x1F) {
-            return ((tagBytes[0] & 0xFF) << 8) | (tagBytes[1] & 0xFF);
-        } else {
-            return tagBytes[0] & 0xFF;
-        }
+    protected byte[] parseTag() {
+        throw new UnsupportedOperationException("fix this");
     }
 
     protected int parseTagClass() {

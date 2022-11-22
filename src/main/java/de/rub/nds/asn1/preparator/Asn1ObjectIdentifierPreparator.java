@@ -83,7 +83,7 @@ public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator {
             }
             return content;
         } else {
-
+            LOGGER.warn("Identifier is not a valid oid: {}", fullIdentifierString);
             return new byte[0];
         }
     }

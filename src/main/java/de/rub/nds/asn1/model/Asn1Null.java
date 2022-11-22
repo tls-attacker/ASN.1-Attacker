@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class Asn1Null extends Asn1Field {
 
     public Asn1Null(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.NULL);
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.NULL);
     }
 
     @Override
