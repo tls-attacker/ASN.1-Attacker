@@ -10,6 +10,7 @@
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,7 +39,8 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             do {
                 read = stream.read();
                 if (read == -1) {
-                    throw new ParserException("Incomplete tag");
+                    throw new ParserException(
+                        "Incomplete tag: " + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
                 }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);

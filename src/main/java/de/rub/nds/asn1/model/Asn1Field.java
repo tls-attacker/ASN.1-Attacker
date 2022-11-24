@@ -107,6 +107,10 @@ public abstract class Asn1Field implements Asn1Encodable {
         return tagNumberType;
     }
 
+    public void setTagNumberType(TagNumber tagNumberType) {
+        this.tagNumberType = tagNumberType;
+    }
+
     public ModifiableInteger getTagClass() {
         return tagClass;
     }

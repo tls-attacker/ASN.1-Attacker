@@ -13,10 +13,12 @@ import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Set;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1SetParser extends Asn1FieldParser<Asn1Set> {
+public abstract class Asn1SetParser extends Asn1FieldParser<Asn1Set> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -26,9 +28,14 @@ public class Asn1SetParser extends Asn1FieldParser<Asn1Set> {
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        // TODO this might be wrong :X
-        for (Asn1Encodable encodable : encodable.getChildren()) {
-            encodable.getParser().parse(inputStream);
-        }
+        List<Asn1Encodable> childrenList = new LinkedList<>();
+        do {
+            Asn1Encodable freshElement = createFreshElement();
+            freshElement.getParser().parse(inputStream);
+            childrenList.add(freshElement);
+        } while (inputStream.available() > 0);
+        encodable.setChildren(childrenList);
     }
+
+    protected abstract Asn1Encodable createFreshElement();
 }

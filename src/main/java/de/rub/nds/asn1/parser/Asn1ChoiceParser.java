@@ -32,12 +32,7 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
     public void parse(InputStream inputStream) {
         try {
             byte[] tagOctetes = parseTagOctets(inputStream);
-            if (choice.canMakeValidChoice(tagOctetes)) {
-                choice.makeSelection(tagOctetes);
-                parseWithoutTag(inputStream, tagOctetes);
-            } else {
-                throw new ParserException("Cannot make a valid choice");
-            }
+            parseWithoutTag(inputStream, tagOctetes);
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
@@ -51,6 +46,11 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
 
     @Override
     public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
+        if (choice.canMakeValidChoice(tagOctets)) {
+            choice.makeSelection(tagOctets);
+        } else {
+            throw new ParserException("Cannot make a valid choice");
+        }
         try {
             Asn1Field selection = choice.getSelectedChoice();
             selection.setTagOctets(tagOctets);

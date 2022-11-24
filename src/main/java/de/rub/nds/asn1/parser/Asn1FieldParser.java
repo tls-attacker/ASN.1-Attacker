@@ -9,10 +9,14 @@
 
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.model.Asn1Field;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,9 +51,57 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
             encodable.setLength(this.parseLength(encodable.getLengthOctets().getValue()));
             encodable.setContent(this.parseContentOctets(encodable.getLength().getValue(), inputStream));
             parseIndividualContentFields(new ByteArrayInputStream(encodable.getContent().getValue()));
+            setConstants();
+            if (!areConstantsValid()) {
+                throw new ParserException("Expectation missmatch");
+            }
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
+    }
+
+    private void setConstants() {
+        if (encodable.getTagClassType() == null) {
+            encodable.setTagClassType(TagClass.fromIntValue(encodable.getTagClass().getValue()));
+        }
+        if (encodable.getTagConstructedType() != null) {
+            encodable.setTagConstructedType(TagConstructed.fromBooleanValue(encodable.getTagConstructed().getValue()));
+        }
+        if (encodable.getTagNumberType() == null) {
+            encodable.setTagNumberType(TagNumber.fromIntValue(encodable.getTagNumber().getValue()));
+        }
+    }
+
+    private boolean areConstantsValid() {
+        if (encodable.getTagClassType() != null
+            && encodable.getTagClassType().getIntValue() != encodable.getTagClass().getValue()) {
+            TagClass foundTagClass = TagClass.fromIntValue(encodable.getTagClass().getValue());
+            LOGGER.warn("TagClassType did not match expectations expected " + encodable.getTagClassType().name() + "("
+                + encodable.getTagClassType().getIntValue() + ") but found "
+                + (foundTagClass == null ? "???" : foundTagClass.name()) + " (" + encodable.getTagClass().getValue()
+                + ")");
+            return false;
+        }
+        if (encodable.getTagConstructedType() != null
+            && encodable.getTagConstructedType().getBooleanValue() != encodable.getTagConstructed().getValue()) {
+            TagConstructed foundTagConstructed =
+                TagConstructed.fromBooleanValue(encodable.getTagConstructed().getValue());
+            LOGGER.warn("TagConstructedType did not match expectations expected "
+                + encodable.getTagConstructedType().name() + "(" + encodable.getTagConstructedType().getBooleanValue()
+                + ") but found " + (foundTagConstructed == null ? "???" : foundTagConstructed.name()) + " ("
+                + encodable.getTagConstructed().getValue() + ")");
+            return false;
+        }
+        if (encodable.getTagNumberType() != null
+            && !Objects.equals(encodable.getTagNumberType().getIntValue(), encodable.getTagNumber().getValue())) {
+            TagNumber foundTagNumber = TagNumber.fromIntValue(encodable.getTagNumber().getValue());
+            LOGGER.warn("TagNumber did not match expectations expected " + encodable.getTagNumberType().name() + "("
+                + encodable.getTagNumberType().getIntValue() + ") but found "
+                + (foundTagNumber == null ? "???" : foundTagNumber.name()) + " (" + encodable.getTagNumber().getValue()
+                + ")");
+            return false;
+        }
+        return true;
     }
 
 }
