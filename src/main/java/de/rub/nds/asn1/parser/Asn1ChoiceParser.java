@@ -34,15 +34,7 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
             byte[] tagOctetes = parseTagOctets(inputStream);
             if (choice.canMakeValidChoice(tagOctetes)) {
                 choice.makeSelection(tagOctetes);
-                Asn1Field selection = choice.getSelectedChoice();
-                selection.setTagOctets(tagOctetes);
-                selection.setTagClass(this.parseTagClass(selection.getTagOctets().getValue()[0]));
-                selection.setTagConstructed(this.parseTagConstructed(selection.getTagOctets().getValue()[0]));
-                selection.setTagNumber(this.parseTagNumber(selection.getTagOctets().getValue()));
-                selection.setLengthOctets(this.parseLengthOctets(inputStream));
-                selection.setLength(this.parseLength(selection.getLengthOctets().getValue()));
-                selection.setContent(this.parseContentOctets(selection.getLength().getValue(), inputStream));
-                parseIndividualContentFields(inputStream);
+                parseWithoutTag(inputStream, tagOctetes);
             } else {
                 throw new ParserException("Cannot make a valid choice");
             }
@@ -55,5 +47,22 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
         choice.getSelectedChoice().getParser()
             .parseIndividualContentFields(new ByteArrayInputStream(choice.getSelectedChoice().getContent().getValue()));
+    }
+
+    @Override
+    public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
+        try {
+            Asn1Field selection = choice.getSelectedChoice();
+            selection.setTagOctets(tagOctets);
+            selection.setTagClass(this.parseTagClass(selection.getTagOctets().getValue()[0]));
+            selection.setTagConstructed(this.parseTagConstructed(selection.getTagOctets().getValue()[0]));
+            selection.setTagNumber(this.parseTagNumber(selection.getTagOctets().getValue()));
+            selection.setLengthOctets(this.parseLengthOctets(inputStream));
+            selection.setLength(this.parseLength(selection.getLengthOctets().getValue()));
+            selection.setContent(this.parseContentOctets(selection.getLength().getValue(), inputStream));
+            parseIndividualContentFields(inputStream);
+        } catch (IOException ex) {
+            throw new ParserException(ex);
+        }
     }
 }

@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
@@ -25,9 +26,23 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
+        byte[] tagOctets = null;
+        Integer tagNumber = null;
         for (Asn1Encodable tempEncodable : encodable.getChildren()) {
-            LOGGER.debug("Parsing sequence element: " + encodable.getIdentifier());
-            tempEncodable.getParser().parse(inputStream);
+            if (tagNumber == null && tagOctets == null) {
+                tagOctets = parseTagOctets(inputStream);
+                tagNumber = parseTagNumber(tagOctets);
+            }
+            if (tempEncodable.isCompatible(tagNumber)) {
+                tempEncodable.getParser().parseWithoutTag(inputStream, tagOctets);
+                // Reset tagNumber and tagOctets so the next element can get parsed
+                tagNumber = null;
+                tagOctets = null;
+            } else {
+                if (!tempEncodable.isOptional()) {
+                    throw new ParserException("Missing non-optional element");
+                }
+            }
         }
         if (inputStream.available() > 0) {
             throw new ParserException("Unattributed bytes in stream");

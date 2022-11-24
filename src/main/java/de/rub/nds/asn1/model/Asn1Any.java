@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.parser.Asn1Parser;
@@ -17,37 +18,53 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Asn1Any implements Asn1Encodable {
-    
+
     private static final Logger LOGGER = LogManager.getLogger();
-    
+
     @HoldsModifiableVariable
     private Asn1Field instantiation;
-    
+
     @XmlAttribute
     private String identifier;
-    
+
+    private boolean optional;
+
     public Asn1Any(String identifier) {
         this.identifier = identifier;
     }
-    
+
+    @Override
+    public boolean isCompatible(int tagNumber) {
+        return true;
+    }
+
+    @Override
+    public boolean isOptional() {
+        return optional;
+    }
+
+    public void setOptional(boolean optional) {
+        this.optional = optional;
+    }
+
     public void setInstantiation(Asn1Field instantiation) {
         this.instantiation = instantiation;
     }
-    
+
     public Asn1Field getInstantiation() {
         return instantiation;
     }
-    
+
     @Override
     public String getIdentifier() {
         return identifier;
     }
-    
+
     @Override
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
-    
+
     @Override
     public Asn1FieldSerializer getGenericSerializer() {
         if (instantiation != null) {
@@ -56,7 +73,7 @@ public class Asn1Any implements Asn1Encodable {
             throw new RuntimeException("Tried to access serializer of any element before choosing instantiation");
         }
     }
-    
+
     @Override
     public Preparator getGenericPreparator() {
         if (instantiation != null) {
@@ -65,7 +82,7 @@ public class Asn1Any implements Asn1Encodable {
             throw new RuntimeException("Tried to access preparator of any element before choosing instantiation");
         }
     }
-    
+
     @Override
     public Asn1Parser<?> getParser() {
         Asn1UnknownField unknown = new Asn1UnknownField("any");

@@ -25,4 +25,8 @@ public interface Asn1Encodable {
 
     public Asn1Parser<?> getParser();
 
+    public abstract boolean isOptional();
+
+    public abstract boolean isCompatible(int tagNumber);
+
 }

@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
@@ -44,7 +45,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             return tagByteStream.toByteArray();
         } else {
             // Short tag
-            return new byte[]{(byte) read};
+            return new byte[] { (byte) read };
         }
     }
 
@@ -142,6 +143,14 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     }
 
     public abstract void parse(InputStream inputStream);
+
+    /**
+     * Parses an asn1encodable without parsing the tag. We assume that the tag is already parsed and that it is present
+     * within the encodable for the rest of the parsing
+     *
+     * @param inputStream
+     */
+    public abstract void parseWithoutTag(InputStream inputStream, byte[] tagOctets);
 
     public abstract void parseIndividualContentFields(InputStream inputStream) throws IOException;
 

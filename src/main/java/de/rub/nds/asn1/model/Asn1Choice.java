@@ -106,4 +106,19 @@ public abstract class Asn1Choice implements Asn1Encodable {
     public Asn1Parser<?> getParser() {
         return new Asn1ChoiceParser(this);
     }
+
+    @Override
+    public boolean isOptional() {
+        return false; // Are choices never optional? Idk
+    }
+
+    @Override
+    public boolean isCompatible(int tagNumber) {
+        for (SelectableChoice selectableChoice : choiceList) {
+            if (selectableChoice.getField().getTagNumberType().getIntValue() == tagNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
