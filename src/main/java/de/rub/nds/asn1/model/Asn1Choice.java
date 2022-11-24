@@ -10,14 +10,15 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.model.helper.SelectableChoice;
+import de.rub.nds.asn1.parser.Asn1ChoiceParser;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
-import java.io.BufferedInputStream;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -101,4 +102,8 @@ public abstract class Asn1Choice implements Asn1Encodable {
         }
     }
 
+    @Override
+    public Asn1Parser<?> getParser() {
+        return new Asn1ChoiceParser(this);
+    }
 }

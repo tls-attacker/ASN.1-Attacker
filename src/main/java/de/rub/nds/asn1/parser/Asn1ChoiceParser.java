@@ -41,12 +41,17 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
                 selection.setLengthOctets(this.parseLengthOctets(inputStream));
                 selection.setLength(this.parseLength(selection.getLengthOctets().getValue()));
                 selection.setContent(this.parseContentOctets(selection.getLength().getValue(), inputStream));
-                selection.getParser().parseIndividualContentFields(new ByteArrayInputStream(selection.getContent().getValue()));
+                parseIndividualContentFields(inputStream);
             } else {
                 throw new ParserException("Cannot make a valid choice");
             }
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
+    }
+
+    @Override
+    public void parseIndividualContentFields(InputStream inputStream) throws IOException {
+        choice.getSelectedChoice().getParser().parseIndividualContentFields(new ByteArrayInputStream(choice.getSelectedChoice().getContent().getValue()));
     }
 }

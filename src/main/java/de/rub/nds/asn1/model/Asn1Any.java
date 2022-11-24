@@ -68,10 +68,7 @@ public class Asn1Any implements Asn1Encodable {
 
     @Override
     public Asn1FieldParser<?> getParser() {
-        if (instantiation != null) {
-            return instantiation.getParser();
-        } else {
-            throw new RuntimeException("Tried to access preparator of any element before choosing instantiation");
-        }
+        //TODO this has to properly select the correct parser class
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

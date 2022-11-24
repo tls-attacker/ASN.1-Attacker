@@ -41,6 +41,4 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
         }
     }
 
-    public abstract void parseIndividualContentFields(InputStream inputStream) throws IOException;
-
 }

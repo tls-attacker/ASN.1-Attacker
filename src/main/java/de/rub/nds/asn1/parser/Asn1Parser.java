@@ -44,8 +44,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             return new byte[]{(byte) read};
         }
     }
-    
-    
+
     public int parseTagClass(byte firstTagByte) {
         return (firstTagByte >> 6) & 0x03;
     }
@@ -140,5 +139,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     }
 
     public abstract void parse(InputStream inputStream);
+
+    public abstract void parseIndividualContentFields(InputStream inputStream) throws IOException;
 
 }
