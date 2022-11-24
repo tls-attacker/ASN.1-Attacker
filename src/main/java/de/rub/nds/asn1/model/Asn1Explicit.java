@@ -22,7 +22,7 @@ public class Asn1Explicit extends Asn1Container {
     private Asn1Encodable child;
 
     public Asn1Explicit(String identifier, Asn1Encodable child) {
-        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.CONSTRUCTED, TagNumber.EXPLICIT);
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.CONSTRUCTED, null);
         this.child = child;
         addChild(child);
     }

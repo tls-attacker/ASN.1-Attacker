@@ -11,7 +11,6 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.model.helper.SelectableChoice;
 import de.rub.nds.asn1.parser.Asn1ChoiceParser;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -113,12 +112,13 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public boolean isCompatible(int tagNumber) {
+    public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         for (SelectableChoice selectableChoice : choiceList) {
-            if (selectableChoice.getField().getTagNumberType().getIntValue() == tagNumber) {
+            if (selectableChoice.getField().isCompatible(tagNumber, constructed, classType)) {
                 return true;
             }
         }
         return false;
     }
+
 }

@@ -20,10 +20,14 @@ import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.*;
 import java.math.BigInteger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Field implements Asn1Encodable {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @XmlElement(name = "tagClass")
     private ModifiableInteger tagClass;
@@ -71,8 +75,25 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     @Override
-    public boolean isCompatible(int tagNumber) {
-        return tagNumber == tagNumberType.getIntValue();
+    public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
+        if (tagNumberType != null && tagNumber != tagNumberType.getIntValue()) {
+            LOGGER.info("Not compatible because of the tagNumber Expected " + this.tagNumberType.getIntValue()
+                + " but found " + tagNumber);
+            return false;
+        }
+        if (tagConstructedType != null && constructed != tagConstructedType.getBooleanValue()) {
+            LOGGER.info("Not compatible because of constructed type Expected "
+                + this.tagConstructedType.getBooleanValue() + " but found " + constructed);
+            return false;
+        }
+        if (tagClassType != null && classType != this.tagClassType.getIntValue()) {
+            LOGGER.info("Not compatible because of tag class type. Expected " + this.tagClassType.getIntValue()
+                + " but found " + classType);
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     public Asn1Field(String identifier) {

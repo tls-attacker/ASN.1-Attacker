@@ -10,7 +10,6 @@
 package de.rub.nds.asn1.constants;
 
 public enum TagNumber {
-    EXPLICIT(0, "explicit"),
     END_OF_CONTENT(0, "end-of-content"),
     BOOLEAN(1, "boolean"),
     INTEGER(2, "integer"),

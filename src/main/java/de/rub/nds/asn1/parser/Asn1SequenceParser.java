@@ -11,6 +11,7 @@ package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Sequence;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
@@ -28,24 +29,33 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
         byte[] tagOctets = null;
         Integer tagNumber = null;
+        Boolean constructed = null;
+        Integer tagClass = null;
         for (Asn1Encodable tempEncodable : encodable.getChildren()) {
-            if (tagNumber == null && tagOctets == null) {
+            if (tagNumber == null && tagOctets == null && constructed == null && tagClass == null) {
                 tagOctets = parseTagOctets(inputStream);
                 tagNumber = parseTagNumber(tagOctets);
+                constructed = parseTagConstructed(tagOctets[0]);
+                tagClass = parseTagClass(tagOctets[0]);
             }
-            if (tempEncodable.isCompatible(tagNumber)) {
+            if (tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
+                LOGGER.info(tempEncodable.getIdentifier() + " is compatible");
                 tempEncodable.getParser().parseWithoutTag(inputStream, tagOctets);
-                // Reset tagNumber and tagOctets so the next element can get parsed
+                // Reset so the next element can get parsed
                 tagNumber = null;
                 tagOctets = null;
+                constructed = null;
+                tagClass = null;
             } else {
                 if (!tempEncodable.isOptional()) {
-                    throw new ParserException("Missing non-optional element");
+                    throw new ParserException("Missing non-optional element: " + tempEncodable.getIdentifier());
                 }
             }
         }
         if (inputStream.available() > 0) {
-            throw new ParserException("Unattributed bytes in stream");
+            byte[] remainingBytes = inputStream.readAllBytes();
+            throw new ParserException(
+                "Unattributed bytes in stream: " + ArrayConverter.bytesToHexString(remainingBytes));
         }
     }
 }

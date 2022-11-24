@@ -31,13 +31,45 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
     @Override
     public void prepare() {
         LOGGER.trace("Preparing: {}", field.getIdentifier());
-        field.setContent(encodeContent());
-        field.setLength(BigInteger.valueOf(field.getContent().getValue().length));
-        field.setLengthOctets(encodeLength(field.getLength().getValue()));
-        field.setTagClass(field.getTagClassType().getIntValue());
-        field.setTagConstructed(field.getTagConstructedType() == TagConstructed.CONSTRUCTED);
-        field.setTagNumber(field.getTagNumberType().getIntValue());
+        prepareContent();
+        prepareLength();
+        prepareLengthOctets();
+        prepareTagClass();
+        prepareTagConstructed();
+        prepareTagNumber();
+        prepareTagOctets();
+    }
+
+    public void prepareTagOctets() {
         field.setTagOctets(encodeIdentifier());
+    }
+
+    public void prepareTagNumber() {
+        if (field.getTagNumberType() != null) {
+            field.setTagNumber(field.getTagNumberType().getIntValue());
+        } else {
+            field.setTagNumber(0);
+        }
+    }
+
+    public void prepareTagConstructed() {
+        field.setTagConstructed(field.getTagConstructedType() == TagConstructed.CONSTRUCTED);
+    }
+
+    public void prepareTagClass() {
+        field.setTagClass(field.getTagClassType().getIntValue());
+    }
+
+    public void prepareLengthOctets() {
+        field.setLengthOctets(encodeLength(field.getLength().getValue()));
+    }
+
+    public void prepareLength() {
+        field.setLength(BigInteger.valueOf(field.getContent().getValue().length));
+    }
+
+    public void prepareContent() {
+        field.setContent(encodeContent());
     }
 
     protected abstract byte[] encodeContent();
