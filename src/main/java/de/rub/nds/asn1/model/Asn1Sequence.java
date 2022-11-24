@@ -37,6 +37,5 @@ public abstract class Asn1Sequence extends Asn1Container {
     public Asn1FieldParser<Asn1Sequence> getParser() {
         return new Asn1SequenceParser(this);
     }
-    
-    
+
 }

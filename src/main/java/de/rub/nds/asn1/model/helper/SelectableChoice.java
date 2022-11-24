@@ -6,7 +6,6 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model.helper;
 
 import de.rub.nds.asn1.model.Asn1Field;
@@ -22,7 +21,13 @@ public class SelectableChoice {
     }
 
     public boolean isSelectable(byte[] tag) {
-        throw new UnsupportedOperationException("not implemented yet");
+        int tagNumber = field.getParser().parseTagNumber(tag);
+        //TODO we currently only check tag number - maybe we should also check the rest of the tag
+        if (field.getTagNumberType().getIntValue() == tagNumber) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Asn1Field getField() {

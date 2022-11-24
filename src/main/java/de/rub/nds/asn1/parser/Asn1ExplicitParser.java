@@ -9,26 +9,22 @@
 
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.model.Asn1Encodable;
-import de.rub.nds.asn1.model.Asn1Set;
+import de.rub.nds.asn1.model.Asn1Explicit;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1SetParser extends Asn1FieldParser<Asn1Set> {
+public class Asn1ExplicitParser extends Asn1FieldParser<Asn1Explicit> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SetParser(Asn1Set asn1Set) {
-        super(asn1Set);
+    public Asn1ExplicitParser(Asn1Explicit asn1Explicit) {
+        super(asn1Explicit);
     }
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        // TODO this might be wrong :X
-        for (Asn1Encodable encodable : encodable.getChildren()) {
-            encodable.getParser().parse(inputStream);
-        }
+        encodable.getChild().getParser().parse(inputStream);
     }
 }

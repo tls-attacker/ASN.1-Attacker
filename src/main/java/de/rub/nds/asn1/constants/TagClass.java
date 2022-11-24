@@ -14,7 +14,7 @@ public enum TagClass {
     APPLICATION(1, "application"),
     CONTEXT_SPECIFIC(2, "context-specific"),
     PRIVATE(3, "private");
-
+    
     private final int intValue;
 
     private final String stringValue;

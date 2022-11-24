@@ -53,7 +53,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     private TagConstructed tagConstructedType;
 
     @XmlTransient
-    private final TagNumber tagNumberType;
+    private TagNumber tagNumberType;
 
     @XmlTransient
     private boolean optional = false;
@@ -67,6 +67,10 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;
         this.tagNumberType = tagNummerType;
+    }
+
+    public Asn1Field(String identifier) {
+        this.identifier = identifier;
     }
 
     public void setTagClassType(TagClass tagClassType) {

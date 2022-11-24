@@ -1,5 +1,5 @@
 /**
- * X.509-Attacker - A tool for creating arbitrary certificates
+ * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
  *
  * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
@@ -113,14 +113,14 @@ public class ObjectIdentifier {
         byte moreFlag = 0x00;
         do {
             try {
-                stream.write(new byte[]{(byte) (moreFlag | (idValue & 0x7F))});
+                stream.write(new byte[] { (byte) (moreFlag | (idValue & 0x7F)) });
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
             idValue >>= 7;
             moreFlag = (byte) 0x80;
         } while (idValue > 0);
-        //we encoded the byte array in reverse order - we have to flip it again
+        // we encoded the byte array in reverse order - we have to flip it again
         return reverse(stream.toByteArray());
 
     }

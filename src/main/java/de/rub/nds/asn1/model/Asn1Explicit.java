@@ -1,8 +1,18 @@
+/**
+ * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+ *
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
+
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1ExplicitParser;
 import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -28,7 +38,7 @@ public class Asn1Explicit extends Asn1Container {
 
     @Override
     public Asn1FieldParser<Asn1Explicit> getParser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Asn1ExplicitParser(this);
     }
 
 }

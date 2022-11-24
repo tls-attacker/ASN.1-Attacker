@@ -30,17 +30,20 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     public byte[] parseTagOctets(InputStream stream) throws IOException {
         int read = stream.read();
         if ((read & 0x1F) == 0x1F) {
-            //Long tag
+            // Long tag
 
             ByteArrayOutputStream tagByteStream = new ByteArrayOutputStream();
             tagByteStream.write(read);
             do {
                 read = stream.read();
+                if (read == -1) {
+                    throw new ParserException("Incomplete tag");
+                }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);
             return tagByteStream.toByteArray();
         } else {
-            //Short tag
+            // Short tag
             return new byte[]{(byte) read};
         }
     }

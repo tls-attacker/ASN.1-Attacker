@@ -22,7 +22,7 @@ public interface Asn1Encodable {
     public Asn1FieldSerializer getGenericSerializer();
 
     public Preparator getGenericPreparator();
-    
+
     public Asn1Parser<?> getParser();
 
 }

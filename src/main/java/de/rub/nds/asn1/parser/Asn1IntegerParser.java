@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Integer;
@@ -18,8 +19,6 @@ public class Asn1IntegerParser extends Asn1FieldParser<Asn1Integer> {
     public Asn1IntegerParser(Asn1Integer asn1Integer) {
         super(asn1Integer);
     }
-
-    
 
     @Override
     public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {

@@ -56,7 +56,5 @@ public class Asn1Integer extends Asn1Field {
     public Asn1FieldParser<Asn1Integer> getParser() {
         return new Asn1IntegerParser(this);
     }
-    
-    
 
 }

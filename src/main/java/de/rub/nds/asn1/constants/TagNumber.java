@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.constants;
 
 public enum TagNumber {
@@ -38,18 +39,19 @@ public enum TagNumber {
     GENERALSTRING(27, "generalstring"),
     UNIVERSALSTRING(28, "universalstring"),
     CHARACTER_STRING(29, "character string"),
-    BMPSTRING(30, "bmpstring");
+    BMPSTRING(30, "bmpstring"),
+    UNKNOWN(null, null);
 
-    private final int intValue;
+    private final Integer intValue;
 
     private final String stringValue;
 
-    TagNumber(int intValue, String stringValue) {
+    private TagNumber(Integer intValue, String stringValue) {
         this.intValue = intValue;
         this.stringValue = stringValue;
     }
 
-    public int getIntValue() {
+    public Integer getIntValue() {
         return this.intValue;
     }
 

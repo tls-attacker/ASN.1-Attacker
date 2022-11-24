@@ -6,14 +6,13 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Field;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,6 +26,7 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
 
     @Override
     public void parse(InputStream inputStream) {
+        LOGGER.debug("Parsing: {}", encodable.getIdentifier());
         try {
             encodable.setTagOctets(this.parseTagOctets(inputStream));
             encodable.setTagClass(this.parseTagClass(encodable.getTagOctets().getValue()[0]));

@@ -16,17 +16,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
-    
+
     private static final Logger LOGGER = LogManager.getLogger();
-    
+
     public Asn1SequenceParser(Asn1Sequence asn1Sequence) {
         super(asn1Sequence);
     }
-    
+
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        for (Asn1Encodable encodable : encodable.getChildren()) {
-            encodable.getParser().parse(inputStream);
+        for (Asn1Encodable tempEncodable : encodable.getChildren()) {
+            LOGGER.debug("Parsing sequence element: " + encodable.getIdentifier());
+            tempEncodable.getParser().parse(inputStream);
+        }
+        if (inputStream.available() > 0) {
+            throw new ParserException("Unattributed bytes in stream");
         }
     }
 }

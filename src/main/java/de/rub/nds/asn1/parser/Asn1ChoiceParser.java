@@ -6,6 +6,7 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
+
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Choice;
@@ -52,6 +53,7 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        choice.getSelectedChoice().getParser().parseIndividualContentFields(new ByteArrayInputStream(choice.getSelectedChoice().getContent().getValue()));
+        choice.getSelectedChoice().getParser()
+            .parseIndividualContentFields(new ByteArrayInputStream(choice.getSelectedChoice().getContent().getValue()));
     }
 }
