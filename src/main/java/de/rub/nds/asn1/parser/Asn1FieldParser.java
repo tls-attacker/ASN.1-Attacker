@@ -41,7 +41,7 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
 
     @Override
     public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
-        LOGGER.debug("Parsing: {}", encodable.getIdentifier());
+        LOGGER.debug("Parsing: {} of type {}", encodable.getIdentifier(), encodable.getClass().getSimpleName());
         try {
             encodable.setTagOctets(tagOctets);
             encodable.setTagClass(this.parseTagClass(encodable.getTagOctets().getValue()[0]));
@@ -58,6 +58,7 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
+        LOGGER.trace("Finished parsing {}", encodable.getIdentifier());
     }
 
     private void setConstants() {

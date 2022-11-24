@@ -31,6 +31,8 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
     @Override
     public void parse(InputStream inputStream) {
         try {
+            LOGGER.debug("Parsing: {} of type {}", encodable.getIdentifier(), encodable.getClass().getSimpleName());
+
             byte[] tagOctetes = parseTagOctets(inputStream);
             parseWithoutTag(inputStream, tagOctetes);
         } catch (IOException ex) {
@@ -48,6 +50,8 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
     public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
         if (choice.canMakeValidChoice(tagOctets)) {
             choice.makeSelection(tagOctets);
+            LOGGER.debug("Selected {} of type {} for CHOICE", choice.getSelectedChoice().getIdentifier(),
+                choice.getSelectedChoice().getClass().getSimpleName());
         } else {
             throw new ParserException("Cannot make a valid choice");
         }
@@ -64,5 +68,6 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
+        LOGGER.trace("Finished parsing {}", choice.getSelectedChoice().getIdentifier());
     }
 }

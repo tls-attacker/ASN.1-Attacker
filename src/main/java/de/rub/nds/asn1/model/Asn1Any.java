@@ -35,6 +35,7 @@ public class Asn1Any implements Asn1Encodable {
 
     @Override
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
+        LOGGER.debug("ANY is always compatible");
         return true;
     }
 

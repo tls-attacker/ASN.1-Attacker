@@ -115,9 +115,11 @@ public abstract class Asn1Choice implements Asn1Encodable {
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         for (SelectableChoice selectableChoice : choiceList) {
             if (selectableChoice.getField().isCompatible(tagNumber, constructed, classType)) {
+                LOGGER.debug("{} is compatible within CHOICE", selectableChoice.getField().getIdentifier());
                 return true;
             }
         }
+        LOGGER.debug("Did not find a selectable choice within CHOICE: {}", identifier);
         return false;
     }
 

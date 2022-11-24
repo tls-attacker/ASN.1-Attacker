@@ -77,20 +77,21 @@ public abstract class Asn1Field implements Asn1Encodable {
     @Override
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         if (tagNumberType != null && tagNumber != tagNumberType.getIntValue()) {
-            LOGGER.info("Not compatible because of the tagNumber Expected " + this.tagNumberType.getIntValue()
+            LOGGER.debug("Not compatible because of the tagNumber Expected " + this.tagNumberType.getIntValue()
                 + " but found " + tagNumber);
             return false;
         }
         if (tagConstructedType != null && constructed != tagConstructedType.getBooleanValue()) {
-            LOGGER.info("Not compatible because of constructed type Expected "
+            LOGGER.debug("Not compatible because of constructed type Expected "
                 + this.tagConstructedType.getBooleanValue() + " but found " + constructed);
             return false;
         }
         if (tagClassType != null && classType != this.tagClassType.getIntValue()) {
-            LOGGER.info("Not compatible because of tag class type. Expected " + this.tagClassType.getIntValue()
+            LOGGER.debug("Not compatible because of tag class type. Expected " + this.tagClassType.getIntValue()
                 + " but found " + classType);
             return false;
         } else {
+            LOGGER.debug("Asn1Field \'{}\' is compatible", identifier);
             return true;
         }
 
