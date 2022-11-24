@@ -6,12 +6,13 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1ObjectIdentifierParser;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.Asn1ObjectIdentifierPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -47,6 +48,11 @@ public class Asn1ObjectIdentifier extends Asn1Field {
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1ObjectIdentifierPreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1ObjectIdentifier> getParser() {
+        return new Asn1ObjectIdentifierParser(this);
     }
 
 }

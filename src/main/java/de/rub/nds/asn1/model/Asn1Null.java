@@ -6,12 +6,12 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.Asn1NullPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -29,6 +29,11 @@ public class Asn1Null extends Asn1Field {
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1NullPreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1Null> getParser() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

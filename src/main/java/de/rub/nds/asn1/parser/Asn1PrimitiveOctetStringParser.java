@@ -6,26 +6,21 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveOctetStringParser extends Asn1Parser<Asn1PrimitiveOctetString> {
+public class Asn1PrimitiveOctetStringParser extends Asn1FieldParser<Asn1PrimitiveOctetString> {
 
-    private final String identifier;
-
-    public Asn1PrimitiveOctetStringParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1PrimitiveOctetStringParser(Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+        super(asn1PrimitiveOctetString);
     }
 
     @Override
-    public Asn1PrimitiveOctetString parse() {
-        Asn1PrimitiveOctetString asn1PrimitiveOctetString = new Asn1PrimitiveOctetString(identifier);
-        genericParse(asn1PrimitiveOctetString);
-        return asn1PrimitiveOctetString;
+    public void parseIndividualContentFields(InputStream stream) throws IOException {
+        encodable.setValue(stream.readAllBytes());
     }
 
 }

@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.Asn1PrimitiveBitStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -63,5 +65,10 @@ public class Asn1PrimitiveBitString extends Asn1Field {
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1PrimitiveBitStringPreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1PrimitiveBitString> getParser() {
+        return new Asn1PrimitiveBitStringParser(this);
     }
 }

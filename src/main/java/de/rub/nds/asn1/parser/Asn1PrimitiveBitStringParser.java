@@ -6,26 +6,22 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveBitStringParser extends Asn1Parser<Asn1PrimitiveBitString> {
+public class Asn1PrimitiveBitStringParser extends Asn1FieldParser<Asn1PrimitiveBitString> {
 
-    private final String identifier;
-
-    public Asn1PrimitiveBitStringParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1PrimitiveBitStringParser(Asn1PrimitiveBitString asn1PrimitiveBitString) {
+        super(asn1PrimitiveBitString);
     }
 
     @Override
-    public Asn1PrimitiveBitString parse() {
-        Asn1PrimitiveBitString asn1PrimitiveBitString = new Asn1PrimitiveBitString(identifier);
-        genericParse(asn1PrimitiveBitString);
-        return asn1PrimitiveBitString;
+    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
+        encodable.setValue(byteArrayInputStream.readAllBytes()); //TODO fix unused bits
+        encodable.setUnusedBits((byte)0); // TODO not correct
     }
 
 }

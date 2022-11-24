@@ -6,26 +6,21 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveT61String;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveT61StringParser extends Asn1Parser<Asn1PrimitiveT61String> {
+public class Asn1PrimitiveT61StringParser extends Asn1FieldParser<Asn1PrimitiveT61String> {
 
-    private final String identifier;
-
-    public Asn1PrimitiveT61StringParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1PrimitiveT61StringParser(Asn1PrimitiveT61String asn1PrimitiveT61String) {
+        super(asn1PrimitiveT61String);
     }
 
     @Override
-    public Asn1PrimitiveT61String parse() {
-        Asn1PrimitiveT61String asn1PrimitiveT61String = new Asn1PrimitiveT61String(identifier);
-        genericParse(asn1PrimitiveT61String);
-        return asn1PrimitiveT61String;
+    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
+        encodable.setValue(new String(byteArrayInputStream.readAllBytes()));
     }
 
 }

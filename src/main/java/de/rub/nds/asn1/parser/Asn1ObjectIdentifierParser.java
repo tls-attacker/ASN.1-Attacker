@@ -6,29 +6,27 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
+import de.rub.nds.asn1.oid.ObjectIdentifier;
+import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ObjectIdentifierParser extends Asn1Parser<Asn1ObjectIdentifier> {
+public class Asn1ObjectIdentifierParser extends Asn1FieldParser<Asn1ObjectIdentifier> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final String identifier;
-
-    public Asn1ObjectIdentifierParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1ObjectIdentifierParser(Asn1ObjectIdentifier asn1ObjectIdentifier) {
+        super(asn1ObjectIdentifier);
     }
 
     @Override
-    public Asn1ObjectIdentifier parse() {
-        Asn1ObjectIdentifier asn1ObjectIdentifier = new Asn1ObjectIdentifier(identifier);
-        genericParse(asn1ObjectIdentifier);
-        return asn1ObjectIdentifier;
+    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
+        byte[] contentBytes = byteArrayInputStream.readAllBytes();
+        ObjectIdentifier oid = new ObjectIdentifier(contentBytes);
+        encodable.setValue(oid.toString());
     }
 }

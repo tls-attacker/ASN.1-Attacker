@@ -6,9 +6,9 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
@@ -66,4 +66,12 @@ public class Asn1Any implements Asn1Encodable {
         }
     }
 
+    @Override
+    public Asn1FieldParser<?> getParser() {
+        if (instantiation != null) {
+            return instantiation.getParser();
+        } else {
+            throw new RuntimeException("Tried to access preparator of any element before choosing instantiation");
+        }
+    }
 }

@@ -6,15 +6,17 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.Asn1PrimitiveIa5StringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveGeneralizedTimePreparator;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveIa5StringPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -40,9 +42,18 @@ public class Asn1PrimitiveIa5String extends Asn1Field {
         this.value = value;
     }
 
+    public void setValue(String value) {
+        this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
+
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1PrimitiveIa5StringPreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1PrimitiveIa5String> getParser() {
+        return new Asn1PrimitiveIa5StringParser(this);
     }
 
 }

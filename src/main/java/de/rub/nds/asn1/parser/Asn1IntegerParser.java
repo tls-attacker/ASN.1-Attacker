@@ -6,25 +6,24 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Integer;
+import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 
-public class Asn1IntegerParser extends Asn1Parser<Asn1Integer> {
+public class Asn1IntegerParser extends Asn1FieldParser<Asn1Integer> {
 
-    private final String identifier;
-
-    public Asn1IntegerParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1IntegerParser(Asn1Integer asn1Integer) {
+        super(asn1Integer);
     }
 
+    
+
     @Override
-    public Asn1Integer parse() {
-        Asn1Integer asn1Integer = new Asn1Integer(identifier);
-        genericParse(asn1Integer);
-        return asn1Integer;
+    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
+        byte[] allBytes = byteArrayInputStream.readAllBytes();
+        encodable.setValue(new BigInteger(allBytes));
     }
 }

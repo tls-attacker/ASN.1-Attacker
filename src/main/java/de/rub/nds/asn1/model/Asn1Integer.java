@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1IntegerParser;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.Asn1IntegerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -49,5 +51,12 @@ public class Asn1Integer extends Asn1Field {
     public Preparator getGenericPreparator() {
         return new Asn1IntegerPreparator(this);
     }
+
+    @Override
+    public Asn1FieldParser<Asn1Integer> getParser() {
+        return new Asn1IntegerParser(this);
+    }
+    
+    
 
 }

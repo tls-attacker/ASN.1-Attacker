@@ -6,26 +6,21 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveIa5StringParser extends Asn1Parser<Asn1PrimitiveIa5String> {
+public class Asn1PrimitiveIa5StringParser extends Asn1FieldParser<Asn1PrimitiveIa5String> {
 
-    private final String identifier;
-
-    public Asn1PrimitiveIa5StringParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1PrimitiveIa5StringParser(Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
+        super(asn1PrimitiveIa5String);
     }
 
     @Override
-    public Asn1PrimitiveIa5String parse() {
-        Asn1PrimitiveIa5String asn1PrimitiveIa5String = new Asn1PrimitiveIa5String(identifier);
-        genericParse(asn1PrimitiveIa5String);
-        return asn1PrimitiveIa5String;
+    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
+        encodable.setValue(new String(byteArrayInputStream.readAllBytes()));
     }
 
 }

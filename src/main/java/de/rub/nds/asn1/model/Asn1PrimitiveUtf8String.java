@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.Asn1PrimitiveUtf8StringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveUtf8StringPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -47,5 +49,10 @@ public class Asn1PrimitiveUtf8String extends Asn1Field {
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1PrimitiveUtf8StringPreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1PrimitiveUtf8String> getParser() {
+        return new Asn1PrimitiveUtf8StringParser(this);
     }
 }

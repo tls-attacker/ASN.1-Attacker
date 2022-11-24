@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1BooleanParser;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -47,6 +49,11 @@ public class Asn1Boolean extends Asn1Field {
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1BooleanPreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1Boolean> getParser() {
+        return new Asn1BooleanParser(this);
     }
 
 }

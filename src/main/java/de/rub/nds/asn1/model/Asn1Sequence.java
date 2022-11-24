@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.Asn1SequenceParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -31,4 +33,10 @@ public abstract class Asn1Sequence extends Asn1Container {
         return new GenericAsn1ContainerPreparator(this);
     }
 
+    @Override
+    public Asn1FieldParser<Asn1Sequence> getParser() {
+        return new Asn1SequenceParser(this);
+    }
+    
+    
 }

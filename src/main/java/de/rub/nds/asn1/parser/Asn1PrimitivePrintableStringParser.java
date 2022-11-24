@@ -6,26 +6,20 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitivePrintableStringParser extends Asn1Parser<Asn1PrimitivePrintableString> {
+public class Asn1PrimitivePrintableStringParser extends Asn1FieldParser<Asn1PrimitivePrintableString> {
 
-    private final String identifier;
-
-    public Asn1PrimitivePrintableStringParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1PrimitivePrintableStringParser(Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+        super(asn1PrimitivePrintableString);
     }
 
     @Override
-    public Asn1PrimitivePrintableString parse() {
-        Asn1PrimitivePrintableString asn1PrintableString = new Asn1PrimitivePrintableString(identifier);
-        genericParse(asn1PrintableString);
-        return asn1PrintableString;
+    public void parseIndividualContentFields(InputStream inputStream) throws IOException {
+        encodable.setValue(new String(inputStream.readAllBytes()));
     }
-
 }

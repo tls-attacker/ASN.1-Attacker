@@ -12,6 +12,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.Asn1PrimitiveUtcTimeParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveUtcTimePreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -47,6 +49,11 @@ public class Asn1PrimitiveUtcTime extends Asn1Field {
     @Override
     public Preparator getGenericPreparator() {
         return new Asn1PrimitiveUtcTimePreparator(this);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1PrimitiveUtcTime> getParser() {
+        return new Asn1PrimitiveUtcTimeParser(this);
     }
 
 }

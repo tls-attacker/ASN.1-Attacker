@@ -17,6 +17,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -45,20 +46,18 @@ public abstract class Asn1Choice implements Asn1Encodable {
         }
     }
 
-    public boolean canMakeValidChoice(BufferedInputStream stream) {
-        byte[] tag = null; // = //read tag from stream;
+    public boolean canMakeValidChoice(byte[] tagOctets) {
         for (SelectableChoice choice : choiceList) {
-            if (choice.isSelectable(tag)) {
+            if (choice.isSelectable(tagOctets)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void makeSelection(BufferedInputStream stream) {
-        byte[] tag = null; // = //read tag from stream;
+    public void makeSelection(byte[] tagOctets) {
         for (SelectableChoice choice : choiceList) {
-            if (choice.isSelectable(tag)) {
+            if (choice.isSelectable(tagOctets)) {
                 selectedChoice = choice.getField();
                 return;
             }

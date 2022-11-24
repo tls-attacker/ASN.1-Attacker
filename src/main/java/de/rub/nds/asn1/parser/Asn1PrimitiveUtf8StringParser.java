@@ -6,26 +6,21 @@
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveUtf8String;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveUtf8StringParser extends Asn1Parser<Asn1PrimitiveUtf8String> {
+public class Asn1PrimitiveUtf8StringParser extends Asn1FieldParser<Asn1PrimitiveUtf8String> {
 
-    private final String identifier;
-
-    public Asn1PrimitiveUtf8StringParser(String identifier, InputStream inputStream) {
-        super(inputStream);
-        this.identifier = identifier;
+    public Asn1PrimitiveUtf8StringParser(Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
+        super(asn1PrimitiveUtf8String);
     }
 
     @Override
-    public Asn1PrimitiveUtf8String parse() {
-        Asn1PrimitiveUtf8String asn1PrimitiveUtf8String = new Asn1PrimitiveUtf8String(identifier);
-        genericParse(asn1PrimitiveUtf8String);
-        return asn1PrimitiveUtf8String;
+    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
+        encodable.setValue(new String(byteArrayInputStream.readAllBytes()));
     }
 
 }
