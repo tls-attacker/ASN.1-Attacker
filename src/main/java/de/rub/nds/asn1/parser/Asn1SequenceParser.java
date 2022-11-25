@@ -31,13 +31,14 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
         Boolean constructed = null;
         Integer tagClass = null;
         for (Asn1Encodable tempEncodable : encodable.getChildren()) {
-            if (tagNumber == null && tagOctets == null && constructed == null && tagClass == null) {
+            
+            if (tagNumber == null && tagOctets == null && constructed == null && tagClass == null && inputStream.available() > 0) {
                 tagOctets = parseTagOctets(inputStream);
                 tagNumber = parseTagNumber(tagOctets);
                 constructed = parseTagConstructed(tagOctets[0]);
                 tagClass = parseTagClass(tagOctets[0]);
             }
-            if (tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
+            if (tagOctets != null && tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
                 LOGGER.info(tempEncodable.getIdentifier() + " is compatible");
                 tempEncodable.getParser().parseWithoutTag(inputStream, tagOctets);
                 // Reset so the next element can get parsed
