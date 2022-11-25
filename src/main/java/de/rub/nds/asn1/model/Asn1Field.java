@@ -77,24 +77,23 @@ public abstract class Asn1Field implements Asn1Encodable {
     @Override
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         if (tagNumberType != null && tagNumber != tagNumberType.getIntValue()) {
-            LOGGER.debug("Not compatible because of the tagNumber Expected " + this.tagNumberType.getIntValue()
-                + " but found " + tagNumber);
+            LOGGER.debug("{} not compatible because of the tagNumber Expected " + this.tagNumberType.getIntValue()
+                + " but found " + tagNumber, identifier);
             return false;
         }
         if (tagConstructedType != null && constructed != tagConstructedType.getBooleanValue()) {
-            LOGGER.debug("Not compatible because of constructed type Expected "
-                + this.tagConstructedType.getBooleanValue() + " but found " + constructed);
+            LOGGER.debug("{} not compatible because of constructed type Expected "
+                + this.tagConstructedType.getBooleanValue() + " but found " + constructed, identifier);
             return false;
         }
         if (tagClassType != null && classType != this.tagClassType.getIntValue()) {
-            LOGGER.debug("Not compatible because of tag class type. Expected " + this.tagClassType.getIntValue()
-                + " but found " + classType);
+            LOGGER.debug("{} not compatible because of tag class type. Expected " + this.tagClassType.getIntValue()
+                + " but found " + classType, identifier);
             return false;
         } else {
             LOGGER.debug("Asn1Field \'{}\' is compatible", identifier);
             return true;
         }
-
     }
 
     public Asn1Field(String identifier) {
@@ -109,6 +108,7 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.tagConstructedType = tagConstructedType;
     }
 
+    @Override
     public boolean isOptional() {
         return optional;
     }

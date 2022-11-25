@@ -31,7 +31,7 @@ public class Asn1Boolean extends Asn1Field {
     private ModifiableBoolean value;
 
     public Asn1Boolean(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.BOOLEAN);
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BOOLEAN);
     }
 
     public ModifiableBoolean getValue() {

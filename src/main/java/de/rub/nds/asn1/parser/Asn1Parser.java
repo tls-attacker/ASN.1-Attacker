@@ -44,10 +44,13 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
                 }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);
+            LOGGER.debug("Parsed (long) tag octets: {}", tagByteStream.toByteArray());
             return tagByteStream.toByteArray();
         } else {
             // Short tag
-            return new byte[] { (byte) read };
+            byte[] tag = new byte[] { (byte) read };
+            LOGGER.debug("Parsed short tag octets: {}", tag);
+            return tag;
         }
     }
 
@@ -112,6 +115,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             throw new ParserException("Reserved length value!");
         }
         if ((lengthByte & 0xFF) < 128) {
+            LOGGER.debug("Parsed (short) length octets: {}", outputStream.toByteArray());
             return outputStream.toByteArray();
         } else {
             int numberOfLengthBytes = (lengthByte & 0x7F);
@@ -122,6 +126,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
                     throw new ParserException(ex);
                 }
             }
+            LOGGER.debug("Parsed (long) length octets: {}", outputStream.toByteArray());
             return outputStream.toByteArray();
         }
     }
@@ -141,6 +146,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             }
             toReadLength = toReadLength.subtract(BigInteger.valueOf(bytesToRead));
         }
+        LOGGER.debug("Parsed content octets: {}", outputStream.toByteArray());
         return outputStream.toByteArray();
     }
 
