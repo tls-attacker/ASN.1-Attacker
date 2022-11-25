@@ -7,15 +7,18 @@ ASN.1-Attacker is an open-source framework for generating arbitrary ASN.1 struct
 
 The tool is not intended to be used directly, but by other software projects as a library.
 
-#Installation
+# Installation
 
 In order to compile and use ASN.1-Tool, you need to have Java and Maven installed. On Ubuntu you can install Maven by
- running:
+running:
+
 ```bash
 $ sudo apt-get install maven
 ```
+
 ASN.1-Tool currently needs Java JDK 11 to run. If you have the correct Java version you can install
- ASN.1-Tool as follows.
+ASN.1-Tool as follows.
+
 ```bash
 $ git clone https://github.com/tls-attacker/ASN.1-Attacker.git
 $ cd ASN.1-Tool
@@ -28,8 +31,8 @@ If you want to use this project as a dependency, you do not have to compile it y
 ```xml
 <dependency>
     <groupId>de.rub.nds</groupId>
-    <artifactId>Asn1Tool</artifactId>
-    <version>1.3.0</version>
+    <artifactId>asn1-tool</artifactId>
+    <version>2.0.0</version>
 </dependency>
 ```
 

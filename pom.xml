@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.rub.nds</groupId>
+        <artifactId>protocol-toolkit-bom</artifactId>
+        <version>2.0.1</version>
+    </parent>
 
-    <groupId>de.rub.nds</groupId>
-    <artifactId>asn1-attacker</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <artifactId>asn1-tool</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
 
     <name>ASN.1-Attacker</name>
     <description>ASN.1-Attacker is a project for creating arbitrary ASN.1 structures; including malformed ASN.1 structures.
         Structures are defined in human-readable XML files and allow to specify modifications to the original encoding
-        of data types.
-    </description>
+        of data types.</description>
     <url>https://github.com/tls-attacker/ASN.1-Tool</url>
 
     <licenses>
@@ -23,18 +23,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>rub-nexus</id>
-            <name>TLS-Attacker Internal Repository</name>
-            <url>https://hydrogen.cloud.nds.rub.de/nexus/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <developers>
         <developer>
@@ -52,36 +40,43 @@
 
     <scm>
         <connection>scm:git:https://github.com/tls-attacker/ASN.1-Tool.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ASN.1-Attacker-Development.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ASN.1-Tool-Development.git</developerConnection>
+        <tag>HEAD</tag>
         <url>https://github.com/tls-attacker/ASN.1-Tool</url>
     </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <!-- The following variables are required for Jenkins CI -->
+        <skipTests>false</skipTests>
+        <skip.surefire.tests>${skipTests}</skip.surefire.tests>
+        <skip.failsafe.tests>${skipTests}</skip.failsafe.tests>
+    </properties>
 
     <dependencies>
         <!-- scope: compile -->
         <dependency>
             <groupId>de.rub.nds</groupId>
-            <artifactId>ModifiableVariable</artifactId>
-            <version>3.6.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.19.0</version>
+            <artifactId>modifiable-variable</artifactId>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
@@ -92,84 +87,63 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>ASN1Tool</finalName>
         <plugins>
             <!--################# default lifecycle plugins #################-->
-            <!-- Enforce maven and java version -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>enforce-versions</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>3.6</version>
-                                </requireMavenVersion>
-                                <requireJavaVersion>
-                                    <version>${maven.compiler.source}</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Formatting -->
             <plugin>
-                <groupId>net.revelc.code.formatter</groupId>
-                <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.20.0</version>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
                 <configuration>
-                    <configFile>${project.basedir}/maven-eclipse-codestyle.xml</configFile>
+                    <java>
+                        <!-- Introduce spotless using ratchetFrom to format files gradually on change.
+                             Also avoid merge conflicts when merging into master due to one large format commit. -->
+                        <ratchetFrom>origin/master</ratchetFrom>
+                        <lineEndings>GIT_ATTRIBUTES</lineEndings>
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
+                        <importOrder />
+                        <removeUnusedImports />
+                        <indent>
+                            <spaces>true</spaces>
+                            <spacesPerTab>4</spacesPerTab>
+                        </indent>
+                        <googleJavaFormat>
+                            <version>1.15.0</version>
+                            <style>AOSP</style>
+                        </googleJavaFormat>
+                        <licenseHeader>
+                            <file>${project.basedir}/license_header_plain.txt</file>
+                        </licenseHeader>
+                    </java>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>format-sources</id>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
+            <!-- Flatten pom.xml before install / deploy phases -->
             <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>4.1</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
                 <configuration>
-                    <header>${project.basedir}/license_header_plain.txt</header>
-                    <strictCheck>true</strictCheck>
-                    <includes>
-                        <include>src/**/*.java</include>
-                    </includes>
-                    <properties>
-                        <startYear>2014</startYear>
-                        <year>${maven.build.timestamp}</year>
-                        <description>A project for creating arbitrary ASN.1 structures</description>
-                        <owner>Ruhr University Bochum, Paderborn University, Hackmanit GmbH</owner>
-                        <licenseName>Apache License, Version 2.0</licenseName>
-                        <licenseURL>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseURL>
-                    </properties>
-                    <mapping>
-                        <java>JAVADOC_STYLE</java>
-                    </mapping>
+                    <flattenMode>ossrh</flattenMode>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>update-license-header</id>
-                        <phase>process-sources</phase>
+                        <id>flatten-clean</id>
                         <goals>
-                            <goal>format</goal>
+                            <goal>clean</goal>
                         </goals>
+                        <phase>clean</phase>
+                    </execution>
+                    <execution>
+                        <id>flatten</id>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <phase>process-resources</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -177,13 +151,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.0</version>
             </plugin>
             <!-- Compile source files -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -193,13 +165,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M7</version>
+                <configuration>
+                    <trimStackTrace>false</trimStackTrace>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <!-- Allow parallel execution of unit tests (execution in series within test classes) -->
+                    <parallel>classes</parallel>
+                    <!-- Can be adjusted depending on the local system, 3 should be a fair default value -->
+                    <forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <!-- By default we include all but integration tests during surefire execution -->
+                    <excludedGroups>IntegrationTest</excludedGroups>
+                    <skipTests>${skip.surefire.tests}</skipTests>
+                </configuration>
             </plugin>
             <!-- Build jar file -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -214,12 +198,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.1</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
-                    <javadocExecutable>
-                        ${java.home}/bin/javadoc
-                    </javadocExecutable>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                 </configuration>
                 <executions>
                     <execution>
@@ -234,7 +215,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -252,10 +232,10 @@
                 <executions>
                     <execution>
                         <id>copy</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
@@ -271,10 +251,10 @@
                     </execution>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <outputDirectory>${maven.multiModuleProjectDirectory}/apps/lib</outputDirectory>
                             <!--Ensures only runnable dependencies are included-->
@@ -283,78 +263,139 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Sign artifacts -->
+            <!-- Execute integration tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.0.1</version>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <!-- By default, the Failsafe plugin excludes various files. We have to override that. -->
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <!-- Integration tests and slow tests are started -->
+                    <groups>IntegrationTest</groups>
+                    <skipITs>${skip.failsafe.tests}</skipITs>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>sign-artifacts</id>
+                        <id>run-integration-tests</id>
                         <goals>
-                            <goal>sign</goal>
+                            <goal>integration-test</goal>
                         </goals>
+                        <phase>integration-test</phase>
+                    </execution>
+                    <execution>
+                        <id>verify-integration-tests</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <skip>${skip.signature}</skip>
-                </configuration>
-            </plugin>
-            <!-- Install module to local Maven repository -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.1</version>
-            </plugin>
-            <!-- Artifact deployment to OSSRH -->
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.13</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <!-- deploy with the following command: mvn nexus-staging:release -->
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                </configuration>
             </plugin>
             <!--############ plugins without lifecycle bindings #############-->
-            <!-- Dependency version management -->
+            <!-- Static code analysis -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.12.0</version>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
             </plugin>
-            <!-- Codestyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>10.3.3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <configLocation>${project.basedir}/checkstyle.xml</configLocation>
-                    <violationSeverity>info</violationSeverity>
-                    <failOnViolation>false</failOnViolation>
-                </configuration>
+                <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-        <!-- We redefine the signature generation process, which is enabled by default,
-        but cannot be performed by typical users. Enable it using -Dskip.signature=false -->
-        <skip.signature>true</skip.signature>
-    </properties>
+    <profiles>
+        <profile>
+            <id>delayed-slow-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Configure Surefire to run SlowTests during integration-test phase to speed up the build process -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>default-test</id>
+                                    <configuration>
+                                        <excludedGroups>SlowTest,IntegrationTest</excludedGroups>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>run-slow-unit-tests</id>
+                                    <goals>
+                                        <goal>test</goal>
+                                    </goals>
+                                    <phase>integration-test</phase>
+                                    <configuration>
+                                        <groups>SlowTest</groups>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <!-- Configure JaCoCo to run during unit and integration tests -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jacoco-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>jacoco-prepare-agent-it</id>
+                                <goals>
+                                    <goal>prepare-agent-integration</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>jacoco-merge</id>
+                                <goals>
+                                    <goal>merge</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <destFile>${project.build.outputDirectory}/jacoco.merged.exec</destFile>
+                                    <fileSets>
+                                        <fileSet>
+                                            <directory>${project.build.directory}</directory>
+                                            <includes>
+                                                <include>jacoco.exec</include>
+                                                <include>jacoco-it.exec</include>
+                                            </includes>
+                                        </fileSet>
+                                    </fileSets>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>jacoco-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <dataFile>${project.build.outputDirectory}/jacoco.merged.exec</dataFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
