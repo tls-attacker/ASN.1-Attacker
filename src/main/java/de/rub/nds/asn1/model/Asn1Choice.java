@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.model.helper.SelectableChoice;
@@ -27,16 +26,12 @@ public abstract class Asn1Choice implements Asn1Encodable {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @HoldsModifiableVariable
-    private Asn1Field selectedChoice;
+    @HoldsModifiableVariable private Asn1Field selectedChoice;
 
-    @XmlElementWrapper
-    @XmlElementRef
-    @HoldsModifiableVariable
+    @XmlElementWrapper @XmlElementRef @HoldsModifiableVariable
     private final List<SelectableChoice> choiceList;
 
-    @XmlAttribute
-    private String identifier;
+    @XmlAttribute private String identifier;
 
     public Asn1Choice(String identifier, Asn1Field... fields) {
         this.identifier = identifier;
@@ -88,7 +83,8 @@ public abstract class Asn1Choice implements Asn1Encodable {
         if (selectedChoice != null) {
             return selectedChoice.getGenericSerializer();
         } else {
-            throw new RuntimeException("Tried to access serializer of choice before selecting a choice");
+            throw new RuntimeException(
+                    "Tried to access serializer of choice before selecting a choice");
         }
     }
 
@@ -97,7 +93,8 @@ public abstract class Asn1Choice implements Asn1Encodable {
         if (selectedChoice != null) {
             return selectedChoice.getGenericPreparator();
         } else {
-            throw new RuntimeException("Tried to access preparator of choice before selecting a choice");
+            throw new RuntimeException(
+                    "Tried to access preparator of choice before selecting a choice");
         }
     }
 
@@ -115,12 +112,13 @@ public abstract class Asn1Choice implements Asn1Encodable {
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         for (SelectableChoice selectableChoice : choiceList) {
             if (selectableChoice.getField().isCompatible(tagNumber, constructed, classType)) {
-                LOGGER.debug("{} is compatible within CHOICE", selectableChoice.getField().getIdentifier());
+                LOGGER.debug(
+                        "{} is compatible within CHOICE",
+                        selectableChoice.getField().getIdentifier());
                 return true;
             }
         }
         LOGGER.debug("Did not find a selectable choice within CHOICE: {}", identifier);
         return false;
     }
-
 }

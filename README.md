@@ -37,6 +37,9 @@ If you want to use this project as a dependency, you do not have to compile it y
 ```
 
 # Acknowledgements
+
 The framework was initially developed by Nils Kafka (nils.kafka@ruhr-uni-bochum.de) during his master thesis and since then heavily reworked by Robert Merget @ic0nz1
+
 # Projects
+
 This framework is used in TLS-Attacker (https://github.com/tls-attacker/TLS-Attacker/)

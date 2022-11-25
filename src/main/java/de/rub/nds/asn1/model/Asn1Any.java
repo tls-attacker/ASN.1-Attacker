@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.parser.Asn1Parser;
@@ -21,11 +20,9 @@ public class Asn1Any implements Asn1Encodable {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @HoldsModifiableVariable
-    private Asn1Field instantiation;
+    @HoldsModifiableVariable private Asn1Field instantiation;
 
-    @XmlAttribute
-    private String identifier;
+    @XmlAttribute private String identifier;
 
     private boolean optional;
 
@@ -71,7 +68,8 @@ public class Asn1Any implements Asn1Encodable {
         if (instantiation != null) {
             return instantiation.getGenericSerializer();
         } else {
-            throw new RuntimeException("Tried to access serializer of any element before choosing instantiation");
+            throw new RuntimeException(
+                    "Tried to access serializer of any element before choosing instantiation");
         }
     }
 
@@ -80,7 +78,8 @@ public class Asn1Any implements Asn1Encodable {
         if (instantiation != null) {
             return instantiation.getGenericPreparator();
         } else {
-            throw new RuntimeException("Tried to access preparator of any element before choosing instantiation");
+            throw new RuntimeException(
+                    "Tried to access preparator of any element before choosing instantiation");
         }
     }
 

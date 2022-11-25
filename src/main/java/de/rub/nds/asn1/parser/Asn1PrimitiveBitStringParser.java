@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
@@ -24,5 +23,4 @@ public class Asn1PrimitiveBitStringParser extends Asn1FieldParser<Asn1PrimitiveB
         encodable.setValue(byteArrayInputStream.readAllBytes()); // TODO fix unused bits
         encodable.setUnusedBits((byte) 0); // TODO not correct
     }
-
 }

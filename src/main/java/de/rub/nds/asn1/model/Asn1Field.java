@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
@@ -57,14 +56,15 @@ public abstract class Asn1Field implements Asn1Encodable {
 
     private TagConstructed tagConstructedType;
 
-    @XmlTransient
-    private TagNumber tagNumberType;
+    @XmlTransient private TagNumber tagNumberType;
 
-    @XmlTransient
-    private boolean optional = false;
+    @XmlTransient private boolean optional = false;
 
-    public Asn1Field(String identifier, TagClass tagClassType, TagConstructed tagConstructedType,
-        TagNumber tagNummerType) {
+    public Asn1Field(
+            String identifier,
+            TagClass tagClassType,
+            TagConstructed tagConstructedType,
+            TagNumber tagNummerType) {
         assert (identifier != null);
         assert (tagClassType != null);
         assert (tagConstructedType != null);
@@ -77,18 +77,30 @@ public abstract class Asn1Field implements Asn1Encodable {
     @Override
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         if (tagNumberType != null && tagNumber != tagNumberType.getIntValue()) {
-            LOGGER.debug("{} not compatible because of the tagNumber Expected " + this.tagNumberType.getIntValue()
-                + " but found " + tagNumber, identifier);
+            LOGGER.debug(
+                    "{} not compatible because of the tagNumber Expected "
+                            + this.tagNumberType.getIntValue()
+                            + " but found "
+                            + tagNumber,
+                    identifier);
             return false;
         }
         if (tagConstructedType != null && constructed != tagConstructedType.getBooleanValue()) {
-            LOGGER.debug("{} not compatible because of constructed type Expected "
-                + this.tagConstructedType.getBooleanValue() + " but found " + constructed, identifier);
+            LOGGER.debug(
+                    "{} not compatible because of constructed type Expected "
+                            + this.tagConstructedType.getBooleanValue()
+                            + " but found "
+                            + constructed,
+                    identifier);
             return false;
         }
         if (tagClassType != null && classType != this.tagClassType.getIntValue()) {
-            LOGGER.debug("{} not compatible because of tag class type. Expected " + this.tagClassType.getIntValue()
-                + " but found " + classType, identifier);
+            LOGGER.debug(
+                    "{} not compatible because of tag class type. Expected "
+                            + this.tagClassType.getIntValue()
+                            + " but found "
+                            + classType,
+                    identifier);
             return false;
         } else {
             LOGGER.debug("Asn1Field \'{}\' is compatible", identifier);
@@ -154,7 +166,8 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     public void setTagConstructed(boolean tagConstructed) {
-        this.tagConstructed = ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
+        this.tagConstructed =
+                ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
     }
 
     public ModifiableInteger getTagNumber() {
@@ -214,7 +227,8 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     public void setLengthOctets(final byte[] lengthOctets) {
-        this.lengthOctets = ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
+        this.lengthOctets =
+                ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
     }
 
     @Override

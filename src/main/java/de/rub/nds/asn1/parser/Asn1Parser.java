@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
@@ -40,7 +39,8 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
                 read = stream.read();
                 if (read == -1) {
                     throw new ParserException(
-                        "Incomplete tag: " + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
+                            "Incomplete tag: "
+                                    + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
                 }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);
@@ -48,7 +48,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             return tagByteStream.toByteArray();
         } else {
             // Short tag
-            byte[] tag = new byte[] { (byte) read };
+            byte[] tag = new byte[] {(byte) read};
             LOGGER.debug("Parsed short tag octets: {}", tag);
             return tag;
         }
@@ -153,13 +153,12 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     public abstract void parse(InputStream inputStream);
 
     /**
-     * Parses an asn1encodable without parsing the tag. We assume that the tag is already parsed and that it is present
-     * within the encodable for the rest of the parsing
+     * Parses an asn1encodable without parsing the tag. We assume that the tag is already parsed and
+     * that it is present within the encodable for the rest of the parsing
      *
      * @param inputStream
      */
     public abstract void parseWithoutTag(InputStream inputStream, byte[] tagOctets);
 
     public abstract void parseIndividualContentFields(InputStream inputStream) throws IOException;
-
 }

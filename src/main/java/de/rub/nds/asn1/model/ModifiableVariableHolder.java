@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
@@ -37,9 +36,8 @@ public abstract class ModifiableVariableHolder implements Serializable {
     /**
      * Returns a random field representing a modifiable variable from this class
      *
-     * @param  random
-     *                The RandomNumber generator that should be used
-     * @return        A random ModifiableVariableField
+     * @param random The RandomNumber generator that should be used
+     * @return A random ModifiableVariableField
      */
     public Field getRandomModifiableVariableField(Random random) {
         List<Field> fields = getAllModifiableVariableFields();
@@ -61,9 +59,8 @@ public abstract class ModifiableVariableHolder implements Serializable {
     /**
      * Returns a random modifiable variable holder
      *
-     * @param  random
-     *                The RandomNumberGenerator that should be used
-     * @return        A Random ModifiableVariableHolder
+     * @param random The RandomNumberGenerator that should be used
+     * @return A Random ModifiableVariableHolder
      */
     public ModifiableVariableHolder getRandomModifiableVariableHolder(Random random) {
         List<ModifiableVariableHolder> holders = getAllModifiableVariableHolders();

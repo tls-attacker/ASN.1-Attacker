@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.constants.TagConstructed;
@@ -76,8 +75,11 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
 
     private byte[] encodeIdentifier() {
         byte firstIdentifierByte = 0;
-        firstIdentifierByte = this.encodeTagClass(firstIdentifierByte, this.field.getTagClass().getValue());
-        firstIdentifierByte = this.encodeIsConstructed(firstIdentifierByte, this.field.getTagConstructed().getValue());
+        firstIdentifierByte =
+                this.encodeTagClass(firstIdentifierByte, this.field.getTagClass().getValue());
+        firstIdentifierByte =
+                this.encodeIsConstructed(
+                        firstIdentifierByte, this.field.getTagConstructed().getValue());
         return this.encodeTagNumber(firstIdentifierByte, this.field.getTagNumber().getValue());
     }
 
@@ -86,7 +88,9 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
     }
 
     private byte encodeIsConstructed(byte firstIdentifierByte, boolean isConstructed) {
-        return ((isConstructed == true) ? (byte) (firstIdentifierByte | 0x20) : firstIdentifierByte);
+        return ((isConstructed == true)
+                ? (byte) (firstIdentifierByte | 0x20)
+                : firstIdentifierByte);
     }
 
     private byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
@@ -99,14 +103,15 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             }
             if (tagNumber <= 0x1F) {
 
-                byte[] result = new byte[] { firstIdentifierByte };
+                byte[] result = new byte[] {firstIdentifierByte};
                 result[0] |= (byte) (tagNumber & 0x1F);
                 resultStream.write(result);
             } else {
                 int longTagNumberBytes = getTagNumberByteCount(tagNumber);
                 // Quick Fix
                 if (longTagNumberBytes > 65535) {
-                    LOGGER.warn("Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
+                    LOGGER.warn(
+                            "Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
                     longTagNumberBytes = 65535;
                 }
                 byte[] longEncoding = this.encodeLongTagNumber(tagNumber);
@@ -115,7 +120,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
                     longEncodingStream.write(longEncoding);
                 }
                 firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-                resultStream.write(new byte[] { firstIdentifierByte });
+                resultStream.write(new byte[] {firstIdentifierByte});
                 resultStream.write(longEncoding);
             }
         } catch (IOException ex) {
@@ -161,7 +166,7 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
             length = BigInteger.ZERO;
         }
         if (length.compareTo(BigInteger.valueOf(127)) <= 0) {
-            return new byte[] { (byte) length.byteValue() };
+            return new byte[] {(byte) length.byteValue()};
         } else {
             return encodeLongLength(length);
         }
@@ -171,8 +176,12 @@ public abstract class Asn1FieldPreparator<T extends Asn1Field> extends Preparato
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int numberOfBytes = getLengthByteCount(length);
         outputStream.write(numberOfBytes | 0x80);
-        LOGGER.info("Encoding: " + length + " as "
-            + ArrayConverter.bytesToHexString(ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
+        LOGGER.info(
+                "Encoding: "
+                        + length
+                        + " as "
+                        + ArrayConverter.bytesToHexString(
+                                ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
         outputStream.writeBytes(ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true));
         return outputStream.toByteArray();
     }

@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.oid;
 
 import de.rub.nds.asn1.parser.ParserException;
@@ -66,7 +65,6 @@ public class ObjectIdentifier {
             }
         }
         return resultList;
-
     }
 
     private byte[] computeEncodedValue(long[] idValues) {
@@ -114,7 +112,7 @@ public class ObjectIdentifier {
         byte moreFlag = 0x00;
         do {
             try {
-                stream.write(new byte[] { (byte) (moreFlag | (idValue & 0x7F)) });
+                stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -123,7 +121,6 @@ public class ObjectIdentifier {
         } while (idValue > 0);
         // we encoded the byte array in reverse order - we have to flip it again
         return reverse(stream.toByteArray());
-
     }
 
     private byte[] reverse(byte[] array) {

@@ -1,36 +1,28 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.time;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.asn1.constants.TimeAccurracy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.joda.time.DateTime;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TimeEncoderTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public TimeEncoderTest() {
-    }
+    public TimeEncoderTest() {}
 
-    /**
-     * Test of encodeGeneralizedTimeUtc method, of class TimeEncoder.
-     */
+    /** Test of encodeGeneralizedTimeUtc method, of class TimeEncoder. */
     @Test
     public void testEncodeGeneralizedTimeUtc() {
         DateTime date = new DateTime(0);
@@ -67,23 +59,29 @@ public class TimeEncoderTest {
         LOGGER.info("GeneralizedTime UTC MS: {}", time);
     }
 
-    /**
-     * Test of encodeGeneralizedTimeUtcWithDifferential method, of class TimeEncoder.
-     */
+    /** Test of encodeGeneralizedTimeUtcWithDifferential method, of class TimeEncoder. */
     @Test
     public void testEncodeGeneralizedTimeUtcWithDifferential() {
         DateTime date = new DateTime(0);
         LOGGER.info("Encoding target: {}", date.toString());
-        String time = TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(date, TimeAccurracy.HOURS, 240);
+        String time =
+                TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(
+                        date, TimeAccurracy.HOURS, 240);
         assertEquals("1970010100+0400", time);
         LOGGER.info("GeneralizedTime UTC with differential Hours: {}", time);
-        time = TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(date, TimeAccurracy.MINUTES, -240);
+        time =
+                TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(
+                        date, TimeAccurracy.MINUTES, -240);
         assertEquals("197001010000-0400", time);
         LOGGER.info("GeneralizedTime UTC with differential Minutes: {}", time);
-        time = TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(date, TimeAccurracy.SECONDS, 59);
+        time =
+                TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(
+                        date, TimeAccurracy.SECONDS, 59);
         assertEquals("19700101000000+0059", time);
         LOGGER.info("GeneralizedTime UTC with differential Seconds: {}", time);
-        time = TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(date, TimeAccurracy.MILLISECONDS, 0);
+        time =
+                TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(
+                        date, TimeAccurracy.MILLISECONDS, 0);
         assertEquals("19700101000000.000+0000", time);
         LOGGER.info("GeneralizedTime UTC with differential MS: {}", time);
     }
@@ -123,5 +121,4 @@ public class TimeEncoderTest {
         assertEquals("700101000000+0000", time);
         LOGGER.info("GeneralizedTime UTC with differential MS: {}", time);
     }
-
 }

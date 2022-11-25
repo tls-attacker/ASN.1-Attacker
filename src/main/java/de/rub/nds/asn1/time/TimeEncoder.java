@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.time;
 
 import de.rub.nds.asn1.constants.TimeAccurracy;
@@ -35,17 +34,19 @@ public class TimeEncoder {
             case MILLISECONDS:
                 return utcTime.toString("yyyyMMddHHmmss.SSS");
             default:
-                throw new UnsupportedOperationException("Unsupported Accuracy: " + accurracy.name());
+                throw new UnsupportedOperationException(
+                        "Unsupported Accuracy: " + accurracy.name());
         }
     }
 
-    public static String encodeGeneralizedTimeUtcWithDifferential(DateTime date, TimeAccurracy accurracy,
-        int minuteOffset) {
+    public static String encodeGeneralizedTimeUtcWithDifferential(
+            DateTime date, TimeAccurracy accurracy, int minuteOffset) {
         boolean positive = minuteOffset >= 0;
         int minutes = Math.abs(minuteOffset);
         String time = encodeGeneralizedTimeLocalTime(date, accurracy);
-        return time.concat(positive ? "+" : "-") + String.format("%02d", minutes / 60)
-            + String.format("%02d", minutes % 60);
+        return time.concat(positive ? "+" : "-")
+                + String.format("%02d", minutes / 60)
+                + String.format("%02d", minutes % 60);
     }
 
     private static String encodeUtc(DateTime date, TimeAccurracy accurracy) {
@@ -62,7 +63,8 @@ public class TimeEncoder {
                 LOGGER.warn("Millisecond accuracy is not allowed in UTC. Encoding with seconds");
                 return utcTime.toString("yyMMddHHmmss");
             default:
-                throw new UnsupportedOperationException("Unsupported Accuracy: " + accurracy.name());
+                throw new UnsupportedOperationException(
+                        "Unsupported Accuracy: " + accurracy.name());
         }
     }
 
@@ -70,11 +72,13 @@ public class TimeEncoder {
         return encodeUtc(date, accurracy) + "Z";
     }
 
-    public static String encodeUtcWithDifferential(DateTime date, TimeAccurracy accurracy, int offsetInMinutes) {
+    public static String encodeUtcWithDifferential(
+            DateTime date, TimeAccurracy accurracy, int offsetInMinutes) {
         boolean positive = offsetInMinutes >= 0;
         int minutes = Math.abs(offsetInMinutes);
         String time = encodeUtc(date, accurracy);
-        return time.concat(positive ? "+" : "-") + String.format("%02d", minutes / 60)
-            + String.format("%02d", minutes % 60);
+        return time.concat(positive ? "+" : "-")
+                + String.format("%02d", minutes / 60)
+                + String.format("%02d", minutes % 60);
     }
 }

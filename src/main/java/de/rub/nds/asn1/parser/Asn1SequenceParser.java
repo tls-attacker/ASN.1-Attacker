@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
@@ -48,14 +47,16 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
                 tagClass = null;
             } else {
                 if (!tempEncodable.isOptional()) {
-                    throw new ParserException("Missing non-optional element: " + tempEncodable.getIdentifier());
+                    throw new ParserException(
+                            "Missing non-optional element: " + tempEncodable.getIdentifier());
                 }
             }
         }
         if (inputStream.available() > 0) {
             byte[] remainingBytes = inputStream.readAllBytes();
             throw new ParserException(
-                "Unattributed bytes in stream: " + ArrayConverter.bytesToHexString(remainingBytes));
+                    "Unattributed bytes in stream: "
+                            + ArrayConverter.bytesToHexString(remainingBytes));
         }
     }
 }

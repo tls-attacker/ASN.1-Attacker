@@ -1,12 +1,11 @@
-/**
- * ASN.1-Attacker - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Choice;
@@ -31,7 +30,10 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
     @Override
     public void parse(InputStream inputStream) {
         try {
-            LOGGER.debug("Parsing: {} of type {}", encodable.getIdentifier(), encodable.getClass().getSimpleName());
+            LOGGER.debug(
+                    "Parsing: {} of type {}",
+                    encodable.getIdentifier(),
+                    encodable.getClass().getSimpleName());
 
             byte[] tagOctetes = parseTagOctets(inputStream);
             parseWithoutTag(inputStream, tagOctetes);
@@ -42,16 +44,21 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        choice.getSelectedChoice().getParser()
-            .parseIndividualContentFields(new ByteArrayInputStream(choice.getSelectedChoice().getContent().getValue()));
+        choice.getSelectedChoice()
+                .getParser()
+                .parseIndividualContentFields(
+                        new ByteArrayInputStream(
+                                choice.getSelectedChoice().getContent().getValue()));
     }
 
     @Override
     public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
         if (choice.canMakeValidChoice(tagOctets)) {
             choice.makeSelection(tagOctets);
-            LOGGER.debug("Selected {} of type {} for CHOICE", choice.getSelectedChoice().getIdentifier(),
-                choice.getSelectedChoice().getClass().getSimpleName());
+            LOGGER.debug(
+                    "Selected {} of type {} for CHOICE",
+                    choice.getSelectedChoice().getIdentifier(),
+                    choice.getSelectedChoice().getClass().getSimpleName());
         } else {
             throw new ParserException("Cannot make a valid choice");
         }
@@ -59,11 +66,13 @@ public class Asn1ChoiceParser extends Asn1Parser<Asn1Choice> {
             Asn1Field selection = choice.getSelectedChoice();
             selection.setTagOctets(tagOctets);
             selection.setTagClass(this.parseTagClass(selection.getTagOctets().getValue()[0]));
-            selection.setTagConstructed(this.parseTagConstructed(selection.getTagOctets().getValue()[0]));
+            selection.setTagConstructed(
+                    this.parseTagConstructed(selection.getTagOctets().getValue()[0]));
             selection.setTagNumber(this.parseTagNumber(selection.getTagOctets().getValue()));
             selection.setLengthOctets(this.parseLengthOctets(inputStream));
             selection.setLength(this.parseLength(selection.getLengthOctets().getValue()));
-            selection.setContent(this.parseContentOctets(selection.getLength().getValue(), inputStream));
+            selection.setContent(
+                    this.parseContentOctets(selection.getLength().getValue(), inputStream));
             parseIndividualContentFields(inputStream);
         } catch (IOException ex) {
             throw new ParserException(ex);
