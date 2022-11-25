@@ -31,8 +31,12 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
         Boolean constructed = null;
         Integer tagClass = null;
         for (Asn1Encodable tempEncodable : encodable.getChildren()) {
-            
-            if (tagNumber == null && tagOctets == null && constructed == null && tagClass == null && inputStream.available() > 0) {
+
+            if (tagNumber == null
+                    && tagOctets == null
+                    && constructed == null
+                    && tagClass == null
+                    && inputStream.available() > 0) {
                 tagOctets = parseTagOctets(inputStream);
                 tagNumber = parseTagNumber(tagOctets);
                 constructed = parseTagConstructed(tagOctets[0]);
