@@ -24,9 +24,6 @@ public class Asn1FieldSerializer {
         this.field = field;
     }
 
-    /**
-     * @return
-     */
     public final byte[] serialize() {
         try {
             LOGGER.trace("Serializing: {} ", field.getIdentifier());
