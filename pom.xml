@@ -7,7 +7,7 @@
         <version>2.2.0</version>
     </parent>
 
-    <artifactId>asn1-tool</artifactId>
+    <artifactId>asn1-attacker</artifactId>
     <version>2.0.1-SNAPSHOT</version>
 
     <name>ASN.1-Attacker</name>
