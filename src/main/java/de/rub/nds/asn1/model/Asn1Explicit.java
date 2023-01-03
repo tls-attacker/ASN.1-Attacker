@@ -14,9 +14,11 @@ import de.rub.nds.asn1.parser.Asn1ExplicitParser;
 import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 
 public class Asn1Explicit extends Asn1Container {
 
+    @XmlAnyElement(lax = true)
     private Asn1Encodable child;
 
     public Asn1Explicit(String identifier, Asn1Encodable child) {

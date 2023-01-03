@@ -34,6 +34,11 @@ public class Asn1Integer extends Asn1Field {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.INTEGER);
     }
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Integer() {
+        super(null);
+    }
+
     public ModifiableBigInteger getValue() {
         return value;
     }

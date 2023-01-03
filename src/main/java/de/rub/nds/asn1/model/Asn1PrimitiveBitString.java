@@ -33,6 +33,11 @@ public class Asn1PrimitiveBitString extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1PrimitiveBitString() {
+        super(null);
+    }
+
     public Asn1PrimitiveBitString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
     }

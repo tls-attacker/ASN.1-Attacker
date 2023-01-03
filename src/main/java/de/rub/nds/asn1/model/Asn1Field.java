@@ -74,6 +74,9 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.tagNumberType = tagNummerType;
     }
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Field() {}
+
     @Override
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
         if (tagNumberType != null && tagNumber != tagNumberType.getIntValue()) {

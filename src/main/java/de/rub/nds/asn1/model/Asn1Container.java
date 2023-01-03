@@ -42,6 +42,11 @@ public abstract class Asn1Container extends Asn1Field {
         this.children = new LinkedList<>();
     }
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Container() {
+        super(null, null, null, null);
+    }
+
     public ModifiableByteArray getEncodedChildren() {
         return encodedChildren;
     }

@@ -29,6 +29,11 @@ public class Asn1ObjectIdentifier extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1ObjectIdentifier() {
+        super(null);
+    }
+
     public Asn1ObjectIdentifier(String identifier) {
         super(
                 identifier,

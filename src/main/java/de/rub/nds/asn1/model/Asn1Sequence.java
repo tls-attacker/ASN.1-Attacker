@@ -23,6 +23,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Sequence extends Asn1Container {
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Sequence() {
+        super(null, null, null, null);
+    }
+
     public Asn1Sequence(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SEQUENCE);
     }

@@ -28,6 +28,7 @@ public class GenericAsn1ContainerPreparator extends Asn1FieldPreparator {
 
     @Override
     protected byte[] encodeContent() {
+        LOGGER.debug("Encoding content for {}", asn1Container.getIdentifier());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         for (Asn1Encodable asn1Field : asn1Container.getChildren()) {
             LOGGER.info("Preparing:" + asn1Field.getIdentifier());
