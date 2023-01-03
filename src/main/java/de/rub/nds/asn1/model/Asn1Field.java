@@ -52,9 +52,9 @@ public abstract class Asn1Field implements Asn1Encodable {
     @XmlElement(name = "lengthOctets")
     private ModifiableByteArray lengthOctets;
 
-    private TagClass tagClassType;
+    @XmlTransient private TagClass tagClassType;
 
-    private TagConstructed tagConstructedType;
+    @XmlTransient private TagConstructed tagConstructedType;
 
     @XmlTransient private TagNumber tagNumberType;
 
