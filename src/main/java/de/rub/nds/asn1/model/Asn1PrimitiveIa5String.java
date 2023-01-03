@@ -29,6 +29,11 @@ public class Asn1PrimitiveIa5String extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1PrimitiveIa5String() {
+        super(null);
+    }
+
     public Asn1PrimitiveIa5String(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.IA5STRING);
     }

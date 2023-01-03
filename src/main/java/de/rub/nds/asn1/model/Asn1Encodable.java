@@ -11,7 +11,18 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
+@XmlSeeAlso({
+    Asn1Any.class,
+    Asn1Boolean.class,
+    Asn1Choice.class,
+    Asn1Container.class,
+    Asn1Enumerated.class,
+    Asn1Explicit.class,
+    Asn1Field.class,
+    Asn1Integer.class
+})
 public interface Asn1Encodable {
 
     public String getIdentifier();

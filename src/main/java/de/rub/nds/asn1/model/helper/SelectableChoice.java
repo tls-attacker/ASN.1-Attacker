@@ -10,10 +10,20 @@ package de.rub.nds.asn1.model.helper;
 
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-public class SelectableChoice {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public final class SelectableChoice {
 
     @HoldsModifiableVariable private final Asn1Field field;
+
+    /** Private no-arg constructor to please JAXB */
+    private SelectableChoice() {
+        field = null;
+    }
 
     public SelectableChoice(Asn1Field field) {
         this.field = field;

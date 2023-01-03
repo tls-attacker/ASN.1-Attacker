@@ -22,6 +22,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Asn1Null extends Asn1Field {
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Null() {
+        super(null);
+    }
+
     public Asn1Null(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.NULL);
     }

@@ -29,6 +29,11 @@ public class Asn1PrimitiveUtf8String extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1PrimitiveUtf8String() {
+        super(null);
+    }
+
     public Asn1PrimitiveUtf8String(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTF8STRING);
     }

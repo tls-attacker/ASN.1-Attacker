@@ -12,19 +12,29 @@ import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Asn1Any implements Asn1Encodable {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     @HoldsModifiableVariable private Asn1Field instantiation;
 
-    @XmlAttribute private String identifier;
+    @XmlAttribute(name = "identifier")
+    private String identifier;
 
     private boolean optional;
+
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Any() {}
 
     public Asn1Any(String identifier) {
         this.identifier = identifier;
@@ -54,6 +64,7 @@ public class Asn1Any implements Asn1Encodable {
     }
 
     @Override
+    @XmlTransient
     public String getIdentifier() {
         return identifier;
     }

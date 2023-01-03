@@ -19,6 +19,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Set extends Asn1Container {
 
+    /** Private no-arg constructor to please JAXB */
     private Asn1Set() {
         super(null, null, null, null);
     }

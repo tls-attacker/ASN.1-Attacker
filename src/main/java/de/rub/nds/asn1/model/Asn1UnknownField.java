@@ -17,6 +17,11 @@ public class Asn1UnknownField extends Asn1Field {
 
     private byte[] contentConfig;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1UnknownField() {
+        super(null);
+    }
+
     public Asn1UnknownField(String identifier) {
         super(identifier);
     }

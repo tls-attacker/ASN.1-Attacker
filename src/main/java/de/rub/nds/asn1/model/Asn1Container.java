@@ -18,8 +18,9 @@ import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -30,7 +31,38 @@ public abstract class Asn1Container extends Asn1Field {
 
     private ModifiableByteArray encodedChildren;
 
-    @XmlElementWrapper @XmlElementRef @HoldsModifiableVariable
+    @XmlElementWrapper
+    @XmlElements(
+            value = {
+                @XmlElement(type = Asn1Any.class, name = "Asn1Any"),
+                @XmlElement(type = Asn1Boolean.class, name = "Asn1Boolean"),
+                @XmlElement(type = Asn1Choice.class, name = "Asn1Choice"),
+                @XmlElement(type = Asn1Container.class, name = "Asn1Container"),
+                @XmlElement(type = Asn1Enumerated.class, name = "Asn1Enumerated"),
+                @XmlElement(type = Asn1Explicit.class, name = "Asn1Explicit"),
+                @XmlElement(type = Asn1Field.class, name = "Asn1Field"),
+                @XmlElement(type = Asn1Integer.class, name = "Asn1Integer"),
+                @XmlElement(type = Asn1Null.class, name = "Asn1Null"),
+                @XmlElement(type = Asn1ObjectIdentifier.class, name = "Asn1ObjectIdentifier"),
+                @XmlElement(type = Asn1PrimitiveBitString.class, name = "Asn1PrimitiveBitString"),
+                @XmlElement(
+                        type = Asn1PrimitiveGeneralizedTime.class,
+                        name = "Asn1PrimitiveGeneralizedTime"),
+                @XmlElement(type = Asn1PrimitiveIa5String.class, name = "Asn1PrimitiveIa5String"),
+                @XmlElement(
+                        type = Asn1PrimitiveOctetString.class,
+                        name = "Asn1PrimitiveOctetString"),
+                @XmlElement(
+                        type = Asn1PrimitivePrintableString.class,
+                        name = "Asn1PrimitivePrintableString"),
+                @XmlElement(type = Asn1PrimitiveT61String.class, name = "Asn1PrimitiveT61String"),
+                @XmlElement(type = Asn1PrimitiveUtcTime.class, name = "Asn1PrimitiveUtcTime"),
+                @XmlElement(type = Asn1PrimitiveUtf8String.class, name = "Asn1PrimitiveUtf8String"),
+                @XmlElement(type = Asn1Sequence.class, name = "Asn1Sequence"),
+                @XmlElement(type = Asn1Set.class, name = "Asn1Set"),
+                @XmlElement(type = Asn1UnknownField.class, name = "Asn1UnknownField")
+            })
+    @HoldsModifiableVariable
     private Collection<Asn1Encodable> children;
 
     public Asn1Container(

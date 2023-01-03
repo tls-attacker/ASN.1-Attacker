@@ -14,14 +14,19 @@ import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Asn1Choice implements Asn1Encodable {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -31,7 +36,13 @@ public abstract class Asn1Choice implements Asn1Encodable {
     @XmlElementWrapper @XmlElementRef @HoldsModifiableVariable
     private final List<SelectableChoice> choiceList;
 
-    @XmlAttribute private String identifier;
+    @XmlAttribute(name = "identifier")
+    private String identifier;
+
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Choice() {
+        choiceList = null;
+    }
 
     public Asn1Choice(String identifier, Asn1Field... fields) {
         this.identifier = identifier;

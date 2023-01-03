@@ -29,6 +29,11 @@ public class Asn1PrimitiveT61String extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableString value;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1PrimitiveT61String() {
+        super(null);
+    }
+
     public Asn1PrimitiveT61String(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.T61STRING);
     }

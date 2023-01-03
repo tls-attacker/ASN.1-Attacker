@@ -29,6 +29,11 @@ public class Asn1PrimitiveOctetString extends Asn1Field {
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
+    /** Private no-arg constructor to please JAXB */
+    private Asn1PrimitiveOctetString() {
+        super(null);
+    }
+
     public Asn1PrimitiveOctetString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
     }
