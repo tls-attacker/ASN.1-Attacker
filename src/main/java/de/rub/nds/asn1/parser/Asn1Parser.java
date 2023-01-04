@@ -40,7 +40,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
                 if (read == -1) {
                     throw new ParserException(
                             "Incomplete tag: "
-                            + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
+                                    + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
                 }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);
@@ -48,7 +48,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             return tagByteStream.toByteArray();
         } else {
             // Short tag
-            byte[] tag = new byte[]{(byte) read};
+            byte[] tag = new byte[] {(byte) read};
             LOGGER.debug("Parsed short tag octets: {}", tag);
             return tag;
         }
@@ -81,10 +81,10 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
         BigInteger length = BigInteger.ZERO;
         byte lengthByte;
         lengthByte = (byte) (inputStream.read() & 0xFF);
-        if (lengthByte == 0x80) {
+        if (lengthByte == (byte) 0x80) {
             throw new ParserException("Indefinite lengths are currently not supported!");
         }
-        if (lengthByte == 0xFF) {
+        if (lengthByte == (byte) 0xFF) {
             throw new ParserException("Reserved length value!");
         }
         if ((lengthByte & 0xFF) < 128) {
@@ -102,7 +102,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
         return length;
     }
 
-    public byte[] parseLengthOctets(InputStream inputStream) throws ParserException {
+    public byte[] parseLengthOctets(InputStream inputStream) throws ParserException, IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte lengthByte;
         try {
@@ -111,10 +111,10 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
-        if (lengthByte == 0x80) {
+        if (lengthByte == (byte) 0x80) {
             throw new ParserException("Indefinite lengths are currently not supported!");
         }
-        if (lengthByte == 0xFF) {
+        if (lengthByte == (byte) 0xFF) {
             throw new ParserException("Reserved length value!");
         }
         if ((lengthByte & 0xFF) < 128) {
@@ -122,6 +122,9 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             return outputStream.toByteArray();
         } else {
             int numberOfLengthBytes = (lengthByte & 0x7F);
+            if (numberOfLengthBytes > inputStream.available()) {
+                throw new ParserException("Not enough bytes for length octets in stream");
+            }
             for (int i = 0; i < numberOfLengthBytes; i++) {
                 try {
                     outputStream.write(inputStream.read());
@@ -134,8 +137,12 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
         }
     }
 
-    public byte[] parseContentOctets(BigInteger length, InputStream inputStream) {
+    public byte[] parseContentOctets(BigInteger length, InputStream inputStream)
+            throws IOException {
         BigInteger toReadLength = length;
+        if (inputStream.available() < length.intValue()) {
+            throw new ParserException("Not enough bytes in stream");
+        }
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         while (toReadLength.compareTo(BigInteger.ZERO) > 0) {
             int bytesToRead = 65536;
@@ -156,9 +163,8 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     public abstract void parse(InputStream inputStream);
 
     /**
-     * Parses an asn1encodable without parsing the tag. We assume that the tag
-     * is already parsed and that it is present within the encodable for the
-     * rest of the parsing
+     * Parses an asn1encodable without parsing the tag. We assume that the tag is already parsed and
+     * that it is present within the encodable for the rest of the parsing
      *
      * @param inputStream
      */
