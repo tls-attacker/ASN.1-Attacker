@@ -1,0 +1,135 @@
+package de.rub.nds.asn1.model;
+
+import de.rub.nds.asn1.parser.Asn1Parser;
+import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
+import de.rub.nds.asn1.preparator.Preparator;
+import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class Asn1AnyTest {
+
+    private Asn1Any any;
+
+    @BeforeEach
+    public void setUp() {
+        any = new Asn1Any("someAny");
+    }
+
+    /**
+     * Test of isCompatible method, of class Asn1Any.
+     */
+    @Test
+    public void testIsCompatible() {
+        assertTrue(any.isCompatible(512, Boolean.TRUE, 1));
+        assertTrue(any.isCompatible(0, Boolean.FALSE, 2));
+        assertTrue(any.isCompatible(-1, Boolean.TRUE, -1));
+    }
+
+    /**
+     * Test of isOptional method, of class Asn1Any.
+     */
+    @Test
+    public void testIsOptional() {
+        assertFalse(any.isOptional());
+        any.setOptional(true);
+        assertTrue(any.isOptional());
+    }
+
+    /**
+     * Test of setOptional method, of class Asn1Any.
+     */
+    @Test
+    public void testSetOptional() {
+        assertFalse(any.isOptional());
+        any.setOptional(true);
+        assertTrue(any.isOptional());
+        any.setOptional(false);
+        assertFalse(any.isOptional());
+    }
+
+    /**
+     * Test of setInstantiation method, of class Asn1Any.
+     */
+    @Test
+    public void testSetInstantiation() {
+        assertNull(any.getInstantiation());
+        Asn1Field field = new Asn1Boolean("boolean");
+        any.setInstantiation(field);
+        assertEquals(field, any.getInstantiation());
+        any.setInstantiation(null);
+        assertNull(any.getInstantiation());
+
+    }
+
+    /**
+     * Test of getInstantiation method, of class Asn1Any.
+     */
+    @Test
+    public void testGetInstantiation() {
+        assertNull(any.getInstantiation());
+        Asn1Field field = new Asn1Boolean("boolean");
+        any.setInstantiation(field);
+        assertEquals(field, any.getInstantiation());
+    }
+
+    /**
+     * Test of getIdentifier method, of class Asn1Any.
+     */
+    @Test
+    public void testGetIdentifier() {
+        assertEquals("someAny", any.getIdentifier());
+    }
+
+    /**
+     * Test of setIdentifier method, of class Asn1Any.
+     */
+    @Test
+    public void testSetIdentifier() {
+        assertEquals("someAny", any.getIdentifier());
+        any.setIdentifier("other");
+        assertEquals("other", any.getIdentifier());
+        any.setIdentifier(null);
+        assertNull(any.getIdentifier());
+    }
+
+    /**
+     * Test of getGenericSerializer method, of class Asn1Any.
+     */
+    @Test
+    public void testGetGenericSerializer() {
+        assertThrows(
+                RuntimeException.class,
+                () -> {
+                    any.getGenericSerializer();
+                });
+        Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
+        any.setInstantiation(asn1Boolean);
+        assertTrue(any.getGenericSerializer() instanceof Asn1FieldSerializer);
+    }
+
+    /**
+     * Test of getGenericPreparator method, of class Asn1Any.
+     */
+    @Test
+    public void testGetGenericPreparator() {
+        assertThrows(
+                RuntimeException.class,
+                () -> {
+                    any.getGenericPreparator();
+                });
+        Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
+        any.setInstantiation(asn1Boolean);
+        assertTrue(any.getGenericPreparator() instanceof Asn1BooleanPreparator);
+    }
+
+    /**
+     * Test of getParser method, of class Asn1Any.
+     */
+    @Test
+    public void testGetParser() {
+        fail("This needs to be changed");
+    }
+
+}
