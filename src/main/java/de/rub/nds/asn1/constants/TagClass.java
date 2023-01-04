@@ -32,25 +32,21 @@ public enum TagClass {
     }
 
     public static TagClass fromIntValue(int intValue) {
-        TagClass result = null;
         for (TagClass currentTagClass : TagClass.values()) {
             if (currentTagClass.getIntValue() == intValue) {
-                result = currentTagClass;
-                break;
+                return currentTagClass;
             }
         }
-        return result;
+        return null;
     }
 
     public static TagClass fromStringValue(String stringValue) {
-        TagClass result = null;
         for (TagClass currentTagClass : TagClass.values()) {
             if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
-                result = currentTagClass;
-                break;
+                return currentTagClass;
             }
         }
-        return result;
+        return null;
     }
 
     public static TagClass fromIdentifierByte(byte identifierByte) {
