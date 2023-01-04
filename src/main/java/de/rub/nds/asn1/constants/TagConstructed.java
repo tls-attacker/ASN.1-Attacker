@@ -8,9 +8,14 @@
  */
 package de.rub.nds.asn1.constants;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public enum TagConstructed {
     PRIMITIVE(0, false),
     CONSTRUCTED(1, true);
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private final int intValue;
 
@@ -30,25 +35,22 @@ public enum TagConstructed {
     }
 
     public static TagConstructed fromIntValue(final int intValue) {
-        TagConstructed tagConstructed = TagConstructed.PRIMITIVE;
         for (TagConstructed currentTagConstructed : TagConstructed.values()) {
             if (currentTagConstructed.getIntValue() == intValue) {
-                tagConstructed = currentTagConstructed;
-                break;
+                return currentTagConstructed;
             }
         }
-        return tagConstructed;
+        LOGGER.warn("Could not convert int value to TagConstructed");
+        return null;
     }
 
     public static TagConstructed fromBooleanValue(final boolean booleanValue) {
-        TagConstructed tagConstructed = TagConstructed.PRIMITIVE;
         for (TagConstructed currentTagConstructed : TagConstructed.values()) {
             if (currentTagConstructed.getBooleanValue() == booleanValue) {
-                tagConstructed = currentTagConstructed;
-                break;
+                return currentTagConstructed;
             }
         }
-        return tagConstructed;
+        return null;
     }
 
     public static TagConstructed fromIdentifierByte(final byte identifierByte) {

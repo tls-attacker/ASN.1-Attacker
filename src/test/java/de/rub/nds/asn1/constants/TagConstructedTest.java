@@ -46,6 +46,10 @@ public class TagConstructedTest {
     public void testFromIntValue() {
         assertEquals(TagConstructed.PRIMITIVE, TagConstructed.fromIntValue(0));
         assertEquals(TagConstructed.CONSTRUCTED, TagConstructed.fromIntValue(1));
+        assertEquals(null, TagConstructed.fromIntValue(2));
+        assertEquals(null, TagConstructed.fromIntValue(-1));
+        assertEquals(null, TagConstructed.fromIntValue(Integer.MAX_VALUE));
+        assertEquals(null, TagConstructed.fromIntValue(Integer.MIN_VALUE));
     }
 
     /** Test of fromBooleanValue method, of class TagConstructed. */
