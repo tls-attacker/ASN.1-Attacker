@@ -31,8 +31,11 @@ public final class SelectableChoice {
 
     public boolean isSelectable(byte[] tag) {
         int tagNumber = field.getParser().parseTagNumber(tag);
-        // TODO we currently only check tag number - maybe we should also check the rest of the tag
-        if (field.getTagNumberType().getIntValue() == tagNumber) {
+        boolean constructed = field.getParser().parseTagConstructed(tag[0]);
+        int tagClass = field.getParser().parseTagClass(tag[0]);
+        if (field.getTagNumberType().getIntValue() == tagNumber
+                && field.getTagConstructedType().getBooleanValue() == constructed
+                && tagClass == field.getTagClassType().getIntValue()) {
             return true;
         } else {
             return false;
