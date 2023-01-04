@@ -154,6 +154,10 @@ public class TagNumberTest {
         assertEquals(TagNumber.UNIVERSALSTRING, TagNumber.fromIntValue(28));
         assertEquals(TagNumber.CHARACTER_STRING, TagNumber.fromIntValue(29));
         assertEquals(TagNumber.BMPSTRING, TagNumber.fromIntValue(30));
+        assertEquals(null, TagNumber.fromIntValue(31));
+        assertEquals(null, TagNumber.fromIntValue(-1));
+        assertEquals(null, TagNumber.fromIntValue(Integer.MAX_VALUE));
+        assertEquals(null, TagNumber.fromIntValue(Integer.MIN_VALUE));
     }
 
     /** Test of fromStringValue method, of class TagNumber. */
@@ -188,5 +192,68 @@ public class TagNumberTest {
         assertEquals(TagNumber.UNIVERSALSTRING, TagNumber.fromStringValue("universalstring"));
         assertEquals(TagNumber.CHARACTER_STRING, TagNumber.fromStringValue("character string"));
         assertEquals(TagNumber.BMPSTRING, TagNumber.fromStringValue("bmpstring"));
+    }
+
+    @Test
+    public void testFromIdentifierByte() {
+        assertEquals(TagNumber.END_OF_CONTENT, TagNumber.fromIdentifierByte((byte) 0b00000000));
+        assertEquals(TagNumber.BOOLEAN, TagNumber.fromIdentifierByte((byte) 0b00000001));
+        assertEquals(TagNumber.INTEGER, TagNumber.fromIdentifierByte((byte) 0b00000010));
+        assertEquals(TagNumber.BIT_STRING, TagNumber.fromIdentifierByte((byte) 0b00000011));
+        assertEquals(TagNumber.OCTET_STRING, TagNumber.fromIdentifierByte((byte) 0b00000100));
+        assertEquals(TagNumber.NULL, TagNumber.fromIdentifierByte((byte) 0b00000101));
+        assertEquals(TagNumber.OBJECT_IDENTIFIER, TagNumber.fromIdentifierByte((byte) 0b00000110));
+        assertEquals(TagNumber.OBJECT_DESCRIPTOR, TagNumber.fromIdentifierByte((byte) 0b00000111));
+        assertEquals(TagNumber.EXTERNAL, TagNumber.fromIdentifierByte((byte) 0b00001000));
+        assertEquals(TagNumber.REAL, TagNumber.fromIdentifierByte((byte) 0b00001001));
+        assertEquals(TagNumber.ENUMERATED, TagNumber.fromIdentifierByte((byte) 0b00001010));
+        assertEquals(TagNumber.EMBEDDED_PDV, TagNumber.fromIdentifierByte((byte) 0b00001011));
+        assertEquals(TagNumber.UTF8STRING, TagNumber.fromIdentifierByte((byte) 0b00001100));
+        assertEquals(TagNumber.RELATIVE_OID, TagNumber.fromIdentifierByte((byte) 0b00001101));
+        assertEquals(TagNumber.SEQUENCE, TagNumber.fromIdentifierByte((byte) 0b00010000));
+        assertEquals(TagNumber.SET, TagNumber.fromIdentifierByte((byte) 0b00010001));
+        assertEquals(TagNumber.NUMERICSTRING, TagNumber.fromIdentifierByte((byte) 0b00010010));
+        assertEquals(TagNumber.PRINTABLESTRING, TagNumber.fromIdentifierByte((byte) 0b00010011));
+        assertEquals(TagNumber.T61STRING, TagNumber.fromIdentifierByte((byte) 0b00010100));
+        assertEquals(TagNumber.VIDEOTEXSTRING, TagNumber.fromIdentifierByte((byte) 0b00010101));
+        assertEquals(TagNumber.IA5STRING, TagNumber.fromIdentifierByte((byte) 0b00010110));
+        assertEquals(TagNumber.UTCTIME, TagNumber.fromIdentifierByte((byte) 0b00010111));
+        assertEquals(TagNumber.GENERALIZEDTIME, TagNumber.fromIdentifierByte((byte) 0b00011000));
+        assertEquals(TagNumber.GRAPHICSTRING, TagNumber.fromIdentifierByte((byte) 0b00011001));
+        assertEquals(TagNumber.VISIBLESTRING, TagNumber.fromIdentifierByte((byte) 0b00011010));
+        assertEquals(TagNumber.GENERALSTRING, TagNumber.fromIdentifierByte((byte) 0b00011011));
+        assertEquals(TagNumber.UNIVERSALSTRING, TagNumber.fromIdentifierByte((byte) 0b00011100));
+        assertEquals(TagNumber.CHARACTER_STRING, TagNumber.fromIdentifierByte((byte) 0b00011101));
+        assertEquals(TagNumber.BMPSTRING, TagNumber.fromIdentifierByte((byte) 0b00011110));
+
+        assertEquals(TagNumber.END_OF_CONTENT, TagNumber.fromIdentifierByte((byte) 0b11100000));
+        assertEquals(TagNumber.BOOLEAN, TagNumber.fromIdentifierByte((byte) 0b11100001));
+        assertEquals(TagNumber.INTEGER, TagNumber.fromIdentifierByte((byte) 0b11100010));
+        assertEquals(TagNumber.BIT_STRING, TagNumber.fromIdentifierByte((byte) 0b11100011));
+        assertEquals(TagNumber.OCTET_STRING, TagNumber.fromIdentifierByte((byte) 0b11100100));
+        assertEquals(TagNumber.NULL, TagNumber.fromIdentifierByte((byte) 0b11100101));
+        assertEquals(TagNumber.OBJECT_IDENTIFIER, TagNumber.fromIdentifierByte((byte) 0b11100110));
+        assertEquals(TagNumber.OBJECT_DESCRIPTOR, TagNumber.fromIdentifierByte((byte) 0b11100111));
+        assertEquals(TagNumber.EXTERNAL, TagNumber.fromIdentifierByte((byte) 0b11101000));
+        assertEquals(TagNumber.REAL, TagNumber.fromIdentifierByte((byte) 0b11101001));
+        assertEquals(TagNumber.ENUMERATED, TagNumber.fromIdentifierByte((byte) 0b11101010));
+        assertEquals(TagNumber.EMBEDDED_PDV, TagNumber.fromIdentifierByte((byte) 0b11101011));
+        assertEquals(TagNumber.UTF8STRING, TagNumber.fromIdentifierByte((byte) 0b11101100));
+        assertEquals(TagNumber.RELATIVE_OID, TagNumber.fromIdentifierByte((byte) 0b11101101));
+        assertEquals(TagNumber.SEQUENCE, TagNumber.fromIdentifierByte((byte) 0b11110000));
+        assertEquals(TagNumber.SET, TagNumber.fromIdentifierByte((byte) 0b11110001));
+        assertEquals(TagNumber.NUMERICSTRING, TagNumber.fromIdentifierByte((byte) 0b11110010));
+        assertEquals(TagNumber.PRINTABLESTRING, TagNumber.fromIdentifierByte((byte) 0b11110011));
+        assertEquals(TagNumber.T61STRING, TagNumber.fromIdentifierByte((byte) 0b11110100));
+        assertEquals(TagNumber.VIDEOTEXSTRING, TagNumber.fromIdentifierByte((byte) 0b11110101));
+        assertEquals(TagNumber.IA5STRING, TagNumber.fromIdentifierByte((byte) 0b11110110));
+        assertEquals(TagNumber.UTCTIME, TagNumber.fromIdentifierByte((byte) 0b11110111));
+        assertEquals(TagNumber.GENERALIZEDTIME, TagNumber.fromIdentifierByte((byte) 0b11111000));
+        assertEquals(TagNumber.GRAPHICSTRING, TagNumber.fromIdentifierByte((byte) 0b11111001));
+        assertEquals(TagNumber.VISIBLESTRING, TagNumber.fromIdentifierByte((byte) 0b11111010));
+        assertEquals(TagNumber.GENERALSTRING, TagNumber.fromIdentifierByte((byte) 0b11111011));
+        assertEquals(TagNumber.UNIVERSALSTRING, TagNumber.fromIdentifierByte((byte) 0b11111100));
+        assertEquals(TagNumber.CHARACTER_STRING, TagNumber.fromIdentifierByte((byte) 0b11111101));
+        assertEquals(TagNumber.BMPSTRING, TagNumber.fromIdentifierByte((byte) 0b11111110));
     }
 }

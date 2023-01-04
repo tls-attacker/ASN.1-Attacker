@@ -73,4 +73,8 @@ public enum TagNumber {
         }
         return null;
     }
+
+    public static TagNumber fromIdentifierByte(final byte identifierByte) {
+        return fromIntValue(identifierByte & 0b00011111);
+    }
 }
