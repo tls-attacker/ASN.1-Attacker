@@ -72,7 +72,7 @@ public class Asn1PrimitiveBitString extends Asn1Field {
     }
 
     @Override
-    public Asn1FieldParser<Asn1PrimitiveBitString> getParser() {
+    public Asn1FieldParser<?> getParser() {
         return new Asn1PrimitiveBitStringParser(this);
     }
 }
