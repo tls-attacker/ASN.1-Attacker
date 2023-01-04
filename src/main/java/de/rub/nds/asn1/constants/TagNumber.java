@@ -57,24 +57,20 @@ public enum TagNumber {
     }
 
     public static TagNumber fromIntValue(int intValue) {
-        TagNumber result = null;
         for (TagNumber currentTagClass : TagNumber.values()) {
             if (currentTagClass.getIntValue() == intValue) {
-                result = currentTagClass;
-                break;
+                return currentTagClass;
             }
         }
-        return result;
+        return null;
     }
 
     public static TagNumber fromStringValue(String stringValue) {
-        TagNumber result = null;
         for (TagNumber currentTagClass : TagNumber.values()) {
             if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
-                result = currentTagClass;
-                break;
+                return currentTagClass;
             }
         }
-        return result;
+        return null;
     }
 }
