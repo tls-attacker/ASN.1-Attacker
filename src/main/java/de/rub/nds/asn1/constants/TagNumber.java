@@ -37,8 +37,7 @@ public enum TagNumber {
     GENERALSTRING(27, "generalstring"),
     UNIVERSALSTRING(28, "universalstring"),
     CHARACTER_STRING(29, "character string"),
-    BMPSTRING(30, "bmpstring"),
-    UNKNOWN(null, null);
+    BMPSTRING(30, "bmpstring");
 
     private final Integer intValue;
 
