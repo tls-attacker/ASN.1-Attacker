@@ -40,7 +40,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
                 if (read == -1) {
                     throw new ParserException(
                             "Incomplete tag: "
-                                    + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
+                            + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
                 }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);
@@ -48,7 +48,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             return tagByteStream.toByteArray();
         } else {
             // Short tag
-            byte[] tag = new byte[] {(byte) read};
+            byte[] tag = new byte[]{(byte) read};
             LOGGER.debug("Parsed short tag octets: {}", tag);
             return tag;
         }
@@ -72,7 +72,7 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
         do {
             nextByte = (byte) (inputStream.read() & 0xFF);
             tagNumber = (tagNumber << 7) | (nextByte & 0x7F);
-        } while ((nextByte & 0x80) > 0);
+        } while ((nextByte & 0x80) > 0 && inputStream.available() > 0);
         return tagNumber;
     }
 
@@ -91,6 +91,9 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
             length = BigInteger.valueOf(lengthByte & 0xFF);
         } else {
             int numberOfLengthBytes = (lengthByte & 0x7F);
+            if (inputStream.available() != numberOfLengthBytes) {
+                throw new ParserException("Length octets have incorrect length");
+            }
             for (int i = 0; i < numberOfLengthBytes; i++) {
                 length = length.shiftLeft(8);
                 length = length.or(BigInteger.valueOf(inputStream.read() & 0xFF));
@@ -153,8 +156,9 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     public abstract void parse(InputStream inputStream);
 
     /**
-     * Parses an asn1encodable without parsing the tag. We assume that the tag is already parsed and
-     * that it is present within the encodable for the rest of the parsing
+     * Parses an asn1encodable without parsing the tag. We assume that the tag
+     * is already parsed and that it is present within the encodable for the
+     * rest of the parsing
      *
      * @param inputStream
      */
