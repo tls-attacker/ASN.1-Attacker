@@ -8,11 +8,11 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 
-public class Asn1Enumerated<Context extends AbstractContext> extends Asn1Field<Context> {
+public class Asn1Enumerated<Context extends AbstractChooser> extends Asn1Field<Context> {
 
     public Asn1Enumerated(String identifier) {
         super(identifier);

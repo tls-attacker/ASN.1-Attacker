@@ -8,13 +8,13 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ObjectIdentifierPreparator<Context extends AbstractContext>
+public class Asn1ObjectIdentifierPreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1ObjectIdentifier> {
 
     private static final Logger LOGGER = LogManager.getLogger();

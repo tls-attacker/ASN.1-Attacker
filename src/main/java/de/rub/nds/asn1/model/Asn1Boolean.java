@@ -11,7 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1BooleanParser;
 import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Boolean<Context extends AbstractContext> extends Asn1Field<Context> {
+public class Asn1Boolean<Context extends AbstractChooser> extends Asn1Field<Context> {
 
     @XmlElement(name = "value")
     private ModifiableBoolean value;

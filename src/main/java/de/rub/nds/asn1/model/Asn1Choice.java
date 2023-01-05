@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.helper.SelectableChoice;
 import de.rub.nds.asn1.parser.Asn1ChoiceParser;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -27,7 +27,7 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Choice<Context extends AbstractContext>
+public abstract class Asn1Choice<Context extends AbstractChooser>
         implements Asn1Encodable<Context> {
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -8,12 +8,12 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.math.BigInteger;
 
-public class Asn1IntegerPreparator<Context extends AbstractContext>
+public class Asn1IntegerPreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1Integer> {
 
     private final Asn1Integer asn1Integer;

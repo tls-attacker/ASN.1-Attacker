@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayInputStream;
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1Parser<
-        Context extends AbstractContext, Encodable extends Asn1Encodable<Context>> {
+        Context extends AbstractChooser, Encodable extends Asn1Encodable<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 

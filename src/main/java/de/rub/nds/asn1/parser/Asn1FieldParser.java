@@ -11,7 +11,7 @@ package de.rub.nds.asn1.parser;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Field;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1FieldParser<
-                Context extends AbstractContext, Field extends Asn1Field<Context>>
+                Context extends AbstractChooser, Field extends Asn1Field<Context>>
         extends Asn1Parser<Context, Field> {
 
     private static final Logger LOGGER = LogManager.getLogger();

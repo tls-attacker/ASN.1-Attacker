@@ -8,10 +8,10 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Null;
 
-public class Asn1NullPreparator<Context extends AbstractContext>
+public class Asn1NullPreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1Null> {
 
     public Asn1NullPreparator(Context context, final Asn1Null asn1null) {

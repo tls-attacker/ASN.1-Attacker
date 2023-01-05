@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Any<Context extends AbstractContext> implements Asn1Encodable<Context> {
+public class Asn1Any<Context extends AbstractChooser> implements Asn1Encodable<Context> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 

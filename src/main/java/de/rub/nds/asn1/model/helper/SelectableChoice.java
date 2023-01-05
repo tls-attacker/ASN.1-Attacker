@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.model.helper;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class SelectableChoice<Context extends AbstractContext> {
+public final class SelectableChoice<Context extends AbstractChooser> {
 
     @HoldsModifiableVariable private final Asn1Field field;
 

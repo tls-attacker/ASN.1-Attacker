@@ -9,7 +9,7 @@
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +18,7 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldPreparator<Context extends AbstractContext, T extends Asn1Field>
+public abstract class Asn1FieldPreparator<Context extends AbstractChooser, T extends Asn1Field>
         extends Preparator {
 
     private static final Logger LOGGER = LogManager.getLogger();

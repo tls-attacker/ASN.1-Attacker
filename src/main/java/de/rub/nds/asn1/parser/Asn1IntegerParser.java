@@ -8,13 +8,13 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Integer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class Asn1IntegerParser<Context extends AbstractContext>
+public class Asn1IntegerParser<Context extends AbstractChooser>
         extends Asn1FieldParser<Context, Asn1Integer<Context>> {
 
     public Asn1IntegerParser(Context context, Asn1Integer asn1Integer) {

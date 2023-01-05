@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Choice;
 import de.rub.nds.asn1.model.Asn1Field;
 import java.io.ByteArrayInputStream;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ChoiceParser<Context extends AbstractContext>
+public class Asn1ChoiceParser<Context extends AbstractChooser>
         extends Asn1Parser<Context, Asn1Choice<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();

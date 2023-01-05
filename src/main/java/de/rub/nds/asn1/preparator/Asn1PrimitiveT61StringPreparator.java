@@ -8,10 +8,10 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveT61String;
 
-public class Asn1PrimitiveT61StringPreparator<Context extends AbstractContext>
+public class Asn1PrimitiveT61StringPreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1PrimitiveT61String> {
 
     private final Asn1PrimitiveT61String asn1PrimitiveT61String;

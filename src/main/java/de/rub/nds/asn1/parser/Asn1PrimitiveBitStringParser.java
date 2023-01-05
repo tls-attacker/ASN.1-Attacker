@@ -8,12 +8,12 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveBitStringParser<Context extends AbstractContext>
+public class Asn1PrimitiveBitStringParser<Context extends AbstractChooser>
         extends Asn1FieldParser<Context, Asn1PrimitiveBitString<Context>> {
 
     public Asn1PrimitiveBitStringParser(

@@ -10,13 +10,13 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1ExplicitParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAnyElement;
 
-public class Asn1Explicit<Context extends AbstractContext> extends Asn1Container<Context> {
+public class Asn1Explicit<Context extends AbstractChooser> extends Asn1Container<Context> {
 
     @XmlAnyElement(lax = true)
     private Asn1Encodable child;

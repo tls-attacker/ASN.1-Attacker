@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Any;
 import de.rub.nds.asn1.model.Asn1Factory;
 import de.rub.nds.asn1.model.Asn1Field;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class Asn1AnyParser<Context extends AbstractContext>
+public class Asn1AnyParser<Context extends AbstractChooser>
         extends Asn1Parser<Context, Asn1Any<Context>> {
 
     public Asn1AnyParser(Context context, Asn1Any<Context> field) {

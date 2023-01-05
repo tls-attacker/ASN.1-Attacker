@@ -14,8 +14,8 @@ import static org.mockito.Mockito.when;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractContext;
-import de.rub.nds.asn1.context.EmptyContext;
+import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
@@ -32,13 +32,13 @@ public class SelectableChoiceTest {
 
     private Asn1Boolean field;
     private SelectableChoice choice;
-    private AbstractContext context;
+    private AbstractChooser context;
 
     @BeforeEach
     public void setUp() {
         field = Mockito.mock(Asn1Boolean.class);
         choice = new SelectableChoice(field);
-        context = new EmptyContext();
+        context = new EmptyChooser();
     }
 
     /** Test of isSelectable method, of class SelectableChoice. */
@@ -68,7 +68,7 @@ public class SelectableChoiceTest {
         assertEquals(field, choice.getField());
     }
 
-    private class Asn1ParserImpl<Context extends AbstractContext>
+    private class Asn1ParserImpl<Context extends AbstractChooser>
             extends Asn1Parser<Context, Asn1Encodable<Context>> {
 
         public Asn1ParserImpl(Context context, Asn1Field<Context> field) {

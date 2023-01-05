@@ -10,8 +10,8 @@ package de.rub.nds.asn1.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.rub.nds.asn1.context.AbstractContext;
-import de.rub.nds.asn1.context.EmptyContext;
+import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -20,12 +20,12 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1AnyTest {
 
-    private AbstractContext context;
+    private AbstractChooser context;
     private Asn1Any any;
 
     @BeforeEach
     public void setUp() {
-        context = new EmptyContext();
+        context = new EmptyChooser();
         any = new Asn1Any("someAny");
     }
 

@@ -8,11 +8,11 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1UnknownParser;
 import de.rub.nds.asn1.preparator.Asn1UnknownPreparator;
 
-public class Asn1UnknownField<Context extends AbstractContext> extends Asn1Field<Context> {
+public class Asn1UnknownField<Context extends AbstractChooser> extends Asn1Field<Context> {
 
     private byte[] contentConfig;
 

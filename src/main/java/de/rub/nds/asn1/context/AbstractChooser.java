@@ -8,7 +8,4 @@
  */
 package de.rub.nds.asn1.context;
 
-public class EmptyContext extends AbstractContext {
-
-    public EmptyContext() {}
-}
+public abstract class AbstractChooser {}

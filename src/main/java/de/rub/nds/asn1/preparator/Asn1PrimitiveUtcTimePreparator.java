@@ -8,10 +8,10 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveUtcTime;
 
-public class Asn1PrimitiveUtcTimePreparator<Context extends AbstractContext>
+public class Asn1PrimitiveUtcTimePreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1PrimitiveUtcTime> {
 
     private final Asn1PrimitiveUtcTime asn1PrimitiveUtcTime;

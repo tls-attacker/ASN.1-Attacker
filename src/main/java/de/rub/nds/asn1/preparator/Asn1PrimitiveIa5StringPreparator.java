@@ -8,10 +8,10 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
 
-public class Asn1PrimitiveIa5StringPreparator<Context extends AbstractContext>
+public class Asn1PrimitiveIa5StringPreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1PrimitiveIa5String> {
 
     private final Asn1PrimitiveIa5String asn1PrimitiveIa5String;

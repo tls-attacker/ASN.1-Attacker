@@ -10,8 +10,8 @@ package de.rub.nds.asn1.preparator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import de.rub.nds.asn1.context.AbstractContext;
-import de.rub.nds.asn1.context.EmptyContext;
+import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.junit.jupiter.api.AfterEach;
@@ -47,7 +47,7 @@ public class Asn1FieldPreparatorTest {
     }
 
     public void testSize(int size, String expectedResult) {
-        Asn1FieldPreparator instance = new Asn1FieldPreparatorImpl(new EmptyContext(), size);
+        Asn1FieldPreparator instance = new Asn1FieldPreparatorImpl(new EmptyChooser(), size);
         instance.prepare();
         assertArrayEquals(
                 ArrayConverter.hexStringToByteArray(expectedResult),
@@ -65,7 +65,7 @@ public class Asn1FieldPreparatorTest {
 
         private final int size;
 
-        public Asn1FieldPreparatorImpl(AbstractContext context, int size) {
+        public Asn1FieldPreparatorImpl(AbstractChooser context, int size) {
             super(context, new Asn1Integer("testInteger"));
             this.size = size;
         }

@@ -8,12 +8,12 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 
-public interface Asn1Encodable<Context extends AbstractContext> {
+public interface Asn1Encodable<Context extends AbstractChooser> {
 
     public String getIdentifier();
 

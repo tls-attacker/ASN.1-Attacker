@@ -8,10 +8,10 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.GenericAsn1SequenceParser;
 
-public class GenericAsn1Sequence<Context extends AbstractContext> extends Asn1Sequence<Context> {
+public class GenericAsn1Sequence<Context extends AbstractChooser> extends Asn1Sequence<Context> {
 
     public GenericAsn1Sequence(String identifier) {
         super(identifier);

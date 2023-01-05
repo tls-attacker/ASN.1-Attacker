@@ -8,14 +8,14 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Explicit;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ExplicitParser<Context extends AbstractContext>
+public class Asn1ExplicitParser<Context extends AbstractChooser>
         extends Asn1FieldParser<Context, Asn1Explicit<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();

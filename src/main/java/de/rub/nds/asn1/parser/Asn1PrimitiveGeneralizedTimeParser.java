@@ -8,12 +8,12 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveGeneralizedTime;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveGeneralizedTimeParser<Context extends AbstractContext>
+public class Asn1PrimitiveGeneralizedTimeParser<Context extends AbstractChooser>
         extends Asn1FieldParser<Context, Asn1PrimitiveGeneralizedTime<Context>> {
 
     public Asn1PrimitiveGeneralizedTimeParser(

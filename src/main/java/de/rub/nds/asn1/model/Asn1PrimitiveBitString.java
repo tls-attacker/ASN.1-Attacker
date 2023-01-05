@@ -11,7 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1PrimitiveBitStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -24,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveBitString<Context extends AbstractContext> extends Asn1Field<Context> {
+public class Asn1PrimitiveBitString<Context extends AbstractChooser> extends Asn1Field<Context> {
 
     @XmlElement(name = "unusedBits")
     private ModifiableByte unusedBits;

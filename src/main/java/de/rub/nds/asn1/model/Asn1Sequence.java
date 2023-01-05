@@ -11,7 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1SequenceParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -20,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Sequence<Context extends AbstractContext> extends Asn1Container<Context> {
+public abstract class Asn1Sequence<Context extends AbstractChooser> extends Asn1Container<Context> {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Sequence() {

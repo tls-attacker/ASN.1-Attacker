@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import java.io.ByteArrayOutputStream;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GenericAsn1ContainerPreparator<Context extends AbstractContext>
+public class GenericAsn1ContainerPreparator<Context extends AbstractChooser>
         extends Asn1FieldPreparator<Context, Asn1Container<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
