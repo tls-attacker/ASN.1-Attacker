@@ -8,9 +8,17 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.parser.GenericAsn1SequenceParser;
+
 public class GenericAsn1Sequence extends Asn1Sequence {
 
     public GenericAsn1Sequence(String identifier) {
         super(identifier);
+    }
+
+    @Override
+    public Asn1FieldParser<Asn1Sequence> getParser() {
+        return new GenericAsn1SequenceParser(this);
     }
 }

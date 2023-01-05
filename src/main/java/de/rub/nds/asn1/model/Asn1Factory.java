@@ -125,18 +125,9 @@ public class Asn1Factory {
                 throw new UnsupportedOperationException(
                         "Constructed Asn1RelativeOid not supported");
             case SEQUENCE:
-                //   if (tagConstructed == TagConstructed.PRIMITIVE) {
                 return new GenericAsn1Sequence("field");
-                //   } else {
-                //       throw new UnsupportedOperationException(
-                //               "Constructed Asn1Sequence not supported");
-                //   }
             case SET:
-                if (tagConstructed == TagConstructed.PRIMITIVE) {
-                    return new GenericAsn1Set("field");
-                } else {
-                    throw new UnsupportedOperationException("Constructed Asn1Set not supported");
-                }
+                return new GenericAsn1Set("field");
             case T61STRING:
                 if (tagConstructed == TagConstructed.PRIMITIVE) {
                     return new Asn1PrimitiveT61String("field");
