@@ -35,7 +35,7 @@ public class Asn1UnknownField extends Asn1Field {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new Asn1UnknownPreparator(this);
     }
 

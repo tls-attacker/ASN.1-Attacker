@@ -32,9 +32,9 @@ public class GenericAsn1ContainerPreparator extends Asn1FieldPreparator {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         for (Asn1Encodable asn1Field : asn1Container.getChildren()) {
             LOGGER.info("Preparing:" + asn1Field.getIdentifier());
-            asn1Field.getGenericPreparator().prepare();
+            asn1Field.getPreparator().prepare();
             try {
-                outputStream.write(asn1Field.getGenericSerializer().serialize());
+                outputStream.write(asn1Field.getSerializer().serialize());
             } catch (IOException ex) {
                 LOGGER.error("Could not encoded child", ex);
             }

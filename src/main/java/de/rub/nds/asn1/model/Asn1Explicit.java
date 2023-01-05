@@ -28,7 +28,7 @@ public class Asn1Explicit extends Asn1Container {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new GenericAsn1ContainerPreparator(this);
     }
 

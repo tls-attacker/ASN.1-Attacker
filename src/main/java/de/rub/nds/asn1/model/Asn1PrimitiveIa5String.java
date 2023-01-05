@@ -51,7 +51,7 @@ public class Asn1PrimitiveIa5String extends Asn1Field {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new Asn1PrimitiveIa5StringPreparator(this);
     }
 

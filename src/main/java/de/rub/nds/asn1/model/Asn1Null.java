@@ -32,7 +32,7 @@ public class Asn1Null extends Asn1Field {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new Asn1NullPreparator(this);
     }
 

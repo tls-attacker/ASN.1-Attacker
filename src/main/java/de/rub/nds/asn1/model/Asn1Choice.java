@@ -90,9 +90,9 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public Asn1FieldSerializer getGenericSerializer() {
+    public Asn1FieldSerializer getSerializer() {
         if (selectedChoice != null) {
-            return selectedChoice.getGenericSerializer();
+            return selectedChoice.getSerializer();
         } else {
             throw new RuntimeException(
                     "Tried to access serializer of choice before selecting a choice");
@@ -100,9 +100,9 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         if (selectedChoice != null) {
-            return selectedChoice.getGenericPreparator();
+            return selectedChoice.getPreparator();
         } else {
             throw new RuntimeException(
                     "Tried to access preparator of choice before selecting a choice");

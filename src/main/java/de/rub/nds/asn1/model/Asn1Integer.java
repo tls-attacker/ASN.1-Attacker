@@ -52,7 +52,7 @@ public class Asn1Integer extends Asn1Field {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new Asn1IntegerPreparator(this);
     }
 

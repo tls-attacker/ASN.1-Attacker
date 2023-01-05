@@ -55,7 +55,7 @@ public class Asn1ObjectIdentifier extends Asn1Field {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new Asn1ObjectIdentifierPreparator(this);
     }
 

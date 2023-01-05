@@ -18,9 +18,9 @@ public interface Asn1Encodable {
 
     public void setIdentifier(final String identifier);
 
-    public Asn1FieldSerializer getGenericSerializer();
+    public Asn1FieldSerializer getSerializer();
 
-    public Preparator getGenericPreparator();
+    public Preparator getPreparator();
 
     public Asn1Parser<?> getParser();
 

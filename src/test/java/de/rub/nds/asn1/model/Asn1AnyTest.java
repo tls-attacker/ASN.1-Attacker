@@ -87,17 +87,17 @@ public class Asn1AnyTest {
         assertNull(any.getIdentifier());
     }
 
-    /** Test of getGenericSerializer method, of class Asn1Any. */
+    /** Test of getSerializer method, of class Asn1Any. */
     @Test
     public void testGetGenericSerializer() {
         assertThrows(
                 RuntimeException.class,
                 () -> {
-                    any.getGenericSerializer();
+                    any.getSerializer();
                 });
         Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
         any.setInstantiation(asn1Boolean);
-        assertTrue(any.getGenericSerializer() instanceof Asn1FieldSerializer);
+        assertTrue(any.getSerializer() instanceof Asn1FieldSerializer);
     }
 
     /** Test of getGenericPreparator method, of class Asn1Any. */
@@ -106,11 +106,11 @@ public class Asn1AnyTest {
         assertThrows(
                 RuntimeException.class,
                 () -> {
-                    any.getGenericPreparator();
+                    any.getPreparator();
                 });
         Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
         any.setInstantiation(asn1Boolean);
-        assertTrue(any.getGenericPreparator() instanceof Asn1BooleanPreparator);
+        assertTrue(any.getPreparator() instanceof Asn1BooleanPreparator);
     }
 
     /** Test of getParser method, of class Asn1Any. */

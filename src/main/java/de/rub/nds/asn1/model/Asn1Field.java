@@ -245,7 +245,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     @Override
-    public Asn1FieldSerializer getGenericSerializer() {
+    public Asn1FieldSerializer getSerializer() {
         return new Asn1FieldSerializer(this);
     }
 }

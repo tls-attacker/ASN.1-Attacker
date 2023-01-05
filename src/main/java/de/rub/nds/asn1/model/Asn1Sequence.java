@@ -33,7 +33,7 @@ public abstract class Asn1Sequence extends Asn1Container {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new GenericAsn1ContainerPreparator(this);
     }
 

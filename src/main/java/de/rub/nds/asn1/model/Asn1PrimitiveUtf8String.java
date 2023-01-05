@@ -51,7 +51,7 @@ public class Asn1PrimitiveUtf8String extends Asn1Field {
     }
 
     @Override
-    public Preparator getGenericPreparator() {
+    public Preparator getPreparator() {
         return new Asn1PrimitiveUtf8StringPreparator(this);
     }
 

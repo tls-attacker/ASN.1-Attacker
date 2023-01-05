@@ -49,12 +49,12 @@ public class Asn1FieldPreparatorTest {
         instance.prepare();
         assertArrayEquals(
                 ArrayConverter.hexStringToByteArray(expectedResult),
-                instance.field.getGenericSerializer().serialize(),
+                instance.field.getSerializer().serialize(),
                 "Expected: "
                         + expectedResult
                         + " Found: "
                         + ArrayConverter.bytesToHexString(
-                                instance.field.getGenericSerializer().serialize()));
+                                instance.field.getSerializer().serialize()));
     }
 
     public class Asn1FieldPreparatorImpl extends Asn1FieldPreparator {
