@@ -8,8 +8,8 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
-import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Any implements Asn1Encodable {
+public class Asn1Any<Context extends AbstractContext> implements Asn1Encodable<Context> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -86,9 +86,9 @@ public class Asn1Any implements Asn1Encodable {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getPreparator(Context context) {
         if (instantiation != null) {
-            return instantiation.getPreparator();
+            return instantiation.getPreparator(context);
         } else {
             throw new RuntimeException(
                     "Tried to access preparator of any element before choosing instantiation");
@@ -96,7 +96,7 @@ public class Asn1Any implements Asn1Encodable {
     }
 
     @Override
-    public Asn1Parser<?> getParser() {
-        return new Asn1AnyParser(this);
+    public Asn1AnyParser<Context> getParser(Context context) {
+        return new Asn1AnyParser<Context>(context, this);
     }
 }

@@ -8,17 +8,17 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.GenericAsn1SequenceParser;
 
-public class GenericAsn1Sequence extends Asn1Sequence {
+public class GenericAsn1Sequence<Context extends AbstractContext> extends Asn1Sequence<Context> {
 
     public GenericAsn1Sequence(String identifier) {
         super(identifier);
     }
 
     @Override
-    public Asn1FieldParser<Asn1Sequence> getParser() {
-        return new GenericAsn1SequenceParser(this);
+    public GenericAsn1SequenceParser getParser(Context context) {
+        return new GenericAsn1SequenceParser(context, this);
     }
 }

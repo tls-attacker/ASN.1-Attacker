@@ -8,14 +8,16 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveUtcTime;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveUtcTimeParser extends Asn1FieldParser<Asn1PrimitiveUtcTime> {
+public class Asn1PrimitiveUtcTimeParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1PrimitiveUtcTime<Context>> {
 
-    public Asn1PrimitiveUtcTimeParser(Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
-        super(asn1PrimitiveUtcTime);
+    public Asn1PrimitiveUtcTimeParser(Context context, Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
+        super(context, asn1PrimitiveUtcTime);
     }
 
     @Override

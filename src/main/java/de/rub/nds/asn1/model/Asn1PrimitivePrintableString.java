@@ -11,10 +11,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1PrimitivePrintableStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitivePrintableStringPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -24,7 +23,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitivePrintableString extends Asn1Field {
+public class Asn1PrimitivePrintableString<Context extends AbstractContext>
+        extends Asn1Field<Context> {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -51,12 +51,12 @@ public class Asn1PrimitivePrintableString extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1PrimitivePrintableStringPreparator(this);
+    public Asn1PrimitivePrintableStringPreparator getPreparator(Context context) {
+        return new Asn1PrimitivePrintableStringPreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<Asn1PrimitivePrintableString> getParser() {
-        return new Asn1PrimitivePrintableStringParser(this);
+    public Asn1PrimitivePrintableStringParser getParser(Context context) {
+        return new Asn1PrimitivePrintableStringParser(context, this);
     }
 }

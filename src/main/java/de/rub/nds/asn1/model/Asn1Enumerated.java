@@ -8,23 +8,24 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 
-public class Asn1Enumerated extends Asn1Field {
+public class Asn1Enumerated<Context extends AbstractContext> extends Asn1Field<Context> {
 
     public Asn1Enumerated(String identifier) {
         super(identifier);
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getPreparator(Context context) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Asn1Parser<?> getParser() {
+    public Asn1Parser<?, ?> getParser(Context context) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

@@ -8,17 +8,20 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ObjectIdentifierPreparator extends Asn1FieldPreparator<Asn1ObjectIdentifier> {
+public class Asn1ObjectIdentifierPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1ObjectIdentifier> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ObjectIdentifierPreparator(Asn1ObjectIdentifier asn1ObjectIdentifier) {
-        super(asn1ObjectIdentifier);
+    public Asn1ObjectIdentifierPreparator(
+            Context context, Asn1ObjectIdentifier asn1ObjectIdentifier) {
+        super(context, asn1ObjectIdentifier);
     }
 
     @Override

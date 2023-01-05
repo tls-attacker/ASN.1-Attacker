@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveUtcTime;
 
-public class Asn1PrimitiveUtcTimePreparator extends Asn1FieldPreparator {
+public class Asn1PrimitiveUtcTimePreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1PrimitiveUtcTime> {
 
     private final Asn1PrimitiveUtcTime asn1PrimitiveUtcTime;
 
-    public Asn1PrimitiveUtcTimePreparator(Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
-        super(asn1PrimitiveUtcTime);
+    public Asn1PrimitiveUtcTimePreparator(
+            Context context, Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
+        super(context, asn1PrimitiveUtcTime);
         this.asn1PrimitiveUtcTime = asn1PrimitiveUtcTime;
     }
 

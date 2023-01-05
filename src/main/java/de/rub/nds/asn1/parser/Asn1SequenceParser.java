@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Any;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Sequence;
@@ -17,12 +18,15 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
+public class Asn1SequenceParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1Sequence<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SequenceParser(Asn1Sequence asn1Sequence) {
-        super(asn1Sequence);
+    private Asn1Sequence<Context> sequence;
+
+    public Asn1SequenceParser(Context context, Asn1Sequence<Context> asn1Sequence) {
+        super(context, asn1Sequence);
     }
 
     @Override
@@ -31,7 +35,7 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
         Integer tagNumber = null;
         Boolean constructed = null;
         Integer tagClass = null;
-        for (Asn1Encodable tempEncodable : encodable.getChildren()) {
+        for (Asn1Encodable<Context> tempEncodable : sequence.getChildren()) {
             if (tagNumber == null
                     && tagOctets == null
                     && constructed == null
@@ -39,7 +43,7 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
                     && inputStream.available() > 0) {
                 if (tempEncodable instanceof Asn1Any) {
                     LOGGER.debug("Parsing AnyField in sequence");
-                    tempEncodable.getParser().parse(inputStream);
+                    tempEncodable.getParser(context).parse(inputStream);
                     continue;
                 } else {
                     tagOctets = parseTagOctets(inputStream);
@@ -50,7 +54,7 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
             }
             if (tagOctets != null && tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
                 LOGGER.info(tempEncodable.getIdentifier() + " is compatible");
-                tempEncodable.getParser().parseWithoutTag(inputStream, tagOctets);
+                tempEncodable.getParser(context).parseWithoutTag(inputStream, tagOctets);
                 // Reset so the next element can get parsed
                 tagNumber = null;
                 tagOctets = null;

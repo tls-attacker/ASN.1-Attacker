@@ -8,15 +8,17 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
 
-public class Asn1PrimitivePrintableStringPreparator extends Asn1FieldPreparator {
+public class Asn1PrimitivePrintableStringPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1PrimitivePrintableString> {
 
     private final Asn1PrimitivePrintableString asn1PrimitivePrintableString;
 
     public Asn1PrimitivePrintableStringPreparator(
-            Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
-        super(asn1PrimitivePrintableString);
+            Context context, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+        super(context, asn1PrimitivePrintableString);
         this.asn1PrimitivePrintableString = asn1PrimitivePrintableString;
     }
 

@@ -11,10 +11,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1PrimitiveOctetStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveOctetStringPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -24,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveOctetString extends Asn1Field {
+public class Asn1PrimitiveOctetString<Context extends AbstractContext> extends Asn1Field<Context> {
 
     @XmlElement(name = "value")
     private ModifiableByteArray value;
@@ -51,12 +50,12 @@ public class Asn1PrimitiveOctetString extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1PrimitiveOctetStringPreparator(this);
+    public Asn1PrimitiveOctetStringPreparator getPreparator(Context context) {
+        return new Asn1PrimitiveOctetStringPreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<Asn1PrimitiveOctetString> getParser() {
-        return new Asn1PrimitiveOctetStringParser(this);
+    public Asn1PrimitiveOctetStringParser getParser(Context context) {
+        return new Asn1PrimitiveOctetStringParser(context, this);
     }
 }

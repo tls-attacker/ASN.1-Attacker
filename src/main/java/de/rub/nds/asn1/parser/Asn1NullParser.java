@@ -8,18 +8,20 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Null;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1NullParser extends Asn1FieldParser<Asn1Null> {
+public class Asn1NullParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1Null<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1NullParser(Asn1Null nullField) {
-        super(nullField);
+    public Asn1NullParser(Context context, Asn1Null nullField) {
+        super(context, nullField);
     }
 
     @Override

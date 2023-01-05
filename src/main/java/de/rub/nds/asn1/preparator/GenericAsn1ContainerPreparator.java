@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import java.io.ByteArrayOutputStream;
@@ -15,14 +16,16 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GenericAsn1ContainerPreparator extends Asn1FieldPreparator {
+public class GenericAsn1ContainerPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1Container<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final Asn1Container asn1Container;
+    private final Asn1Container<Context> asn1Container;
 
-    public GenericAsn1ContainerPreparator(final Asn1Container asn1Container) {
-        super(asn1Container);
+    public GenericAsn1ContainerPreparator(
+            Context context, final Asn1Container<Context> asn1Container) {
+        super(context, asn1Container);
         this.asn1Container = asn1Container;
     }
 
@@ -32,7 +35,7 @@ public class GenericAsn1ContainerPreparator extends Asn1FieldPreparator {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         for (Asn1Encodable asn1Field : asn1Container.getChildren()) {
             LOGGER.info("Preparing:" + asn1Field.getIdentifier());
-            asn1Field.getPreparator().prepare();
+            asn1Field.getPreparator(context).prepare();
             try {
                 outputStream.write(asn1Field.getSerializer().serialize());
             } catch (IOException ex) {

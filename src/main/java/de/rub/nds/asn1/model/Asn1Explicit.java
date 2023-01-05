@@ -10,13 +10,13 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1ExplicitParser;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAnyElement;
 
-public class Asn1Explicit extends Asn1Container {
+public class Asn1Explicit<Context extends AbstractContext> extends Asn1Container<Context> {
 
     @XmlAnyElement(lax = true)
     private Asn1Encodable child;
@@ -28,8 +28,8 @@ public class Asn1Explicit extends Asn1Container {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new GenericAsn1ContainerPreparator(this);
+    public Preparator getPreparator(Context context) {
+        return new GenericAsn1ContainerPreparator(context, this);
     }
 
     public Asn1Encodable getChild() {
@@ -37,7 +37,7 @@ public class Asn1Explicit extends Asn1Container {
     }
 
     @Override
-    public Asn1FieldParser<Asn1Explicit> getParser() {
-        return new Asn1ExplicitParser(this);
+    public Asn1ExplicitParser getParser(Context context) {
+        return new Asn1ExplicitParser(context, this);
     }
 }

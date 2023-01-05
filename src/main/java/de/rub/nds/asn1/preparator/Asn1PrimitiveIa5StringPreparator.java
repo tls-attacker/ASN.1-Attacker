@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
 
-public class Asn1PrimitiveIa5StringPreparator extends Asn1FieldPreparator {
+public class Asn1PrimitiveIa5StringPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1PrimitiveIa5String> {
 
     private final Asn1PrimitiveIa5String asn1PrimitiveIa5String;
 
-    public Asn1PrimitiveIa5StringPreparator(Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
-        super(asn1PrimitiveIa5String);
+    public Asn1PrimitiveIa5StringPreparator(
+            Context context, Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
+        super(context, asn1PrimitiveIa5String);
         this.asn1PrimitiveIa5String = asn1PrimitiveIa5String;
     }
 

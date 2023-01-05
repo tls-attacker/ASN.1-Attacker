@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.EmptyContext;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -29,10 +31,13 @@ public class Asn1ParserTest {
 
     private Asn1Field field;
 
+    private AbstractContext context;
+
     @BeforeEach
     public void setUp() {
+        context = new EmptyContext();
         field = Mockito.mock(Asn1Field.class);
-        parser = new Asn1ParserImpl(field);
+        parser = new Asn1ParserImpl(context, field);
     }
 
     /** Test of parseTagOctets method, of class Asn1Parser. */
@@ -263,10 +268,11 @@ public class Asn1ParserTest {
                 ArrayConverter.hexStringToByteArray("01010101010101010101"), parseContentOctets);
     }
 
-    private class Asn1ParserImpl extends Asn1Parser<Asn1Encodable> {
+    private class Asn1ParserImpl<Context extends AbstractContext>
+            extends Asn1Parser<Context, Asn1Encodable<Context>> {
 
-        public Asn1ParserImpl(Asn1Field field) {
-            super(field);
+        public Asn1ParserImpl(Context context, Asn1Field<Context> field) {
+            super(context, field);
         }
 
         @Override

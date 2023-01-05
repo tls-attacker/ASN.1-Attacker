@@ -8,11 +8,12 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 
-public interface Asn1Encodable {
+public interface Asn1Encodable<Context extends AbstractContext> {
 
     public String getIdentifier();
 
@@ -20,9 +21,9 @@ public interface Asn1Encodable {
 
     public Asn1FieldSerializer getSerializer();
 
-    public Preparator getPreparator();
+    public Preparator getPreparator(Context context);
 
-    public Asn1Parser<?> getParser();
+    public Asn1Parser<?, ?> getParser(Context context);
 
     public abstract boolean isOptional();
 

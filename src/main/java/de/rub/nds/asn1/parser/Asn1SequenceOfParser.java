@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Sequence;
 import java.io.IOException;
@@ -17,20 +18,21 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1SequenceOfParser extends Asn1FieldParser<Asn1Sequence> {
+public abstract class Asn1SequenceOfParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1Sequence<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SequenceOfParser(Asn1Sequence asn1Sequence) {
-        super(asn1Sequence);
+    public Asn1SequenceOfParser(Context context, Asn1Sequence asn1Sequence) {
+        super(context, asn1Sequence);
     }
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        List<Asn1Encodable> childrenList = new LinkedList<>();
+        List<Asn1Encodable<Context>> childrenList = new LinkedList<>();
         do {
             Asn1Encodable freshElement = createFreshElement();
-            freshElement.getParser().parse(inputStream);
+            freshElement.getParser(context).parse(inputStream);
             childrenList.add(freshElement);
         } while (inputStream.available() > 0);
         encodable.setChildren(childrenList);

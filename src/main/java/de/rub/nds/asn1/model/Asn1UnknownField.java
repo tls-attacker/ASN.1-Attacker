@@ -8,12 +8,11 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.parser.Asn1Parser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1UnknownParser;
 import de.rub.nds.asn1.preparator.Asn1UnknownPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 
-public class Asn1UnknownField extends Asn1Field {
+public class Asn1UnknownField<Context extends AbstractContext> extends Asn1Field<Context> {
 
     private byte[] contentConfig;
 
@@ -35,12 +34,12 @@ public class Asn1UnknownField extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1UnknownPreparator(this);
+    public Asn1UnknownPreparator getPreparator(Context context) {
+        return new Asn1UnknownPreparator(context, this);
     }
 
     @Override
-    public Asn1Parser<?> getParser() {
-        return new Asn1UnknownParser(this);
+    public Asn1UnknownParser getParser(Context context) {
+        return new Asn1UnknownParser(context, this);
     }
 }

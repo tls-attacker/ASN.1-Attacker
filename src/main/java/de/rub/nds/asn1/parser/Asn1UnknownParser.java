@@ -8,18 +8,20 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1UnknownField;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1UnknownParser extends Asn1FieldParser<Asn1UnknownField> {
+public class Asn1UnknownParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1UnknownField<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1UnknownParser(Asn1UnknownField asn1Unknown) {
-        super(asn1Unknown);
+    public Asn1UnknownParser(Context context, Asn1UnknownField asn1Unknown) {
+        super(context, asn1Unknown);
     }
 
     @Override

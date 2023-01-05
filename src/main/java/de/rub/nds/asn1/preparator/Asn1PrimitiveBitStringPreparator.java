@@ -8,16 +8,19 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class Asn1PrimitiveBitStringPreparator extends Asn1FieldPreparator {
+public class Asn1PrimitiveBitStringPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1PrimitiveBitString> {
 
     private final Asn1PrimitiveBitString asn1PrimitiveBitString;
 
-    public Asn1PrimitiveBitStringPreparator(final Asn1PrimitiveBitString asn1PrimitiveBitString) {
-        super(asn1PrimitiveBitString);
+    public Asn1PrimitiveBitStringPreparator(
+            Context context, final Asn1PrimitiveBitString asn1PrimitiveBitString) {
+        super(context, asn1PrimitiveBitString);
         this.asn1PrimitiveBitString = asn1PrimitiveBitString;
     }
 

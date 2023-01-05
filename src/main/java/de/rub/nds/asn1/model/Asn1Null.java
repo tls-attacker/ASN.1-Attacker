@@ -11,6 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1NullParser;
 import de.rub.nds.asn1.preparator.Asn1NullPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -20,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Null extends Asn1Field {
+public class Asn1Null<Context extends AbstractContext> extends Asn1Field<Context> {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Null() {
@@ -32,12 +33,12 @@ public class Asn1Null extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1NullPreparator(this);
+    public Preparator getPreparator(Context context) {
+        return new Asn1NullPreparator(context, this);
     }
 
     @Override
-    public Asn1NullParser getParser() {
-        return new Asn1NullParser(this);
+    public Asn1NullParser getParser(Context context) {
+        return new Asn1NullParser(context, this);
     }
 }

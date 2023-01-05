@@ -8,18 +8,20 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1BooleanParser extends Asn1FieldParser<Asn1Boolean> {
+public class Asn1BooleanParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1Boolean<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1BooleanParser(Asn1Boolean booleanField) {
-        super(booleanField);
+    public Asn1BooleanParser(Context context, Asn1Boolean booleanField) {
+        super(context, booleanField);
     }
 
     @Override

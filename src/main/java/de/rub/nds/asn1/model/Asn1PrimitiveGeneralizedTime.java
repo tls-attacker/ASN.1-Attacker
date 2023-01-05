@@ -11,10 +11,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1PrimitiveGeneralizedTimeParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveGeneralizedTimePreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -24,7 +23,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
+public class Asn1PrimitiveGeneralizedTime<Context extends AbstractContext>
+        extends Asn1Field<Context> {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -51,12 +51,12 @@ public class Asn1PrimitiveGeneralizedTime extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1PrimitiveGeneralizedTimePreparator(this);
+    public Asn1PrimitiveGeneralizedTimePreparator getPreparator(Context context) {
+        return new Asn1PrimitiveGeneralizedTimePreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<Asn1PrimitiveGeneralizedTime> getParser() {
-        return new Asn1PrimitiveGeneralizedTimeParser(this);
+    public Asn1PrimitiveGeneralizedTimeParser getParser(Context context) {
+        return new Asn1PrimitiveGeneralizedTimeParser(context, this);
     }
 }

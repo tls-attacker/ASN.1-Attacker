@@ -11,6 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
@@ -27,7 +28,7 @@ import java.util.LinkedList;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Container extends Asn1Field {
+public abstract class Asn1Container<Context extends AbstractContext> extends Asn1Field<Context> {
 
     private ModifiableByteArray encodedChildren;
 
@@ -63,7 +64,7 @@ public abstract class Asn1Container extends Asn1Field {
                 @XmlElement(type = Asn1UnknownField.class, name = "Asn1UnknownField")
             })
     @HoldsModifiableVariable
-    private Collection<Asn1Encodable> children;
+    private Collection<Asn1Encodable<Context>> children;
 
     public Asn1Container(
             String identifier,
@@ -96,11 +97,11 @@ public abstract class Asn1Container extends Asn1Field {
         this.children.add(child);
     }
 
-    public Collection<Asn1Encodable> getChildren() {
+    public Collection<Asn1Encodable<Context>> getChildren() {
         return children;
     }
 
-    public void setChildren(Collection<Asn1Encodable> children) {
+    public void setChildren(Collection<Asn1Encodable<Context>> children) {
         this.children = children;
     }
 
@@ -109,7 +110,7 @@ public abstract class Asn1Container extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new GenericAsn1ContainerPreparator(this);
+    public Preparator getPreparator(Context context) {
+        return new GenericAsn1ContainerPreparator(context, this);
     }
 }

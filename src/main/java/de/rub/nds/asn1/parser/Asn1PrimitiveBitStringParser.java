@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveBitStringParser extends Asn1FieldParser<Asn1PrimitiveBitString> {
+public class Asn1PrimitiveBitStringParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1PrimitiveBitString<Context>> {
 
-    public Asn1PrimitiveBitStringParser(Asn1PrimitiveBitString asn1PrimitiveBitString) {
-        super(asn1PrimitiveBitString);
+    public Asn1PrimitiveBitStringParser(
+            Context context, Asn1PrimitiveBitString asn1PrimitiveBitString) {
+        super(context, asn1PrimitiveBitString);
     }
 
     @Override

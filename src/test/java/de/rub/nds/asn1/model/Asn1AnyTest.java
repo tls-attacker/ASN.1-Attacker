@@ -10,6 +10,8 @@ package de.rub.nds.asn1.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.EmptyContext;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -18,10 +20,12 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1AnyTest {
 
+    private AbstractContext context;
     private Asn1Any any;
 
     @BeforeEach
     public void setUp() {
+        context = new EmptyContext();
         any = new Asn1Any("someAny");
     }
 
@@ -106,16 +110,16 @@ public class Asn1AnyTest {
         assertThrows(
                 RuntimeException.class,
                 () -> {
-                    any.getPreparator();
+                    any.getPreparator(context);
                 });
         Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
         any.setInstantiation(asn1Boolean);
-        assertTrue(any.getPreparator() instanceof Asn1BooleanPreparator);
+        assertTrue(any.getPreparator(context) instanceof Asn1BooleanPreparator);
     }
 
     /** Test of getParser method, of class Asn1Any. */
     @Test
     public void testGetParser() {
-        assertTrue(any.getParser() instanceof Asn1AnyParser);
+        assertTrue(any.getParser(context) instanceof Asn1AnyParser);
     }
 }

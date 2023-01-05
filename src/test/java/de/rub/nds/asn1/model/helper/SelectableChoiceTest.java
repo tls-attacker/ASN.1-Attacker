@@ -14,6 +14,8 @@ import static org.mockito.Mockito.when;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.context.AbstractContext;
+import de.rub.nds.asn1.context.EmptyContext;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
@@ -30,11 +32,13 @@ public class SelectableChoiceTest {
 
     private Asn1Boolean field;
     private SelectableChoice choice;
+    private AbstractContext context;
 
     @BeforeEach
     public void setUp() {
         field = Mockito.mock(Asn1Boolean.class);
         choice = new SelectableChoice(field);
+        context = new EmptyContext();
     }
 
     /** Test of isSelectable method, of class SelectableChoice. */
@@ -43,17 +47,19 @@ public class SelectableChoiceTest {
         when(field.getTagClassType()).thenReturn(TagClass.APPLICATION);
         when(field.getTagConstructedType()).thenReturn(TagConstructed.CONSTRUCTED);
         when(field.getTagNumberType()).thenReturn(TagNumber.BIT_STRING);
-        when(field.getParser()).thenReturn(new Asn1BooleanParser(field));
+        when(field.getParser(context)).thenReturn(new Asn1BooleanParser(context, field));
         assertFalse(
                 choice.isSelectable(
-                        ArrayConverter.hexStringToByteArray("23"))); // same but universal
+                        context, ArrayConverter.hexStringToByteArray("23"))); // same but universal
         assertFalse(
                 choice.isSelectable(
-                        ArrayConverter.hexStringToByteArray("43"))); // same but primitive
+                        context, ArrayConverter.hexStringToByteArray("43"))); // same but primitive
         assertFalse(
                 choice.isSelectable(
+                        context,
                         ArrayConverter.hexStringToByteArray("62"))); // same but different tag
-        assertTrue(choice.isSelectable(ArrayConverter.hexStringToByteArray("63"))); // correct
+        assertTrue(
+                choice.isSelectable(context, ArrayConverter.hexStringToByteArray("63"))); // correct
     }
 
     /** Test of getField method, of class SelectableChoice. */
@@ -62,10 +68,11 @@ public class SelectableChoiceTest {
         assertEquals(field, choice.getField());
     }
 
-    private class Asn1ParserImpl extends Asn1Parser<Asn1Encodable> {
+    private class Asn1ParserImpl<Context extends AbstractContext>
+            extends Asn1Parser<Context, Asn1Encodable<Context>> {
 
-        public Asn1ParserImpl(Asn1Field field) {
-            super(field);
+        public Asn1ParserImpl(Context context, Asn1Field<Context> field) {
+            super(context, field);
         }
 
         @Override

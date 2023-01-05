@@ -8,14 +8,16 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Boolean;
 
-public class Asn1BooleanPreparator extends Asn1FieldPreparator {
+public class Asn1BooleanPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1Boolean> {
 
     private final Asn1Boolean asn1Boolean;
 
-    public Asn1BooleanPreparator(final Asn1Boolean asn1Boolean) {
-        super(asn1Boolean);
+    public Asn1BooleanPreparator(Context context, final Asn1Boolean asn1Boolean) {
+        super(context, asn1Boolean);
         this.asn1Boolean = asn1Boolean;
     }
 

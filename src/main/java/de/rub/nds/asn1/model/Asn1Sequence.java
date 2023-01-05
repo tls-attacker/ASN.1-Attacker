@@ -11,17 +11,16 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1SequenceParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Sequence extends Asn1Container {
+public abstract class Asn1Sequence<Context extends AbstractContext> extends Asn1Container<Context> {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Sequence() {
@@ -33,12 +32,12 @@ public abstract class Asn1Sequence extends Asn1Container {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new GenericAsn1ContainerPreparator(this);
+    public GenericAsn1ContainerPreparator getPreparator(Context context) {
+        return new GenericAsn1ContainerPreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<Asn1Sequence> getParser() {
-        return new Asn1SequenceParser(this);
+    public Asn1SequenceParser getParser(Context context) {
+        return new Asn1SequenceParser(context, this);
     }
 }

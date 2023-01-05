@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Factory;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.model.Asn1Sequence;
@@ -16,10 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class GenericAsn1SequenceParser extends Asn1SequenceParser {
+public class GenericAsn1SequenceParser<Context extends AbstractContext>
+        extends Asn1SequenceParser<Context> {
 
-    public GenericAsn1SequenceParser(Asn1Sequence asn1Sequence) {
-        super(asn1Sequence);
+    public GenericAsn1SequenceParser(Context context, Asn1Sequence asn1Sequence) {
+        super(context, asn1Sequence);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class GenericAsn1SequenceParser extends Asn1SequenceParser {
                 asn1Field.setTagConstructed(constructed);
                 asn1Field.setTagClass(tagClass);
                 asn1Field.setTagNumber(tagNumber);
-                Asn1Parser<?> parser = asn1Field.getParser();
+                Asn1Parser<?, ?> parser = asn1Field.getParser(context);
                 byte[] lengthOctets = parser.parseLengthOctets(inputStream);
                 BigInteger length = parser.parseLength(lengthOctets);
                 asn1Field.setLength(length);

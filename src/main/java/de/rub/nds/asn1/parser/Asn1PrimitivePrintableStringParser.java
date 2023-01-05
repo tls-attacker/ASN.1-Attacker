@@ -8,16 +8,17 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitivePrintableStringParser
-        extends Asn1FieldParser<Asn1PrimitivePrintableString> {
+public class Asn1PrimitivePrintableStringParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1PrimitivePrintableString<Context>> {
 
     public Asn1PrimitivePrintableStringParser(
-            Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
-        super(asn1PrimitivePrintableString);
+            Context context, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+        super(context, asn1PrimitivePrintableString);
     }
 
     @Override

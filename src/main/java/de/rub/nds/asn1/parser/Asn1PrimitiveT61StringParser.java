@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveT61String;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveT61StringParser extends Asn1FieldParser<Asn1PrimitiveT61String> {
+public class Asn1PrimitiveT61StringParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1PrimitiveT61String<Context>> {
 
-    public Asn1PrimitiveT61StringParser(Asn1PrimitiveT61String asn1PrimitiveT61String) {
-        super(asn1PrimitiveT61String);
+    public Asn1PrimitiveT61StringParser(
+            Context context, Asn1PrimitiveT61String asn1PrimitiveT61String) {
+        super(context, asn1PrimitiveT61String);
     }
 
     @Override

@@ -11,6 +11,7 @@ package de.rub.nds.asn1.parser;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Field;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,12 +20,14 @@ import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parser<Field> {
+public abstract class Asn1FieldParser<
+                Context extends AbstractContext, Field extends Asn1Field<Context>>
+        extends Asn1Parser<Context, Field> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1FieldParser(Field field) {
-        super(field);
+    public Asn1FieldParser(Context context, Field field) {
+        super(context, field);
     }
 
     @Override

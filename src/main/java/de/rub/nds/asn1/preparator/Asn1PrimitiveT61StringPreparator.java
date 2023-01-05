@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveT61String;
 
-public class Asn1PrimitiveT61StringPreparator extends Asn1FieldPreparator {
+public class Asn1PrimitiveT61StringPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1PrimitiveT61String> {
 
     private final Asn1PrimitiveT61String asn1PrimitiveT61String;
 
-    public Asn1PrimitiveT61StringPreparator(Asn1PrimitiveT61String asn1PrimitiveT61String) {
-        super(asn1PrimitiveT61String);
+    public Asn1PrimitiveT61StringPreparator(
+            Context context, Asn1PrimitiveT61String asn1PrimitiveT61String) {
+        super(context, asn1PrimitiveT61String);
         this.asn1PrimitiveT61String = asn1PrimitiveT61String;
     }
 

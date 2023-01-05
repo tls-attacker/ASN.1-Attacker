@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Any;
 import de.rub.nds.asn1.model.Asn1Factory;
 import de.rub.nds.asn1.model.Asn1Field;
@@ -16,10 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class Asn1AnyParser extends Asn1Parser<Asn1Any> {
+public class Asn1AnyParser<Context extends AbstractContext>
+        extends Asn1Parser<Context, Asn1Any<Context>> {
 
-    public Asn1AnyParser(Asn1Any field) {
-        super(field);
+    public Asn1AnyParser(Context context, Asn1Any<Context> field) {
+        super(context, field);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Asn1AnyParser extends Asn1Parser<Asn1Any> {
             asn1Field.setTagConstructed(constructed);
             asn1Field.setTagClass(tagClass);
             asn1Field.setTagNumber(tagNumber);
-            Asn1Parser<?> parser = asn1Field.getParser();
+            Asn1Parser<?, ?> parser = asn1Field.getParser(context);
             byte[] lengthOctets = parser.parseLengthOctets(inputStream);
             BigInteger length = parser.parseLength(lengthOctets);
             asn1Field.setLength(length);
@@ -52,7 +54,7 @@ public class Asn1AnyParser extends Asn1Parser<Asn1Any> {
         if (encodable.getInstantiation() == null) {
             throw new ParserException("Cannot parse AnyField without Tag");
         } else {
-            encodable.getParser().parseWithoutTag(inputStream, tagOctets);
+            encodable.getParser(context).parseWithoutTag(inputStream, tagOctets);
         }
     }
 
@@ -61,7 +63,7 @@ public class Asn1AnyParser extends Asn1Parser<Asn1Any> {
         if (encodable.getInstantiation() == null) {
             throw new ParserException("Cannot parse AnyField without Tag");
         } else {
-            encodable.getParser().parseIndividualContentFields(inputStream);
+            encodable.getParser(context).parseIndividualContentFields(inputStream);
         }
     }
 }

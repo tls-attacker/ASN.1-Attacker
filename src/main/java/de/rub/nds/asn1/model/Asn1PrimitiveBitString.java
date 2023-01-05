@@ -11,10 +11,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1PrimitiveBitStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
@@ -25,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveBitString extends Asn1Field {
+public class Asn1PrimitiveBitString<Context extends AbstractContext> extends Asn1Field<Context> {
 
     @XmlElement(name = "unusedBits")
     private ModifiableByte unusedBits;
@@ -67,12 +66,12 @@ public class Asn1PrimitiveBitString extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1PrimitiveBitStringPreparator(this);
+    public Asn1PrimitiveBitStringPreparator getPreparator(Context context) {
+        return new Asn1PrimitiveBitStringPreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<?> getParser() {
-        return new Asn1PrimitiveBitStringParser(this);
+    public Asn1PrimitiveBitStringParser getParser(Context context) {
+        return new Asn1PrimitiveBitStringParser(context, this);
     }
 }

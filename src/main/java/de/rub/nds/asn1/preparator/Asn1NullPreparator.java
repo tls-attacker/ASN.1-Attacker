@@ -8,12 +8,14 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Null;
 
-public class Asn1NullPreparator extends Asn1FieldPreparator {
+public class Asn1NullPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1Null> {
 
-    public Asn1NullPreparator(final Asn1Null asn1null) {
-        super(asn1null);
+    public Asn1NullPreparator(Context context, final Asn1Null asn1null) {
+        super(context, asn1null);
     }
 
     @Override

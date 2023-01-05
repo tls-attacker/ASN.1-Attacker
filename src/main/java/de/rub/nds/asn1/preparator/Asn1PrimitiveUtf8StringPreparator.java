@@ -8,15 +8,18 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveUtf8String;
 import java.nio.charset.Charset;
 
-public class Asn1PrimitiveUtf8StringPreparator extends Asn1FieldPreparator {
+public class Asn1PrimitiveUtf8StringPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1PrimitiveUtf8String> {
 
     private final Asn1PrimitiveUtf8String asn1PrimitiveUtf8String;
 
-    public Asn1PrimitiveUtf8StringPreparator(Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
-        super(asn1PrimitiveUtf8String);
+    public Asn1PrimitiveUtf8StringPreparator(
+            Context context, Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
+        super(context, asn1PrimitiveUtf8String);
         this.asn1PrimitiveUtf8String = asn1PrimitiveUtf8String;
     }
 

@@ -8,16 +8,17 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1Parser;
 
-public class GenericAsn1Set extends Asn1Set {
+public class GenericAsn1Set<Context extends AbstractContext> extends Asn1Set<Context> {
 
     public GenericAsn1Set(String identifier) {
         super(identifier);
     }
 
     @Override
-    public Asn1Parser<?> getParser() {
+    public Asn1Parser getParser(Context context) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

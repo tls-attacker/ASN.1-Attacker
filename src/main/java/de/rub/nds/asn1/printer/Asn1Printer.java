@@ -22,8 +22,8 @@ public class Asn1Printer {
         builder.append(encodable.getClass().getSimpleName());
         builder.append("\n");
         if (encodable instanceof Asn1Container) {
-            for (Asn1Encodable child : ((Asn1Container) encodable).getChildren()) {
-                print(builder, child, depth + 1);
+            for (Object child : ((Asn1Container) encodable).getChildren()) {
+                print(builder, (Asn1Encodable) child, depth + 1);
             }
         }
         return builder.toString();

@@ -8,9 +8,9 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.helper.SelectableChoice;
 import de.rub.nds.asn1.parser.Asn1ChoiceParser;
-import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
@@ -27,7 +27,8 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Choice implements Asn1Encodable {
+public abstract class Asn1Choice<Context extends AbstractContext>
+        implements Asn1Encodable<Context> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -52,18 +53,18 @@ public abstract class Asn1Choice implements Asn1Encodable {
         }
     }
 
-    public boolean canMakeValidChoice(byte[] tagOctets) {
+    public boolean canMakeValidChoice(Context context, byte[] tagOctets) {
         for (SelectableChoice choice : choiceList) {
-            if (choice.isSelectable(tagOctets)) {
+            if (choice.isSelectable(context, tagOctets)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void makeSelection(byte[] tagOctets) {
+    public void makeSelection(Context context, byte[] tagOctets) {
         for (SelectableChoice choice : choiceList) {
-            if (choice.isSelectable(tagOctets)) {
+            if (choice.isSelectable(context, tagOctets)) {
                 selectedChoice = choice.getField();
                 return;
             }
@@ -100,9 +101,9 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public Preparator getPreparator() {
+    public Preparator getPreparator(Context context) {
         if (selectedChoice != null) {
-            return selectedChoice.getPreparator();
+            return selectedChoice.getPreparator(context);
         } else {
             throw new RuntimeException(
                     "Tried to access preparator of choice before selecting a choice");
@@ -110,8 +111,8 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public Asn1Parser<?> getParser() {
-        return new Asn1ChoiceParser(this);
+    public Asn1ChoiceParser getParser(Context context) {
+        return new Asn1ChoiceParser(context, this);
     }
 
     @Override

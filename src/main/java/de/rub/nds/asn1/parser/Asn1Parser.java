@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayInputStream;
@@ -18,14 +19,17 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
+public abstract class Asn1Parser<
+        Context extends AbstractContext, Encodable extends Asn1Encodable<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected final Encodable encodable;
+    protected final Context context;
 
-    public Asn1Parser(Encodable field) {
+    public Asn1Parser(Context context, Encodable field) {
         this.encodable = field;
+        this.context = context;
     }
 
     public byte[] parseTagOctets(InputStream stream) throws IOException {
@@ -166,10 +170,12 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     public abstract void parse(InputStream inputStream);
 
     /**
-     * Parses an asn1encodable without parsing the tag. We assume that the tag is already parsed and
+     * Parses an asn1encodable without parsing the tag.We assume that the tag is already parsed and
      * that it is present within the encodable for the rest of the parsing
      *
      * @param inputStream
+     * @param context
+     * @param tagOctets
      */
     public abstract void parseWithoutTag(InputStream inputStream, byte[] tagOctets);
 

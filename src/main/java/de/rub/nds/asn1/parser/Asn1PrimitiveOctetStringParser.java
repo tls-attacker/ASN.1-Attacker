@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveOctetStringParser extends Asn1FieldParser<Asn1PrimitiveOctetString> {
+public class Asn1PrimitiveOctetStringParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1PrimitiveOctetString<Context>> {
 
-    public Asn1PrimitiveOctetStringParser(Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
-        super(asn1PrimitiveOctetString);
+    public Asn1PrimitiveOctetStringParser(
+            Context context, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+        super(context, asn1PrimitiveOctetString);
     }
 
     @Override

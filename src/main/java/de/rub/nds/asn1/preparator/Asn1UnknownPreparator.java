@@ -8,14 +8,16 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1UnknownField;
 
-public class Asn1UnknownPreparator extends Asn1FieldPreparator {
+public class Asn1UnknownPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1UnknownField> {
 
     private final Asn1UnknownField asn1Unknown;
 
-    public Asn1UnknownPreparator(final Asn1UnknownField asn1UnknownField) {
-        super(asn1UnknownField);
+    public Asn1UnknownPreparator(Context context, final Asn1UnknownField asn1UnknownField) {
+        super(context, asn1UnknownField);
         this.asn1Unknown = asn1UnknownField;
     }
 

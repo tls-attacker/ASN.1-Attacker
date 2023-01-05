@@ -8,16 +8,18 @@
  */
 package de.rub.nds.asn1.preparator;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.math.BigInteger;
 
-public class Asn1IntegerPreparator extends Asn1FieldPreparator {
+public class Asn1IntegerPreparator<Context extends AbstractContext>
+        extends Asn1FieldPreparator<Context, Asn1Integer> {
 
     private final Asn1Integer asn1Integer;
 
-    public Asn1IntegerPreparator(final Asn1Integer asn1Integer) {
-        super(asn1Integer);
+    public Asn1IntegerPreparator(Context context, final Asn1Integer asn1Integer) {
+        super(context, asn1Integer);
         this.asn1Integer = asn1Integer;
     }
 

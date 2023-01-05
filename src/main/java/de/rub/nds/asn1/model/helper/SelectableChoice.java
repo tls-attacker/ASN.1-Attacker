@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.model.helper;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -16,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class SelectableChoice {
+public final class SelectableChoice<Context extends AbstractContext> {
 
     @HoldsModifiableVariable private final Asn1Field field;
 
@@ -29,10 +30,10 @@ public final class SelectableChoice {
         this.field = field;
     }
 
-    public boolean isSelectable(byte[] tag) {
-        int tagNumber = field.getParser().parseTagNumber(tag);
-        boolean constructed = field.getParser().parseTagConstructed(tag[0]);
-        int tagClass = field.getParser().parseTagClass(tag[0]);
+    public boolean isSelectable(Context context, byte[] tag) {
+        int tagNumber = field.getParser(context).parseTagNumber(tag);
+        boolean constructed = field.getParser(context).parseTagConstructed(tag[0]);
+        int tagClass = field.getParser(context).parseTagClass(tag[0]);
         if (field.getTagNumberType().getIntValue() == tagNumber
                 && field.getTagConstructedType().getBooleanValue() == constructed
                 && tagClass == field.getTagClassType().getIntValue()) {

@@ -8,22 +8,24 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1Explicit;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ExplicitParser extends Asn1FieldParser<Asn1Explicit> {
+public class Asn1ExplicitParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1Explicit<Context>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ExplicitParser(Asn1Explicit asn1Explicit) {
-        super(asn1Explicit);
+    public Asn1ExplicitParser(Context context, Asn1Explicit asn1Explicit) {
+        super(context, asn1Explicit);
     }
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        encodable.getChild().getParser().parse(inputStream);
+        encodable.getChild().getParser(context).parse(inputStream);
     }
 }

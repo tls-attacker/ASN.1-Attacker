@@ -8,14 +8,17 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveIa5StringParser extends Asn1FieldParser<Asn1PrimitiveIa5String> {
+public class Asn1PrimitiveIa5StringParser<Context extends AbstractContext>
+        extends Asn1FieldParser<Context, Asn1PrimitiveIa5String<Context>> {
 
-    public Asn1PrimitiveIa5StringParser(Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
-        super(asn1PrimitiveIa5String);
+    public Asn1PrimitiveIa5StringParser(
+            Context context, Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
+        super(context, asn1PrimitiveIa5String);
     }
 
     @Override

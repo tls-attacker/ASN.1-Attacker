@@ -11,7 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1IntegerParser;
 import de.rub.nds.asn1.preparator.Asn1IntegerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -25,7 +25,7 @@ import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Integer extends Asn1Field {
+public class Asn1Integer<Context extends AbstractContext> extends Asn1Field<Context> {
 
     @XmlElement(name = "value")
     private ModifiableBigInteger value;
@@ -52,12 +52,12 @@ public class Asn1Integer extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1IntegerPreparator(this);
+    public Preparator getPreparator(Context context) {
+        return new Asn1IntegerPreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<Asn1Integer> getParser() {
-        return new Asn1IntegerParser(this);
+    public Asn1IntegerParser getParser(Context context) {
+        return new Asn1IntegerParser(context, this);
     }
 }

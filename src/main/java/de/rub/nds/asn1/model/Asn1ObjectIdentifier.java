@@ -11,10 +11,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.parser.Asn1FieldParser;
+import de.rub.nds.asn1.context.AbstractContext;
 import de.rub.nds.asn1.parser.Asn1ObjectIdentifierParser;
 import de.rub.nds.asn1.preparator.Asn1ObjectIdentifierPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -24,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1ObjectIdentifier extends Asn1Field {
+public class Asn1ObjectIdentifier<Context extends AbstractContext> extends Asn1Field<Context> {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -55,12 +54,12 @@ public class Asn1ObjectIdentifier extends Asn1Field {
     }
 
     @Override
-    public Preparator getPreparator() {
-        return new Asn1ObjectIdentifierPreparator(this);
+    public Asn1ObjectIdentifierPreparator getPreparator(Context context) {
+        return new Asn1ObjectIdentifierPreparator(context, this);
     }
 
     @Override
-    public Asn1FieldParser<Asn1ObjectIdentifier> getParser() {
-        return new Asn1ObjectIdentifierParser(this);
+    public Asn1ObjectIdentifierParser getParser(Context context) {
+        return new Asn1ObjectIdentifierParser(context, this);
     }
 }
