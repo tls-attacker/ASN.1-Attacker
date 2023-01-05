@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
+import de.rub.nds.asn1.model.Asn1Any;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Sequence;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -31,16 +32,21 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
         Boolean constructed = null;
         Integer tagClass = null;
         for (Asn1Encodable tempEncodable : encodable.getChildren()) {
-
             if (tagNumber == null
                     && tagOctets == null
                     && constructed == null
                     && tagClass == null
                     && inputStream.available() > 0) {
-                tagOctets = parseTagOctets(inputStream);
-                tagNumber = parseTagNumber(tagOctets);
-                constructed = parseTagConstructed(tagOctets[0]);
-                tagClass = parseTagClass(tagOctets[0]);
+                if (tempEncodable instanceof Asn1Any) {
+                    LOGGER.debug("Parsing AnyField in sequence");
+                    tempEncodable.getParser().parse(inputStream);
+                    continue;
+                } else {
+                    tagOctets = parseTagOctets(inputStream);
+                    tagNumber = parseTagNumber(tagOctets);
+                    constructed = parseTagConstructed(tagOctets[0]);
+                    tagClass = parseTagClass(tagOctets[0]);
+                }
             }
             if (tagOctets != null && tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
                 LOGGER.info(tempEncodable.getIdentifier() + " is compatible");
@@ -57,6 +63,7 @@ public class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
                 }
             }
         }
+
         if (inputStream.available() > 0) {
             byte[] remainingBytes = inputStream.readAllBytes();
             throw new ParserException(

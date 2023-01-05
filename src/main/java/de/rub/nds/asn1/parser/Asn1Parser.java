@@ -29,6 +29,9 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
     }
 
     public byte[] parseTagOctets(InputStream stream) throws IOException {
+        if (stream.available() == 0) {
+            throw new ParserException("Cannot read from empty stream");
+        }
         int read = stream.read();
         if ((read & 0x1F) == 0x1F) {
             // Long tag
