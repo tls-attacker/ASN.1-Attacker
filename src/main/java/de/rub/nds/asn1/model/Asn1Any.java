@@ -8,6 +8,7 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -96,8 +97,6 @@ public class Asn1Any implements Asn1Encodable {
 
     @Override
     public Asn1Parser<?> getParser() {
-        Asn1UnknownField unknown = new Asn1UnknownField("any");
-        this.setInstantiation(unknown);
-        return unknown.getParser();
+        return new Asn1AnyParser(this);
     }
 }
