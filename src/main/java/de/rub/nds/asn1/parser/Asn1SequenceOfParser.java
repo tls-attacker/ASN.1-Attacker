@@ -19,7 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1SequenceOfParser<Chooser extends AbstractChooser>
-        extends Asn1FieldParser<Chooser, Asn1Sequence<Chooser>> {
+        extends Asn1SequenceParser<Chooser> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
