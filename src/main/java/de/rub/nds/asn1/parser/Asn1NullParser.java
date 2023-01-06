@@ -15,13 +15,13 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1NullParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1Null<Context>> {
+public class Asn1NullParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1Null<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1NullParser(Context context, Asn1Null nullField) {
-        super(context, nullField);
+    public Asn1NullParser(Chooser chooser, Asn1Null nullField) {
+        super(chooser, nullField);
     }
 
     @Override

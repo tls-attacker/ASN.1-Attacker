@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Null<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Null() {
@@ -33,12 +33,12 @@ public class Asn1Null<Context extends AbstractChooser> extends Asn1Field<Context
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
-        return new Asn1NullPreparator(context, this);
+    public Preparator getPreparator(Chooser chooser) {
+        return new Asn1NullPreparator(chooser, this);
     }
 
     @Override
-    public Asn1NullParser getParser(Context context) {
-        return new Asn1NullParser(context, this);
+    public Asn1NullParser getParser(Chooser chooser) {
+        return new Asn1NullParser(chooser, this);
     }
 }

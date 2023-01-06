@@ -18,17 +18,18 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1FieldPreparator<Context extends AbstractChooser, T extends Asn1Field>
+public abstract class Asn1FieldPreparator<
+                Chooser extends AbstractChooser, Field extends Asn1Field<Chooser>>
         extends Preparator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    protected final T field;
-    protected final Context context;
+    protected final Field field;
+    protected final Chooser chooser;
 
-    public Asn1FieldPreparator(Context context, final T field) {
+    public Asn1FieldPreparator(Chooser chooser, final Field field) {
         this.field = field;
-        this.context = context;
+        this.chooser = chooser;
     }
 
     @Override

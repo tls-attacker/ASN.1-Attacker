@@ -25,7 +25,7 @@ import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Integer<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1Integer<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     @XmlElement(name = "value")
     private ModifiableBigInteger value;
@@ -52,12 +52,12 @@ public class Asn1Integer<Context extends AbstractChooser> extends Asn1Field<Cont
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
-        return new Asn1IntegerPreparator(context, this);
+    public Preparator getPreparator(Chooser chooser) {
+        return new Asn1IntegerPreparator(chooser, this);
     }
 
     @Override
-    public Asn1IntegerParser getParser(Context context) {
-        return new Asn1IntegerParser(context, this);
+    public Asn1IntegerParser getParser(Chooser chooser) {
+        return new Asn1IntegerParser(chooser, this);
     }
 }

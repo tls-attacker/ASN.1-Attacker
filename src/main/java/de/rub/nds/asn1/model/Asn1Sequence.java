@@ -20,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Sequence<Context extends AbstractChooser> extends Asn1Container<Context> {
+public abstract class Asn1Sequence<Chooser extends AbstractChooser> extends Asn1Container<Chooser> {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Sequence() {
@@ -32,12 +32,12 @@ public abstract class Asn1Sequence<Context extends AbstractChooser> extends Asn1
     }
 
     @Override
-    public GenericAsn1ContainerPreparator getPreparator(Context context) {
-        return new GenericAsn1ContainerPreparator(context, this);
+    public GenericAsn1ContainerPreparator getPreparator(Chooser chooser) {
+        return new GenericAsn1ContainerPreparator(chooser, this);
     }
 
     @Override
-    public Asn1SequenceParser getParser(Context context) {
-        return new Asn1SequenceParser(context, this);
+    public Asn1SequenceParser getParser(Chooser chooser) {
+        return new Asn1SequenceParser(chooser, this);
     }
 }

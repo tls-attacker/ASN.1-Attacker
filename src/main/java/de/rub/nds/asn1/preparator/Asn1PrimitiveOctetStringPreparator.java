@@ -11,14 +11,14 @@ package de.rub.nds.asn1.preparator;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
 
-public class Asn1PrimitiveOctetStringPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1PrimitiveOctetString> {
+public class Asn1PrimitiveOctetStringPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1PrimitiveOctetString<Chooser>> {
 
     private final Asn1PrimitiveOctetString asn1PrimitiveOctetString;
 
     public Asn1PrimitiveOctetStringPreparator(
-            Context context, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
-        super(context, asn1PrimitiveOctetString);
+            Chooser chooser, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+        super(chooser, asn1PrimitiveOctetString);
         this.asn1PrimitiveOctetString = asn1PrimitiveOctetString;
     }
 

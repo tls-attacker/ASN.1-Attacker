@@ -11,14 +11,14 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.GenericAsn1SequenceParser;
 
-public class GenericAsn1Sequence<Context extends AbstractChooser> extends Asn1Sequence<Context> {
+public class GenericAsn1Sequence<Chooser extends AbstractChooser> extends Asn1Sequence<Chooser> {
 
     public GenericAsn1Sequence(String identifier) {
         super(identifier);
     }
 
     @Override
-    public GenericAsn1SequenceParser getParser(Context context) {
-        return new GenericAsn1SequenceParser(context, this);
+    public GenericAsn1SequenceParser getParser(Chooser chooser) {
+        return new GenericAsn1SequenceParser(chooser, this);
     }
 }

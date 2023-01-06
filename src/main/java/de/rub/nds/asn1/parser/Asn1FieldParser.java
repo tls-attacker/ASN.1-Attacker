@@ -21,13 +21,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1FieldParser<
-                Context extends AbstractChooser, Field extends Asn1Field<Context>>
-        extends Asn1Parser<Context, Field> {
+                Chooser extends AbstractChooser, Field extends Asn1Field<Chooser>>
+        extends Asn1Parser<Chooser, Field> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1FieldParser(Context context, Field field) {
-        super(context, field);
+    public Asn1FieldParser(Chooser chooser, Field field) {
+        super(chooser, field);
     }
 
     @Override

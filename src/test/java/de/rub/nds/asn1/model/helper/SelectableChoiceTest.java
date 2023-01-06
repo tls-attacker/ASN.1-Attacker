@@ -32,13 +32,13 @@ public class SelectableChoiceTest {
 
     private Asn1Boolean field;
     private SelectableChoice choice;
-    private AbstractChooser context;
+    private AbstractChooser chooser;
 
     @BeforeEach
     public void setUp() {
         field = Mockito.mock(Asn1Boolean.class);
         choice = new SelectableChoice(field);
-        context = new EmptyChooser();
+        chooser = new EmptyChooser();
     }
 
     /** Test of isSelectable method, of class SelectableChoice. */
@@ -47,19 +47,19 @@ public class SelectableChoiceTest {
         when(field.getTagClassType()).thenReturn(TagClass.APPLICATION);
         when(field.getTagConstructedType()).thenReturn(TagConstructed.CONSTRUCTED);
         when(field.getTagNumberType()).thenReturn(TagNumber.BIT_STRING);
-        when(field.getParser(context)).thenReturn(new Asn1BooleanParser(context, field));
+        when(field.getParser(chooser)).thenReturn(new Asn1BooleanParser(chooser, field));
         assertFalse(
                 choice.isSelectable(
-                        context, ArrayConverter.hexStringToByteArray("23"))); // same but universal
+                        chooser, ArrayConverter.hexStringToByteArray("23"))); // same but universal
         assertFalse(
                 choice.isSelectable(
-                        context, ArrayConverter.hexStringToByteArray("43"))); // same but primitive
+                        chooser, ArrayConverter.hexStringToByteArray("43"))); // same but primitive
         assertFalse(
                 choice.isSelectable(
-                        context,
+                        chooser,
                         ArrayConverter.hexStringToByteArray("62"))); // same but different tag
         assertTrue(
-                choice.isSelectable(context, ArrayConverter.hexStringToByteArray("63"))); // correct
+                choice.isSelectable(chooser, ArrayConverter.hexStringToByteArray("63"))); // correct
     }
 
     /** Test of getField method, of class SelectableChoice. */
@@ -68,11 +68,11 @@ public class SelectableChoiceTest {
         assertEquals(field, choice.getField());
     }
 
-    private class Asn1ParserImpl<Context extends AbstractChooser>
-            extends Asn1Parser<Context, Asn1Encodable<Context>> {
+    private class Asn1ParserImpl<Chooser extends AbstractChooser>
+            extends Asn1Parser<Chooser, Asn1Encodable<Chooser>> {
 
-        public Asn1ParserImpl(Context context, Asn1Field<Context> field) {
-            super(context, field);
+        public Asn1ParserImpl(Chooser chooser, Asn1Field<Chooser> field) {
+            super(chooser, field);
         }
 
         @Override

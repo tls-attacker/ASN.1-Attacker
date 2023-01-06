@@ -20,12 +20,12 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1AnyTest {
 
-    private AbstractChooser context;
+    private AbstractChooser chooser;
     private Asn1Any any;
 
     @BeforeEach
     public void setUp() {
-        context = new EmptyChooser();
+        chooser = new EmptyChooser();
         any = new Asn1Any("someAny");
     }
 
@@ -110,16 +110,16 @@ public class Asn1AnyTest {
         assertThrows(
                 RuntimeException.class,
                 () -> {
-                    any.getPreparator(context);
+                    any.getPreparator(chooser);
                 });
         Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
         any.setInstantiation(asn1Boolean);
-        assertTrue(any.getPreparator(context) instanceof Asn1BooleanPreparator);
+        assertTrue(any.getPreparator(chooser) instanceof Asn1BooleanPreparator);
     }
 
     /** Test of getParser method, of class Asn1Any. */
     @Test
     public void testGetParser() {
-        assertTrue(any.getParser(context) instanceof Asn1AnyParser);
+        assertTrue(any.getParser(chooser) instanceof Asn1AnyParser);
     }
 }

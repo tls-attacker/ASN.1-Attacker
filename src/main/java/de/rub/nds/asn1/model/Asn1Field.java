@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Field<Context extends AbstractChooser> implements Asn1Encodable<Context> {
+public abstract class Asn1Field<Chooser extends AbstractChooser> implements Asn1Encodable<Chooser> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 

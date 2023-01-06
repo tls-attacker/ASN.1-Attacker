@@ -13,12 +13,12 @@ import de.rub.nds.asn1.model.Asn1PrimitiveT61String;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveT61StringParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitiveT61String<Context>> {
+public class Asn1PrimitiveT61StringParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitiveT61String<Chooser>> {
 
     public Asn1PrimitiveT61StringParser(
-            Context context, Asn1PrimitiveT61String asn1PrimitiveT61String) {
-        super(context, asn1PrimitiveT61String);
+            Chooser chooser, Asn1PrimitiveT61String asn1PrimitiveT61String) {
+        super(chooser, asn1PrimitiveT61String);
     }
 
     @Override

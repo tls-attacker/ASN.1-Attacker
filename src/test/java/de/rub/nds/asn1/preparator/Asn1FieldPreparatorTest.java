@@ -65,8 +65,8 @@ public class Asn1FieldPreparatorTest {
 
         private final int size;
 
-        public Asn1FieldPreparatorImpl(AbstractChooser context, int size) {
-            super(context, new Asn1Integer("testInteger"));
+        public Asn1FieldPreparatorImpl(AbstractChooser chooser, int size) {
+            super(chooser, new Asn1Integer("testInteger"));
             this.size = size;
         }
 

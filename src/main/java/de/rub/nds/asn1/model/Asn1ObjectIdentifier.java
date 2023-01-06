@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1ObjectIdentifier<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1ObjectIdentifier<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -54,12 +54,12 @@ public class Asn1ObjectIdentifier<Context extends AbstractChooser> extends Asn1F
     }
 
     @Override
-    public Asn1ObjectIdentifierPreparator getPreparator(Context context) {
-        return new Asn1ObjectIdentifierPreparator(context, this);
+    public Asn1ObjectIdentifierPreparator getPreparator(Chooser chooser) {
+        return new Asn1ObjectIdentifierPreparator(chooser, this);
     }
 
     @Override
-    public Asn1ObjectIdentifierParser getParser(Context context) {
-        return new Asn1ObjectIdentifierParser(context, this);
+    public Asn1ObjectIdentifierParser getParser(Chooser chooser) {
+        return new Asn1ObjectIdentifierParser(chooser, this);
     }
 }

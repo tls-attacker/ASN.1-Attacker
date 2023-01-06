@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class Asn1AnyParser<Context extends AbstractChooser>
-        extends Asn1Parser<Context, Asn1Any<Context>> {
+public class Asn1AnyParser<Chooser extends AbstractChooser>
+        extends Asn1Parser<Chooser, Asn1Any<Chooser>> {
 
-    public Asn1AnyParser(Context context, Asn1Any<Context> field) {
-        super(context, field);
+    public Asn1AnyParser(Chooser chooser, Asn1Any<Chooser> field) {
+        super(chooser, field);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Asn1AnyParser<Context extends AbstractChooser>
             asn1Field.setTagConstructed(constructed);
             asn1Field.setTagClass(tagClass);
             asn1Field.setTagNumber(tagNumber);
-            Asn1Parser<?, ?> parser = asn1Field.getParser(context);
+            Asn1Parser<?, ?> parser = asn1Field.getParser(chooser);
             byte[] lengthOctets = parser.parseLengthOctets(inputStream);
             BigInteger length = parser.parseLength(lengthOctets);
             asn1Field.setLength(length);
@@ -54,7 +54,7 @@ public class Asn1AnyParser<Context extends AbstractChooser>
         if (encodable.getInstantiation() == null) {
             throw new ParserException("Cannot parse AnyField without Tag");
         } else {
-            encodable.getParser(context).parseWithoutTag(inputStream, tagOctets);
+            encodable.getParser(chooser).parseWithoutTag(inputStream, tagOctets);
         }
     }
 
@@ -63,7 +63,7 @@ public class Asn1AnyParser<Context extends AbstractChooser>
         if (encodable.getInstantiation() == null) {
             throw new ParserException("Cannot parse AnyField without Tag");
         } else {
-            encodable.getParser(context).parseIndividualContentFields(inputStream);
+            encodable.getParser(chooser).parseIndividualContentFields(inputStream);
         }
     }
 }

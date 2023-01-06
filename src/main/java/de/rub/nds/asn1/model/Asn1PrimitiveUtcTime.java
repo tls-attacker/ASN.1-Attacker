@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveUtcTime<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1PrimitiveUtcTime<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -50,12 +50,12 @@ public class Asn1PrimitiveUtcTime<Context extends AbstractChooser> extends Asn1F
     }
 
     @Override
-    public Asn1PrimitiveUtcTimePreparator getPreparator(Context context) {
-        return new Asn1PrimitiveUtcTimePreparator(context, this);
+    public Asn1PrimitiveUtcTimePreparator getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveUtcTimePreparator(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveUtcTimeParser getParser(Context context) {
-        return new Asn1PrimitiveUtcTimeParser(context, this);
+    public Asn1PrimitiveUtcTimeParser getParser(Chooser chooser) {
+        return new Asn1PrimitiveUtcTimeParser(chooser, this);
     }
 }

@@ -13,14 +13,14 @@ import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class Asn1PrimitiveBitStringPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1PrimitiveBitString> {
+public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1PrimitiveBitString<Chooser>> {
 
     private final Asn1PrimitiveBitString asn1PrimitiveBitString;
 
     public Asn1PrimitiveBitStringPreparator(
-            Context context, final Asn1PrimitiveBitString asn1PrimitiveBitString) {
-        super(context, asn1PrimitiveBitString);
+            Chooser chooser, final Asn1PrimitiveBitString asn1PrimitiveBitString) {
+        super(chooser, asn1PrimitiveBitString);
         this.asn1PrimitiveBitString = asn1PrimitiveBitString;
     }
 

@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class SelectableChoice<Context extends AbstractChooser> {
+public final class SelectableChoice<Chooser extends AbstractChooser> {
 
     @HoldsModifiableVariable private final Asn1Field field;
 
@@ -30,10 +30,10 @@ public final class SelectableChoice<Context extends AbstractChooser> {
         this.field = field;
     }
 
-    public boolean isSelectable(Context context, byte[] tag) {
-        int tagNumber = field.getParser(context).parseTagNumber(tag);
-        boolean constructed = field.getParser(context).parseTagConstructed(tag[0]);
-        int tagClass = field.getParser(context).parseTagClass(tag[0]);
+    public boolean isSelectable(Chooser chooser, byte[] tag) {
+        int tagNumber = field.getParser(chooser).parseTagNumber(tag);
+        boolean constructed = field.getParser(chooser).parseTagConstructed(tag[0]);
+        int tagClass = field.getParser(chooser).parseTagClass(tag[0]);
         if (field.getTagNumberType().getIntValue() == tagNumber
                 && field.getTagConstructedType().getBooleanValue() == constructed
                 && tagClass == field.getTagClassType().getIntValue()) {

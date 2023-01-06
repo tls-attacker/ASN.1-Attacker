@@ -24,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveBitString<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     @XmlElement(name = "unusedBits")
     private ModifiableByte unusedBits;
@@ -66,12 +66,12 @@ public class Asn1PrimitiveBitString<Context extends AbstractChooser> extends Asn
     }
 
     @Override
-    public Asn1PrimitiveBitStringPreparator getPreparator(Context context) {
-        return new Asn1PrimitiveBitStringPreparator(context, this);
+    public Asn1PrimitiveBitStringPreparator getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveBitStringPreparator(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveBitStringParser getParser(Context context) {
-        return new Asn1PrimitiveBitStringParser(context, this);
+    public Asn1PrimitiveBitStringParser getParser(Chooser chooser) {
+        return new Asn1PrimitiveBitStringParser(chooser, this);
     }
 }

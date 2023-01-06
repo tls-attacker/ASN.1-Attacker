@@ -15,13 +15,13 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1BooleanParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1Boolean<Context>> {
+public class Asn1BooleanParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1Boolean<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1BooleanParser(Context context, Asn1Boolean booleanField) {
-        super(context, booleanField);
+    public Asn1BooleanParser(Chooser chooser, Asn1Boolean booleanField) {
+        super(chooser, booleanField);
     }
 
     @Override

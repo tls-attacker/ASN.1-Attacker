@@ -12,14 +12,14 @@ import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveUtf8String;
 import java.nio.charset.Charset;
 
-public class Asn1PrimitiveUtf8StringPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1PrimitiveUtf8String> {
+public class Asn1PrimitiveUtf8StringPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1PrimitiveUtf8String<Chooser>> {
 
     private final Asn1PrimitiveUtf8String asn1PrimitiveUtf8String;
 
     public Asn1PrimitiveUtf8StringPreparator(
-            Context context, Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
-        super(context, asn1PrimitiveUtf8String);
+            Chooser chooser, Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
+        super(chooser, asn1PrimitiveUtf8String);
         this.asn1PrimitiveUtf8String = asn1PrimitiveUtf8String;
     }
 

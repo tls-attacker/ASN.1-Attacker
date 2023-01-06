@@ -31,13 +31,13 @@ public class Asn1ParserTest {
 
     private Asn1Field field;
 
-    private AbstractChooser context;
+    private AbstractChooser chooser;
 
     @BeforeEach
     public void setUp() {
-        context = new EmptyChooser();
+        chooser = new EmptyChooser();
         field = Mockito.mock(Asn1Field.class);
-        parser = new Asn1ParserImpl(context, field);
+        parser = new Asn1ParserImpl(chooser, field);
     }
 
     /** Test of parseTagOctets method, of class Asn1Parser. */
@@ -268,11 +268,11 @@ public class Asn1ParserTest {
                 ArrayConverter.hexStringToByteArray("01010101010101010101"), parseContentOctets);
     }
 
-    private class Asn1ParserImpl<Context extends AbstractChooser>
-            extends Asn1Parser<Context, Asn1Encodable<Context>> {
+    private class Asn1ParserImpl<Chooser extends AbstractChooser>
+            extends Asn1Parser<Chooser, Asn1Encodable<Chooser>> {
 
-        public Asn1ParserImpl(Context context, Asn1Field<Context> field) {
-            super(context, field);
+        public Asn1ParserImpl(Chooser chooser, Asn1Field<Chooser> field) {
+            super(chooser, field);
         }
 
         @Override

@@ -16,16 +16,16 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GenericAsn1ContainerPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1Container<Context>> {
+public class GenericAsn1ContainerPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1Container<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final Asn1Container<Context> asn1Container;
+    private final Asn1Container<Chooser> asn1Container;
 
     public GenericAsn1ContainerPreparator(
-            Context context, final Asn1Container<Context> asn1Container) {
-        super(context, asn1Container);
+            Chooser chooser, final Asn1Container<Chooser> asn1Container) {
+        super(chooser, asn1Container);
         this.asn1Container = asn1Container;
     }
 
@@ -35,7 +35,7 @@ public class GenericAsn1ContainerPreparator<Context extends AbstractChooser>
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         for (Asn1Encodable asn1Field : asn1Container.getChildren()) {
             LOGGER.info("Preparing:" + asn1Field.getIdentifier());
-            asn1Field.getPreparator(context).prepare();
+            asn1Field.getPreparator(chooser).prepare();
             try {
                 outputStream.write(asn1Field.getSerializer().serialize());
             } catch (IOException ex) {

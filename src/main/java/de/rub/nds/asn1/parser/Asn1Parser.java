@@ -20,16 +20,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1Parser<
-        Context extends AbstractChooser, Encodable extends Asn1Encodable<Context>> {
+        Chooser extends AbstractChooser, Encodable extends Asn1Encodable<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected final Encodable encodable;
-    protected final Context context;
+    protected final Chooser chooser;
 
-    public Asn1Parser(Context context, Encodable field) {
+    public Asn1Parser(Chooser chooser, Encodable field) {
         this.encodable = field;
-        this.context = context;
+        this.chooser = chooser;
     }
 
     public byte[] parseTagOctets(InputStream stream) throws IOException {
@@ -174,7 +174,7 @@ public abstract class Asn1Parser<
      * that it is present within the encodable for the rest of the parsing
      *
      * @param inputStream
-     * @param context
+     * @param chooser
      * @param tagOctets
      */
     public abstract void parseWithoutTag(InputStream inputStream, byte[] tagOctets);

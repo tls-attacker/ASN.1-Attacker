@@ -11,11 +11,11 @@ package de.rub.nds.asn1.preparator;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Null;
 
-public class Asn1NullPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1Null> {
+public class Asn1NullPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1Null<Chooser>> {
 
-    public Asn1NullPreparator(Context context, final Asn1Null asn1null) {
-        super(context, asn1null);
+    public Asn1NullPreparator(Chooser chooser, final Asn1Null asn1null) {
+        super(chooser, asn1null);
     }
 
     @Override

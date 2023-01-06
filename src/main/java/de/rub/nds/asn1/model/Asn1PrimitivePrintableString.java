@@ -23,8 +23,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitivePrintableString<Context extends AbstractChooser>
-        extends Asn1Field<Context> {
+public class Asn1PrimitivePrintableString<Chooser extends AbstractChooser>
+        extends Asn1Field<Chooser> {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -51,12 +51,12 @@ public class Asn1PrimitivePrintableString<Context extends AbstractChooser>
     }
 
     @Override
-    public Asn1PrimitivePrintableStringPreparator getPreparator(Context context) {
-        return new Asn1PrimitivePrintableStringPreparator(context, this);
+    public Asn1PrimitivePrintableStringPreparator getPreparator(Chooser chooser) {
+        return new Asn1PrimitivePrintableStringPreparator(chooser, this);
     }
 
     @Override
-    public Asn1PrimitivePrintableStringParser getParser(Context context) {
-        return new Asn1PrimitivePrintableStringParser(context, this);
+    public Asn1PrimitivePrintableStringParser getParser(Chooser chooser) {
+        return new Asn1PrimitivePrintableStringParser(chooser, this);
     }
 }

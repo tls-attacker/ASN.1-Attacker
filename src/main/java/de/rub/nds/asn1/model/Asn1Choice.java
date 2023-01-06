@@ -27,8 +27,8 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Choice<Context extends AbstractChooser>
-        implements Asn1Encodable<Context> {
+public abstract class Asn1Choice<Chooser extends AbstractChooser>
+        implements Asn1Encodable<Chooser> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -53,18 +53,18 @@ public abstract class Asn1Choice<Context extends AbstractChooser>
         }
     }
 
-    public boolean canMakeValidChoice(Context context, byte[] tagOctets) {
+    public boolean canMakeValidChoice(Chooser chooser, byte[] tagOctets) {
         for (SelectableChoice choice : choiceList) {
-            if (choice.isSelectable(context, tagOctets)) {
+            if (choice.isSelectable(chooser, tagOctets)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void makeSelection(Context context, byte[] tagOctets) {
+    public void makeSelection(Chooser chooser, byte[] tagOctets) {
         for (SelectableChoice choice : choiceList) {
-            if (choice.isSelectable(context, tagOctets)) {
+            if (choice.isSelectable(chooser, tagOctets)) {
                 selectedChoice = choice.getField();
                 return;
             }
@@ -101,9 +101,9 @@ public abstract class Asn1Choice<Context extends AbstractChooser>
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
+    public Preparator getPreparator(Chooser chooser) {
         if (selectedChoice != null) {
-            return selectedChoice.getPreparator(context);
+            return selectedChoice.getPreparator(chooser);
         } else {
             throw new RuntimeException(
                     "Tried to access preparator of choice before selecting a choice");
@@ -111,8 +111,8 @@ public abstract class Asn1Choice<Context extends AbstractChooser>
     }
 
     @Override
-    public Asn1ChoiceParser getParser(Context context) {
-        return new Asn1ChoiceParser(context, this);
+    public Asn1ChoiceParser getParser(Chooser chooser) {
+        return new Asn1ChoiceParser(chooser, this);
     }
 
     @Override

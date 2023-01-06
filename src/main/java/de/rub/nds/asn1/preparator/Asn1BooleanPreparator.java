@@ -11,13 +11,13 @@ package de.rub.nds.asn1.preparator;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Boolean;
 
-public class Asn1BooleanPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1Boolean> {
+public class Asn1BooleanPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1Boolean<Chooser>> {
 
     private final Asn1Boolean asn1Boolean;
 
-    public Asn1BooleanPreparator(Context context, final Asn1Boolean asn1Boolean) {
-        super(context, asn1Boolean);
+    public Asn1BooleanPreparator(Chooser chooser, final Asn1Boolean asn1Boolean) {
+        super(chooser, asn1Boolean);
         this.asn1Boolean = asn1Boolean;
     }
 

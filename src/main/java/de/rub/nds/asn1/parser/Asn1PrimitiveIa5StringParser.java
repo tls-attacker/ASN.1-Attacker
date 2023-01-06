@@ -13,12 +13,12 @@ import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveIa5StringParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitiveIa5String<Context>> {
+public class Asn1PrimitiveIa5StringParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitiveIa5String<Chooser>> {
 
     public Asn1PrimitiveIa5StringParser(
-            Context context, Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
-        super(context, asn1PrimitiveIa5String);
+            Chooser chooser, Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
+        super(chooser, asn1PrimitiveIa5String);
     }
 
     @Override

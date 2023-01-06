@@ -16,7 +16,7 @@ import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAnyElement;
 
-public class Asn1Explicit<Context extends AbstractChooser> extends Asn1Container<Context> {
+public class Asn1Explicit<Chooser extends AbstractChooser> extends Asn1Container<Chooser> {
 
     @XmlAnyElement(lax = true)
     private Asn1Encodable child;
@@ -28,8 +28,8 @@ public class Asn1Explicit<Context extends AbstractChooser> extends Asn1Container
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
-        return new GenericAsn1ContainerPreparator(context, this);
+    public Preparator getPreparator(Chooser chooser) {
+        return new GenericAsn1ContainerPreparator(chooser, this);
     }
 
     public Asn1Encodable getChild() {
@@ -37,7 +37,7 @@ public class Asn1Explicit<Context extends AbstractChooser> extends Asn1Container
     }
 
     @Override
-    public Asn1ExplicitParser getParser(Context context) {
-        return new Asn1ExplicitParser(context, this);
+    public Asn1ExplicitParser getParser(Chooser chooser) {
+        return new Asn1ExplicitParser(chooser, this);
     }
 }

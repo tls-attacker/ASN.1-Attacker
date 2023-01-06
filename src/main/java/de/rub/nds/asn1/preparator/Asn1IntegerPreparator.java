@@ -13,13 +13,13 @@ import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.math.BigInteger;
 
-public class Asn1IntegerPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1Integer> {
+public class Asn1IntegerPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1Integer<Chooser>> {
 
     private final Asn1Integer asn1Integer;
 
-    public Asn1IntegerPreparator(Context context, final Asn1Integer asn1Integer) {
-        super(context, asn1Integer);
+    public Asn1IntegerPreparator(Chooser chooser, final Asn1Integer asn1Integer) {
+        super(chooser, asn1Integer);
         this.asn1Integer = asn1Integer;
     }
 

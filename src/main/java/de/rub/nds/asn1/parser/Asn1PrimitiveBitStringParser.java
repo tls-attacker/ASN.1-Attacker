@@ -13,12 +13,12 @@ import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveBitStringParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitiveBitString<Context>> {
+public class Asn1PrimitiveBitStringParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitiveBitString<Chooser>> {
 
     public Asn1PrimitiveBitStringParser(
-            Context context, Asn1PrimitiveBitString asn1PrimitiveBitString) {
-        super(context, asn1PrimitiveBitString);
+            Chooser chooser, Asn1PrimitiveBitString asn1PrimitiveBitString) {
+        super(chooser, asn1PrimitiveBitString);
     }
 
     @Override

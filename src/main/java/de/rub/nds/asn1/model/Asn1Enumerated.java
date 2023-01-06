@@ -12,20 +12,20 @@ import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 
-public class Asn1Enumerated<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1Enumerated<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     public Asn1Enumerated(String identifier) {
         super(identifier);
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
+    public Preparator getPreparator(Chooser chooser) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Asn1Parser<?, ?> getParser(Context context) {
+    public Asn1Parser<?, ?> getParser(Chooser chooser) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

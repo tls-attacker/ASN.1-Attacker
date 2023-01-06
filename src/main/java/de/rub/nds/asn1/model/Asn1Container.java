@@ -28,7 +28,7 @@ import java.util.LinkedList;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Container<Context extends AbstractChooser> extends Asn1Field<Context> {
+public abstract class Asn1Container<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     private ModifiableByteArray encodedChildren;
 
@@ -64,7 +64,7 @@ public abstract class Asn1Container<Context extends AbstractChooser> extends Asn
                 @XmlElement(type = Asn1UnknownField.class, name = "Asn1UnknownField")
             })
     @HoldsModifiableVariable
-    private Collection<Asn1Encodable<Context>> children;
+    private Collection<Asn1Encodable<Chooser>> children;
 
     public Asn1Container(
             String identifier,
@@ -97,11 +97,11 @@ public abstract class Asn1Container<Context extends AbstractChooser> extends Asn
         this.children.add(child);
     }
 
-    public Collection<Asn1Encodable<Context>> getChildren() {
+    public Collection<Asn1Encodable<Chooser>> getChildren() {
         return children;
     }
 
-    public void setChildren(Collection<Asn1Encodable<Context>> children) {
+    public void setChildren(Collection<Asn1Encodable<Chooser>> children) {
         this.children = children;
     }
 
@@ -110,7 +110,7 @@ public abstract class Asn1Container<Context extends AbstractChooser> extends Asn
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
-        return new GenericAsn1ContainerPreparator(context, this);
+    public Preparator getPreparator(Chooser chooser) {
+        return new GenericAsn1ContainerPreparator(chooser, this);
     }
 }

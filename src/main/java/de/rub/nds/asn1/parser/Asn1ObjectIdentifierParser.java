@@ -16,13 +16,13 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ObjectIdentifierParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1ObjectIdentifier<Context>> {
+public class Asn1ObjectIdentifierParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1ObjectIdentifier<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ObjectIdentifierParser(Context context, Asn1ObjectIdentifier asn1ObjectIdentifier) {
-        super(context, asn1ObjectIdentifier);
+    public Asn1ObjectIdentifierParser(Chooser chooser, Asn1ObjectIdentifier asn1ObjectIdentifier) {
+        super(chooser, asn1ObjectIdentifier);
     }
 
     @Override

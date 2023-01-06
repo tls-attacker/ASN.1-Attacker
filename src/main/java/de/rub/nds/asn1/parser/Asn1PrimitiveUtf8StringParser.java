@@ -13,12 +13,12 @@ import de.rub.nds.asn1.model.Asn1PrimitiveUtf8String;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveUtf8StringParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitiveUtf8String<Context>> {
+public class Asn1PrimitiveUtf8StringParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitiveUtf8String<Chooser>> {
 
     public Asn1PrimitiveUtf8StringParser(
-            Context context, Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
-        super(context, asn1PrimitiveUtf8String);
+            Chooser chooser, Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
+        super(chooser, asn1PrimitiveUtf8String);
     }
 
     @Override

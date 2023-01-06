@@ -11,14 +11,14 @@ package de.rub.nds.asn1.preparator;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
 
-public class Asn1PrimitivePrintableStringPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1PrimitivePrintableString> {
+public class Asn1PrimitivePrintableStringPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1PrimitivePrintableString<Chooser>> {
 
     private final Asn1PrimitivePrintableString asn1PrimitivePrintableString;
 
     public Asn1PrimitivePrintableStringPreparator(
-            Context context, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
-        super(context, asn1PrimitivePrintableString);
+            Chooser chooser, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+        super(chooser, asn1PrimitivePrintableString);
         this.asn1PrimitivePrintableString = asn1PrimitivePrintableString;
     }
 

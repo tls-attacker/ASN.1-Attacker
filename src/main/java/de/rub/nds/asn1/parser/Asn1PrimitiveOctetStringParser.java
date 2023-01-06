@@ -13,12 +13,12 @@ import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveOctetStringParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitiveOctetString<Context>> {
+public class Asn1PrimitiveOctetStringParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitiveOctetString<Chooser>> {
 
     public Asn1PrimitiveOctetStringParser(
-            Context context, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
-        super(context, asn1PrimitiveOctetString);
+            Chooser chooser, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+        super(chooser, asn1PrimitiveOctetString);
     }
 
     @Override

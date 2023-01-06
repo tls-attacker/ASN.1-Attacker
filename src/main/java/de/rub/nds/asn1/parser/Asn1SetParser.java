@@ -18,21 +18,21 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1SetParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1Set<Context>> {
+public abstract class Asn1SetParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1Set<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SetParser(Context context, Asn1Set asn1Set) {
-        super(context, asn1Set);
+    public Asn1SetParser(Chooser chooser, Asn1Set asn1Set) {
+        super(chooser, asn1Set);
     }
 
     @Override
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        List<Asn1Encodable<Context>> childrenList = new LinkedList<>();
+        List<Asn1Encodable<Chooser>> childrenList = new LinkedList<>();
         do {
             Asn1Encodable freshElement = createFreshElement();
-            freshElement.getParser(context).parse(inputStream);
+            freshElement.getParser(chooser).parse(inputStream);
             childrenList.add(freshElement);
         } while (inputStream.available() > 0);
         encodable.setChildren(childrenList);

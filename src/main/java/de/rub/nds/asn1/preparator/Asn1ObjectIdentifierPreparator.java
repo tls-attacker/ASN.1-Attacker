@@ -14,14 +14,14 @@ import de.rub.nds.asn1.oid.ObjectIdentifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ObjectIdentifierPreparator<Context extends AbstractChooser>
-        extends Asn1FieldPreparator<Context, Asn1ObjectIdentifier> {
+public class Asn1ObjectIdentifierPreparator<Chooser extends AbstractChooser>
+        extends Asn1FieldPreparator<Chooser, Asn1ObjectIdentifier<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     public Asn1ObjectIdentifierPreparator(
-            Context context, Asn1ObjectIdentifier asn1ObjectIdentifier) {
-        super(context, asn1ObjectIdentifier);
+            Chooser chooser, Asn1ObjectIdentifier asn1ObjectIdentifier) {
+        super(chooser, asn1ObjectIdentifier);
     }
 
     @Override

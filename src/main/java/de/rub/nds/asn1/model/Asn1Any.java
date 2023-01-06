@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Any<Context extends AbstractChooser> implements Asn1Encodable<Context> {
+public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<Chooser> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -86,9 +86,9 @@ public class Asn1Any<Context extends AbstractChooser> implements Asn1Encodable<C
     }
 
     @Override
-    public Preparator getPreparator(Context context) {
+    public Preparator getPreparator(Chooser chooser) {
         if (instantiation != null) {
-            return instantiation.getPreparator(context);
+            return instantiation.getPreparator(chooser);
         } else {
             throw new RuntimeException(
                     "Tried to access preparator of any element before choosing instantiation");
@@ -96,7 +96,7 @@ public class Asn1Any<Context extends AbstractChooser> implements Asn1Encodable<C
     }
 
     @Override
-    public Asn1AnyParser<Context> getParser(Context context) {
-        return new Asn1AnyParser<Context>(context, this);
+    public Asn1AnyParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1AnyParser<Chooser>(chooser, this);
     }
 }

@@ -13,11 +13,11 @@ import de.rub.nds.asn1.model.Asn1PrimitiveUtcTime;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitiveUtcTimeParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitiveUtcTime<Context>> {
+public class Asn1PrimitiveUtcTimeParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitiveUtcTime<Chooser>> {
 
-    public Asn1PrimitiveUtcTimeParser(Context context, Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
-        super(context, asn1PrimitiveUtcTime);
+    public Asn1PrimitiveUtcTimeParser(Chooser chooser, Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
+        super(chooser, asn1PrimitiveUtcTime);
     }
 
     @Override

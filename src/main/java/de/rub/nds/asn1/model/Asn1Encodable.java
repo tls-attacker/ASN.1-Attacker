@@ -13,7 +13,7 @@ import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 
-public interface Asn1Encodable<Context extends AbstractChooser> {
+public interface Asn1Encodable<Chooser extends AbstractChooser> {
 
     public String getIdentifier();
 
@@ -21,9 +21,9 @@ public interface Asn1Encodable<Context extends AbstractChooser> {
 
     public Asn1FieldSerializer getSerializer();
 
-    public Preparator getPreparator(Context context);
+    public Preparator getPreparator(Chooser chooser);
 
-    public Asn1Parser<?, ?> getParser(Context context);
+    public Asn1Parser<?, ?> getParser(Chooser chooser);
 
     public abstract boolean isOptional();
 

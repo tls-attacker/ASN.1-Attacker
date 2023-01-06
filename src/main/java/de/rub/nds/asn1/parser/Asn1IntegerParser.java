@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class Asn1IntegerParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1Integer<Context>> {
+public class Asn1IntegerParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1Integer<Chooser>> {
 
-    public Asn1IntegerParser(Context context, Asn1Integer asn1Integer) {
-        super(context, asn1Integer);
+    public Asn1IntegerParser(Chooser chooser, Asn1Integer asn1Integer) {
+        super(chooser, asn1Integer);
     }
 
     @Override

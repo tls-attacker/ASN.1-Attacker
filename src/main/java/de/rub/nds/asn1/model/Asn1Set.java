@@ -18,7 +18,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Set<Context extends AbstractChooser> extends Asn1Container<Context> {
+public abstract class Asn1Set<Chooser extends AbstractChooser> extends Asn1Container<Chooser> {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Set() {

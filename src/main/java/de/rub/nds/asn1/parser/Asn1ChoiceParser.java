@@ -17,13 +17,13 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1ChoiceParser<Context extends AbstractChooser>
-        extends Asn1Parser<Context, Asn1Choice<Context>> {
+public class Asn1ChoiceParser<Chooser extends AbstractChooser>
+        extends Asn1Parser<Chooser, Asn1Choice<Chooser>> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ChoiceParser(Context context, Asn1Choice<Context> asn1Choice) {
-        super(context, asn1Choice);
+    public Asn1ChoiceParser(Chooser chooser, Asn1Choice<Chooser> asn1Choice) {
+        super(chooser, asn1Choice);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Asn1ChoiceParser<Context extends AbstractChooser>
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
         encodable
                 .getSelectedChoice()
-                .getParser(context)
+                .getParser(chooser)
                 .parseIndividualContentFields(
                         new ByteArrayInputStream(
                                 encodable.getSelectedChoice().getContent().getValue()));
@@ -53,8 +53,8 @@ public class Asn1ChoiceParser<Context extends AbstractChooser>
 
     @Override
     public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
-        if (encodable.canMakeValidChoice(context, tagOctets)) {
-            encodable.makeSelection(context, tagOctets);
+        if (encodable.canMakeValidChoice(chooser, tagOctets)) {
+            encodable.makeSelection(chooser, tagOctets);
             LOGGER.debug(
                     "Selected {} of type {} for CHOICE",
                     encodable.getSelectedChoice().getIdentifier(),

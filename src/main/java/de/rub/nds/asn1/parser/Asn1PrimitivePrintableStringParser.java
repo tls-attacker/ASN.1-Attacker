@@ -13,12 +13,12 @@ import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1PrimitivePrintableStringParser<Context extends AbstractChooser>
-        extends Asn1FieldParser<Context, Asn1PrimitivePrintableString<Context>> {
+public class Asn1PrimitivePrintableStringParser<Chooser extends AbstractChooser>
+        extends Asn1FieldParser<Chooser, Asn1PrimitivePrintableString<Chooser>> {
 
     public Asn1PrimitivePrintableStringParser(
-            Context context, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
-        super(context, asn1PrimitivePrintableString);
+            Chooser chooser, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+        super(chooser, asn1PrimitivePrintableString);
     }
 
     @Override

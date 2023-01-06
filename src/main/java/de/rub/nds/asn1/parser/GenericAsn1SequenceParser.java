@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 
-public class GenericAsn1SequenceParser<Context extends AbstractChooser>
-        extends Asn1SequenceParser<Context> {
+public class GenericAsn1SequenceParser<Chooser extends AbstractChooser>
+        extends Asn1SequenceParser<Chooser> {
 
-    public GenericAsn1SequenceParser(Context context, Asn1Sequence asn1Sequence) {
-        super(context, asn1Sequence);
+    public GenericAsn1SequenceParser(Chooser chooser, Asn1Sequence asn1Sequence) {
+        super(chooser, asn1Sequence);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class GenericAsn1SequenceParser<Context extends AbstractChooser>
                 asn1Field.setTagConstructed(constructed);
                 asn1Field.setTagClass(tagClass);
                 asn1Field.setTagNumber(tagNumber);
-                Asn1Parser<?, ?> parser = asn1Field.getParser(context);
+                Asn1Parser<?, ?> parser = asn1Field.getParser(chooser);
                 byte[] lengthOctets = parser.parseLengthOctets(inputStream);
                 BigInteger length = parser.parseLength(lengthOctets);
                 asn1Field.setLength(length);

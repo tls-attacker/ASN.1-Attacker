@@ -11,14 +11,14 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1Parser;
 
-public class GenericAsn1Set<Context extends AbstractChooser> extends Asn1Set<Context> {
+public class GenericAsn1Set<Chooser extends AbstractChooser> extends Asn1Set<Chooser> {
 
     public GenericAsn1Set(String identifier) {
         super(identifier);
     }
 
     @Override
-    public Asn1Parser getParser(Context context) {
+    public Asn1Parser getParser(Chooser chooser) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

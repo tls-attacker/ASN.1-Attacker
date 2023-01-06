@@ -12,7 +12,7 @@ import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1UnknownParser;
 import de.rub.nds.asn1.preparator.Asn1UnknownPreparator;
 
-public class Asn1UnknownField<Context extends AbstractChooser> extends Asn1Field<Context> {
+public class Asn1UnknownField<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
 
     private byte[] contentConfig;
 
@@ -34,12 +34,12 @@ public class Asn1UnknownField<Context extends AbstractChooser> extends Asn1Field
     }
 
     @Override
-    public Asn1UnknownPreparator getPreparator(Context context) {
-        return new Asn1UnknownPreparator(context, this);
+    public Asn1UnknownPreparator getPreparator(Chooser chooser) {
+        return new Asn1UnknownPreparator(chooser, this);
     }
 
     @Override
-    public Asn1UnknownParser getParser(Context context) {
-        return new Asn1UnknownParser(context, this);
+    public Asn1UnknownParser getParser(Chooser chooser) {
+        return new Asn1UnknownParser(chooser, this);
     }
 }
