@@ -27,6 +27,7 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
 
     public Asn1SequenceParser(Chooser chooser, Asn1Sequence<Chooser> asn1Sequence) {
         super(chooser, asn1Sequence);
+        this.sequence = asn1Sequence;
     }
 
     @Override
@@ -35,6 +36,7 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
         Integer tagNumber = null;
         Boolean constructed = null;
         Integer tagClass = null;
+
         for (Asn1Encodable<Chooser> tempEncodable : sequence.getChildren()) {
             if (tagNumber == null
                     && tagOctets == null
@@ -63,7 +65,7 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
             } else {
                 if (!tempEncodable.isOptional()) {
                     throw new ParserException(
-                            "Missing non-optional element: " + tempEncodable.getIdentifier());
+                            "Missing non-optional element: " + tempEncodable.getIdentifier() + ", bytes left in stream:" + inputStream.available());
                 }
             }
         }
@@ -72,7 +74,7 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
             byte[] remainingBytes = inputStream.readAllBytes();
             throw new ParserException(
                     "Unattributed bytes in stream: "
-                            + ArrayConverter.bytesToHexString(remainingBytes));
+                    + ArrayConverter.bytesToHexString(remainingBytes));
         }
     }
 }
