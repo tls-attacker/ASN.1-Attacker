@@ -23,6 +23,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+/** Unused bits | Used bits | padding */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
@@ -30,8 +31,11 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
     @XmlElement(name = "unusedBits")
     private ModifiableByte unusedBits;
 
-    @XmlElement(name = "value")
-    private ModifiableByteArray value;
+    @XmlElement(name = "usedBits")
+    private ModifiableByteArray usedBits;
+
+    @XmlElement(name = "padding")
+    private ModifiableByte padding;
 
     /** Private no-arg constructor to please JAXB */
     private Asn1PrimitiveBitString() {
@@ -54,16 +58,28 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
         this.unusedBits = ModifiableVariableFactory.safelySetValue(this.unusedBits, unusedBits);
     }
 
-    public ModifiableByteArray getValue() {
-        return value;
+    public ModifiableByteArray getUsedBits() {
+        return usedBits;
     }
 
-    public void setValue(ModifiableByteArray value) {
-        this.value = value;
+    public void setUsedBits(ModifiableByteArray usedBits) {
+        this.usedBits = usedBits;
     }
 
-    public void setValue(byte[] value) {
-        this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    public void setUsedBits(byte[] usedBits) {
+        this.usedBits = ModifiableVariableFactory.safelySetValue(this.usedBits, usedBits);
+    }
+
+    public ModifiableByte getPadding() {
+        return padding;
+    }
+
+    public void setPadding(ModifiableByte padding) {
+        this.padding = padding;
+    }
+
+    public void setPadding(byte padding) {
+        this.padding = ModifiableVariableFactory.safelySetValue(this.padding, padding);
     }
 
     @Override

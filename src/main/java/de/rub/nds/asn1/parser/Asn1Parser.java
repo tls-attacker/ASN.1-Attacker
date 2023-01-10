@@ -43,6 +43,11 @@ public abstract class Asn1Parser<
             ByteArrayOutputStream tagByteStream = new ByteArrayOutputStream();
             tagByteStream.write(read);
             do {
+                if (stream.available() == 0) {
+                    throw new ParserException(
+                            "Incomplete tag: "
+                                    + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
+                }
                 read = stream.read();
                 if (read == -1) {
                     throw new ParserException(
@@ -150,21 +155,9 @@ public abstract class Asn1Parser<
         if (inputStream.available() < length.intValue()) {
             throw new ParserException("Not enough bytes in stream");
         }
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        while (toReadLength.compareTo(BigInteger.ZERO) > 0) {
-            int bytesToRead = 65536;
-            if (toReadLength.compareTo(BigInteger.valueOf(bytesToRead)) < 0) {
-                bytesToRead = toReadLength.intValue();
-            }
-            try {
-                outputStream.write(inputStream.readNBytes(bytesToRead));
-            } catch (IOException ex) {
-                throw new ParserException(ex);
-            }
-            toReadLength = toReadLength.subtract(BigInteger.valueOf(bytesToRead));
-        }
-        LOGGER.debug("Parsed content octets: {}", outputStream.toByteArray());
-        return outputStream.toByteArray();
+        byte[] octets = inputStream.readNBytes(length.intValue());
+        LOGGER.debug("Parsed content octets: {}", octets);
+        return octets;
     }
 
     public abstract void parse(InputStream inputStream);

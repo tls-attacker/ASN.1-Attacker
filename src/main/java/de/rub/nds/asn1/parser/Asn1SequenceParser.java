@@ -65,7 +65,10 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
             } else {
                 if (!tempEncodable.isOptional()) {
                     throw new ParserException(
-                            "Missing non-optional element: " + tempEncodable.getIdentifier() + ", bytes left in stream:" + inputStream.available());
+                            "Missing non-optional element: "
+                                    + tempEncodable.getIdentifier()
+                                    + ", bytes left in stream:"
+                                    + inputStream.available());
                 }
             }
         }
@@ -74,7 +77,7 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
             byte[] remainingBytes = inputStream.readAllBytes();
             throw new ParserException(
                     "Unattributed bytes in stream: "
-                    + ArrayConverter.bytesToHexString(remainingBytes));
+                            + ArrayConverter.bytesToHexString(remainingBytes));
         }
     }
 }
