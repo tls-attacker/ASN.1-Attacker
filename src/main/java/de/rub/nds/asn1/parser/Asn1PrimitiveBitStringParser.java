@@ -55,6 +55,9 @@ public class Asn1PrimitiveBitStringParser<Chooser extends AbstractChooser>
     }
 
     private byte[] shiftRight(byte[] array, int n) {
+        if (array.length == 0) {
+            return array;
+        }
         BigInteger bigInt = new BigInteger(array);
         BigInteger shiftInt = bigInt.shiftRight(n);
         return shiftInt.toByteArray();
