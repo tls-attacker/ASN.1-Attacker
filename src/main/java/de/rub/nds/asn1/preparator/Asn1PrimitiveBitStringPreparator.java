@@ -29,21 +29,29 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
     @Override
     protected byte[] encodeContent() {
         try {
-            this.asn1PrimitiveBitString.setUnusedBits(
-                    (byte) countLeadingZeros(this.asn1PrimitiveBitString.getUsedBits().getValue()));
+            if (this.asn1PrimitiveBitString.getUnusedBits() == null || this.asn1PrimitiveBitString.getUnusedBits().getOriginalValue() == null) {
+                this.asn1PrimitiveBitString.setUnusedBits(
+                        (byte) countLeadingZeros(this.asn1PrimitiveBitString.getUsedBits().getValue()));
+                this.asn1PrimitiveBitString.setPadding((byte) 0x00);
+
+            } else {
+                this.asn1PrimitiveBitString.setUnusedBits((byte) 0);
+                this.asn1PrimitiveBitString.setPadding((byte) 0x00);
+
+            }
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(new byte[] {this.asn1PrimitiveBitString.getUnusedBits().getValue()});
-            byte[] encodedContent =
-                    Arrays.copyOf(
+            outputStream.write(new byte[]{this.asn1PrimitiveBitString.getUnusedBits().getValue()});
+            byte[] encodedContent
+                    = Arrays.copyOf(
                             asn1PrimitiveBitString.getUsedBits().getValue(),
                             asn1PrimitiveBitString.getUsedBits().getValue().length);
-            encodedContent =
-                    shiftLeft(
+            encodedContent
+                    = shiftLeft(
                             encodedContent, this.asn1PrimitiveBitString.getUnusedBits().getValue());
-            encodedContent[encodedContent.length - 1] &=
-                    (1 << this.asn1PrimitiveBitString.getUnusedBits().getValue() - 1);
-            encodedContent[encodedContent.length - 1] &=
-                    this.asn1PrimitiveBitString.getPadding().getValue();
+            encodedContent[encodedContent.length - 1]
+                    &= (1 << this.asn1PrimitiveBitString.getUnusedBits().getValue() - 1);
+            encodedContent[encodedContent.length - 1]
+                    &= this.asn1PrimitiveBitString.getPadding().getValue();
             outputStream.write(encodedContent);
             return outputStream.toByteArray();
         } catch (IOException ex) {
