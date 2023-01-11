@@ -33,6 +33,9 @@ public abstract class Asn1SetParser<Chooser extends AbstractChooser>
         do {
             Asn1Encodable freshElement = createFreshElement();
             freshElement.getParser(chooser).parse(inputStream);
+            // We need to update the context here
+            freshElement.getHandler(chooser).adjustContext();
+
             childrenList.add(freshElement);
         } while (inputStream.available() > 0);
         encodable.setChildren(childrenList);

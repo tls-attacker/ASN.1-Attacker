@@ -57,6 +57,8 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
             if (tagOctets != null && tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
                 LOGGER.info(tempEncodable.getIdentifier() + " is compatible");
                 tempEncodable.getParser(chooser).parseWithoutTag(inputStream, tagOctets);
+                // We need to update the context here
+                tempEncodable.getHandler(chooser).adjustContext();
                 // Reset so the next element can get parsed
                 tagNumber = null;
                 tagOctets = null;

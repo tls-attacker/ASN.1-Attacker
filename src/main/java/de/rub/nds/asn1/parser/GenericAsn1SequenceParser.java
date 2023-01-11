@@ -45,6 +45,10 @@ public class GenericAsn1SequenceParser<Chooser extends AbstractChooser>
                 byte[] content = parser.parseContentOctets(length, inputStream);
                 asn1Field.setContent(content);
                 parser.parseIndividualContentFields(new ByteArrayInputStream(content));
+
+                // We need to update the context here
+                asn1Field.getHandler(chooser).adjustContext();
+
                 encodable.addChild(asn1Field);
             } catch (IOException ex) {
                 throw new ParserException(ex);
