@@ -11,6 +11,8 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1ExplicitParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -39,5 +41,10 @@ public class Asn1Explicit<Chooser extends AbstractChooser> extends Asn1Container
     @Override
     public Asn1ExplicitParser getParser(Chooser chooser) {
         return new Asn1ExplicitParser(chooser, this);
+    }
+
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

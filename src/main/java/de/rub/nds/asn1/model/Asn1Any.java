@@ -9,6 +9,8 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -27,15 +29,19 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @HoldsModifiableVariable private Asn1Field instantiation;
+    @HoldsModifiableVariable
+    private Asn1Field instantiation;
 
     @XmlAttribute(name = "identifier")
     private String identifier;
 
     private boolean optional;
 
-    /** Private no-arg constructor to please JAXB */
-    private Asn1Any() {}
+    /**
+     * Private no-arg constructor to please JAXB
+     */
+    private Asn1Any() {
+    }
 
     public Asn1Any(String identifier) {
         this.identifier = identifier;
@@ -99,4 +105,10 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
     public Asn1AnyParser<Chooser> getParser(Chooser chooser) {
         return new Asn1AnyParser<Chooser>(chooser, this);
     }
+
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
+    }
+
 }

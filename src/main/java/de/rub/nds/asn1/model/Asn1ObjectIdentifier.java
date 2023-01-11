@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1ObjectIdentifierParser;
 import de.rub.nds.asn1.preparator.Asn1ObjectIdentifierPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -61,5 +63,10 @@ public class Asn1ObjectIdentifier<Chooser extends AbstractChooser> extends Asn1F
     @Override
     public Asn1ObjectIdentifierParser getParser(Chooser chooser) {
         return new Asn1ObjectIdentifierParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

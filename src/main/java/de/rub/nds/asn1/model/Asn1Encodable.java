@@ -9,6 +9,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
@@ -22,6 +23,8 @@ public interface Asn1Encodable<Chooser extends AbstractChooser> {
     public Asn1FieldSerializer getSerializer();
 
     public Preparator getPreparator(Chooser chooser);
+    
+    public Handler getHandler(Chooser chooser);
 
     public Asn1Parser<?, ?> getParser(Chooser chooser);
 

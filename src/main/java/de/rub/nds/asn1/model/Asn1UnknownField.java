@@ -9,6 +9,8 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1UnknownParser;
 import de.rub.nds.asn1.preparator.Asn1UnknownPreparator;
 
@@ -41,5 +43,10 @@ public class Asn1UnknownField<Chooser extends AbstractChooser> extends Asn1Field
     @Override
     public Asn1UnknownParser getParser(Chooser chooser) {
         return new Asn1UnknownParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

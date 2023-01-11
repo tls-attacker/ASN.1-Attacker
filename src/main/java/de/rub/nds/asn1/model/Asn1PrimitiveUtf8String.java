@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1PrimitiveUtf8StringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveUtf8StringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -57,5 +59,10 @@ public class Asn1PrimitiveUtf8String<Chooser extends AbstractChooser> extends As
     @Override
     public Asn1PrimitiveUtf8StringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveUtf8StringParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

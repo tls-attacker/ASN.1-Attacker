@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1PrimitiveIa5StringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveIa5StringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -57,5 +59,10 @@ public class Asn1PrimitiveIa5String<Chooser extends AbstractChooser> extends Asn
     @Override
     public Asn1PrimitiveIa5StringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveIa5StringParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

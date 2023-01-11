@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1NullParser;
 import de.rub.nds.asn1.preparator.Asn1NullPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -40,5 +42,10 @@ public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser
     @Override
     public Asn1NullParser getParser(Chooser chooser) {
         return new Asn1NullParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

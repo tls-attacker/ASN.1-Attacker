@@ -9,6 +9,8 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1Parser;
 
 public class GenericAsn1Set<Chooser extends AbstractChooser> extends Asn1Set<Chooser> {
@@ -21,5 +23,10 @@ public class GenericAsn1Set<Chooser extends AbstractChooser> extends Asn1Set<Cho
     public Asn1Parser getParser(Chooser chooser) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

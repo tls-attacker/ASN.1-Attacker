@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1PrimitiveOctetStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveOctetStringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -57,5 +59,10 @@ public class Asn1PrimitiveOctetString<Chooser extends AbstractChooser> extends A
     @Override
     public Asn1PrimitiveOctetStringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveOctetStringParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

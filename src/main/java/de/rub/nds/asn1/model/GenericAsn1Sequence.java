@@ -9,6 +9,8 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.GenericAsn1SequenceParser;
 
 public class GenericAsn1Sequence<Chooser extends AbstractChooser> extends Asn1Sequence<Chooser> {
@@ -20,5 +22,10 @@ public class GenericAsn1Sequence<Chooser extends AbstractChooser> extends Asn1Se
     @Override
     public GenericAsn1SequenceParser getParser(Chooser chooser) {
         return new GenericAsn1SequenceParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }

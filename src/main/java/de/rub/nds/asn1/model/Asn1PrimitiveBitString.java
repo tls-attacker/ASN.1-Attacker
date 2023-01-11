@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.handler.EmptyHandler;
+import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1PrimitiveBitStringParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -90,5 +92,10 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
     @Override
     public Asn1PrimitiveBitStringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveBitStringParser(chooser, this);
+    }
+    
+    @Override
+    public Handler getHandler(Chooser chooser) {
+        return new EmptyHandler(chooser);
     }
 }
