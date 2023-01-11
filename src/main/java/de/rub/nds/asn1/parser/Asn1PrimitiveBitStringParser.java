@@ -47,6 +47,9 @@ public class Asn1PrimitiveBitStringParser<Chooser extends AbstractChooser>
     }
 
     private byte extractBits(byte[] input, int n) {
+        if (input.length == 0) {
+            return 0;
+        }
         if (n > 8) {
             throw new IllegalArgumentException("n must be between 0 and 8, inclusive");
         }
