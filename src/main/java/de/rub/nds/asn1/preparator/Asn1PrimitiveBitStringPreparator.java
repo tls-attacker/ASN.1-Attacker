@@ -12,6 +12,7 @@ import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
@@ -90,19 +91,8 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
     }
 
     private byte[] shiftLeft(byte[] input, int n) {
-        int byteShift = n / 8;
-        int bitShift = n % 8;
-        int len = input.length;
-        byte[] output = new byte[len];
-        for (int i = 0; i < len; i++) {
-            int outputIndex = i + byteShift;
-            if (outputIndex < len) {
-                int value = input[i] & 0xFF;
-                value <<= bitShift;
-                output[outputIndex] |= (value >> 8);
-                output[outputIndex + 1] |= (value & 0xFF);
-            }
-        }
-        return output;
+        BigInteger tempBigInt = new BigInteger(input);
+        tempBigInt.shiftLeft(n);
+        return tempBigInt.toByteArray();
     }
 }
