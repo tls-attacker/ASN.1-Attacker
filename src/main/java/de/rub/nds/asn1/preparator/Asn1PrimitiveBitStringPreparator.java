@@ -10,6 +10,7 @@ package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -38,7 +39,6 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
                 this.asn1PrimitiveBitString.setPadding((byte) 0x00);
 
             } else {
-                this.asn1PrimitiveBitString.setUnusedBits((byte) 0);
                 this.asn1PrimitiveBitString.setPadding((byte) 0x00);
             }
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -51,8 +51,8 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
                     shiftLeft(
                             encodedContent, this.asn1PrimitiveBitString.getUnusedBits().getValue());
             encodedContent[encodedContent.length - 1] &=
-                    (1 << this.asn1PrimitiveBitString.getUnusedBits().getValue() - 1);
-            encodedContent[encodedContent.length - 1] &=
+                    (0xFF - (1 << this.asn1PrimitiveBitString.getUnusedBits().getValue() - 1));
+            encodedContent[encodedContent.length - 1] |=
                     this.asn1PrimitiveBitString.getPadding().getValue();
             outputStream.write(encodedContent);
             return outputStream.toByteArray();
@@ -90,8 +90,9 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
         if (input.length == 0) {
             return input;
         }
-        BigInteger tempBigInt = new BigInteger(input);
-        tempBigInt.shiftLeft(n);
+        System.out.println("Shifting by: " + n);
+        BigInteger tempBigInt = new BigInteger(1, input);
+        tempBigInt = tempBigInt.shiftLeft(n);
         return tempBigInt.toByteArray();
     }
 }
