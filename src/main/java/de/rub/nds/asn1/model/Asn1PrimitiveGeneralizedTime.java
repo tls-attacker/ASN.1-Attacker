@@ -61,7 +61,7 @@ public class Asn1PrimitiveGeneralizedTime<Chooser extends AbstractChooser>
     public Asn1PrimitiveGeneralizedTimeParser getParser(Chooser chooser) {
         return new Asn1PrimitiveGeneralizedTimeParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

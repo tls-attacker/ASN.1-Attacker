@@ -60,7 +60,7 @@ public class Asn1Boolean<Chooser extends AbstractChooser> extends Asn1Field<Choo
     public Asn1BooleanParser<Chooser> getParser(Chooser chooser) {
         return new Asn1BooleanParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

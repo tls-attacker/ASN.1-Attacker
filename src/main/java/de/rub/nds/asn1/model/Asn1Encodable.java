@@ -23,7 +23,7 @@ public interface Asn1Encodable<Chooser extends AbstractChooser> {
     public Asn1FieldSerializer getSerializer();
 
     public Preparator getPreparator(Chooser chooser);
-    
+
     public Handler getHandler(Chooser chooser);
 
     public Asn1Parser<?, ?> getParser(Chooser chooser);

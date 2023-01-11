@@ -64,7 +64,7 @@ public class Asn1ObjectIdentifier<Chooser extends AbstractChooser> extends Asn1F
     public Asn1ObjectIdentifierParser getParser(Chooser chooser) {
         return new Asn1ObjectIdentifierParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

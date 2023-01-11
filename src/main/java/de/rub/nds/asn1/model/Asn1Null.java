@@ -43,7 +43,7 @@ public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser
     public Asn1NullParser getParser(Chooser chooser) {
         return new Asn1NullParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

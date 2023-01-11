@@ -60,7 +60,7 @@ public class Asn1PrimitiveUtcTime<Chooser extends AbstractChooser> extends Asn1F
     public Asn1PrimitiveUtcTimeParser getParser(Chooser chooser) {
         return new Asn1PrimitiveUtcTimeParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

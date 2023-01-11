@@ -24,7 +24,7 @@ public class GenericAsn1Set<Chooser extends AbstractChooser> extends Asn1Set<Cho
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
         // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

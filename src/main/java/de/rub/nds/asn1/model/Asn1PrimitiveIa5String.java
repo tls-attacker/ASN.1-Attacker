@@ -60,7 +60,7 @@ public class Asn1PrimitiveIa5String<Chooser extends AbstractChooser> extends Asn
     public Asn1PrimitiveIa5StringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveIa5StringParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

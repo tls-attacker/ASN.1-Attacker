@@ -23,7 +23,7 @@ public class GenericAsn1Sequence<Chooser extends AbstractChooser> extends Asn1Se
     public GenericAsn1SequenceParser getParser(Chooser chooser) {
         return new GenericAsn1SequenceParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

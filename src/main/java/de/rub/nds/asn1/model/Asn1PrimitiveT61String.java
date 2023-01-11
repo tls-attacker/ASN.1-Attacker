@@ -60,7 +60,7 @@ public class Asn1PrimitiveT61String<Chooser extends AbstractChooser> extends Asn
     public Asn1PrimitiveT61StringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveT61StringParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

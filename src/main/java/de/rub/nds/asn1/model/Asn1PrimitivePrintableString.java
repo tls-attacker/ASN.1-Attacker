@@ -61,7 +61,7 @@ public class Asn1PrimitivePrintableString<Chooser extends AbstractChooser>
     public Asn1PrimitivePrintableStringParser getParser(Chooser chooser) {
         return new Asn1PrimitivePrintableStringParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

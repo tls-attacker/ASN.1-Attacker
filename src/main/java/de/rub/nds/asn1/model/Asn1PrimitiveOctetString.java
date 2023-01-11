@@ -60,7 +60,7 @@ public class Asn1PrimitiveOctetString<Chooser extends AbstractChooser> extends A
     public Asn1PrimitiveOctetStringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveOctetStringParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

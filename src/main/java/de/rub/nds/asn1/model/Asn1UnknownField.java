@@ -44,7 +44,7 @@ public class Asn1UnknownField<Chooser extends AbstractChooser> extends Asn1Field
     public Asn1UnknownParser getParser(Chooser chooser) {
         return new Asn1UnknownParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

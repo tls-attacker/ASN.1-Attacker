@@ -93,7 +93,7 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
     public Asn1PrimitiveBitStringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveBitStringParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

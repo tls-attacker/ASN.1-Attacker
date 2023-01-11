@@ -60,7 +60,7 @@ public class Asn1PrimitiveUtf8String<Chooser extends AbstractChooser> extends As
     public Asn1PrimitiveUtf8StringParser getParser(Chooser chooser) {
         return new Asn1PrimitiveUtf8StringParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);

@@ -62,7 +62,7 @@ public class Asn1Integer<Chooser extends AbstractChooser> extends Asn1Field<Choo
     public Asn1IntegerParser getParser(Chooser chooser) {
         return new Asn1IntegerParser(chooser, this);
     }
-    
+
     @Override
     public Handler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);
