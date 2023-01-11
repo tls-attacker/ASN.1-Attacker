@@ -41,7 +41,7 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
                     shiftLeft(
                             encodedContent, this.asn1PrimitiveBitString.getUnusedBits().getValue());
             encodedContent[encodedContent.length - 1] &=
-                    encodeMask(this.asn1PrimitiveBitString.getUnusedBits().getValue());
+                    (1 << this.asn1PrimitiveBitString.getUnusedBits().getValue() - 1);
             encodedContent[encodedContent.length - 1] &=
                     this.asn1PrimitiveBitString.getPadding().getValue();
             outputStream.write(encodedContent);
@@ -74,20 +74,6 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
             }
         }
         return count;
-    }
-
-    private byte encodeMask(byte length) {
-        int unsignedLength = length & 0xFF;
-        int result = 0;
-        for (int i = 0; i < unsignedLength; i++) {
-            if (result == 0) {
-                result = 1;
-            } else {
-                result <<= 1;
-                result &= 1;
-            }
-        }
-        return (byte) result;
     }
 
     private byte[] shiftLeft(byte[] input, int n) {
