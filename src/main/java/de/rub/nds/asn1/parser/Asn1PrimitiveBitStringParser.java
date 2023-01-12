@@ -28,9 +28,13 @@ public class Asn1PrimitiveBitStringParser<Chooser extends AbstractChooser>
     }
 
     @Override
-    public void parseIndividualContentFields(InputStream byteArrayInputStream) throws IOException {
-        encodable.setUnusedBits((byte) byteArrayInputStream.read());
-        byte[] remainingBytes = byteArrayInputStream.readAllBytes();
+    public void parseIndividualContentFields(InputStream inputStream) throws IOException {
+        if (inputStream.available() == 0) {
+            throw new ParserException("No content in Asn1PrimitiveBitString");
+        }
+        encodable.setUnusedBits((byte) inputStream.read());
+        byte[] remainingBytes =
+                inputStream.readNBytes(encodable.getLength().getValue().intValue() - 1);
         LOGGER.debug("Unused bits: " + encodable.getUnusedBits().getValue());
         LOGGER.debug("Remaining bytes: " + ArrayConverter.bytesToHexString(remainingBytes));
 

@@ -10,7 +10,6 @@ package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -32,10 +31,7 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
         try {
             if (this.asn1PrimitiveBitString.getUnusedBits() == null
                     || this.asn1PrimitiveBitString.getUnusedBits().getOriginalValue() == null) {
-                this.asn1PrimitiveBitString.setUnusedBits(
-                        (byte)
-                                countLeadingZeros(
-                                        this.asn1PrimitiveBitString.getUsedBits().getValue()));
+                this.asn1PrimitiveBitString.setUnusedBits((byte) 0);
                 this.asn1PrimitiveBitString.setPadding((byte) 0x00);
 
             } else {
