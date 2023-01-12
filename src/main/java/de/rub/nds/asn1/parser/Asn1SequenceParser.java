@@ -11,6 +11,7 @@ package de.rub.nds.asn1.parser;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Any;
 import de.rub.nds.asn1.model.Asn1Encodable;
+import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.model.Asn1Sequence;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.IOException;
@@ -44,8 +45,11 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
                     && tagClass == null
                     && inputStream.available() > 0) {
                 if (tempEncodable instanceof Asn1Any) {
-                    LOGGER.debug("Parsing AnyField in sequence");
+                    LOGGER.debug("Parsing AnyField in sequence: " + tempEncodable.getIdentifier());
+                    ((Asn1Any<Chooser>) tempEncodable)
+                            .setInstantiation(chooseInstantiationForAny());
                     tempEncodable.getParser(chooser).parse(inputStream);
+                    tempEncodable.getHandler(chooser).adjustContext();
                     continue;
                 } else {
                     tagOctets = parseTagOctets(inputStream);
@@ -55,9 +59,10 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
                 }
             }
             if (tagOctets != null && tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
-                LOGGER.info(tempEncodable.getIdentifier() + " is compatible");
+                LOGGER.debug(tempEncodable.getIdentifier() + " is compatible");
                 tempEncodable.getParser(chooser).parseWithoutTag(inputStream, tagOctets);
                 // We need to update the context here
+                LOGGER.debug("Adjusting context");
                 tempEncodable.getHandler(chooser).adjustContext();
                 // Reset so the next element can get parsed
                 tagNumber = null;
@@ -81,5 +86,10 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
                     "Unattributed bytes in stream: "
                             + ArrayConverter.bytesToHexString(remainingBytes));
         }
+    }
+
+    protected Asn1Field chooseInstantiationForAny() {
+        LOGGER.debug("Cannot predict any element");
+        return null;
     }
 }

@@ -31,7 +31,12 @@ public class Asn1AnyParser<Chooser extends AbstractChooser>
             int tagClass = parseTagClass(tagOctets[0]);
             boolean constructed = parseTagConstructed(tagOctets[0]);
             int tagNumber = parseTagNumber(tagOctets);
-            Asn1Field asn1Field = Asn1Factory.createAsn1Element(tagClass, constructed, tagNumber);
+            Asn1Field asn1Field;
+            if (encodable.getInstantiation() == null) {
+                asn1Field = Asn1Factory.createAsn1Element(tagClass, constructed, tagNumber);
+            } else {
+                asn1Field = encodable.getInstantiation();
+            }
             asn1Field.setTagConstructed(constructed);
             asn1Field.setTagClass(tagClass);
             asn1Field.setTagNumber(tagNumber);
@@ -43,7 +48,9 @@ public class Asn1AnyParser<Chooser extends AbstractChooser>
             byte[] content = parser.parseContentOctets(length, inputStream);
             asn1Field.setContent(content);
             parser.parseIndividualContentFields(new ByteArrayInputStream(content));
-            encodable.setInstantiation(asn1Field);
+            if (encodable.getInstantiation() == null) {
+                encodable.setInstantiation(asn1Field);
+            }
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
