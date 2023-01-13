@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.rub.nds</groupId>
         <artifactId>protocol-toolkit-bom</artifactId>
-        <version>2.2.1-SNAPSHOT</version>
+        <version>3.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>asn1-attacker</artifactId>
@@ -26,11 +26,11 @@
 
     <developers>
         <developer>
-            <id>nkafka</id>
-            <name>Nils Kafka</name>
-            <email>nils.kafka@rub.de</email>
-            <organization>NDS</organization>
-            <organizationUrl>https://informatik.rub.de/nds/</organizationUrl>
+            <id>ic0ns</id>
+            <name>Robert Merget</name>
+            <email>robert.merget@tii.ae</email>
+            <organization>TII</organization>
+            <organizationUrl>https://tii.ae/</organizationUrl>
             <roles>
                 <role>Architect</role>
                 <role>Developer</role>
@@ -61,6 +61,10 @@
         <dependency>
             <groupId>de.rub.nds</groupId>
             <artifactId>modifiable-variable</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.rub.nds</groupId>
+            <artifactId>protocol-attacker</artifactId>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
