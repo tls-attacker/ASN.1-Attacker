@@ -9,6 +9,11 @@
 package de.rub.nds.asn1.oid;
 
 import de.rub.nds.asn1.parser.ParserException;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,11 +22,18 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ObjectIdentifier {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private final byte[] encoded;
+
+    private ObjectIdentifier() {
+        encoded = null;
+    }
 
     public ObjectIdentifier(byte[] bytes) {
         encoded = bytes;
@@ -112,7 +124,7 @@ public class ObjectIdentifier {
         byte moreFlag = 0x00;
         do {
             try {
-                stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
+                stream.write(new byte[]{(byte) (moreFlag | (idValue & 0x7F))});
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
