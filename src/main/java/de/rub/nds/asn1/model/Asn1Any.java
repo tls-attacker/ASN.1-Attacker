@@ -9,7 +9,6 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
 import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -104,6 +103,6 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
 
     @Override
     public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+        return instantiation.getHandler(chooser);
     }
 }

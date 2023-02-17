@@ -124,7 +124,7 @@ public class ObjectIdentifier {
         byte moreFlag = 0x00;
         do {
             try {
-                stream.write(new byte[]{(byte) (moreFlag | (idValue & 0x7F))});
+                stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
