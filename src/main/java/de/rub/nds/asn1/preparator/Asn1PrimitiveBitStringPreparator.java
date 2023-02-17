@@ -86,7 +86,6 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
         if (input.length == 0) {
             return input;
         }
-        System.out.println("Shifting by: " + n);
         BigInteger tempBigInt = new BigInteger(1, input);
         tempBigInt = tempBigInt.shiftLeft(n);
         return tempBigInt.toByteArray();
