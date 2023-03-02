@@ -49,6 +49,7 @@ public class Asn1ChoiceParser<Chooser extends AbstractChooser>
                 .parseIndividualContentFields(
                         new ByteArrayInputStream(
                                 encodable.getSelectedChoice().getContent().getValue()));
+        encodable.getSelectedChoice().getHandler(chooser).adjustContext();
     }
 
     @Override

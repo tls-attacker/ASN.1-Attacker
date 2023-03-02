@@ -51,6 +51,7 @@ public class Asn1AnyParser<Chooser extends AbstractChooser>
             if (encodable.getInstantiation() == null) {
                 encodable.setInstantiation(asn1Field);
             }
+            asn1Field.getHandler(chooser).adjustContext();
         } catch (IOException ex) {
             throw new ParserException(ex);
         }
