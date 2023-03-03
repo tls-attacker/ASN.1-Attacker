@@ -13,10 +13,8 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1IntegerParser;
 import de.rub.nds.asn1.preparator.Asn1IntegerPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -54,7 +52,7 @@ public class Asn1Integer<Chooser extends AbstractChooser> extends Asn1Field<Choo
     }
 
     @Override
-    public Preparator getPreparator(Chooser chooser) {
+    public Asn1IntegerPreparator getPreparator(Chooser chooser) {
         return new Asn1IntegerPreparator(chooser, this);
     }
 
@@ -64,7 +62,7 @@ public class Asn1Integer<Chooser extends AbstractChooser> extends Asn1Field<Choo
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
+    public EmptyHandler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);
     }
 }
