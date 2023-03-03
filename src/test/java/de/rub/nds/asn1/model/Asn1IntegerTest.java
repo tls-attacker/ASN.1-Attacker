@@ -37,7 +37,7 @@ public class Asn1IntegerTest {
     }
 
     @Test
-    public void testSetValue_ModifiableBoolean() {
+    public void testSetValue_Modifiable() {
         asn1Integer.setValue(BigInteger.ONE);
         assertEquals(BigInteger.ONE, asn1Integer.getValue().getValue());
         asn1Integer.setValue(Modifiable.explicit(BigInteger.TEN));

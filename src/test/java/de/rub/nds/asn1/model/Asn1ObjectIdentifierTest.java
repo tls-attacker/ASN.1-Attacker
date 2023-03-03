@@ -36,7 +36,7 @@ public class Asn1ObjectIdentifierTest {
     }
 
     @Test
-    public void testSetValue_ModifiableBoolean() {
+    public void testSetValue_Modifiable() {
         asn1ObjectIdentifier.setValue("1.2.3.4");
         assertEquals("1.2.3.4", asn1ObjectIdentifier.getValue().getValue());
         asn1ObjectIdentifier.setValue(Modifiable.explicit("4.3.2.1"));
