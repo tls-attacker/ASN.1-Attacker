@@ -19,9 +19,6 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author ic0ns
- */
 public class Asn1IntegerTest {
 
     private Asn1Integer asn1Integer;
