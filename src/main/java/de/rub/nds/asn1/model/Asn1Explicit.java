@@ -23,6 +23,7 @@ public class Asn1Explicit<Chooser extends AbstractChooser> extends Asn1Container
     @XmlAnyElement(lax = true)
     private Asn1Encodable child;
 
+    // TODO review whats going on here
     public Asn1Explicit(String identifier, Asn1Encodable child) {
         super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.CONSTRUCTED, null);
         this.child = child;
