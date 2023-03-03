@@ -13,10 +13,8 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1NullParser;
 import de.rub.nds.asn1.preparator.Asn1NullPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -35,7 +33,7 @@ public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser
     }
 
     @Override
-    public Preparator getPreparator(Chooser chooser) {
+    public Asn1NullPreparator getPreparator(Chooser chooser) {
         return new Asn1NullPreparator(chooser, this);
     }
 
@@ -45,7 +43,7 @@ public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
+    public EmptyHandler getHandler(Chooser chooser) {
         return new EmptyHandler(chooser);
     }
 }
