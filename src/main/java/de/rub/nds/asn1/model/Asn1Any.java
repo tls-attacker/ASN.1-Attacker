@@ -16,6 +16,7 @@ import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -28,7 +29,9 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @HoldsModifiableVariable private Asn1Field instantiation;
+    @HoldsModifiableVariable
+    @XmlAnyElement(lax = true)
+    private Asn1Field instantiation;
 
     @XmlAttribute(name = "identifier")
     private String identifier;

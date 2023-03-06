@@ -16,6 +16,7 @@ import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -32,7 +33,9 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @HoldsModifiableVariable private Asn1Field selectedChoice;
+    @HoldsModifiableVariable
+    @XmlAnyElement(lax = true)
+    private Asn1Field selectedChoice;
 
     @XmlElementWrapper @XmlElementRef @HoldsModifiableVariable
     private final List<SelectableChoice> choiceList;

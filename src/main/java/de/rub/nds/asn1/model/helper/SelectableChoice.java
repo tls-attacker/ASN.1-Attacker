@@ -13,13 +13,16 @@ import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SelectableChoice<Chooser extends AbstractChooser> {
 
-    @HoldsModifiableVariable private final Asn1Field field;
+    @HoldsModifiableVariable
+    @XmlAnyElement(lax = true)
+    private final Asn1Field field;
 
     /** Private no-arg constructor to please JAXB */
     private SelectableChoice() {
