@@ -14,9 +14,10 @@ import de.rub.nds.asn1.model.Asn1UnknownField;
 public class Asn1UnknownPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1UnknownField<Chooser>> {
 
-    private final Asn1UnknownField asn1Unknown;
+    private final Asn1UnknownField<Chooser> asn1Unknown;
 
-    public Asn1UnknownPreparator(Chooser chooser, final Asn1UnknownField asn1UnknownField) {
+    public Asn1UnknownPreparator(
+            Chooser chooser, final Asn1UnknownField<Chooser> asn1UnknownField) {
         super(chooser, asn1UnknownField);
         this.asn1Unknown = asn1UnknownField;
     }

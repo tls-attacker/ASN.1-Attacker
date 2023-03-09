@@ -17,7 +17,7 @@ public class Asn1PrimitiveUtf8StringParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitiveUtf8String<Chooser>> {
 
     public Asn1PrimitiveUtf8StringParser(
-            Chooser chooser, Asn1PrimitiveUtf8String asn1PrimitiveUtf8String) {
+            Chooser chooser, Asn1PrimitiveUtf8String<Chooser> asn1PrimitiveUtf8String) {
         super(chooser, asn1PrimitiveUtf8String);
     }
 

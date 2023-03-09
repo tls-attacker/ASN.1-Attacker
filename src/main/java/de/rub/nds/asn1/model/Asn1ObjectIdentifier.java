@@ -56,17 +56,17 @@ public class Asn1ObjectIdentifier<Chooser extends AbstractChooser> extends Asn1F
     }
 
     @Override
-    public Asn1ObjectIdentifierPreparator getPreparator(Chooser chooser) {
-        return new Asn1ObjectIdentifierPreparator(chooser, this);
+    public Asn1ObjectIdentifierPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1ObjectIdentifierPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1ObjectIdentifierParser getParser(Chooser chooser) {
-        return new Asn1ObjectIdentifierParser(chooser, this);
+    public Asn1ObjectIdentifierParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1ObjectIdentifierParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

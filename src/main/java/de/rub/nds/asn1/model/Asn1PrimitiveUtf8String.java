@@ -52,17 +52,17 @@ public class Asn1PrimitiveUtf8String<Chooser extends AbstractChooser> extends As
     }
 
     @Override
-    public Asn1PrimitiveUtf8StringPreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveUtf8StringPreparator(chooser, this);
+    public Asn1PrimitiveUtf8StringPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveUtf8StringPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveUtf8StringParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveUtf8StringParser(chooser, this);
+    public Asn1PrimitiveUtf8StringParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveUtf8StringParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

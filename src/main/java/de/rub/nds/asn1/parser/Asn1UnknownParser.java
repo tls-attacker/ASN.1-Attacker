@@ -20,7 +20,7 @@ public class Asn1UnknownParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1UnknownParser(Chooser chooser, Asn1UnknownField asn1Unknown) {
+    public Asn1UnknownParser(Chooser chooser, Asn1UnknownField<Chooser> asn1Unknown) {
         super(chooser, asn1Unknown);
     }
 

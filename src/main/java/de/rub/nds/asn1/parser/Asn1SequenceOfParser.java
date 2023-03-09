@@ -23,7 +23,7 @@ public abstract class Asn1SequenceOfParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SequenceOfParser(Chooser chooser, Asn1Sequence asn1Sequence) {
+    public Asn1SequenceOfParser(Chooser chooser, Asn1Sequence<Chooser> asn1Sequence) {
         super(chooser, asn1Sequence);
     }
 
@@ -31,12 +31,12 @@ public abstract class Asn1SequenceOfParser<Chooser extends AbstractChooser>
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
         List<Asn1Encodable<Chooser>> childrenList = new LinkedList<>();
         do {
-            Asn1Encodable freshElement = createFreshElement();
+            Asn1Encodable<Chooser> freshElement = createFreshElement();
             freshElement.getParser(chooser).parse(inputStream);
             childrenList.add(freshElement);
         } while (inputStream.available() > 0);
         encodable.setChildren(childrenList);
     }
 
-    protected abstract Asn1Encodable createFreshElement();
+    protected abstract Asn1Encodable<Chooser> createFreshElement();
 }

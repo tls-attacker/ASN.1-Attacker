@@ -22,14 +22,14 @@ public final class SelectableChoice<Chooser extends AbstractChooser> {
 
     @HoldsModifiableVariable
     @XmlAnyElement(lax = true)
-    private final Asn1Field field;
+    private final Asn1Field<Chooser> field;
 
     /** Private no-arg constructor to please JAXB */
     private SelectableChoice() {
         field = null;
     }
 
-    public SelectableChoice(Asn1Field field) {
+    public SelectableChoice(Asn1Field<Chooser> field) {
         this.field = field;
     }
 
@@ -46,7 +46,7 @@ public final class SelectableChoice<Chooser extends AbstractChooser> {
         }
     }
 
-    public Asn1Field getField() {
+    public Asn1Field<Chooser> getField() {
         return field;
     }
 }

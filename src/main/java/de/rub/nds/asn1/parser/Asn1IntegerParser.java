@@ -17,7 +17,7 @@ import java.math.BigInteger;
 public class Asn1IntegerParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1Integer<Chooser>> {
 
-    public Asn1IntegerParser(Chooser chooser, Asn1Integer asn1Integer) {
+    public Asn1IntegerParser(Chooser chooser, Asn1Integer<Chooser> asn1Integer) {
         super(chooser, asn1Integer);
     }
 

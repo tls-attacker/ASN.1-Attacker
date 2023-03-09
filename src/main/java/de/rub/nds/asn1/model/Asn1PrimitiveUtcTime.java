@@ -52,17 +52,17 @@ public class Asn1PrimitiveUtcTime<Chooser extends AbstractChooser> extends Asn1F
     }
 
     @Override
-    public Asn1PrimitiveUtcTimePreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveUtcTimePreparator(chooser, this);
+    public Asn1PrimitiveUtcTimePreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveUtcTimePreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveUtcTimeParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveUtcTimeParser(chooser, this);
+    public Asn1PrimitiveUtcTimeParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveUtcTimeParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

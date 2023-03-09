@@ -151,7 +151,6 @@ public abstract class Asn1Parser<
 
     public byte[] parseContentOctets(BigInteger length, InputStream inputStream)
             throws IOException {
-        BigInteger toReadLength = length;
         if (inputStream.available() < length.intValue()) {
             throw new ParserException("Not enough bytes in stream");
         }

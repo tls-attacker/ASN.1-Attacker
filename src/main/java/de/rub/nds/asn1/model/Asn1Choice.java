@@ -35,10 +35,10 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
 
     @HoldsModifiableVariable
     @XmlAnyElement(lax = true)
-    private Asn1Field selectedChoice;
+    private Asn1Field<Chooser> selectedChoice;
 
     @XmlElementWrapper @XmlElementRef @HoldsModifiableVariable
-    private final List<SelectableChoice> choiceList;
+    private final List<SelectableChoice<Chooser>> choiceList;
 
     @XmlAttribute(name = "identifier")
     private String identifier;
@@ -48,16 +48,16 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
         choiceList = null;
     }
 
-    public Asn1Choice(String identifier, Asn1Field... fields) {
+    public Asn1Choice(String identifier, Asn1Field<Chooser>... fields) {
         this.identifier = identifier;
         choiceList = new LinkedList<>();
-        for (Asn1Field field : fields) {
-            choiceList.add(new SelectableChoice(field));
+        for (Asn1Field<Chooser> field : fields) {
+            choiceList.add(new SelectableChoice<Chooser>(field));
         }
     }
 
     public boolean canMakeValidChoice(Chooser chooser, byte[] tagOctets) {
-        for (SelectableChoice choice : choiceList) {
+        for (SelectableChoice<Chooser> choice : choiceList) {
             if (choice.isSelectable(chooser, tagOctets)) {
                 return true;
             }
@@ -66,7 +66,7 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
     }
 
     public void makeSelection(Chooser chooser, byte[] tagOctets) {
-        for (SelectableChoice choice : choiceList) {
+        for (SelectableChoice<Chooser> choice : choiceList) {
             if (choice.isSelectable(chooser, tagOctets)) {
                 selectedChoice = choice.getField();
                 return;
@@ -75,11 +75,11 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
         LOGGER.warn("Could not make a valid choice");
     }
 
-    public Asn1Field getSelectedChoice() {
+    public Asn1Field<Chooser> getSelectedChoice() {
         return selectedChoice;
     }
 
-    public void setSelectedChoice(Asn1Field selectedChoice) {
+    public void setSelectedChoice(Asn1Field<Chooser> selectedChoice) {
         this.selectedChoice = selectedChoice;
     }
 
@@ -114,8 +114,8 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
     }
 
     @Override
-    public Asn1ChoiceParser getParser(Chooser chooser) {
-        return new Asn1ChoiceParser(chooser, this);
+    public Asn1ChoiceParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1ChoiceParser<>(chooser, this);
     }
 
     @Override
@@ -125,7 +125,7 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
 
     @Override
     public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
-        for (SelectableChoice selectableChoice : choiceList) {
+        for (SelectableChoice<Chooser> selectableChoice : choiceList) {
             if (selectableChoice.getField().isCompatible(tagNumber, constructed, classType)) {
                 LOGGER.debug(
                         "{} is compatible within CHOICE",

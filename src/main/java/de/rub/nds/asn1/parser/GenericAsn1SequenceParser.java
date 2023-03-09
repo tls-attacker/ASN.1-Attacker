@@ -20,7 +20,7 @@ import java.math.BigInteger;
 public class GenericAsn1SequenceParser<Chooser extends AbstractChooser>
         extends Asn1SequenceParser<Chooser> {
 
-    public GenericAsn1SequenceParser(Chooser chooser, Asn1Sequence asn1Sequence) {
+    public GenericAsn1SequenceParser(Chooser chooser, Asn1Sequence<Chooser> asn1Sequence) {
         super(chooser, asn1Sequence);
     }
 
@@ -32,8 +32,9 @@ public class GenericAsn1SequenceParser<Chooser extends AbstractChooser>
                 int tagClass = parseTagClass(tagOctets[0]);
                 boolean constructed = parseTagConstructed(tagOctets[0]);
                 int tagNumber = parseTagNumber(tagOctets);
-                Asn1Field asn1Field =
-                        Asn1Factory.createAsn1Element(tagClass, constructed, tagNumber);
+                Asn1Field<Chooser> asn1Field =
+                        new Asn1Factory<Chooser>()
+                                .createAsn1Element(tagClass, constructed, tagNumber);
                 asn1Field.setTagConstructed(constructed);
                 asn1Field.setTagClass(tagClass);
                 asn1Field.setTagNumber(tagNumber);

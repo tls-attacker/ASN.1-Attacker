@@ -16,9 +16,9 @@ import java.math.BigInteger;
 public class Asn1IntegerPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1Integer<Chooser>> {
 
-    private final Asn1Integer asn1Integer;
+    private final Asn1Integer<Chooser> asn1Integer;
 
-    public Asn1IntegerPreparator(Chooser chooser, final Asn1Integer asn1Integer) {
+    public Asn1IntegerPreparator(Chooser chooser, final Asn1Integer<Chooser> asn1Integer) {
         super(chooser, asn1Integer);
         this.asn1Integer = asn1Integer;
     }

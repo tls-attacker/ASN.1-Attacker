@@ -17,7 +17,7 @@ public class Asn1PrimitiveT61StringParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitiveT61String<Chooser>> {
 
     public Asn1PrimitiveT61StringParser(
-            Chooser chooser, Asn1PrimitiveT61String asn1PrimitiveT61String) {
+            Chooser chooser, Asn1PrimitiveT61String<Chooser> asn1PrimitiveT61String) {
         super(chooser, asn1PrimitiveT61String);
     }
 

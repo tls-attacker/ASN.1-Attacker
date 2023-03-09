@@ -31,7 +31,7 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
 
     @HoldsModifiableVariable
     @XmlAnyElement(lax = true)
-    private Asn1Field instantiation;
+    private Asn1Field<Chooser> instantiation;
 
     @XmlAttribute(name = "identifier")
     private String identifier;
@@ -60,11 +60,11 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
         this.optional = optional;
     }
 
-    public void setInstantiation(Asn1Field instantiation) {
+    public void setInstantiation(Asn1Field<Chooser> instantiation) {
         this.instantiation = instantiation;
     }
 
-    public Asn1Field getInstantiation() {
+    public Asn1Field<Chooser> getInstantiation() {
         return instantiation;
     }
 
@@ -105,7 +105,7 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
+    public Handler<Chooser> getHandler(Chooser chooser) {
         return instantiation.getHandler(chooser);
     }
 }

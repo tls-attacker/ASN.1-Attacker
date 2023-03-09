@@ -13,7 +13,6 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1PrimitiveGeneralizedTimeParser;
 import de.rub.nds.asn1.preparator.Asn1PrimitiveGeneralizedTimePreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -53,17 +52,17 @@ public class Asn1PrimitiveGeneralizedTime<Chooser extends AbstractChooser>
     }
 
     @Override
-    public Asn1PrimitiveGeneralizedTimePreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveGeneralizedTimePreparator(chooser, this);
+    public Asn1PrimitiveGeneralizedTimePreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveGeneralizedTimePreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveGeneralizedTimeParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveGeneralizedTimeParser(chooser, this);
+    public Asn1PrimitiveGeneralizedTimeParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveGeneralizedTimeParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

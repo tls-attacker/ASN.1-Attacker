@@ -23,7 +23,7 @@ public class Asn1PrimitiveBitStringParser<Chooser extends AbstractChooser>
     private static final Logger LOGGER = LogManager.getLogger();
 
     public Asn1PrimitiveBitStringParser(
-            Chooser chooser, Asn1PrimitiveBitString asn1PrimitiveBitString) {
+            Chooser chooser, Asn1PrimitiveBitString<Chooser> asn1PrimitiveBitString) {
         super(chooser, asn1PrimitiveBitString);
     }
 

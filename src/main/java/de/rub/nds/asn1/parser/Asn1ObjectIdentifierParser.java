@@ -21,7 +21,8 @@ public class Asn1ObjectIdentifierParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ObjectIdentifierParser(Chooser chooser, Asn1ObjectIdentifier asn1ObjectIdentifier) {
+    public Asn1ObjectIdentifierParser(
+            Chooser chooser, Asn1ObjectIdentifier<Chooser> asn1ObjectIdentifier) {
         super(chooser, asn1ObjectIdentifier);
     }
 

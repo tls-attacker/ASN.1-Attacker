@@ -14,7 +14,6 @@ import de.rub.nds.asn1.constants.TagNumber;
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.parser.Asn1SequenceParser;
 import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -33,12 +32,12 @@ public abstract class Asn1Sequence<Chooser extends AbstractChooser> extends Asn1
     }
 
     @Override
-    public Preparator getPreparator(Chooser chooser) {
-        return new GenericAsn1ContainerPreparator(chooser, this);
+    public GenericAsn1ContainerPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new GenericAsn1ContainerPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1SequenceParser getParser(Chooser chooser) {
-        return new Asn1SequenceParser(chooser, this);
+    public Asn1SequenceParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1SequenceParser<>(chooser, this);
     }
 }

@@ -10,7 +10,6 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
 
@@ -33,7 +32,7 @@ public class Asn1Enumerated<Chooser extends AbstractChooser> extends Asn1Field<C
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

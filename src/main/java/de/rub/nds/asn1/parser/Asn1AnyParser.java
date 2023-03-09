@@ -31,9 +31,11 @@ public class Asn1AnyParser<Chooser extends AbstractChooser>
             int tagClass = parseTagClass(tagOctets[0]);
             boolean constructed = parseTagConstructed(tagOctets[0]);
             int tagNumber = parseTagNumber(tagOctets);
-            Asn1Field asn1Field;
+            Asn1Field<Chooser> asn1Field;
             if (encodable.getInstantiation() == null) {
-                asn1Field = Asn1Factory.createAsn1Element(tagClass, constructed, tagNumber);
+                asn1Field =
+                        new Asn1Factory<Chooser>()
+                                .createAsn1Element(tagClass, constructed, tagNumber);
             } else {
                 asn1Field = encodable.getInstantiation();
             }

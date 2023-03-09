@@ -52,17 +52,17 @@ public class Asn1PrimitiveOctetString<Chooser extends AbstractChooser> extends A
     }
 
     @Override
-    public Asn1PrimitiveOctetStringPreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveOctetStringPreparator(chooser, this);
+    public Asn1PrimitiveOctetStringPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveOctetStringPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveOctetStringParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveOctetStringParser(chooser, this);
+    public Asn1PrimitiveOctetStringParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveOctetStringParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

@@ -64,7 +64,7 @@ public class Asn1ChoiceParser<Chooser extends AbstractChooser>
             throw new ParserException("Cannot make a valid choice");
         }
         try {
-            Asn1Field selection = encodable.getSelectedChoice();
+            Asn1Field<Chooser> selection = encodable.getSelectedChoice();
             selection.setTagOctets(tagOctets);
             selection.setTagClass(this.parseTagClass(selection.getTagOctets().getValue()[0]));
             selection.setTagConstructed(

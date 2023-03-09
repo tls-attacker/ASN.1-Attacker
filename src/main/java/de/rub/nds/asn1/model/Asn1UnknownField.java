@@ -36,17 +36,17 @@ public class Asn1UnknownField<Chooser extends AbstractChooser> extends Asn1Field
     }
 
     @Override
-    public Asn1UnknownPreparator getPreparator(Chooser chooser) {
-        return new Asn1UnknownPreparator(chooser, this);
+    public Asn1UnknownPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1UnknownPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1UnknownParser getParser(Chooser chooser) {
-        return new Asn1UnknownParser(chooser, this);
+    public Asn1UnknownParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1UnknownParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

@@ -14,10 +14,10 @@ import de.rub.nds.asn1.model.Asn1PrimitiveUtcTime;
 public class Asn1PrimitiveUtcTimePreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1PrimitiveUtcTime<Chooser>> {
 
-    private final Asn1PrimitiveUtcTime asn1PrimitiveUtcTime;
+    private final Asn1PrimitiveUtcTime<Chooser> asn1PrimitiveUtcTime;
 
     public Asn1PrimitiveUtcTimePreparator(
-            Chooser chooser, Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
+            Chooser chooser, Asn1PrimitiveUtcTime<Chooser> asn1PrimitiveUtcTime) {
         super(chooser, asn1PrimitiveUtcTime);
         this.asn1PrimitiveUtcTime = asn1PrimitiveUtcTime;
     }

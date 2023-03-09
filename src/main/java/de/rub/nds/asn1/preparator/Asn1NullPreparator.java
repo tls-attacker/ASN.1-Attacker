@@ -14,7 +14,7 @@ import de.rub.nds.asn1.model.Asn1Null;
 public class Asn1NullPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1Null<Chooser>> {
 
-    public Asn1NullPreparator(Chooser chooser, final Asn1Null asn1null) {
+    public Asn1NullPreparator(Chooser chooser, final Asn1Null<Chooser> asn1null) {
         super(chooser, asn1null);
     }
 

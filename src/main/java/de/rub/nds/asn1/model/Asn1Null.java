@@ -33,17 +33,17 @@ public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser
     }
 
     @Override
-    public Asn1NullPreparator getPreparator(Chooser chooser) {
-        return new Asn1NullPreparator(chooser, this);
+    public Asn1NullPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1NullPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1NullParser getParser(Chooser chooser) {
-        return new Asn1NullParser(chooser, this);
+    public Asn1NullParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1NullParser<>(chooser, this);
     }
 
     @Override
-    public EmptyHandler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

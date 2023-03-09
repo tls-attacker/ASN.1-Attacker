@@ -18,10 +18,10 @@ import java.util.Arrays;
 public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1PrimitiveBitString<Chooser>> {
 
-    private final Asn1PrimitiveBitString asn1PrimitiveBitString;
+    private final Asn1PrimitiveBitString<Chooser> asn1PrimitiveBitString;
 
     public Asn1PrimitiveBitStringPreparator(
-            Chooser chooser, final Asn1PrimitiveBitString asn1PrimitiveBitString) {
+            Chooser chooser, final Asn1PrimitiveBitString<Chooser> asn1PrimitiveBitString) {
         super(chooser, asn1PrimitiveBitString);
         this.asn1PrimitiveBitString = asn1PrimitiveBitString;
     }
@@ -55,31 +55,6 @@ public class Asn1PrimitiveBitStringPreparator<Chooser extends AbstractChooser>
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    private int countLeadingZeros(byte[] input) {
-        int count = 0;
-        int length = input.length;
-        boolean foundOne = false;
-        // Iterate through each byte of the array
-        for (int i = 0; i < length; i++) {
-            byte b = input[i];
-            for (int j = 7; j >= 0; j--) {
-                if (!foundOne) {
-                    if ((b & (1 << j)) == 0) {
-                        count++;
-                    } else {
-                        foundOne = true;
-                    }
-                } else {
-                    break;
-                }
-            }
-            if (foundOne) {
-                break;
-            }
-        }
-        return count;
     }
 
     private byte[] shiftLeft(byte[] input, int n) {

@@ -88,7 +88,7 @@ public class Asn1SequenceParser<Chooser extends AbstractChooser>
         }
     }
 
-    protected Asn1Field chooseInstantiationForAny() {
+    protected Asn1Field<Chooser> chooseInstantiationForAny() {
         LOGGER.debug("Cannot predict any element");
         return null;
     }

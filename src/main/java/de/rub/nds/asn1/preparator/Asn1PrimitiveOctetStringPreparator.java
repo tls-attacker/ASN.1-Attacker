@@ -14,10 +14,10 @@ import de.rub.nds.asn1.model.Asn1PrimitiveOctetString;
 public class Asn1PrimitiveOctetStringPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1PrimitiveOctetString<Chooser>> {
 
-    private final Asn1PrimitiveOctetString asn1PrimitiveOctetString;
+    private final Asn1PrimitiveOctetString<Chooser> asn1PrimitiveOctetString;
 
     public Asn1PrimitiveOctetStringPreparator(
-            Chooser chooser, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+            Chooser chooser, Asn1PrimitiveOctetString<Chooser> asn1PrimitiveOctetString) {
         super(chooser, asn1PrimitiveOctetString);
         this.asn1PrimitiveOctetString = asn1PrimitiveOctetString;
     }

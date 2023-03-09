@@ -17,7 +17,7 @@ public class Asn1PrimitiveGeneralizedTimeParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitiveGeneralizedTime<Chooser>> {
 
     public Asn1PrimitiveGeneralizedTimeParser(
-            Chooser chooser, Asn1PrimitiveGeneralizedTime asn1PrimitiveGeneralized) {
+            Chooser chooser, Asn1PrimitiveGeneralizedTime<Chooser> asn1PrimitiveGeneralized) {
         super(chooser, asn1PrimitiveGeneralized);
     }
 

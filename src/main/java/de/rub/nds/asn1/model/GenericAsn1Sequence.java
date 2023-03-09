@@ -20,12 +20,12 @@ public class GenericAsn1Sequence<Chooser extends AbstractChooser> extends Asn1Se
     }
 
     @Override
-    public GenericAsn1SequenceParser getParser(Chooser chooser) {
-        return new GenericAsn1SequenceParser(chooser, this);
+    public GenericAsn1SequenceParser<Chooser> getParser(Chooser chooser) {
+        return new GenericAsn1SequenceParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

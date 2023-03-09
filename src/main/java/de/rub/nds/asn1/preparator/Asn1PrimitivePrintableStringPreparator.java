@@ -14,10 +14,10 @@ import de.rub.nds.asn1.model.Asn1PrimitivePrintableString;
 public class Asn1PrimitivePrintableStringPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1PrimitivePrintableString<Chooser>> {
 
-    private final Asn1PrimitivePrintableString asn1PrimitivePrintableString;
+    private final Asn1PrimitivePrintableString<Chooser> asn1PrimitivePrintableString;
 
     public Asn1PrimitivePrintableStringPreparator(
-            Chooser chooser, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+            Chooser chooser, Asn1PrimitivePrintableString<Chooser> asn1PrimitivePrintableString) {
         super(chooser, asn1PrimitivePrintableString);
         this.asn1PrimitivePrintableString = asn1PrimitivePrintableString;
     }

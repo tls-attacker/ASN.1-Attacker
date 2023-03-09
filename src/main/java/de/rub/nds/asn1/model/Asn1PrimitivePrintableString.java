@@ -53,17 +53,17 @@ public class Asn1PrimitivePrintableString<Chooser extends AbstractChooser>
     }
 
     @Override
-    public Asn1PrimitivePrintableStringPreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitivePrintableStringPreparator(chooser, this);
+    public Asn1PrimitivePrintableStringPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitivePrintableStringPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitivePrintableStringParser getParser(Chooser chooser) {
-        return new Asn1PrimitivePrintableStringParser(chooser, this);
+    public Asn1PrimitivePrintableStringParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitivePrintableStringParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

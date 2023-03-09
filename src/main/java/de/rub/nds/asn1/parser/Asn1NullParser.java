@@ -20,7 +20,7 @@ public class Asn1NullParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1NullParser(Chooser chooser, Asn1Null nullField) {
+    public Asn1NullParser(Chooser chooser, Asn1Null<Chooser> nullField) {
         super(chooser, nullField);
     }
 

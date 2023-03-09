@@ -51,17 +51,17 @@ public class Asn1Boolean<Chooser extends AbstractChooser> extends Asn1Field<Choo
     }
 
     @Override
-    public Asn1BooleanPreparator getPreparator(Chooser chooser) {
-        return new Asn1BooleanPreparator(chooser, this);
+    public Asn1BooleanPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1BooleanPreparator<Chooser>(chooser, this);
     }
 
     @Override
     public Asn1BooleanParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1BooleanParser(chooser, this);
+        return new Asn1BooleanParser<Chooser>(chooser, this);
     }
 
     @Override
-    public EmptyHandler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<Chooser>(chooser);
     }
 }

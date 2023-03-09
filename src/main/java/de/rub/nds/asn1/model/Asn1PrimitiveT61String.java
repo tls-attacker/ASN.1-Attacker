@@ -52,17 +52,17 @@ public class Asn1PrimitiveT61String<Chooser extends AbstractChooser> extends Asn
     }
 
     @Override
-    public Asn1PrimitiveT61StringPreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveT61StringPreparator(chooser, this);
+    public Asn1PrimitiveT61StringPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveT61StringPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveT61StringParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveT61StringParser(chooser, this);
+    public Asn1PrimitiveT61StringParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveT61StringParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

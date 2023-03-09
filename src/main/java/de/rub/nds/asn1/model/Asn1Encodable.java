@@ -24,7 +24,7 @@ public interface Asn1Encodable<Chooser extends AbstractChooser> {
 
     public Preparator getPreparator(Chooser chooser);
 
-    public Handler getHandler(Chooser chooser);
+    public Handler<Chooser> getHandler(Chooser chooser);
 
     public Asn1Parser<?, ?> getParser(Chooser chooser);
 

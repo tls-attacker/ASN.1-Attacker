@@ -20,7 +20,7 @@ public class Asn1BooleanParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1BooleanParser(Chooser chooser, Asn1Boolean booleanField) {
+    public Asn1BooleanParser(Chooser chooser, Asn1Boolean<Chooser> booleanField) {
         super(chooser, booleanField);
     }
 

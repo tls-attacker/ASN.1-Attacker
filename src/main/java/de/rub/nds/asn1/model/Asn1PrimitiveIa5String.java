@@ -52,17 +52,17 @@ public class Asn1PrimitiveIa5String<Chooser extends AbstractChooser> extends Asn
     }
 
     @Override
-    public Asn1PrimitiveIa5StringPreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveIa5StringPreparator(chooser, this);
+    public Asn1PrimitiveIa5StringPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveIa5StringPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveIa5StringParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveIa5StringParser(chooser, this);
+    public Asn1PrimitiveIa5StringParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveIa5StringParser<>(chooser, this);
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<Chooser>(chooser);
     }
 }

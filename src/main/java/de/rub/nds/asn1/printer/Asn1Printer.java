@@ -8,28 +8,29 @@
  */
 package de.rub.nds.asn1.printer;
 
+import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.model.Asn1Encodable;
 
-public class Asn1Printer {
+public class Asn1Printer<Chooser extends AbstractChooser> {
 
-    private Asn1Printer() {}
+    public Asn1Printer() {}
 
-    public static String print(StringBuilder builder, Asn1Encodable encodable, int depth) {
+    public String print(StringBuilder builder, Asn1Encodable<?> encodable, int depth) {
         addWhiteSpace(builder, depth);
         builder.append(encodable.getIdentifier());
         builder.append("  ");
         builder.append(encodable.getClass().getSimpleName());
         builder.append("\n");
         if (encodable instanceof Asn1Container) {
-            for (Object child : ((Asn1Container) encodable).getChildren()) {
-                print(builder, (Asn1Encodable) child, depth + 1);
+            for (Object child : ((Asn1Container<?>) encodable).getChildren()) {
+                print(builder, (Asn1Encodable<?>) child, depth + 1);
             }
         }
         return builder.toString();
     }
 
-    private static void addWhiteSpace(StringBuilder builder, int depth) {
+    private void addWhiteSpace(StringBuilder builder, int depth) {
         for (int i = 0; i < depth; i++) {
             builder.append("  ");
         }

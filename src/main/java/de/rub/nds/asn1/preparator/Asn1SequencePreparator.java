@@ -30,7 +30,7 @@ public abstract class Asn1SequencePreparator<Chooser extends AbstractChooser>
 
     protected byte[] encodedChildren(Collection<Asn1Encodable<Chooser>> childrenCollection) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        for (Asn1Encodable child : childrenCollection) {
+        for (Asn1Encodable<Chooser> child : childrenCollection) {
             byte[] serialize = child.getSerializer().serialize();
             try {
                 stream.write(serialize);

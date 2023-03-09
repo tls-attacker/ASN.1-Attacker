@@ -83,17 +83,17 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
     }
 
     @Override
-    public Asn1PrimitiveBitStringPreparator getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveBitStringPreparator(chooser, this);
+    public Asn1PrimitiveBitStringPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1PrimitiveBitStringPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1PrimitiveBitStringParser getParser(Chooser chooser) {
-        return new Asn1PrimitiveBitStringParser(chooser, this);
+    public Asn1PrimitiveBitStringParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1PrimitiveBitStringParser<>(chooser, this);
     }
 
     @Override
-    public EmptyHandler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

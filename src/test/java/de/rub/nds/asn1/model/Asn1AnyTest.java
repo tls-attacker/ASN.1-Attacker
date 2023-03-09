@@ -10,7 +10,6 @@ package de.rub.nds.asn1.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.parser.Asn1AnyParser;
 import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
@@ -20,13 +19,13 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1AnyTest {
 
-    private AbstractChooser chooser;
-    private Asn1Any any;
+    private EmptyChooser chooser;
+    private Asn1Any<EmptyChooser> any;
 
     @BeforeEach
     public void setUp() {
         chooser = new EmptyChooser();
-        any = new Asn1Any("someAny");
+        any = new Asn1Any<EmptyChooser>("someAny");
     }
 
     /** Test of isCompatible method, of class Asn1Any. */
@@ -59,7 +58,7 @@ public class Asn1AnyTest {
     @Test
     public void testSetInstantiation() {
         assertNull(any.getInstantiation());
-        Asn1Field field = new Asn1Boolean("boolean");
+        Asn1Field<EmptyChooser> field = new Asn1Boolean<>("boolean");
         any.setInstantiation(field);
         assertEquals(field, any.getInstantiation());
         any.setInstantiation(null);
@@ -70,7 +69,7 @@ public class Asn1AnyTest {
     @Test
     public void testGetInstantiation() {
         assertNull(any.getInstantiation());
-        Asn1Field field = new Asn1Boolean("boolean");
+        Asn1Field<EmptyChooser> field = new Asn1Boolean<>("boolean");
         any.setInstantiation(field);
         assertEquals(field, any.getInstantiation());
     }
@@ -99,7 +98,7 @@ public class Asn1AnyTest {
                 () -> {
                     any.getSerializer();
                 });
-        Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
+        Asn1Boolean<EmptyChooser> asn1Boolean = new Asn1Boolean<>("boolean");
         any.setInstantiation(asn1Boolean);
         assertTrue(any.getSerializer() instanceof Asn1FieldSerializer);
     }
@@ -112,7 +111,7 @@ public class Asn1AnyTest {
                 () -> {
                     any.getPreparator(chooser);
                 });
-        Asn1Boolean asn1Boolean = new Asn1Boolean("boolean");
+        Asn1Boolean<EmptyChooser> asn1Boolean = new Asn1Boolean<>("boolean");
         any.setInstantiation(asn1Boolean);
         assertTrue(any.getPreparator(chooser) instanceof Asn1BooleanPreparator);
     }

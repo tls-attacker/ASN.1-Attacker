@@ -33,7 +33,7 @@ public class GenericAsn1ContainerPreparator<Chooser extends AbstractChooser>
     protected byte[] encodeContent() {
         LOGGER.debug("Encoding content for {}", asn1Container.getIdentifier());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        for (Asn1Encodable asn1Field : asn1Container.getChildren()) {
+        for (Asn1Encodable<Chooser> asn1Field : asn1Container.getChildren()) {
             LOGGER.info("Preparing:" + asn1Field.getIdentifier());
             asn1Field.getPreparator(chooser).prepare();
             try {

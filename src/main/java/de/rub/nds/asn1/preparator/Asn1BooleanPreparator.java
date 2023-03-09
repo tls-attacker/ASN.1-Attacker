@@ -14,9 +14,9 @@ import de.rub.nds.asn1.model.Asn1Boolean;
 public class Asn1BooleanPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1Boolean<Chooser>> {
 
-    private final Asn1Boolean asn1Boolean;
+    private final Asn1Boolean<Chooser> asn1Boolean;
 
-    public Asn1BooleanPreparator(Chooser chooser, final Asn1Boolean asn1Boolean) {
+    public Asn1BooleanPreparator(Chooser chooser, final Asn1Boolean<Chooser> asn1Boolean) {
         super(chooser, asn1Boolean);
         this.asn1Boolean = asn1Boolean;
     }

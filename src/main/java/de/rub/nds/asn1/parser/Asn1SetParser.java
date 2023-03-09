@@ -23,7 +23,7 @@ public abstract class Asn1SetParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SetParser(Chooser chooser, Asn1Set asn1Set) {
+    public Asn1SetParser(Chooser chooser, Asn1Set<Chooser> asn1Set) {
         super(chooser, asn1Set);
     }
 
@@ -31,7 +31,7 @@ public abstract class Asn1SetParser<Chooser extends AbstractChooser>
     public void parseIndividualContentFields(InputStream inputStream) throws IOException {
         List<Asn1Encodable<Chooser>> childrenList = new LinkedList<>();
         do {
-            Asn1Encodable freshElement = createFreshElement();
+            Asn1Encodable<Chooser> freshElement = createFreshElement();
             freshElement.getParser(chooser).parse(inputStream);
             // We need to update the context here
             freshElement.getHandler(chooser).adjustContext();
@@ -41,5 +41,5 @@ public abstract class Asn1SetParser<Chooser extends AbstractChooser>
         encodable.setChildren(childrenList);
     }
 
-    protected abstract Asn1Encodable createFreshElement();
+    protected abstract Asn1Encodable<Chooser> createFreshElement();
 }

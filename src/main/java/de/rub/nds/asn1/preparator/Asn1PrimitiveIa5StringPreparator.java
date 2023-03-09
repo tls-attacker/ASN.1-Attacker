@@ -14,10 +14,10 @@ import de.rub.nds.asn1.model.Asn1PrimitiveIa5String;
 public class Asn1PrimitiveIa5StringPreparator<Chooser extends AbstractChooser>
         extends Asn1FieldPreparator<Chooser, Asn1PrimitiveIa5String<Chooser>> {
 
-    private final Asn1PrimitiveIa5String asn1PrimitiveIa5String;
+    private final Asn1PrimitiveIa5String<Chooser> asn1PrimitiveIa5String;
 
     public Asn1PrimitiveIa5StringPreparator(
-            Chooser chooser, Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
+            Chooser chooser, Asn1PrimitiveIa5String<Chooser> asn1PrimitiveIa5String) {
         super(chooser, asn1PrimitiveIa5String);
         this.asn1PrimitiveIa5String = asn1PrimitiveIa5String;
     }

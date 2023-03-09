@@ -93,7 +93,7 @@ public abstract class Asn1Container<Chooser extends AbstractChooser> extends Asn
                 ModifiableVariableFactory.safelySetValue(this.encodedChildren, encodedChildren);
     }
 
-    public void addChild(final Asn1Encodable child) {
+    public void addChild(final Asn1Encodable<Chooser> child) {
         this.children.add(child);
     }
 
@@ -111,6 +111,6 @@ public abstract class Asn1Container<Chooser extends AbstractChooser> extends Asn
 
     @Override
     public Preparator getPreparator(Chooser chooser) {
-        return new GenericAsn1ContainerPreparator(chooser, this);
+        return new GenericAsn1ContainerPreparator<Chooser>(chooser, this);
     }
 }

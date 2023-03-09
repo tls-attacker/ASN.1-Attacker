@@ -20,13 +20,12 @@ public class GenericAsn1Set<Chooser extends AbstractChooser> extends Asn1Set<Cho
     }
 
     @Override
-    public Asn1Parser getParser(Chooser chooser) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Asn1Parser<Chooser, GenericAsn1Set<Chooser>> getParser(Chooser chooser) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Handler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public Handler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }

@@ -17,7 +17,7 @@ public class Asn1PrimitiveOctetStringParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitiveOctetString<Chooser>> {
 
     public Asn1PrimitiveOctetStringParser(
-            Chooser chooser, Asn1PrimitiveOctetString asn1PrimitiveOctetString) {
+            Chooser chooser, Asn1PrimitiveOctetString<Chooser> asn1PrimitiveOctetString) {
         super(chooser, asn1PrimitiveOctetString);
     }
 

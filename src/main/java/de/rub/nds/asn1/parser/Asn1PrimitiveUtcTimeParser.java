@@ -16,7 +16,8 @@ import java.io.InputStream;
 public class Asn1PrimitiveUtcTimeParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitiveUtcTime<Chooser>> {
 
-    public Asn1PrimitiveUtcTimeParser(Chooser chooser, Asn1PrimitiveUtcTime asn1PrimitiveUtcTime) {
+    public Asn1PrimitiveUtcTimeParser(
+            Chooser chooser, Asn1PrimitiveUtcTime<Chooser> asn1PrimitiveUtcTime) {
         super(chooser, asn1PrimitiveUtcTime);
     }
 

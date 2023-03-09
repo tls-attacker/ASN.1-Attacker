@@ -20,7 +20,7 @@ public class Asn1ExplicitParser<Chooser extends AbstractChooser>
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1ExplicitParser(Chooser chooser, Asn1Explicit asn1Explicit) {
+    public Asn1ExplicitParser(Chooser chooser, Asn1Explicit<Chooser> asn1Explicit) {
         super(chooser, asn1Explicit);
     }
 

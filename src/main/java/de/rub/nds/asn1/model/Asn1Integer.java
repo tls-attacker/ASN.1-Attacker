@@ -52,17 +52,17 @@ public class Asn1Integer<Chooser extends AbstractChooser> extends Asn1Field<Choo
     }
 
     @Override
-    public Asn1IntegerPreparator getPreparator(Chooser chooser) {
-        return new Asn1IntegerPreparator(chooser, this);
+    public Asn1IntegerPreparator<Chooser> getPreparator(Chooser chooser) {
+        return new Asn1IntegerPreparator<>(chooser, this);
     }
 
     @Override
-    public Asn1IntegerParser getParser(Chooser chooser) {
-        return new Asn1IntegerParser(chooser, this);
+    public Asn1IntegerParser<Chooser> getParser(Chooser chooser) {
+        return new Asn1IntegerParser<>(chooser, this);
     }
 
     @Override
-    public EmptyHandler getHandler(Chooser chooser) {
-        return new EmptyHandler(chooser);
+    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
+        return new EmptyHandler<>(chooser);
     }
 }
