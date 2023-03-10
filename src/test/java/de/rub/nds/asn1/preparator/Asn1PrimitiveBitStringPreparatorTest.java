@@ -8,11 +8,10 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.model.Asn1PrimitiveBitString;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +21,8 @@ public class Asn1PrimitiveBitStringPreparatorTest {
 
     @Test
     public void testEncodeContent() {
-        Asn1PrimitiveBitString asn1PrimitiveBitString = new Asn1PrimitiveBitString("test");
+        Asn1PrimitiveBitString<EmptyChooser> asn1PrimitiveBitString =
+                new Asn1PrimitiveBitString<>("test");
         Preparator preparator = asn1PrimitiveBitString.getPreparator(null);
         asn1PrimitiveBitString.setUsedBits(ArrayConverter.hexStringToByteArray("01B977"));
         asn1PrimitiveBitString.setUnusedBits((byte) 6);

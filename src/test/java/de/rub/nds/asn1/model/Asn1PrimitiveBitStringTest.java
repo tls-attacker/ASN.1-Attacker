@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1PrimitiveBitStringTest {
 
-    private Asn1PrimitiveBitString asn1BitString;
+    private Asn1PrimitiveBitString<EmptyChooser> asn1BitString;
 
     @BeforeEach
     public void setUp() {
-        asn1BitString = new Asn1PrimitiveBitString("test");
+        asn1BitString = new Asn1PrimitiveBitString<EmptyChooser>("test");
     }
 
     @Test
@@ -77,7 +77,7 @@ public class Asn1PrimitiveBitStringTest {
 
     @Test
     public void testGetPreparator() {
-        Asn1PrimitiveBitStringPreparator preparator =
+        Asn1PrimitiveBitStringPreparator<EmptyChooser> preparator =
                 asn1BitString.getPreparator(new EmptyChooser());
         assertNotNull(preparator);
         assertTrue(preparator instanceof Asn1PrimitiveBitStringPreparator);
@@ -85,14 +85,16 @@ public class Asn1PrimitiveBitStringTest {
 
     @Test
     public void testGetParser() {
-        Asn1PrimitiveBitStringParser parser = asn1BitString.getParser(new EmptyChooser());
+        Asn1PrimitiveBitStringParser<EmptyChooser> parser =
+                asn1BitString.getParser(new EmptyChooser());
         assertNotNull(parser);
         assertTrue(parser instanceof Asn1PrimitiveBitStringParser);
     }
 
     @Test
     public void testGetHandler() {
-        EmptyHandler handler = (EmptyHandler) asn1BitString.getHandler(new EmptyChooser());
+        EmptyHandler<EmptyChooser> handler =
+                (EmptyHandler<EmptyChooser>) asn1BitString.getHandler(new EmptyChooser());
         assertNotNull(handler);
         assertTrue(handler instanceof EmptyHandler);
     }

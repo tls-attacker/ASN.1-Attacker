@@ -19,30 +19,31 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1NullTest {
 
-    private Asn1Null asn1Null;
+    private Asn1Null<EmptyChooser> asn1Null;
 
     @BeforeEach
     public void setUp() {
-        asn1Null = new Asn1Null("test");
+        asn1Null = new Asn1Null<EmptyChooser>("test");
     }
 
     @Test
     public void testGetPreparator() {
-        Asn1NullPreparator preparator = asn1Null.getPreparator(new EmptyChooser());
+        Asn1NullPreparator<EmptyChooser> preparator = asn1Null.getPreparator(new EmptyChooser());
         assertNotNull(preparator);
         assertTrue(preparator instanceof Asn1NullPreparator);
     }
 
     @Test
     public void testGetParser() {
-        Asn1NullParser parser = asn1Null.getParser(new EmptyChooser());
+        Asn1NullParser<EmptyChooser> parser = asn1Null.getParser(new EmptyChooser());
         assertNotNull(parser);
         assertTrue(parser instanceof Asn1NullParser);
     }
 
     @Test
     public void testGetHandler() {
-        EmptyHandler handler = (EmptyHandler) asn1Null.getHandler(new EmptyChooser());
+        EmptyHandler<EmptyChooser> handler =
+                (EmptyHandler<EmptyChooser>) asn1Null.getHandler(new EmptyChooser());
         assertNotNull(handler);
         assertTrue(handler instanceof EmptyHandler);
     }

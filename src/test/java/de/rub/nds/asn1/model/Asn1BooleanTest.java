@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1BooleanTest {
 
-    private Asn1Boolean asn1Boolean;
+    private Asn1Boolean<EmptyChooser> asn1Boolean;
 
     @BeforeEach
     public void setUp() {
-        asn1Boolean = new Asn1Boolean("test");
+        asn1Boolean = new Asn1Boolean<>("test");
     }
 
     @Test
@@ -45,7 +45,8 @@ public class Asn1BooleanTest {
 
     @Test
     public void testGetPreparator() {
-        Asn1BooleanPreparator preparator = asn1Boolean.getPreparator(new EmptyChooser());
+        Asn1BooleanPreparator<EmptyChooser> preparator =
+                asn1Boolean.getPreparator(new EmptyChooser());
         assertNotNull(preparator);
         assertTrue(preparator instanceof Asn1BooleanPreparator);
     }
@@ -53,7 +54,7 @@ public class Asn1BooleanTest {
     /** Test of getParser method, of class Asn1Boolean. */
     @Test
     public void testGetParser() {
-        Asn1BooleanParser parser = asn1Boolean.getParser(new EmptyChooser());
+        Asn1BooleanParser<EmptyChooser> parser = asn1Boolean.getParser(new EmptyChooser());
         assertNotNull(parser);
         assertTrue(parser instanceof Asn1BooleanParser);
     }
@@ -61,7 +62,8 @@ public class Asn1BooleanTest {
     /** Test of getHandler method, of class Asn1Boolean. */
     @Test
     public void testGetHandler() {
-        EmptyHandler handler = (EmptyHandler) asn1Boolean.getHandler(new EmptyChooser());
+        EmptyHandler<EmptyChooser> handler =
+                (EmptyHandler<EmptyChooser>) asn1Boolean.getHandler(new EmptyChooser());
         assertNotNull(handler);
         assertTrue(handler instanceof EmptyHandler);
     }

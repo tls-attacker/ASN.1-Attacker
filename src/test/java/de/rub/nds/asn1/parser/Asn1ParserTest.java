@@ -12,10 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.context.EmptyChooser;
-import de.rub.nds.asn1.model.Asn1Encodable;
-import de.rub.nds.asn1.model.Asn1Field;
+import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -23,20 +21,19 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.Mock;
 
 public class Asn1ParserTest {
 
-    private Asn1Parser parser;
+    private Asn1Parser<EmptyChooser, Asn1Integer<EmptyChooser>> parser;
 
-    private Asn1Field field;
+    @Mock private Asn1Integer<EmptyChooser> field;
 
-    private AbstractChooser chooser;
+    private EmptyChooser chooser;
 
     @BeforeEach
     public void setUp() {
         chooser = new EmptyChooser();
-        field = Mockito.mock(Asn1Field.class);
         parser = new Asn1ParserImpl(chooser, field);
     }
 
@@ -268,10 +265,9 @@ public class Asn1ParserTest {
                 ArrayConverter.hexStringToByteArray("01010101010101010101"), parseContentOctets);
     }
 
-    private class Asn1ParserImpl<Chooser extends AbstractChooser>
-            extends Asn1Parser<Chooser, Asn1Encodable<Chooser>> {
+    private class Asn1ParserImpl extends Asn1Parser<EmptyChooser, Asn1Integer<EmptyChooser>> {
 
-        public Asn1ParserImpl(Chooser chooser, Asn1Field<Chooser> field) {
+        public Asn1ParserImpl(EmptyChooser chooser, Asn1Integer<EmptyChooser> field) {
             super(chooser, field);
         }
 

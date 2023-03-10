@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.asn1.preparator.Preparator;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1FieldTest {
 
-    private Asn1Field field;
+    private Asn1Field<EmptyChooser> field;
 
     @BeforeEach
     public void setUp() {
@@ -215,7 +215,7 @@ public class Asn1FieldTest {
         assertTrue(field.getSerializer() instanceof Asn1FieldSerializer);
     }
 
-    public class Asn1FieldImpl extends Asn1Field {
+    public class Asn1FieldImpl extends Asn1Field<EmptyChooser> {
 
         public Asn1FieldImpl(
                 String identifier,
@@ -226,19 +226,19 @@ public class Asn1FieldTest {
         }
 
         @Override
-        public Preparator getPreparator(AbstractChooser chooser) {
+        public Preparator getPreparator(EmptyChooser chooser) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from
             // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
 
         @Override
-        public Handler getHandler(AbstractChooser chooser) {
+        public Handler<EmptyChooser> getHandler(EmptyChooser chooser) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from
             // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
 
         @Override
-        public Asn1Parser getParser(AbstractChooser chooser) {
+        public Asn1Parser<EmptyChooser, Asn1FieldImpl> getParser(EmptyChooser chooser) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from
             // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }

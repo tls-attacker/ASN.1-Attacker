@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1ObjectIdentifierTest {
 
-    private Asn1ObjectIdentifier asn1ObjectIdentifier;
+    private Asn1ObjectIdentifier<EmptyChooser> asn1ObjectIdentifier;
 
     @BeforeEach
     public void setUp() {
-        asn1ObjectIdentifier = new Asn1ObjectIdentifier("test");
+        asn1ObjectIdentifier = new Asn1ObjectIdentifier<EmptyChooser>("test");
     }
 
     @Test
@@ -45,7 +45,7 @@ public class Asn1ObjectIdentifierTest {
 
     @Test
     public void testGetPreparator() {
-        Asn1ObjectIdentifierPreparator preparator =
+        Asn1ObjectIdentifierPreparator<EmptyChooser> preparator =
                 asn1ObjectIdentifier.getPreparator(new EmptyChooser());
         assertNotNull(preparator);
         assertTrue(preparator instanceof Asn1ObjectIdentifierPreparator);
@@ -53,14 +53,16 @@ public class Asn1ObjectIdentifierTest {
 
     @Test
     public void testGetParser() {
-        Asn1ObjectIdentifierParser parser = asn1ObjectIdentifier.getParser(new EmptyChooser());
+        Asn1ObjectIdentifierParser<EmptyChooser> parser =
+                asn1ObjectIdentifier.getParser(new EmptyChooser());
         assertNotNull(parser);
         assertTrue(parser instanceof Asn1ObjectIdentifierParser);
     }
 
     @Test
     public void testGetHandler() {
-        EmptyHandler handler = (EmptyHandler) asn1ObjectIdentifier.getHandler(new EmptyChooser());
+        EmptyHandler<EmptyChooser> handler =
+                (EmptyHandler<EmptyChooser>) asn1ObjectIdentifier.getHandler(new EmptyChooser());
         assertNotNull(handler);
         assertTrue(handler instanceof EmptyHandler);
     }

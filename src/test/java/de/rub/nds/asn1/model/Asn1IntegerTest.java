@@ -21,11 +21,11 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1IntegerTest {
 
-    private Asn1Integer asn1Integer;
+    private Asn1Integer<EmptyChooser> asn1Integer;
 
     @BeforeEach
     public void setUp() {
-        asn1Integer = new Asn1Integer("test");
+        asn1Integer = new Asn1Integer<EmptyChooser>("test");
     }
 
     @Test
@@ -46,21 +46,23 @@ public class Asn1IntegerTest {
 
     @Test
     public void testGetPreparator() {
-        Asn1IntegerPreparator preparator = asn1Integer.getPreparator(new EmptyChooser());
+        Asn1IntegerPreparator<EmptyChooser> preparator =
+                asn1Integer.getPreparator(new EmptyChooser());
         assertNotNull(preparator);
         assertTrue(preparator instanceof Asn1IntegerPreparator);
     }
 
     @Test
     public void testGetParser() {
-        Asn1IntegerParser parser = asn1Integer.getParser(new EmptyChooser());
+        Asn1IntegerParser<EmptyChooser> parser = asn1Integer.getParser(new EmptyChooser());
         assertNotNull(parser);
         assertTrue(parser instanceof Asn1IntegerParser);
     }
 
     @Test
     public void testGetHandler() {
-        EmptyHandler handler = (EmptyHandler) asn1Integer.getHandler(new EmptyChooser());
+        EmptyHandler<EmptyChooser> handler =
+                (EmptyHandler<EmptyChooser>) asn1Integer.getHandler(new EmptyChooser());
         assertNotNull(handler);
         assertTrue(handler instanceof EmptyHandler);
     }

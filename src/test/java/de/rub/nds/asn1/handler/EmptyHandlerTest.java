@@ -16,7 +16,7 @@ public class EmptyHandlerTest {
     /** Test of adjustContext method, of class EmptyHandler. */
     @Test
     public void testAdjustContext() {
-        EmptyHandler instance = new EmptyHandler(new EmptyChooser());
+        EmptyHandler<EmptyChooser> instance = new EmptyHandler<>(new EmptyChooser());
         instance.adjustContext();
         // This should do nothing
     }

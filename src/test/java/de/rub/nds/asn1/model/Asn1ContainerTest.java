@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1Parser;
@@ -21,14 +20,14 @@ import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
 import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.util.Modifiable;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class Asn1ContainerTest {
 
-    private Asn1Container instance;
+    private Asn1Container<EmptyChooser> instance;
 
     @BeforeEach
     public void setUp() {
@@ -49,27 +48,31 @@ public class Asn1ContainerTest {
     @Test
     public void testGetAddChildren() {
         assertTrue(instance.getChildren().isEmpty());
-        instance.addChild(new Asn1Boolean("test"));
+        instance.addChild(new Asn1Boolean<EmptyChooser>("test"));
         assertTrue(instance.getChildren().size() == 1);
-        assertEquals("test", ((Asn1Boolean) (instance.getChildren().toArray()[0])).getIdentifier());
+        assertEquals(
+                "test",
+                ((Asn1Boolean<EmptyChooser>) (instance.getChildren().get(0))).getIdentifier());
     }
 
     @Test
     public void testSetChildren() {
-        Collection children = new LinkedList();
-        children.add(new Asn1Boolean<>("test1"));
-        children.add(new Asn1Boolean<>("test2"));
+        List<Asn1Encodable<EmptyChooser>> children = new LinkedList<>();
+        children.add(new Asn1Boolean<EmptyChooser>("test1"));
+        children.add(new Asn1Boolean<EmptyChooser>("test2"));
         instance.setChildren(children);
         assertTrue(instance.getChildren().size() == 2);
         assertEquals(
-                "test1", ((Asn1Boolean) (instance.getChildren().toArray()[0])).getIdentifier());
+                "test1",
+                ((Asn1Boolean<EmptyChooser>) (instance.getChildren().get(0))).getIdentifier());
         assertEquals(
-                "test2", ((Asn1Boolean) (instance.getChildren().toArray()[1])).getIdentifier());
+                "test2",
+                ((Asn1Boolean<EmptyChooser>) (instance.getChildren().get(1))).getIdentifier());
     }
 
     @Test
     public void testClearChildren() {
-        Collection children = new LinkedList();
+        List<Asn1Encodable<EmptyChooser>> children = new LinkedList<>();
         children.add(new Asn1Boolean<>("test1"));
         children.add(new Asn1Boolean<>("test2"));
         instance.setChildren(children);
@@ -84,20 +87,20 @@ public class Asn1ContainerTest {
         assertTrue(preparator instanceof GenericAsn1ContainerPreparator);
     }
 
-    public class Asn1ContainerImpl extends Asn1Container {
+    public class Asn1ContainerImpl extends Asn1Container<EmptyChooser> {
 
         public Asn1ContainerImpl() {
             super("", TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SEQUENCE);
         }
 
         @Override
-        public Handler getHandler(AbstractChooser chooser) {
+        public Handler<EmptyChooser> getHandler(EmptyChooser chooser) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from
             // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
 
         @Override
-        public Asn1Parser getParser(AbstractChooser chooser) {
+        public Asn1Parser<EmptyChooser, Asn1ContainerImpl> getParser(EmptyChooser chooser) {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from
             // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }

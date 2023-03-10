@@ -19,11 +19,11 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1ExplicitTest {
 
-    private Asn1Explicit instance;
+    private Asn1Explicit<EmptyChooser> instance;
 
     @BeforeEach
     public void setUp() {
-        instance = new Asn1Explicit("outter", new Asn1Boolean<>("inner"));
+        instance = new Asn1Explicit<EmptyChooser>("outter", new Asn1Boolean<>("inner"));
     }
 
     @Test

@@ -24,11 +24,12 @@ public class Asn1PrimitiveBitStringParserTest {
     /** Test of parseIndividualContentFields method, of class Asn1PrimitiveBitStringParser. */
     @Test
     public void testParseIndividualContentFields() throws Exception {
-        Asn1PrimitiveBitString asn1PrimitiveBitString = new Asn1PrimitiveBitString("test");
+        Asn1PrimitiveBitString<EmptyChooser> asn1PrimitiveBitString =
+                new Asn1PrimitiveBitString<>("test");
         InputStream byteArrayInputStream =
                 new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("0304066E5DC0"));
-        Asn1PrimitiveBitStringParser instance =
-                new Asn1PrimitiveBitStringParser(new EmptyChooser(), asn1PrimitiveBitString);
+        Asn1PrimitiveBitStringParser<EmptyChooser> instance =
+                new Asn1PrimitiveBitStringParser<>(new EmptyChooser(), asn1PrimitiveBitString);
         instance.parse(byteArrayInputStream);
         Assertions.assertEquals(TagNumber.BIT_STRING, asn1PrimitiveBitString.getTagNumberType());
         Assertions.assertEquals(TagClass.UNIVERSAL, asn1PrimitiveBitString.getTagClassType());

@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1ChoiceParser;
@@ -24,8 +23,8 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1ChoiceTest {
 
-    private AbstractChooser chooser;
-    private Asn1Choice choice;
+    private EmptyChooser chooser;
+    private Asn1Choice<EmptyChooser> choice;
 
     @BeforeEach
     public void setUp() {
@@ -33,8 +32,8 @@ public class Asn1ChoiceTest {
         choice =
                 new Asn1ChoiceImpl(
                         "test",
-                        new Asn1Integer("integer"),
-                        new Asn1PrimitiveBitString("bitstring"));
+                        new Asn1Integer<EmptyChooser>("integer"),
+                        new Asn1PrimitiveBitString<EmptyChooser>("bitstring"));
     }
 
     @Test
@@ -61,8 +60,8 @@ public class Asn1ChoiceTest {
         choice =
                 new Asn1ChoiceImpl(
                         "test",
-                        new Asn1Integer("integer"),
-                        new Asn1PrimitiveBitString("bitstring"));
+                        new Asn1Integer<EmptyChooser>("integer"),
+                        new Asn1PrimitiveBitString<EmptyChooser>("bitstring"));
         tagOctets = ArrayConverter.hexStringToByteArray("032A00");
         choice.makeSelection(chooser, tagOctets);
         assertTrue(choice.getSelectedChoice() instanceof Asn1PrimitiveBitString);
@@ -71,8 +70,8 @@ public class Asn1ChoiceTest {
         choice =
                 new Asn1ChoiceImpl(
                         "test",
-                        new Asn1Integer("integer"),
-                        new Asn1PrimitiveBitString("bitstring"));
+                        new Asn1Integer<EmptyChooser>("integer"),
+                        new Asn1PrimitiveBitString<EmptyChooser>("bitstring"));
         tagOctets = ArrayConverter.hexStringToByteArray("302C");
         choice.makeSelection(chooser, tagOctets);
         assertNull(choice.getSelectedChoice());
@@ -89,7 +88,7 @@ public class Asn1ChoiceTest {
     @Test
     public void testSetSelectedChoice() {
         assertNull(choice.getSelectedChoice());
-        choice.setSelectedChoice(new Asn1Boolean("test"));
+        choice.setSelectedChoice(new Asn1Boolean<EmptyChooser>("test"));
         assertTrue(choice.getSelectedChoice() instanceof Asn1Boolean);
     }
 
@@ -109,7 +108,7 @@ public class Asn1ChoiceTest {
 
     @Test
     public void testGetSerializer() {
-        choice.setSelectedChoice(new Asn1Boolean("bool"));
+        choice.setSelectedChoice(new Asn1Boolean<EmptyChooser>("bool"));
         assertTrue(choice.getSerializer() instanceof Asn1FieldSerializer);
     }
 
@@ -124,7 +123,7 @@ public class Asn1ChoiceTest {
 
     @Test
     public void testGetPreparator() {
-        choice.setSelectedChoice(new Asn1Boolean("bool"));
+        choice.setSelectedChoice(new Asn1Boolean<EmptyChooser>("bool"));
         assertTrue(choice.getPreparator(chooser) instanceof Asn1BooleanPreparator);
     }
 
@@ -164,14 +163,14 @@ public class Asn1ChoiceTest {
                         TagClass.UNIVERSAL.getIntValue()));
     }
 
-    public class Asn1ChoiceImpl extends Asn1Choice {
+    public class Asn1ChoiceImpl extends Asn1Choice<EmptyChooser> {
 
-        public Asn1ChoiceImpl(String identifier, Asn1Field... asn1fields) {
+        public Asn1ChoiceImpl(String identifier, Asn1Field<EmptyChooser>... asn1fields) {
             super(identifier, asn1fields);
         }
 
         @Override
-        public Handler getHandler(AbstractChooser chooser) {
+        public Handler<EmptyChooser> getHandler(EmptyChooser chooser) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
     }

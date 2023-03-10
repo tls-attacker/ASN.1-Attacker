@@ -14,30 +14,26 @@ import static org.mockito.Mockito.when;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.model.Asn1Boolean;
-import de.rub.nds.asn1.model.Asn1Encodable;
-import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.parser.Asn1BooleanParser;
-import de.rub.nds.asn1.parser.Asn1Parser;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.io.IOException;
-import java.io.InputStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class SelectableChoiceTest {
 
-    private Asn1Boolean field;
-    private SelectableChoice choice;
-    private AbstractChooser chooser;
+    @Mock private Asn1Boolean<EmptyChooser> field;
+    private SelectableChoice<EmptyChooser> choice;
+    private EmptyChooser chooser;
 
     @BeforeEach
     public void setUp() {
-        field = Mockito.mock(Asn1Boolean.class);
-        choice = new SelectableChoice(field);
+        choice = new SelectableChoice<EmptyChooser>(field);
         chooser = new EmptyChooser();
     }
 
@@ -47,7 +43,8 @@ public class SelectableChoiceTest {
         when(field.getTagClassType()).thenReturn(TagClass.APPLICATION);
         when(field.getTagConstructedType()).thenReturn(TagConstructed.CONSTRUCTED);
         when(field.getTagNumberType()).thenReturn(TagNumber.BIT_STRING);
-        when(field.getParser(chooser)).thenReturn(new Asn1BooleanParser(chooser, field));
+        when(field.getParser(chooser))
+                .thenReturn(new Asn1BooleanParser<EmptyChooser>(chooser, field));
         assertFalse(
                 choice.isSelectable(
                         chooser, ArrayConverter.hexStringToByteArray("23"))); // same but universal
@@ -66,31 +63,5 @@ public class SelectableChoiceTest {
     @Test
     public void testGetField() {
         assertEquals(field, choice.getField());
-    }
-
-    private class Asn1ParserImpl<Chooser extends AbstractChooser>
-            extends Asn1Parser<Chooser, Asn1Encodable<Chooser>> {
-
-        public Asn1ParserImpl(Chooser chooser, Asn1Field<Chooser> field) {
-            super(chooser, field);
-        }
-
-        @Override
-        public void parse(InputStream inputStream) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        @Override
-        public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        @Override
-        public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
     }
 }

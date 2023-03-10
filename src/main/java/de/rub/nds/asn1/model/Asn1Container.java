@@ -23,8 +23,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -64,7 +64,7 @@ public abstract class Asn1Container<Chooser extends AbstractChooser> extends Asn
                 @XmlElement(type = Asn1UnknownField.class, name = "Asn1UnknownField")
             })
     @HoldsModifiableVariable
-    private Collection<Asn1Encodable<Chooser>> children;
+    private List<Asn1Encodable<Chooser>> children;
 
     public Asn1Container(
             String identifier,
@@ -97,11 +97,11 @@ public abstract class Asn1Container<Chooser extends AbstractChooser> extends Asn
         this.children.add(child);
     }
 
-    public Collection<Asn1Encodable<Chooser>> getChildren() {
+    public List<Asn1Encodable<Chooser>> getChildren() {
         return children;
     }
 
-    public void setChildren(Collection<Asn1Encodable<Chooser>> children) {
+    public void setChildren(List<Asn1Encodable<Chooser>> children) {
         this.children = children;
     }
 
