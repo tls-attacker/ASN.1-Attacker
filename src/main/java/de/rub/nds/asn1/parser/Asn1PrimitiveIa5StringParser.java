@@ -17,7 +17,7 @@ public class Asn1PrimitiveIa5StringParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitiveIa5String<Chooser>> {
 
     public Asn1PrimitiveIa5StringParser(
-            Chooser chooser, Asn1PrimitiveIa5String asn1PrimitiveIa5String) {
+            Chooser chooser, Asn1PrimitiveIa5String<Chooser> asn1PrimitiveIa5String) {
         super(chooser, asn1PrimitiveIa5String);
     }
 

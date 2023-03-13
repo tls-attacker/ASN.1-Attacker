@@ -17,7 +17,7 @@ public class Asn1PrimitivePrintableStringParser<Chooser extends AbstractChooser>
         extends Asn1FieldParser<Chooser, Asn1PrimitivePrintableString<Chooser>> {
 
     public Asn1PrimitivePrintableStringParser(
-            Chooser chooser, Asn1PrimitivePrintableString asn1PrimitivePrintableString) {
+            Chooser chooser, Asn1PrimitivePrintableString<Chooser> asn1PrimitivePrintableString) {
         super(chooser, asn1PrimitivePrintableString);
     }
 
