@@ -16,13 +16,9 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @XmlType(name = "ModVarHolder")
 public abstract class ModifiableVariableHolder implements Serializable {
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Lists all the modifiable variables declared in the class
