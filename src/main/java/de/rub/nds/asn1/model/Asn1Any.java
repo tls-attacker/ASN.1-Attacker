@@ -39,6 +39,7 @@ public class Asn1Any<Chooser extends AbstractChooser> implements Asn1Encodable<C
     private boolean optional;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Any() {}
 
     public Asn1Any(String identifier) {

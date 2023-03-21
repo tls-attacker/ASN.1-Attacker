@@ -31,6 +31,7 @@ public class ObjectIdentifier {
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private final byte[] encoded;
 
+    @SuppressWarnings("unused")
     private ObjectIdentifier() {
         encoded = null;
     }

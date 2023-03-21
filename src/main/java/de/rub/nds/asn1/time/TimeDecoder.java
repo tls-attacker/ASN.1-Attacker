@@ -41,11 +41,12 @@ public class TimeDecoder {
                 // Ignore
             }
         }
-        throw new ParserException("Cannot parse time"  + generalizedTimeString);
+        throw new ParserException("Cannot parse time" + generalizedTimeString);
     }
 
     public static DateTime decodeUtc(String utcTimeString) {
-        String[] formats = new String[] {"yyMMddHHmm", "yyMMddHHmmss"};
+        String[] formats =
+                new String[] {"yyMMddHHmm", "yyMMddHHmmss", "yyMMddHHmm'Z'", "yyMMddHHmmss'Z'"};
         for (String format : formats) {
             try {
 
