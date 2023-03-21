@@ -41,7 +41,7 @@ public class TimeDecoder {
                 // Ignore
             }
         }
-        throw new ParserException("Cannot parse time");
+        throw new ParserException("Cannot parse time"  + generalizedTimeString);
     }
 
     public static DateTime decodeUtc(String utcTimeString) {
@@ -56,6 +56,6 @@ public class TimeDecoder {
                 // Ignore
             }
         }
-        throw new ParserException("Cannot parse time");
+        throw new ParserException("Cannot parse time: " + utcTimeString);
     }
 }
