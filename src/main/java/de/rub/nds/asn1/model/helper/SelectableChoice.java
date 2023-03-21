@@ -25,6 +25,7 @@ public final class SelectableChoice<Chooser extends AbstractChooser> {
     private final Asn1Field<Chooser> field;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private SelectableChoice() {
         field = null;
     }

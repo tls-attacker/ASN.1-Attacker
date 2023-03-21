@@ -44,6 +44,7 @@ public abstract class Asn1Choice<Chooser extends AbstractChooser>
     private String identifier;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Choice() {
         choiceList = null;
     }

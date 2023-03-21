@@ -76,6 +76,7 @@ public abstract class Asn1Field<Chooser extends AbstractChooser> implements Asn1
     }
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Field() {}
 
     @Override
