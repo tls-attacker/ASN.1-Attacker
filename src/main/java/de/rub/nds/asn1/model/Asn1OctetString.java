@@ -11,11 +11,6 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
-import de.rub.nds.asn1.parser.Asn1PrimitiveOctetStringParser;
-import de.rub.nds.asn1.preparator.Asn1PrimitiveOctetStringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -25,17 +20,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveOctetString<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
+public class Asn1OctetString extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "value")
     private ModifiableByteArray value;
 
     /** Private no-arg constructor to please JAXB */
-    private Asn1PrimitiveOctetString() {
+    private Asn1OctetString() {
         super(null);
     }
 
-    public Asn1PrimitiveOctetString(String identifier) {
+    public Asn1OctetString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
     }
 
@@ -49,20 +44,5 @@ public class Asn1PrimitiveOctetString<Chooser extends AbstractChooser> extends A
 
     public void setValue(byte[] value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
-    }
-
-    @Override
-    public Asn1PrimitiveOctetStringPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveOctetStringPreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1PrimitiveOctetStringParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1PrimitiveOctetStringParser<>(chooser, this);
-    }
-
-    @Override
-    public Handler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

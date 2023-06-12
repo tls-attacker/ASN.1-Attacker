@@ -33,7 +33,6 @@ public class TimeDecoder {
                 };
         for (String format : formats) {
             try {
-
                 DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
                 DateTime dateTime = formatter.parseDateTime(generalizedTimeString);
                 return dateTime;
@@ -49,7 +48,6 @@ public class TimeDecoder {
                 new String[] {"yyMMddHHmm", "yyMMddHHmmss", "yyMMddHHmm'Z'", "yyMMddHHmmss'Z'"};
         for (String format : formats) {
             try {
-
                 DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
                 DateTime dateTime = formatter.parseDateTime(utcTimeString);
                 return dateTime;

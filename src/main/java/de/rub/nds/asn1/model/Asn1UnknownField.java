@@ -8,13 +8,7 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
-import de.rub.nds.asn1.parser.Asn1UnknownParser;
-import de.rub.nds.asn1.preparator.Asn1UnknownPreparator;
-
-public class Asn1UnknownField<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
+public class Asn1UnknownField extends Asn1Field implements PrimitiveAsn1Field {
 
     private byte[] contentConfig;
 
@@ -33,20 +27,5 @@ public class Asn1UnknownField<Chooser extends AbstractChooser> extends Asn1Field
 
     public void setContentConfig(byte[] contentConfig) {
         this.contentConfig = contentConfig;
-    }
-
-    @Override
-    public Asn1UnknownPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1UnknownPreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1UnknownParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1UnknownParser<>(chooser, this);
-    }
-
-    @Override
-    public Handler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

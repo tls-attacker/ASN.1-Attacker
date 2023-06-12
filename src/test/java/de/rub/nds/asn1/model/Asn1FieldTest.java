@@ -8,16 +8,15 @@
  */
 package de.rub.nds.asn1.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.EmptyChooser;
-import de.rub.nds.asn1.handler.Handler;
-import de.rub.nds.asn1.parser.Asn1Parser;
-import de.rub.nds.asn1.preparator.Preparator;
-import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -29,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1FieldTest {
 
-    private Asn1Field<EmptyChooser> field;
+    private Asn1Field field;
 
     @BeforeEach
     public void setUp() {
@@ -210,12 +209,7 @@ public class Asn1FieldTest {
         assertNull(field.getIdentifier());
     }
 
-    @Test
-    public void testGetSerializer() {
-        assertTrue(field.getSerializer() instanceof Asn1FieldSerializer);
-    }
-
-    public class Asn1FieldImpl extends Asn1Field<EmptyChooser> {
+    public class Asn1FieldImpl extends Asn1Field {
 
         public Asn1FieldImpl(
                 String identifier,
@@ -223,24 +217,6 @@ public class Asn1FieldTest {
                 TagConstructed tagConstructedType,
                 TagNumber tagNummerType) {
             super(identifier, tagClassType, tagConstructedType, tagNummerType);
-        }
-
-        @Override
-        public Preparator getPreparator(EmptyChooser chooser) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        @Override
-        public Handler<EmptyChooser> getHandler(EmptyChooser chooser) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        @Override
-        public Asn1Parser<EmptyChooser, Asn1FieldImpl> getParser(EmptyChooser chooser) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
     }
 }

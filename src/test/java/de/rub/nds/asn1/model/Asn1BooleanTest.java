@@ -8,23 +8,20 @@
  */
 package de.rub.nds.asn1.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import de.rub.nds.asn1.context.EmptyChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1BooleanParser;
-import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class Asn1BooleanTest {
 
-    private Asn1Boolean<EmptyChooser> asn1Boolean;
+    private Asn1Boolean asn1Boolean;
 
     @BeforeEach
     public void setUp() {
-        asn1Boolean = new Asn1Boolean<>("test");
+        asn1Boolean = new Asn1Boolean("test");
     }
 
     @Test
@@ -41,30 +38,5 @@ public class Asn1BooleanTest {
         assertTrue(asn1Boolean.getValue().getValue());
         asn1Boolean.setValue(new ModifiableBoolean(false));
         assertFalse(asn1Boolean.getValue().getValue());
-    }
-
-    @Test
-    public void testGetPreparator() {
-        Asn1BooleanPreparator<EmptyChooser> preparator =
-                asn1Boolean.getPreparator(new EmptyChooser());
-        assertNotNull(preparator);
-        assertTrue(preparator instanceof Asn1BooleanPreparator);
-    }
-
-    /** Test of getParser method, of class Asn1Boolean. */
-    @Test
-    public void testGetParser() {
-        Asn1BooleanParser<EmptyChooser> parser = asn1Boolean.getParser(new EmptyChooser());
-        assertNotNull(parser);
-        assertTrue(parser instanceof Asn1BooleanParser);
-    }
-
-    /** Test of getHandler method, of class Asn1Boolean. */
-    @Test
-    public void testGetHandler() {
-        EmptyHandler<EmptyChooser> handler =
-                (EmptyHandler<EmptyChooser>) asn1Boolean.getHandler(new EmptyChooser());
-        assertNotNull(handler);
-        assertTrue(handler instanceof EmptyHandler);
     }
 }

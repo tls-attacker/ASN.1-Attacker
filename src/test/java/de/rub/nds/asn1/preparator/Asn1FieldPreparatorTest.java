@@ -10,7 +10,6 @@ package de.rub.nds.asn1.preparator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import de.rub.nds.asn1.context.EmptyChooser;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.junit.jupiter.api.AfterEach;
@@ -46,25 +45,30 @@ public class Asn1FieldPreparatorTest {
     }
 
     public void testSize(int size, String expectedResult) {
-        Asn1FieldPreparatorImpl instance = new Asn1FieldPreparatorImpl(new EmptyChooser(), size);
+        Asn1FieldPreparatorImpl instance = new Asn1FieldPreparatorImpl(size);
         instance.prepare();
         assertArrayEquals(
                 ArrayConverter.hexStringToByteArray(expectedResult),
-                instance.field.getSerializer().serialize(),
+                ArrayConverter.concatenate(
+                        instance.field.getTagOctets().getValue(),
+                        instance.field.getLengthOctets().getValue(),
+                        instance.field.getContent().getValue()),
                 "Expected: "
                         + expectedResult
                         + " Found: "
                         + ArrayConverter.bytesToHexString(
-                                instance.field.getSerializer().serialize()));
+                                ArrayConverter.concatenate(
+                                        instance.field.getTagOctets().getValue(),
+                                        instance.field.getLengthOctets().getValue(),
+                                        instance.field.getContent().getValue())));
     }
 
-    public class Asn1FieldPreparatorImpl
-            extends Asn1FieldPreparator<EmptyChooser, Asn1Integer<EmptyChooser>> {
+    public class Asn1FieldPreparatorImpl extends Asn1FieldPreparator<Asn1Integer> {
 
         private final int size;
 
-        public Asn1FieldPreparatorImpl(EmptyChooser chooser, int size) {
-            super(chooser, new Asn1Integer<>("testInteger"));
+        public Asn1FieldPreparatorImpl(int size) {
+            super(new Asn1Integer("testInteger"));
             this.size = size;
         }
 

@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+// TODO move this class to mod var
 
 @XmlType(name = "ModVarHolder")
 public abstract class ModifiableVariableHolder implements Serializable {

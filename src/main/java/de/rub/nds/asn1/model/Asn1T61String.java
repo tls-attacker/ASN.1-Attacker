@@ -11,11 +11,6 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
-import de.rub.nds.asn1.parser.Asn1PrimitiveUtf8StringParser;
-import de.rub.nds.asn1.preparator.Asn1PrimitiveUtf8StringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -25,18 +20,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveUtf8String<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
+public class Asn1T61String extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "value")
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
-    private Asn1PrimitiveUtf8String() {
+    private Asn1T61String() {
         super(null);
     }
 
-    public Asn1PrimitiveUtf8String(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTF8STRING);
+    public Asn1T61String(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.T61STRING);
     }
 
     public ModifiableString getValue() {
@@ -49,20 +44,5 @@ public class Asn1PrimitiveUtf8String<Chooser extends AbstractChooser> extends As
 
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
-    }
-
-    @Override
-    public Asn1PrimitiveUtf8StringPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveUtf8StringPreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1PrimitiveUtf8StringParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1PrimitiveUtf8StringParser<>(chooser, this);
-    }
-
-    @Override
-    public Handler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

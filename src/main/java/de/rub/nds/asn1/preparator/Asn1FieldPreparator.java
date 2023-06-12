@@ -9,27 +9,28 @@
 package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.context.AbstractChooser;
+import de.rub.nds.asn1.constants.TimeAccurracy;
 import de.rub.nds.asn1.model.Asn1Field;
+import de.rub.nds.asn1.oid.ObjectIdentifier;
+import de.rub.nds.asn1.time.TimeEncoder;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
 
-public abstract class Asn1FieldPreparator<
-                Chooser extends AbstractChooser, Field extends Asn1Field<Chooser>>
-        extends Preparator {
+public abstract class Asn1FieldPreparator<Field extends Asn1Field> extends Preparator {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected final Field field;
-    protected final Chooser chooser;
 
-    public Asn1FieldPreparator(Chooser chooser, final Field field) {
+    public Asn1FieldPreparator(final Field field) {
         this.field = field;
-        this.chooser = chooser;
     }
 
     @Override
@@ -132,6 +133,94 @@ public abstract class Asn1FieldPreparator<
             throw new RuntimeException(ex);
         }
         return resultStream.toByteArray();
+    }
+
+    protected byte[] encodeBoolean(boolean value) {
+        if (value == true) {
+            return new byte[] {(byte) 0xFF};
+        } else {
+            return new byte[1];
+        }
+    }
+
+    protected byte[] encodeBoolean(BigInteger bigInt) {
+        int size = bigInt.toByteArray().length;
+        if (bigInt.testBit(size * 8)) {
+            return ArrayConverter.bigIntegerToByteArray(bigInt, size + 1, true);
+        } else {
+            return bigInt.toByteArray();
+        }
+    }
+
+    protected byte[] encodeNull() {
+        return new byte[0];
+    }
+
+    protected byte[] encodeObjectIdentifier(ObjectIdentifier oid) {
+        return oid.getEncoded();
+    }
+
+    protected byte[] encodePrimitiveBitString(byte[] usedBits, Byte unusedBits, Byte padding) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(new byte[] {unusedBits});
+            byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
+            encodedContent = shiftLeft(encodedContent, unusedBits);
+            encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
+            encodedContent[encodedContent.length - 1] |= padding;
+            outputStream.write(encodedContent);
+            return outputStream.toByteArray();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    protected byte[] encodeGeneralizedTime(DateTime date, TimeAccurracy accurracy) {
+        return TimeEncoder.encodeGeneralizedTimeLocalTime(date, accurracy).getBytes();
+    }
+
+    protected byte[] encodeFullUtcTime(DateTime date, TimeAccurracy accurracy) {
+        return TimeEncoder.encodeFullUtc(date, accurracy).getBytes();
+    }
+
+    protected byte[] encodeGeneralizedTimeUtc(DateTime date, TimeAccurracy accurracy) {
+        return TimeEncoder.encodeGeneralizedTimeUtc(date, accurracy).getBytes();
+    }
+
+    protected byte[] encodeIa5String(String tempString) {
+        return tempString.getBytes(StandardCharsets.US_ASCII);
+    }
+
+    /**
+     * Encodes a printable string. We also allow non-printable characters
+     *
+     * @param tempString the string to encode
+     * @return the encoded string
+     */
+    protected byte[] encodePrintableString(String tempString) {
+        return tempString.getBytes(StandardCharsets.US_ASCII);
+    }
+
+    protected byte[] encodeOctetString(byte[] bytes) {
+        return bytes;
+    }
+
+    protected byte[] encodeT61String(String tempString) {
+        /** TODO Not sure this is correct... */
+        return tempString.getBytes(StandardCharsets.UTF_8);
+    }
+
+    protected byte[] encodeUtf8String(String tempString) {
+        return tempString.getBytes(StandardCharsets.UTF_8);
+    }
+
+    private byte[] shiftLeft(byte[] input, int n) {
+        if (input.length == 0) {
+            return input;
+        }
+        BigInteger tempBigInt = new BigInteger(1, input);
+        tempBigInt = tempBigInt.shiftLeft(n);
+        return tempBigInt.toByteArray();
     }
 
     private byte[] encodeLongTagNumber(int tagNumber) {

@@ -8,13 +8,16 @@
  */
 package de.rub.nds.asn1.model;
 
-public interface Asn1Encodable {
+import de.rub.nds.asn1.parser.Asn1UnknownSetParser;
 
-    public String getIdentifier();
+public class Asn1UnknownSet extends Asn1Set {
 
-    public void setIdentifier(final String identifier);
+    public Asn1UnknownSet(String identifier) {
+        super(identifier);
+    }
 
-    public abstract boolean isOptional();
-
-    public abstract boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType);
+    @Override
+    public Asn1UnknownSetParser getParser() {
+        return new Asn1UnknownSetParser(this);
+    }
 }

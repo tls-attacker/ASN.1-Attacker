@@ -8,23 +8,20 @@
  */
 package de.rub.nds.asn1.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import de.rub.nds.asn1.context.EmptyChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1PrimitiveBitStringParser;
-import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
 import de.rub.nds.modifiablevariable.util.Modifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class Asn1PrimitiveBitStringTest {
 
-    private Asn1PrimitiveBitString<EmptyChooser> asn1BitString;
+    private Asn1BitString asn1BitString;
 
     @BeforeEach
     public void setUp() {
-        asn1BitString = new Asn1PrimitiveBitString<EmptyChooser>("test");
+        asn1BitString = new Asn1BitString("test");
     }
 
     @Test
@@ -73,29 +70,5 @@ public class Asn1PrimitiveBitStringTest {
         assertEquals((byte) 0x1F, asn1BitString.getPadding().getValue());
         asn1BitString.setPadding(Modifiable.explicit((byte) 0x1D));
         assertEquals((byte) 0x1D, asn1BitString.getPadding().getValue());
-    }
-
-    @Test
-    public void testGetPreparator() {
-        Asn1PrimitiveBitStringPreparator<EmptyChooser> preparator =
-                asn1BitString.getPreparator(new EmptyChooser());
-        assertNotNull(preparator);
-        assertTrue(preparator instanceof Asn1PrimitiveBitStringPreparator);
-    }
-
-    @Test
-    public void testGetParser() {
-        Asn1PrimitiveBitStringParser<EmptyChooser> parser =
-                asn1BitString.getParser(new EmptyChooser());
-        assertNotNull(parser);
-        assertTrue(parser instanceof Asn1PrimitiveBitStringParser);
-    }
-
-    @Test
-    public void testGetHandler() {
-        EmptyHandler<EmptyChooser> handler =
-                (EmptyHandler<EmptyChooser>) asn1BitString.getHandler(new EmptyChooser());
-        assertNotNull(handler);
-        assertTrue(handler instanceof EmptyHandler);
     }
 }

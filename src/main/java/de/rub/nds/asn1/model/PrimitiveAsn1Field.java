@@ -8,13 +8,10 @@
  */
 package de.rub.nds.asn1.model;
 
-public interface Asn1Encodable {
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-    public String getIdentifier();
-
-    public void setIdentifier(final String identifier);
-
-    public abstract boolean isOptional();
-
-    public abstract boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType);
-}
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public interface PrimitiveAsn1Field {}

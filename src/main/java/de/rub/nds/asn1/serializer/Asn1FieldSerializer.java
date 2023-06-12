@@ -18,9 +18,9 @@ public class Asn1FieldSerializer {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final Asn1Field<?> field;
+    private final Asn1Field field;
 
-    public Asn1FieldSerializer(final Asn1Field<?> field) {
+    public Asn1FieldSerializer(final Asn1Field field) {
         this.field = field;
     }
 

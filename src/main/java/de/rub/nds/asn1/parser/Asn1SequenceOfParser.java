@@ -8,35 +8,15 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Sequence;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1SequenceOfParser<Chooser extends AbstractChooser>
-        extends Asn1SequenceParser<Chooser> {
+public abstract class Asn1SequenceOfParser extends Asn1SequenceParser {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SequenceOfParser(Chooser chooser, Asn1Sequence<Chooser> asn1Sequence) {
-        super(chooser, asn1Sequence);
+    public Asn1SequenceOfParser(Asn1Sequence asn1Sequence) {
+        super(asn1Sequence);
     }
-
-    @Override
-    public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        List<Asn1Encodable<Chooser>> childrenList = new LinkedList<>();
-        do {
-            Asn1Encodable<Chooser> freshElement = createFreshElement();
-            freshElement.getParser(chooser).parse(inputStream);
-            childrenList.add(freshElement);
-        } while (inputStream.available() > 0);
-        encodable.setChildren(childrenList);
-    }
-
-    protected abstract Asn1Encodable<Chooser> createFreshElement();
 }

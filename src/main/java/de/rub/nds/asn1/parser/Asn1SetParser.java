@@ -8,38 +8,15 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Set;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1SetParser<Chooser extends AbstractChooser>
-        extends Asn1FieldParser<Chooser, Asn1Set<Chooser>> {
+public abstract class Asn1SetParser extends Asn1FieldParser<Asn1Set> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Asn1SetParser(Chooser chooser, Asn1Set<Chooser> asn1Set) {
-        super(chooser, asn1Set);
+    public Asn1SetParser(Asn1Set asn1Set) {
+        super(asn1Set);
     }
-
-    @Override
-    public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        List<Asn1Encodable<Chooser>> childrenList = new LinkedList<>();
-        do {
-            Asn1Encodable<Chooser> freshElement = createFreshElement();
-            freshElement.getParser(chooser).parse(inputStream);
-            // We need to update the context here
-            freshElement.getHandler(chooser).adjustContext();
-
-            childrenList.add(freshElement);
-        } while (inputStream.available() > 0);
-        encodable.setChildren(childrenList);
-    }
-
-    protected abstract Asn1Encodable<Chooser> createFreshElement();
 }

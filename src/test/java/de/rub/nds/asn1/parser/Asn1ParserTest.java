@@ -8,33 +8,34 @@
  */
 package de.rub.nds.asn1.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.context.EmptyChooser;
+import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.model.Asn1BitString;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 public class Asn1ParserTest {
 
-    private Asn1Parser<EmptyChooser, Asn1Integer<EmptyChooser>> parser;
+    private Asn1ParserImpl parser;
 
-    @Mock private Asn1Integer<EmptyChooser> field;
-
-    private EmptyChooser chooser;
+    @Mock private Asn1Integer field;
 
     @BeforeEach
     public void setUp() {
-        chooser = new EmptyChooser();
-        parser = new Asn1ParserImpl(chooser, field);
+        parser = new Asn1ParserImpl(field);
     }
 
     /** Test of parseTagOctets method, of class Asn1Parser. */
@@ -265,28 +266,45 @@ public class Asn1ParserTest {
                 ArrayConverter.hexStringToByteArray("01010101010101010101"), parseContentOctets);
     }
 
-    private class Asn1ParserImpl extends Asn1Parser<EmptyChooser, Asn1Integer<EmptyChooser>> {
+    @Test
+    public void testParseIndividualContentFields() throws Exception {
+        Asn1BitString asn1PrimitiveBitString = new Asn1BitString("test");
+        InputStream byteArrayInputStream =
+                new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("0304066E5DC0"));
+        parser.parseBitString(asn1PrimitiveBitString, byteArrayInputStream);
+        Assertions.assertEquals(TagNumber.BIT_STRING, asn1PrimitiveBitString.getTagNumberType());
+        Assertions.assertEquals(TagClass.UNIVERSAL, asn1PrimitiveBitString.getTagClassType());
+        Assertions.assertEquals(
+                TagConstructed.PRIMITIVE, asn1PrimitiveBitString.getTagConstructedType());
+        Assertions.assertArrayEquals(
+                ArrayConverter.hexStringToByteArray("03"),
+                asn1PrimitiveBitString.getTagOctets().getValue());
+        Assertions.assertArrayEquals(
+                ArrayConverter.hexStringToByteArray("04"),
+                asn1PrimitiveBitString.getLengthOctets().getValue());
+        Assertions.assertArrayEquals(
+                ArrayConverter.hexStringToByteArray("066E5DC0"),
+                asn1PrimitiveBitString.getContent().getValue());
+        Assertions.assertEquals((byte) 0x06, asn1PrimitiveBitString.getUnusedBits().getValue());
+        Assertions.assertArrayEquals(
+                ArrayConverter.hexStringToByteArray("01B977"),
+                asn1PrimitiveBitString.getUsedBits().getValue());
+        Assertions.assertEquals((byte) 0, asn1PrimitiveBitString.getPadding().getValue());
+    }
 
-        public Asn1ParserImpl(EmptyChooser chooser, Asn1Integer<EmptyChooser> field) {
-            super(chooser, field);
+    private class Asn1ParserImpl extends Asn1FieldParser<Asn1Integer> {
+
+        public Asn1ParserImpl(Asn1Integer field) {
+            super(field);
         }
 
         @Override
         public void parse(InputStream inputStream) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            throw new UnsupportedOperationException("Not supported yet.");
         }
 
-        @Override
-        public void parseWithoutTag(InputStream inputStream, byte[] tagOctets) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        @Override
-        public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        public void parseBitString(Asn1BitString bitString, InputStream inputStream) {
+            super.parseAsn1BitString(bitString, inputStream);
         }
     }
 }

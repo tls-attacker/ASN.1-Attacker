@@ -11,10 +11,6 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1PrimitiveBitStringParser;
-import de.rub.nds.asn1.preparator.Asn1PrimitiveBitStringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
@@ -26,7 +22,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 /** Unused bits | Used bits | padding */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
+public class Asn1BitString extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "unusedBits")
     private ModifiableByte unusedBits;
@@ -38,11 +34,11 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
     private ModifiableByte padding;
 
     /** Private no-arg constructor to please JAXB */
-    private Asn1PrimitiveBitString() {
+    private Asn1BitString() {
         super(null);
     }
 
-    public Asn1PrimitiveBitString(String identifier) {
+    public Asn1BitString(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
     }
 
@@ -80,20 +76,5 @@ public class Asn1PrimitiveBitString<Chooser extends AbstractChooser> extends Asn
 
     public void setPadding(byte padding) {
         this.padding = ModifiableVariableFactory.safelySetValue(this.padding, padding);
-    }
-
-    @Override
-    public Asn1PrimitiveBitStringPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveBitStringPreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1PrimitiveBitStringParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1PrimitiveBitStringParser<>(chooser, this);
-    }
-
-    @Override
-    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

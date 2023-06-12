@@ -8,12 +8,8 @@
  */
 package de.rub.nds.asn1.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import de.rub.nds.asn1.context.EmptyChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1IntegerParser;
-import de.rub.nds.asn1.preparator.Asn1IntegerPreparator;
 import de.rub.nds.modifiablevariable.util.Modifiable;
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,11 +17,11 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1IntegerTest {
 
-    private Asn1Integer<EmptyChooser> asn1Integer;
+    private Asn1Integer asn1Integer;
 
     @BeforeEach
     public void setUp() {
-        asn1Integer = new Asn1Integer<EmptyChooser>("test");
+        asn1Integer = new Asn1Integer("test");
     }
 
     @Test
@@ -42,28 +38,5 @@ public class Asn1IntegerTest {
         assertEquals(BigInteger.ONE, asn1Integer.getValue().getValue());
         asn1Integer.setValue(Modifiable.explicit(BigInteger.TEN));
         assertEquals(BigInteger.TEN, asn1Integer.getValue().getValue());
-    }
-
-    @Test
-    public void testGetPreparator() {
-        Asn1IntegerPreparator<EmptyChooser> preparator =
-                asn1Integer.getPreparator(new EmptyChooser());
-        assertNotNull(preparator);
-        assertTrue(preparator instanceof Asn1IntegerPreparator);
-    }
-
-    @Test
-    public void testGetParser() {
-        Asn1IntegerParser<EmptyChooser> parser = asn1Integer.getParser(new EmptyChooser());
-        assertNotNull(parser);
-        assertTrue(parser instanceof Asn1IntegerParser);
-    }
-
-    @Test
-    public void testGetHandler() {
-        EmptyHandler<EmptyChooser> handler =
-                (EmptyHandler<EmptyChooser>) asn1Integer.getHandler(new EmptyChooser());
-        assertNotNull(handler);
-        assertTrue(handler instanceof EmptyHandler);
     }
 }

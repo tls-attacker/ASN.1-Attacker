@@ -8,7 +8,6 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractChooser;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayInputStream;
@@ -19,17 +18,14 @@ import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Asn1Parser<
-        Chooser extends AbstractChooser, Encodable extends Asn1Encodable<Chooser>> {
+public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected final Encodable encodable;
-    protected final Chooser chooser;
 
-    public Asn1Parser(Chooser chooser, Encodable field) {
+    public Asn1Parser(Encodable field) {
         this.encodable = field;
-        this.chooser = chooser;
     }
 
     public byte[] parseTagOctets(InputStream stream) throws IOException {
@@ -160,16 +156,4 @@ public abstract class Asn1Parser<
     }
 
     public abstract void parse(InputStream inputStream);
-
-    /**
-     * Parses an asn1encodable without parsing the tag.We assume that the tag is already parsed and
-     * that it is present within the encodable for the rest of the parsing
-     *
-     * @param inputStream
-     * @param chooser
-     * @param tagOctets
-     */
-    public abstract void parseWithoutTag(InputStream inputStream, byte[] tagOctets);
-
-    public abstract void parseIndividualContentFields(InputStream inputStream) throws IOException;
 }

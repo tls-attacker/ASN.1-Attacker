@@ -8,9 +8,16 @@
  */
 package de.rub.nds.asn1.model;
 
-public class Asn1Enumerated extends Asn1Field implements PrimitiveAsn1Field {
+import de.rub.nds.asn1.parser.Asn1UnknownSequenceParser;
 
-    public Asn1Enumerated(String identifier) {
+public class Asn1UnknownSequence extends Asn1Sequence {
+
+    public Asn1UnknownSequence(String identifier) {
         super(identifier);
+    }
+
+    @Override
+    public Asn1UnknownSequenceParser getParser() {
+        return new Asn1UnknownSequenceParser(this);
     }
 }

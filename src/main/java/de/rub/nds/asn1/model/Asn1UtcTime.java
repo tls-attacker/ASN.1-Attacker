@@ -11,11 +11,6 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.handler.Handler;
-import de.rub.nds.asn1.parser.Asn1PrimitivePrintableStringParser;
-import de.rub.nds.asn1.preparator.Asn1PrimitivePrintableStringPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -25,19 +20,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitivePrintableString<Chooser extends AbstractChooser>
-        extends Asn1Field<Chooser> {
+public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "value")
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
-    private Asn1PrimitivePrintableString() {
+    private Asn1UtcTime() {
         super(null);
     }
 
-    public Asn1PrimitivePrintableString(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.PRINTABLESTRING);
+    public Asn1UtcTime(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTCTIME);
     }
 
     public ModifiableString getValue() {
@@ -50,20 +44,5 @@ public class Asn1PrimitivePrintableString<Chooser extends AbstractChooser>
 
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
-    }
-
-    @Override
-    public Asn1PrimitivePrintableStringPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1PrimitivePrintableStringPreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1PrimitivePrintableStringParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1PrimitivePrintableStringParser<>(chooser, this);
-    }
-
-    @Override
-    public Handler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

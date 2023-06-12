@@ -11,10 +11,6 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1PrimitiveGeneralizedTimeParser;
-import de.rub.nds.asn1.preparator.Asn1PrimitiveGeneralizedTimePreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -24,19 +20,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1PrimitiveGeneralizedTime<Chooser extends AbstractChooser>
-        extends Asn1Field<Chooser> {
+public class Asn1PrintableString extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "value")
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
-    private Asn1PrimitiveGeneralizedTime() {
+    private Asn1PrintableString() {
         super(null);
     }
 
-    public Asn1PrimitiveGeneralizedTime(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.GENERALIZEDTIME);
+    public Asn1PrintableString(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.PRINTABLESTRING);
     }
 
     public ModifiableString getValue() {
@@ -49,20 +44,5 @@ public class Asn1PrimitiveGeneralizedTime<Chooser extends AbstractChooser>
 
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
-    }
-
-    @Override
-    public Asn1PrimitiveGeneralizedTimePreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1PrimitiveGeneralizedTimePreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1PrimitiveGeneralizedTimeParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1PrimitiveGeneralizedTimeParser<>(chooser, this);
-    }
-
-    @Override
-    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

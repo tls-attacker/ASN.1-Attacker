@@ -8,88 +8,18 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.model.Asn1Any;
-import de.rub.nds.asn1.model.Asn1Encodable;
-import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.model.Asn1Sequence;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.io.IOException;
-import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Asn1SequenceParser<Chooser extends AbstractChooser>
-        extends Asn1FieldParser<Chooser, Asn1Sequence<Chooser>> {
+public abstract class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private Asn1Sequence<Chooser> sequence;
+    private Asn1Sequence sequence;
 
-    public Asn1SequenceParser(Chooser chooser, Asn1Sequence<Chooser> asn1Sequence) {
-        super(chooser, asn1Sequence);
+    public Asn1SequenceParser(Asn1Sequence asn1Sequence) {
+        super(asn1Sequence);
         this.sequence = asn1Sequence;
-    }
-
-    @Override
-    public void parseIndividualContentFields(InputStream inputStream) throws IOException {
-        byte[] tagOctets = null;
-        Integer tagNumber = null;
-        Boolean constructed = null;
-        Integer tagClass = null;
-
-        for (Asn1Encodable<Chooser> tempEncodable : sequence.getChildren()) {
-            if (tagNumber == null
-                    && tagOctets == null
-                    && constructed == null
-                    && tagClass == null
-                    && inputStream.available() > 0) {
-                if (tempEncodable instanceof Asn1Any) {
-                    LOGGER.debug("Parsing AnyField in sequence: " + tempEncodable.getIdentifier());
-                    ((Asn1Any<Chooser>) tempEncodable)
-                            .setInstantiation(chooseInstantiationForAny());
-                    tempEncodable.getParser(chooser).parse(inputStream);
-                    tempEncodable.getHandler(chooser).adjustContext();
-                    continue;
-                } else {
-                    tagOctets = parseTagOctets(inputStream);
-                    tagNumber = parseTagNumber(tagOctets);
-                    constructed = parseTagConstructed(tagOctets[0]);
-                    tagClass = parseTagClass(tagOctets[0]);
-                }
-            }
-            if (tagOctets != null && tempEncodable.isCompatible(tagNumber, constructed, tagClass)) {
-                LOGGER.debug(tempEncodable.getIdentifier() + " is compatible");
-                tempEncodable.getParser(chooser).parseWithoutTag(inputStream, tagOctets);
-                // We need to update the context here
-                LOGGER.debug("Adjusting context");
-                tempEncodable.getHandler(chooser).adjustContext();
-                // Reset so the next element can get parsed
-                tagNumber = null;
-                tagOctets = null;
-                constructed = null;
-                tagClass = null;
-            } else {
-                if (!tempEncodable.isOptional()) {
-                    throw new ParserException(
-                            "Missing non-optional element: "
-                                    + tempEncodable.getIdentifier()
-                                    + ", bytes left in stream:"
-                                    + inputStream.available());
-                }
-            }
-        }
-
-        if (inputStream.available() > 0) {
-            byte[] remainingBytes = inputStream.readAllBytes();
-            throw new ParserException(
-                    "Unattributed bytes in stream: "
-                            + ArrayConverter.bytesToHexString(remainingBytes));
-        }
-    }
-
-    protected Asn1Field<Chooser> chooseInstantiationForAny() {
-        LOGGER.debug("Cannot predict any element");
-        return null;
     }
 }

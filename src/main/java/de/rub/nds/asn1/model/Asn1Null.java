@@ -11,17 +11,13 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1NullParser;
-import de.rub.nds.asn1.preparator.Asn1NullPreparator;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
+public class Asn1Null extends Asn1Field implements PrimitiveAsn1Field {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Null() {
@@ -30,20 +26,5 @@ public class Asn1Null<Chooser extends AbstractChooser> extends Asn1Field<Chooser
 
     public Asn1Null(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.NULL);
-    }
-
-    @Override
-    public Asn1NullPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1NullPreparator<>(chooser, this);
-    }
-
-    @Override
-    public Asn1NullParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1NullParser<>(chooser, this);
-    }
-
-    @Override
-    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<>(chooser);
     }
 }

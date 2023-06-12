@@ -11,10 +11,6 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.AbstractChooser;
-import de.rub.nds.asn1.handler.EmptyHandler;
-import de.rub.nds.asn1.parser.Asn1BooleanParser;
-import de.rub.nds.asn1.preparator.Asn1BooleanPreparator;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -24,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Boolean<Chooser extends AbstractChooser> extends Asn1Field<Chooser> {
+public class Asn1Boolean extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "value")
     private ModifiableBoolean value;
@@ -48,20 +44,5 @@ public class Asn1Boolean<Chooser extends AbstractChooser> extends Asn1Field<Choo
 
     public void setValue(boolean value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
-    }
-
-    @Override
-    public Asn1BooleanPreparator<Chooser> getPreparator(Chooser chooser) {
-        return new Asn1BooleanPreparator<Chooser>(chooser, this);
-    }
-
-    @Override
-    public Asn1BooleanParser<Chooser> getParser(Chooser chooser) {
-        return new Asn1BooleanParser<Chooser>(chooser, this);
-    }
-
-    @Override
-    public EmptyHandler<Chooser> getHandler(Chooser chooser) {
-        return new EmptyHandler<Chooser>(chooser);
     }
 }

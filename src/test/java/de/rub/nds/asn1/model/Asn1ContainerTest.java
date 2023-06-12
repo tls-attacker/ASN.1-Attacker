@@ -8,16 +8,15 @@
  */
 package de.rub.nds.asn1.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
-import de.rub.nds.asn1.context.EmptyChooser;
-import de.rub.nds.asn1.handler.Handler;
 import de.rub.nds.asn1.parser.Asn1Parser;
-import de.rub.nds.asn1.preparator.GenericAsn1ContainerPreparator;
-import de.rub.nds.asn1.preparator.Preparator;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.util.Modifiable;
 import java.util.LinkedList;
@@ -27,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class Asn1ContainerTest {
 
-    private Asn1Container<EmptyChooser> instance;
+    private Asn1Container instance;
 
     @BeforeEach
     public void setUp() {
@@ -48,61 +47,42 @@ public class Asn1ContainerTest {
     @Test
     public void testGetAddChildren() {
         assertTrue(instance.getChildren().isEmpty());
-        instance.addChild(new Asn1Boolean<EmptyChooser>("test"));
+        instance.addChild(new Asn1Boolean("test"));
         assertTrue(instance.getChildren().size() == 1);
-        assertEquals(
-                "test",
-                ((Asn1Boolean<EmptyChooser>) (instance.getChildren().get(0))).getIdentifier());
+        assertEquals("test", ((Asn1Boolean) (instance.getChildren().get(0))).getIdentifier());
     }
 
     @Test
     public void testSetChildren() {
-        List<Asn1Encodable<EmptyChooser>> children = new LinkedList<>();
-        children.add(new Asn1Boolean<EmptyChooser>("test1"));
-        children.add(new Asn1Boolean<EmptyChooser>("test2"));
+        List<Asn1Encodable> children = new LinkedList<>();
+        children.add(new Asn1Boolean("test1"));
+        children.add(new Asn1Boolean("test2"));
         instance.setChildren(children);
         assertTrue(instance.getChildren().size() == 2);
-        assertEquals(
-                "test1",
-                ((Asn1Boolean<EmptyChooser>) (instance.getChildren().get(0))).getIdentifier());
-        assertEquals(
-                "test2",
-                ((Asn1Boolean<EmptyChooser>) (instance.getChildren().get(1))).getIdentifier());
+        assertEquals("test1", ((Asn1Boolean) (instance.getChildren().get(0))).getIdentifier());
+        assertEquals("test2", ((Asn1Boolean) (instance.getChildren().get(1))).getIdentifier());
     }
 
     @Test
     public void testClearChildren() {
-        List<Asn1Encodable<EmptyChooser>> children = new LinkedList<>();
-        children.add(new Asn1Boolean<>("test1"));
-        children.add(new Asn1Boolean<>("test2"));
+        List<Asn1Encodable> children = new LinkedList<>();
+        children.add(new Asn1Boolean("test1"));
+        children.add(new Asn1Boolean("test2"));
         instance.setChildren(children);
         assertTrue(instance.getChildren().size() == 2);
         instance.clearChildren();
         assertTrue(instance.getChildren().isEmpty());
     }
 
-    @Test
-    public void testGetPreparator() {
-        Preparator preparator = instance.getPreparator(new EmptyChooser());
-        assertTrue(preparator instanceof GenericAsn1ContainerPreparator);
-    }
-
-    public class Asn1ContainerImpl extends Asn1Container<EmptyChooser> {
+    public class Asn1ContainerImpl extends Asn1Container {
 
         public Asn1ContainerImpl() {
             super("", TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SEQUENCE);
         }
 
         @Override
-        public Handler<EmptyChooser> getHandler(EmptyChooser chooser) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        @Override
-        public Asn1Parser<EmptyChooser, Asn1ContainerImpl> getParser(EmptyChooser chooser) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from
-            // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        public Asn1Parser<?> getParser() {
+            throw new UnsupportedOperationException("Unimplemented method 'getParser'");
         }
     }
 }
