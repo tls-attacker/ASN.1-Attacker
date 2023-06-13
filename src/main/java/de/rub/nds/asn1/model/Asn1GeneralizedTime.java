@@ -8,8 +8,6 @@
  */
 package de.rub.nds.asn1.model;
 
-import org.joda.time.DateTime;
-
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
@@ -21,6 +19,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import org.joda.time.DateTime;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
