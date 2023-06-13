@@ -11,6 +11,7 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -48,5 +49,9 @@ public class Asn1ObjectIdentifier extends Asn1Field implements PrimitiveAsn1Fiel
 
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
+
+    public ObjectIdentifier getValueAsOid() {
+        return new ObjectIdentifier(value.getValue());
     }
 }
