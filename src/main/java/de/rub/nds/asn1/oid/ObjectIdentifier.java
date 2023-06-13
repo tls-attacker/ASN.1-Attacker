@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ObjectIdentifier {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)

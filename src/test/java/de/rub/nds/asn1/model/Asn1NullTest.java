@@ -12,10 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class Asn1NullTest {
 
-    private Asn1Null asn1Null;
-
     @BeforeEach
     public void setUp() {
-        asn1Null = new Asn1Null("test");
+        new Asn1Null("test");
     }
 }

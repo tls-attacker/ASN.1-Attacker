@@ -8,14 +8,10 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.parser.Asn1Parser;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public interface ConstructedAsn1Field<Encodable extends Asn1Encodable> {
-
-    public abstract Asn1Parser<Encodable> getParser();
-}
+public interface ConstructedAsn1Field {}

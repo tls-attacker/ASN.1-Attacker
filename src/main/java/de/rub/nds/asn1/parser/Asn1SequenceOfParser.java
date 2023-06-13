@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1SequenceOfParser extends Asn1SequenceParser {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
 
     public Asn1SequenceOfParser(Asn1Sequence asn1Sequence) {

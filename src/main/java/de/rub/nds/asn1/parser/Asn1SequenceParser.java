@@ -14,12 +14,10 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1SequenceParser extends Asn1FieldParser<Asn1Sequence> {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
-
-    private Asn1Sequence sequence;
 
     public Asn1SequenceParser(Asn1Sequence asn1Sequence) {
         super(asn1Sequence);
-        this.sequence = asn1Sequence;
     }
 }

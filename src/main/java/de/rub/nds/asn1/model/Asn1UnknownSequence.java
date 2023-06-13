@@ -16,7 +16,6 @@ public class Asn1UnknownSequence extends Asn1Sequence {
         super(identifier);
     }
 
-    @Override
     public Asn1UnknownSequenceParser getParser() {
         return new Asn1UnknownSequenceParser(this);
     }

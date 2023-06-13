@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1SetParser extends Asn1FieldParser<Asn1Set> {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
 
     public Asn1SetParser(Asn1Set asn1Set) {

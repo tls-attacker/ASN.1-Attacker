@@ -17,6 +17,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class TimeDecoder {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static DateTime decodeGeneralizedTimeUtc(String generalizedTimeString) {

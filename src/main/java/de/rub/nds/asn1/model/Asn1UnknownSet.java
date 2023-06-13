@@ -16,7 +16,6 @@ public class Asn1UnknownSet extends Asn1Set {
         super(identifier);
     }
 
-    @Override
     public Asn1UnknownSetParser getParser() {
         return new Asn1UnknownSetParser(this);
     }
