@@ -8,14 +8,15 @@
  */
 package de.rub.nds.asn1.parser;
 
-import de.rub.nds.asn1.model.Asn1Sequence;
 import de.rub.nds.asn1.model.Asn1UnknownField;
+import de.rub.nds.asn1.model.Asn1UnknownSequence;
+import de.rub.nds.protocol.exception.ParserException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1UnknownSequenceParser extends Asn1SequenceParser {
+public class Asn1UnknownSequenceParser extends Asn1FieldParser<Asn1UnknownSequence> {
 
-    public Asn1UnknownSequenceParser(Asn1Sequence asn1Sequence) {
+    public Asn1UnknownSequenceParser(Asn1UnknownSequence asn1Sequence) {
         super(asn1Sequence);
     }
 

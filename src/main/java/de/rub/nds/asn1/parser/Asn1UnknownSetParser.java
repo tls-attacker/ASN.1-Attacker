@@ -10,10 +10,11 @@ package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1UnknownField;
 import de.rub.nds.asn1.model.Asn1UnknownSet;
+import de.rub.nds.protocol.exception.ParserException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1UnknownSetParser extends Asn1SetParser {
+public class Asn1UnknownSetParser extends Asn1FieldParser<Asn1UnknownSet> {
 
     public Asn1UnknownSetParser(Asn1UnknownSet asn1Set) {
         super(asn1Set);

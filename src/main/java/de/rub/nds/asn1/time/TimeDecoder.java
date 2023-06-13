@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.time;
 
-import de.rub.nds.asn1.parser.ParserException;
+import de.rub.nds.protocol.exception.ParserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;

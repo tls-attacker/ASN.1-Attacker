@@ -26,6 +26,7 @@ import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.protocol.exception.ParserException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;

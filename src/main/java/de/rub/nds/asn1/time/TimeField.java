@@ -8,9 +8,8 @@
  */
 package de.rub.nds.asn1.time;
 
-import org.joda.time.DateTime;
-
 import de.rub.nds.asn1.model.Asn1Encodable;
+import org.joda.time.DateTime;
 
 public interface TimeField extends Asn1Encodable {
     public abstract DateTime getTimeValue();

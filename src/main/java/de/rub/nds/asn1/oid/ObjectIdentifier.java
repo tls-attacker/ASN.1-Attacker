@@ -8,8 +8,8 @@
  */
 package de.rub.nds.asn1.oid;
 
-import de.rub.nds.asn1.parser.ParserException;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
+import de.rub.nds.protocol.exception.ParserException;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
