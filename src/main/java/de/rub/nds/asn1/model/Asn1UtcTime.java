@@ -8,9 +8,13 @@
  */
 package de.rub.nds.asn1.model;
 
+import org.joda.time.DateTime;
+
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.time.TimeDecoder;
+import de.rub.nds.asn1.time.TimeField;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -20,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field {
+public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field, TimeField {
 
     @XmlElement(name = "value")
     private ModifiableString value;
@@ -44,5 +48,10 @@ public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field {
 
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
+    }
+
+    @Override
+    public DateTime getTimeValue() {
+        return TimeDecoder.decodeUtc(value.getValue());
     }
 }
