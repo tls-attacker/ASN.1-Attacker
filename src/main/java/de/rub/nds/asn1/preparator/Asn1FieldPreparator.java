@@ -23,7 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
-public abstract class Asn1FieldPreparator<Field extends Asn1Field> extends Preparator {
+public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -33,7 +33,6 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> extends Prepa
         this.field = field;
     }
 
-    @Override
     public void prepare() {
         LOGGER.trace("Preparing: {}", field.getIdentifier());
         prepareContent();
