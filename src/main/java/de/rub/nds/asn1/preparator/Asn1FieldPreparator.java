@@ -24,6 +24,7 @@ import de.rub.nds.asn1.model.Asn1BitString;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.model.Asn1GeneralizedTime;
+import de.rub.nds.asn1.model.Asn1Ia5String;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.asn1.model.Asn1Null;
 import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
@@ -237,6 +238,16 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         asn1PrintableString.setContent(encodePrintableString(asn1PrintableString.getValue().getValue()));
         prepareAfterContent(asn1PrintableString);
         return asn1PrintableString;
+    }
+
+    protected Asn1Ia5String prepareField(Asn1Ia5String asn1Ia5String, String value) {
+        if (asn1Ia5String == null) {
+            asn1Ia5String = new Asn1Ia5String("ia5String");
+        }
+        asn1Ia5String.setValue(value);
+        asn1Ia5String.setContent(encodePrintableString(asn1Ia5String.getValue().getValue()));
+        prepareAfterContent(asn1Ia5String);
+        return asn1Ia5String;
     }
 
     protected Asn1OctetString prepareField(Asn1OctetString asn1OctetString, byte[] value) {
