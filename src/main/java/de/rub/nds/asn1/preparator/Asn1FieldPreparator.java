@@ -8,16 +8,6 @@
  */
 package de.rub.nds.asn1.preparator;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTime;
-
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TimeAccurracy;
 import de.rub.nds.asn1.model.Asn1BitString;
@@ -36,6 +26,14 @@ import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
 
 public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
 
@@ -54,10 +52,9 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     }
 
     /**
-     * Prepares all generic values in the field that are NOT the content.
-     * Expects that the content is already set beforehand (to compute the length
-     * fields)
-     * 
+     * Prepares all generic values in the field that are NOT the content. Expects that the content
+     * is already set beforehand (to compute the length fields)
+     *
      * @param field
      */
     protected final void prepareAfterContent(Asn1Field field) {
@@ -105,9 +102,11 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
 
     private byte[] encodeIdentifier(Asn1Field field) {
         byte firstIdentifierByte = 0;
-        firstIdentifierByte = this.encodeTagClass(firstIdentifierByte, this.field.getTagClass().getValue());
-        firstIdentifierByte = this.encodeIsConstructed(
-                firstIdentifierByte, this.field.getTagConstructed().getValue());
+        firstIdentifierByte =
+                this.encodeTagClass(firstIdentifierByte, this.field.getTagClass().getValue());
+        firstIdentifierByte =
+                this.encodeIsConstructed(
+                        firstIdentifierByte, this.field.getTagConstructed().getValue());
         return this.encodeTagNumber(firstIdentifierByte, this.field.getTagNumber().getValue());
     }
 
@@ -131,7 +130,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
             }
             if (tagNumber <= 0x1F) {
 
-                byte[] result = new byte[] { firstIdentifierByte };
+                byte[] result = new byte[] {firstIdentifierByte};
                 result[0] |= (byte) (tagNumber & 0x1F);
                 resultStream.write(result);
             } else {
@@ -148,7 +147,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
                     longEncodingStream.write(longEncoding);
                 }
                 firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-                resultStream.write(new byte[] { firstIdentifierByte });
+                resultStream.write(new byte[] {firstIdentifierByte});
                 resultStream.write(longEncoding);
             }
         } catch (IOException ex) {
@@ -186,18 +185,21 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         return asn1Null;
     }
 
-    protected Asn1ObjectIdentifier prepareField(Asn1ObjectIdentifier asn1ObjectIdentifier, ObjectIdentifier oid) {
+    protected Asn1ObjectIdentifier prepareField(
+            Asn1ObjectIdentifier asn1ObjectIdentifier, ObjectIdentifier oid) {
         if (asn1ObjectIdentifier == null) {
             asn1ObjectIdentifier = new Asn1ObjectIdentifier("objectIdentifier");
         }
         asn1ObjectIdentifier.setValue(oid.toString());
-        asn1ObjectIdentifier
-                .setContent(encodeObjectIdentifier(new ObjectIdentifier(asn1ObjectIdentifier.getValue().getValue())));
+        asn1ObjectIdentifier.setContent(
+                encodeObjectIdentifier(
+                        new ObjectIdentifier(asn1ObjectIdentifier.getValue().getValue())));
         prepareAfterContent(asn1ObjectIdentifier);
         return asn1ObjectIdentifier;
     }
 
-    protected Asn1BitString prepareField(Asn1BitString asn1BitString, byte[] usedBits, byte unusedBits) {
+    protected Asn1BitString prepareField(
+            Asn1BitString asn1BitString, byte[] usedBits, byte unusedBits) {
         if (asn1BitString == null) {
             asn1BitString = new Asn1BitString("bitstring");
         }
@@ -209,8 +211,8 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         return asn1BitString;
     }
 
-    protected Asn1GeneralizedTime prepareField(Asn1GeneralizedTime asn1GeneralizedTime, DateTime time,
-            TimeAccurracy accurracy) {
+    protected Asn1GeneralizedTime prepareField(
+            Asn1GeneralizedTime asn1GeneralizedTime, DateTime time, TimeAccurracy accurracy) {
         if (asn1GeneralizedTime == null) {
             asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
         }
@@ -220,7 +222,8 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         return asn1GeneralizedTime;
     }
 
-    protected Asn1UtcTime prepareField(Asn1UtcTime asn1UtcTime, DateTime time, TimeAccurracy accurracy) {
+    protected Asn1UtcTime prepareField(
+            Asn1UtcTime asn1UtcTime, DateTime time, TimeAccurracy accurracy) {
         if (asn1UtcTime == null) {
             asn1UtcTime = new Asn1UtcTime("utcTime");
         }
@@ -230,12 +233,14 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         return asn1UtcTime;
     }
 
-    protected Asn1PrintableString prepareField(Asn1PrintableString asn1PrintableString, String value) {
+    protected Asn1PrintableString prepareField(
+            Asn1PrintableString asn1PrintableString, String value) {
         if (asn1PrintableString == null) {
             asn1PrintableString = new Asn1PrintableString("printableString");
         }
         asn1PrintableString.setValue(value);
-        asn1PrintableString.setContent(encodePrintableString(asn1PrintableString.getValue().getValue()));
+        asn1PrintableString.setContent(
+                encodePrintableString(asn1PrintableString.getValue().getValue()));
         prepareAfterContent(asn1PrintableString);
         return asn1PrintableString;
     }
@@ -282,7 +287,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
 
     protected byte[] encodeBoolean(boolean value) {
         if (value == true) {
-            return new byte[] { (byte) 0xFF };
+            return new byte[] {(byte) 0xFF};
         } else {
             return new byte[1];
         }
@@ -308,7 +313,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     protected byte[] encodeBitString(byte[] usedBits, Byte unusedBits, Byte padding) {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(new byte[] { unusedBits });
+            outputStream.write(new byte[] {unusedBits});
             byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
             encodedContent = shiftLeft(encodedContent, unusedBits);
             encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
@@ -405,7 +410,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
             length = BigInteger.ZERO;
         }
         if (length.compareTo(BigInteger.valueOf(127)) <= 0) {
-            return new byte[] { (byte) length.byteValue() };
+            return new byte[] {(byte) length.byteValue()};
         } else {
             return encodeLongLength(length);
         }
