@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import org.junit.jupiter.api.Test;
 
 public class Asn1FactoryTest {
@@ -27,7 +27,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.BIT_STRING.getIntValue());
+                                    UniversalTagNumber.BIT_STRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -36,7 +36,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.BMPSTRING.getIntValue());
+                                    UniversalTagNumber.BMPSTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -45,7 +45,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.BOOLEAN.getIntValue());
+                                    UniversalTagNumber.BOOLEAN.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -54,7 +54,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.CHARACTER_STRING.getIntValue());
+                                    UniversalTagNumber.CHARACTER_STRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -63,7 +63,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.EMBEDDED_PDV.getIntValue());
+                                    UniversalTagNumber.EMBEDDED_PDV.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -72,7 +72,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.END_OF_CONTENT.getIntValue());
+                                    UniversalTagNumber.END_OF_CONTENT.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -81,7 +81,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.ENUMERATED.getIntValue());
+                                    UniversalTagNumber.ENUMERATED.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -90,7 +90,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.EXTERNAL.getIntValue());
+                                    UniversalTagNumber.EXTERNAL.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -99,7 +99,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.GENERALIZEDTIME.getIntValue());
+                                    UniversalTagNumber.GENERALIZEDTIME.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -108,7 +108,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.GENERALSTRING.getIntValue());
+                                    UniversalTagNumber.GENERALSTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -117,7 +117,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.GRAPHICSTRING.getIntValue());
+                                    UniversalTagNumber.GRAPHICSTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -126,7 +126,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.IA5STRING.getIntValue());
+                                    UniversalTagNumber.IA5STRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -135,7 +135,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.INTEGER.getIntValue());
+                                    UniversalTagNumber.INTEGER.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -144,7 +144,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.NULL.getIntValue());
+                                    UniversalTagNumber.NULL.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -153,7 +153,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.NUMERICSTRING.getIntValue());
+                                    UniversalTagNumber.NUMERICSTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -162,7 +162,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.OBJECT_DESCRIPTOR.getIntValue());
+                                    UniversalTagNumber.OBJECT_DESCRIPTOR.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -171,7 +171,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.OBJECT_IDENTIFIER.getIntValue());
+                                    UniversalTagNumber.OBJECT_IDENTIFIER.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -180,7 +180,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.OCTET_STRING.getIntValue());
+                                    UniversalTagNumber.OCTET_STRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -189,7 +189,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.PRINTABLESTRING.getIntValue());
+                                    UniversalTagNumber.PRINTABLESTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -198,7 +198,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.REAL.getIntValue());
+                                    UniversalTagNumber.REAL.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -207,7 +207,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.RELATIVE_OID.getIntValue());
+                                    UniversalTagNumber.RELATIVE_OID.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -216,7 +216,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.T61STRING.getIntValue());
+                                    UniversalTagNumber.T61STRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -225,7 +225,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.UNIVERSALSTRING.getIntValue());
+                                    UniversalTagNumber.UNIVERSALSTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -234,7 +234,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.UTCTIME.getIntValue());
+                                    UniversalTagNumber.UTCTIME.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -243,7 +243,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.UTF8STRING.getIntValue());
+                                    UniversalTagNumber.UTF8STRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -252,7 +252,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.VIDEOTEXSTRING.getIntValue());
+                                    UniversalTagNumber.VIDEOTEXSTRING.getIntValue());
                 });
         assertThrows(
                 UnsupportedOperationException.class,
@@ -261,7 +261,7 @@ public class Asn1FactoryTest {
                             .createAsn1Element(
                                     TagClass.UNIVERSAL.getIntValue(),
                                     TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                    TagNumber.VISIBLESTRING.getIntValue());
+                                    UniversalTagNumber.VISIBLESTRING.getIntValue());
                 });
         // Supported classes
         assertTrue(
@@ -269,91 +269,84 @@ public class Asn1FactoryTest {
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.BIT_STRING.getIntValue())
+                                        UniversalTagNumber.BIT_STRING.getIntValue())
                         instanceof Asn1BitString);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.BOOLEAN.getIntValue())
+                                        UniversalTagNumber.BOOLEAN.getIntValue())
                         instanceof Asn1Boolean);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.ENUMERATED.getIntValue())
-                        instanceof Asn1Enumerated);
-        assertTrue(
-                new Asn1Factory()
-                                .createAsn1Element(
-                                        TagClass.UNIVERSAL.getIntValue(),
-                                        TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.GENERALIZEDTIME.getIntValue())
+                                        UniversalTagNumber.GENERALIZEDTIME.getIntValue())
                         instanceof Asn1GeneralizedTime);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.IA5STRING.getIntValue())
+                                        UniversalTagNumber.IA5STRING.getIntValue())
                         instanceof Asn1Ia5String);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.INTEGER.getIntValue())
+                                        UniversalTagNumber.INTEGER.getIntValue())
                         instanceof Asn1Integer);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.NULL.getIntValue())
+                                        UniversalTagNumber.NULL.getIntValue())
                         instanceof Asn1Null);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.OBJECT_IDENTIFIER.getIntValue())
+                                        UniversalTagNumber.OBJECT_IDENTIFIER.getIntValue())
                         instanceof Asn1ObjectIdentifier);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.OCTET_STRING.getIntValue())
+                                        UniversalTagNumber.OCTET_STRING.getIntValue())
                         instanceof Asn1OctetString);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.PRINTABLESTRING.getIntValue())
+                                        UniversalTagNumber.PRINTABLESTRING.getIntValue())
                         instanceof Asn1PrintableString);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.T61STRING.getIntValue())
+                                        UniversalTagNumber.T61STRING.getIntValue())
                         instanceof Asn1T61String);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.UTCTIME.getIntValue())
+                                        UniversalTagNumber.UTCTIME.getIntValue())
                         instanceof Asn1UtcTime);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                                        TagNumber.UTF8STRING.getIntValue())
+                                        UniversalTagNumber.UTF8STRING.getIntValue())
                         instanceof Asn1Utf8String);
 
         assertTrue(
@@ -361,14 +354,14 @@ public class Asn1FactoryTest {
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                        TagNumber.SEQUENCE.getIntValue())
+                                        UniversalTagNumber.SEQUENCE.getIntValue())
                         instanceof Asn1Sequence);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.UNIVERSAL.getIntValue(),
                                         TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                        TagNumber.SET.getIntValue())
+                                        UniversalTagNumber.SET.getIntValue())
                         instanceof Asn1Set);
 
         // Unknown
@@ -377,21 +370,21 @@ public class Asn1FactoryTest {
                                 .createAsn1Element(
                                         TagClass.APPLICATION.getIntValue(),
                                         TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                        TagNumber.SET.getIntValue())
+                                        UniversalTagNumber.SET.getIntValue())
                         instanceof Asn1UnknownField);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.CONTEXT_SPECIFIC.getIntValue(),
                                         TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                        TagNumber.SET.getIntValue())
+                                        UniversalTagNumber.SET.getIntValue())
                         instanceof Asn1UnknownField);
         assertTrue(
                 new Asn1Factory()
                                 .createAsn1Element(
                                         TagClass.PRIVATE.getIntValue(),
                                         TagConstructed.CONSTRUCTED.getBooleanValue(),
-                                        TagNumber.SET.getIntValue())
+                                        UniversalTagNumber.SET.getIntValue())
                         instanceof Asn1UnknownField);
         assertTrue(
                 new Asn1Factory()

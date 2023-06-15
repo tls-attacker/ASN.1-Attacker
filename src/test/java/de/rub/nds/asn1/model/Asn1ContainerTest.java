@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.util.Modifiable;
 import java.util.LinkedList;
@@ -76,7 +76,7 @@ public class Asn1ContainerTest {
     public class Asn1ContainerImpl extends Asn1Container {
 
         public Asn1ContainerImpl() {
-            super("", TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, TagNumber.SEQUENCE);
+            super("", TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, UniversalTagNumber.SEQUENCE);
         }
     }
 }

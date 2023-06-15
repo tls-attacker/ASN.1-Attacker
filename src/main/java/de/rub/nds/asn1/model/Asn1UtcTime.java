@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.time.TimeDecoder;
 import de.rub.nds.asn1.time.TimeField;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -30,11 +30,11 @@ public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field, TimeFi
 
     /** Private no-arg constructor to please JAXB */
     private Asn1UtcTime() {
-        super(null);
+        super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.UTCTIME);
     }
 
     public Asn1UtcTime(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.UTCTIME);
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.UTCTIME);
     }
 
     public ModifiableString getValue() {

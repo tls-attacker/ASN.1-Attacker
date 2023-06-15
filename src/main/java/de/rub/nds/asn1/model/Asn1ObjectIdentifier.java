@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
@@ -28,7 +28,11 @@ public class Asn1ObjectIdentifier extends Asn1Field implements PrimitiveAsn1Fiel
 
     /** Private no-arg constructor to please JAXB */
     private Asn1ObjectIdentifier() {
-        super(null);
+        super(
+                null,
+                TagClass.UNIVERSAL,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.OBJECT_IDENTIFIER);
     }
 
     public Asn1ObjectIdentifier(String identifier) {
@@ -36,7 +40,7 @@ public class Asn1ObjectIdentifier extends Asn1Field implements PrimitiveAsn1Fiel
                 identifier,
                 TagClass.UNIVERSAL,
                 TagConstructed.PRIMITIVE,
-                TagNumber.OBJECT_IDENTIFIER);
+                UniversalTagNumber.OBJECT_IDENTIFIER);
     }
 
     public ModifiableString getValue() {

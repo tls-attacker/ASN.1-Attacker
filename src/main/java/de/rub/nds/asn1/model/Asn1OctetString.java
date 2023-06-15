@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -27,11 +27,15 @@ public class Asn1OctetString extends Asn1Field implements PrimitiveAsn1Field {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1OctetString() {
-        super(null);
+        super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.OCTET_STRING);
     }
 
     public Asn1OctetString(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.OCTET_STRING);
+        super(
+                identifier,
+                TagClass.UNIVERSAL,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.OCTET_STRING);
     }
 
     public ModifiableByteArray getValue() {

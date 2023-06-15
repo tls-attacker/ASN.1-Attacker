@@ -16,5 +16,6 @@ public interface Asn1Encodable {
 
     public abstract boolean isOptional();
 
-    public abstract boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType);
+    public abstract boolean matchesHeader(
+            Integer tagNumber, Boolean constructed, Integer classType);
 }

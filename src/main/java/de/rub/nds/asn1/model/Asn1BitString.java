@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
@@ -35,11 +35,15 @@ public class Asn1BitString extends Asn1Field implements PrimitiveAsn1Field {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1BitString() {
-        super(null);
+        super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.BIT_STRING);
     }
 
     public Asn1BitString(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
+        super(
+                identifier,
+                TagClass.UNIVERSAL,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.BIT_STRING);
     }
 
     public ModifiableByte getUnusedBits() {

@@ -71,8 +71,8 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     }
 
     public void prepareTagNumber(Asn1Field field) {
-        if (field.getTagNumberType() != null) {
-            field.setTagNumber(field.getTagNumberType().getIntValue());
+        if (field.getUniversalTagNumberType() != null) {
+            field.setTagNumber(field.getUniversalTagNumberType().getIntValue());
         } else {
             field.setTagNumber(0);
         }

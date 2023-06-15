@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -34,7 +34,6 @@ public abstract class Asn1Container extends Asn1Field implements ConstructedAsn1
             value = {
                 @XmlElement(type = Asn1Boolean.class, name = "Asn1Boolean"),
                 @XmlElement(type = Asn1Container.class, name = "Asn1Container"),
-                @XmlElement(type = Asn1Enumerated.class, name = "Asn1Enumerated"),
                 @XmlElement(type = PrimitiveAsn1Field.class, name = "Asn1Field"),
                 @XmlElement(type = Asn1Integer.class, name = "Asn1Integer"),
                 @XmlElement(type = Asn1Null.class, name = "Asn1Null"),
@@ -62,14 +61,14 @@ public abstract class Asn1Container extends Asn1Field implements ConstructedAsn1
             String identifier,
             TagClass tagClassType,
             TagConstructed tagConstructedType,
-            TagNumber tagNummerType) {
+            UniversalTagNumber tagNummerType) {
         super(identifier, tagClassType, tagConstructedType, tagNummerType);
         this.children = new LinkedList<>();
     }
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Container() {
-        super(null, null, null, null);
+        super(null, null, null, (UniversalTagNumber) null);
     }
 
     public ModifiableByteArray getEncodedChildren() {

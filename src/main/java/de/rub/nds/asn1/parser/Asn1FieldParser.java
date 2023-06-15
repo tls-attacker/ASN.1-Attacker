@@ -10,7 +10,7 @@ package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.model.Asn1BitString;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1Field;
@@ -43,24 +43,16 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
         super(field);
     }
 
-    private void setConstants(Asn1Field field) {
-        if (field.getTagClassType() == null) {
-            field.setTagClassType(TagClass.fromIntValue(field.getTagClass().getValue()));
-        }
-        if (field.getTagConstructedType() != null) {
-            field.setTagConstructedType(
-                    TagConstructed.fromBooleanValue(field.getTagConstructed().getValue()));
-        }
-        if (field.getTagNumberType() == null) {
-            field.setTagNumberType(TagNumber.fromIntValue(field.getTagNumber().getValue()));
-        }
-    }
-
-    private boolean areConstantsValid(Asn1Field field) {
+    /**
+     * Throws a ParserException if the header does not match the expected one
+     *
+     * @param field
+     */
+    private void validateConstants(Asn1Field field) {
         if (field.getTagClassType() != null
                 && field.getTagClassType().getIntValue() != field.getTagClass().getValue()) {
             TagClass foundTagClass = TagClass.fromIntValue(field.getTagClass().getValue());
-            LOGGER.warn(
+            throw new ParserException(
                     "TagClassType did not match expectations expected "
                             + field.getTagClassType().name()
                             + "("
@@ -70,14 +62,13 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
                             + " ("
                             + field.getTagClass().getValue()
                             + ")");
-            return false;
         }
         if (field.getTagConstructedType() != null
                 && field.getTagConstructedType().getBooleanValue()
                         != field.getTagConstructed().getValue()) {
             TagConstructed foundTagConstructed =
                     TagConstructed.fromBooleanValue(field.getTagConstructed().getValue());
-            LOGGER.warn(
+            throw new ParserException(
                     "TagConstructedType did not match expectations expected "
                             + field.getTagConstructedType().name()
                             + "("
@@ -87,25 +78,24 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
                             + " ("
                             + field.getTagConstructed().getValue()
                             + ")");
-            return false;
         }
-        if (field.getTagNumberType() != null
+        if (field.getUniversalTagNumberType() != null
                 && !Objects.equals(
-                        field.getTagNumberType().getIntValue(), field.getTagNumber().getValue())) {
-            TagNumber foundTagNumber = TagNumber.fromIntValue(field.getTagNumber().getValue());
-            LOGGER.warn(
+                        field.getUniversalTagNumberType().getIntValue(),
+                        field.getTagNumber().getValue())) {
+            UniversalTagNumber foundTagNumber =
+                    UniversalTagNumber.fromIntValue(field.getTagNumber().getValue());
+            throw new ParserException(
                     "TagNumber did not match expectations expected "
-                            + field.getTagNumberType().name()
+                            + field.getUniversalTagNumberType().name()
                             + "("
-                            + field.getTagNumberType().getIntValue()
+                            + field.getUniversalTagNumberType().getIntValue()
                             + ") but found "
                             + (foundTagNumber == null ? "???" : foundTagNumber.name())
                             + " ("
                             + field.getTagNumber().getValue()
                             + ")");
-            return false;
         }
-        return true;
     }
 
     /**
@@ -125,10 +115,7 @@ public abstract class Asn1FieldParser<Field extends Asn1Field> extends Asn1Parse
             field.setLengthOctets(this.parseLengthOctets(stream));
             field.setLength(this.parseLength(field.getLengthOctets().getValue()));
             field.setContent(this.parseContentOctets(field.getLength().getValue(), stream));
-            setConstants(field);
-            if (!areConstantsValid(field)) {
-                throw new ParserException("Expectation missmatch");
-            }
+            validateConstants(field);
         } catch (IOException ex) {
             throw new ParserException(ex);
         }

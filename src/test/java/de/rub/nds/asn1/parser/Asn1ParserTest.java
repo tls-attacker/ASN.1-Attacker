@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.model.Asn1BitString;
 import de.rub.nds.asn1.model.Asn1Integer;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -273,7 +273,8 @@ public class Asn1ParserTest {
         InputStream byteArrayInputStream =
                 new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("0304066E5DC0"));
         parser.parseBitString(asn1PrimitiveBitString, byteArrayInputStream);
-        Assertions.assertEquals(TagNumber.BIT_STRING, asn1PrimitiveBitString.getTagNumberType());
+        Assertions.assertEquals(
+                UniversalTagNumber.BIT_STRING, asn1PrimitiveBitString.getUniversalTagNumberType());
         Assertions.assertEquals(TagClass.UNIVERSAL, asn1PrimitiveBitString.getTagClassType());
         Assertions.assertEquals(
                 TagConstructed.PRIMITIVE, asn1PrimitiveBitString.getTagConstructedType());

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -34,79 +34,34 @@ public class Asn1FieldTest {
     public void setUp() {
         field =
                 new Asn1FieldImpl(
-                        "field", TagClass.PRIVATE, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
+                        "field",
+                        TagClass.PRIVATE,
+                        TagConstructed.PRIMITIVE,
+                        UniversalTagNumber.BIT_STRING);
     }
 
     @Test
     public void testIsCompatible() {
         assertTrue(
-                field.isCompatible(
-                        TagNumber.BIT_STRING.getIntValue(),
+                field.matchesHeader(
+                        UniversalTagNumber.BIT_STRING.getIntValue(),
                         TagConstructed.PRIMITIVE.getBooleanValue(),
                         TagClass.PRIVATE.getIntValue()));
         assertFalse(
-                field.isCompatible(
-                        TagNumber.BMPSTRING.getIntValue(),
+                field.matchesHeader(
+                        UniversalTagNumber.BMPSTRING.getIntValue(),
                         TagConstructed.PRIMITIVE.getBooleanValue(),
                         TagClass.PRIVATE.getIntValue()));
         assertFalse(
-                field.isCompatible(
-                        TagNumber.BIT_STRING.getIntValue(),
+                field.matchesHeader(
+                        UniversalTagNumber.BIT_STRING.getIntValue(),
                         TagConstructed.CONSTRUCTED.getBooleanValue(),
                         TagClass.PRIVATE.getIntValue()));
         assertFalse(
-                field.isCompatible(
-                        TagNumber.BIT_STRING.getIntValue(),
+                field.matchesHeader(
+                        UniversalTagNumber.BIT_STRING.getIntValue(),
                         TagConstructed.PRIMITIVE.getBooleanValue(),
                         TagClass.APPLICATION.getIntValue()));
-        field =
-                new Asn1FieldImpl(
-                        "field", TagClass.PRIVATE, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
-        field.setTagNumberType(null);
-        assertTrue(
-                field.isCompatible(
-                        TagNumber.BIT_STRING.getIntValue(),
-                        TagConstructed.PRIMITIVE.getBooleanValue(),
-                        TagClass.PRIVATE.getIntValue()));
-        field =
-                new Asn1FieldImpl(
-                        "field", TagClass.PRIVATE, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
-        field.setTagClassType(null);
-        assertTrue(
-                field.isCompatible(
-                        TagNumber.BIT_STRING.getIntValue(),
-                        TagConstructed.PRIMITIVE.getBooleanValue(),
-                        TagClass.PRIVATE.getIntValue()));
-        field =
-                new Asn1FieldImpl(
-                        "field", TagClass.PRIVATE, TagConstructed.PRIMITIVE, TagNumber.BIT_STRING);
-        field.setTagConstructedType(null);
-        assertTrue(
-                field.isCompatible(
-                        TagNumber.BIT_STRING.getIntValue(),
-                        TagConstructed.PRIMITIVE.getBooleanValue(),
-                        TagClass.PRIVATE.getIntValue()));
-    }
-
-    @Test
-    public void testSetTagClassType() {
-        assertTrue(field.getTagClassType() == TagClass.PRIVATE);
-        field.setTagClassType(TagClass.UNIVERSAL);
-        assertEquals(TagClass.UNIVERSAL, field.getTagClassType());
-    }
-
-    @Test
-    public void testSetTagConstructedType() {
-        assertTrue(field.getTagConstructedType() == TagConstructed.PRIMITIVE);
-        field.setTagConstructedType(TagConstructed.CONSTRUCTED);
-        assertEquals(TagConstructed.CONSTRUCTED, field.getTagConstructedType());
-    }
-
-    @Test
-    public void testSetTagNumberType() {
-        assertTrue(field.getTagNumberType() == TagNumber.BIT_STRING);
-        field.setTagNumberType(TagNumber.BMPSTRING);
-        assertEquals(TagNumber.BMPSTRING, field.getTagNumberType());
     }
 
     @Test
@@ -215,8 +170,8 @@ public class Asn1FieldTest {
                 String identifier,
                 TagClass tagClassType,
                 TagConstructed tagConstructedType,
-                TagNumber tagNummerType) {
-            super(identifier, tagClassType, tagConstructedType, tagNummerType);
+                UniversalTagNumber tagNummerType) {
+            super(identifier, tagClassType, tagConstructedType, tagNummerType.getIntValue());
         }
     }
 }

@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.constants;
 
-public enum TagNumber {
+public enum UniversalTagNumber {
     END_OF_CONTENT(0, "end-of-content"),
     BOOLEAN(1, "boolean"),
     INTEGER(2, "integer"),
@@ -43,7 +43,7 @@ public enum TagNumber {
 
     private final String stringValue;
 
-    private TagNumber(Integer intValue, String stringValue) {
+    private UniversalTagNumber(Integer intValue, String stringValue) {
         this.intValue = intValue;
         this.stringValue = stringValue;
     }
@@ -56,8 +56,8 @@ public enum TagNumber {
         return this.stringValue;
     }
 
-    public static TagNumber fromIntValue(int intValue) {
-        for (TagNumber currentTagClass : TagNumber.values()) {
+    public static UniversalTagNumber fromIntValue(int intValue) {
+        for (UniversalTagNumber currentTagClass : UniversalTagNumber.values()) {
             if (currentTagClass.getIntValue() == intValue) {
                 return currentTagClass;
             }
@@ -65,8 +65,8 @@ public enum TagNumber {
         return null;
     }
 
-    public static TagNumber fromStringValue(String stringValue) {
-        for (TagNumber currentTagClass : TagNumber.values()) {
+    public static UniversalTagNumber fromStringValue(String stringValue) {
+        for (UniversalTagNumber currentTagClass : UniversalTagNumber.values()) {
             if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
                 return currentTagClass;
             }
@@ -74,7 +74,7 @@ public enum TagNumber {
         return null;
     }
 
-    public static TagNumber fromIdentifierByte(final byte identifierByte) {
+    public static UniversalTagNumber fromIdentifierByte(final byte identifierByte) {
         return fromIntValue(identifierByte & 0b00011111);
     }
 }

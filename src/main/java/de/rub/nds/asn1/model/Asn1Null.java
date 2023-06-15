@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -21,10 +21,10 @@ public class Asn1Null extends Asn1Field implements PrimitiveAsn1Field {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Null() {
-        super(null);
+        super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.NULL);
     }
 
     public Asn1Null(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.NULL);
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.NULL);
     }
 }

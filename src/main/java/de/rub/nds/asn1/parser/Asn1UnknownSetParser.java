@@ -24,7 +24,7 @@ public class Asn1UnknownSetParser extends Asn1FieldParser<Asn1UnknownSet> {
     public void parse(InputStream inputStream) {
         try {
             while (inputStream.available() > 0) {
-                Asn1UnknownField unknownFiled = new Asn1UnknownField("unknown");
+                Asn1UnknownField unknownFiled = new Asn1UnknownField("unknown", null, null, null);
                 parseStructure(unknownFiled, inputStream);
                 encodable.addChild(unknownFiled);
             }

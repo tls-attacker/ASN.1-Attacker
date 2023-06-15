@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -27,11 +27,19 @@ public class Asn1PrintableString extends Asn1Field implements PrimitiveAsn1Field
 
     /** Private no-arg constructor to please JAXB */
     private Asn1PrintableString() {
-        super(null);
+        super(
+                null,
+                TagClass.UNIVERSAL,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.PRINTABLESTRING);
     }
 
     public Asn1PrintableString(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, TagNumber.PRINTABLESTRING);
+        super(
+                identifier,
+                TagClass.UNIVERSAL,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.PRINTABLESTRING);
     }
 
     public ModifiableString getValue() {

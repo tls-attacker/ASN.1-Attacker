@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
@@ -56,44 +56,84 @@ public abstract class Asn1Field implements Asn1Encodable {
     @XmlElement(name = "lengthOctets")
     private ModifiableByteArray lengthOctets;
 
-    @XmlTransient private TagClass tagClassType;
+    @XmlTransient private final TagClass tagClassType;
 
-    @XmlTransient private TagConstructed tagConstructedType;
+    @XmlTransient private final TagConstructed tagConstructedType;
 
-    @XmlTransient private TagNumber tagNumberType;
+    /**
+     * Note that this field may be null. This is either the case if the tag number is not
+     * universally defined of if the tagClass is not UNIVERSAL.
+     */
+    @XmlTransient private final UniversalTagNumber universalTagNumber;
+
+    private final Integer tagNumberConfig;
 
     @XmlTransient private boolean optional = false;
+
+    /**
+     * The constructor for universal asn1 fields
+     *
+     * @param identifier The identifier of the field
+     * @param tagClassType The tag class of the field
+     * @param tagConstructedType The tag constructed type of the field
+     * @param tagNumber The universal tag number of the field
+     */
+    public Asn1Field(
+            String identifier,
+            TagClass tagClassType,
+            TagConstructed tagConstructedType,
+            UniversalTagNumber tagNumber) {
+        assert (identifier != null);
+        assert (tagClassType != null);
+        assert (tagClassType == TagClass.UNIVERSAL);
+        assert (tagConstructedType != null);
+        this.identifier = identifier;
+        this.tagClassType = tagClassType;
+        this.tagConstructedType = tagConstructedType;
+        this.universalTagNumber = tagNumber;
+        tagNumberConfig = tagNumber.getIntValue();
+    }
 
     public Asn1Field(
             String identifier,
             TagClass tagClassType,
             TagConstructed tagConstructedType,
-            TagNumber tagNummerType) {
+            Integer tagNumber) {
         assert (identifier != null);
         assert (tagClassType != null);
         assert (tagConstructedType != null);
+        if (tagClassType == TagClass.UNIVERSAL) {
+            universalTagNumber = UniversalTagNumber.fromIntValue(tagNumber);
+        } else {
+            universalTagNumber = null;
+        }
         this.identifier = identifier;
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;
-        this.tagNumberType = tagNummerType;
+        this.tagNumberConfig = tagNumber;
     }
 
     /** Private no-arg constructor to please JAXB */
     @SuppressWarnings("unused")
-    private Asn1Field() {}
+    private Asn1Field() {
+        this.tagClassType = null;
+        this.tagConstructedType = null;
+        this.tagNumberConfig = null;
+        this.universalTagNumber = null;
+    }
 
     @Override
-    public boolean isCompatible(Integer tagNumber, Boolean constructed, Integer classType) {
-        if (tagNumberType != null && tagNumber != tagNumberType.getIntValue()) {
+    public final boolean matchesHeader(Integer tagNumber, Boolean constructed, Integer classType) {
+        if (tagNumber != tagNumberConfig) {
             LOGGER.debug(
                     "{} not compatible because of the tagNumber Expected "
-                            + this.tagNumberType.getIntValue()
+                            + tagNumberConfig
                             + " but found "
                             + tagNumber,
                     identifier);
             return false;
         }
-        if (tagConstructedType != null && constructed != tagConstructedType.getBooleanValue()) {
+        if (constructed != tagConstructedType.getBooleanValue()) {
             LOGGER.debug(
                     "{} not compatible because of constructed type Expected "
                             + this.tagConstructedType.getBooleanValue()
@@ -102,7 +142,7 @@ public abstract class Asn1Field implements Asn1Encodable {
                     identifier);
             return false;
         }
-        if (tagClassType != null && classType != this.tagClassType.getIntValue()) {
+        if (classType != this.tagClassType.getIntValue()) {
             LOGGER.debug(
                     "{} not compatible because of tag class type. Expected "
                             + this.tagClassType.getIntValue()
@@ -114,18 +154,6 @@ public abstract class Asn1Field implements Asn1Encodable {
             LOGGER.debug("Asn1Field \'{}\' is compatible", identifier);
             return true;
         }
-    }
-
-    public Asn1Field(String identifier) {
-        this.identifier = identifier;
-    }
-
-    public void setTagClassType(TagClass tagClassType) {
-        this.tagClassType = tagClassType;
-    }
-
-    public void setTagConstructedType(TagConstructed tagConstructedType) {
-        this.tagConstructedType = tagConstructedType;
     }
 
     @Override
@@ -145,12 +173,8 @@ public abstract class Asn1Field implements Asn1Encodable {
         return tagConstructedType;
     }
 
-    public TagNumber getTagNumberType() {
-        return tagNumberType;
-    }
-
-    public void setTagNumberType(TagNumber tagNumberType) {
-        this.tagNumberType = tagNumberType;
+    public UniversalTagNumber getUniversalTagNumberType() {
+        return universalTagNumber;
     }
 
     public ModifiableInteger getTagClass() {
@@ -237,6 +261,10 @@ public abstract class Asn1Field implements Asn1Encodable {
     public void setLengthOctets(final byte[] lengthOctets) {
         this.lengthOctets =
                 ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
+    }
+
+    public Integer getTagNumberConfig() {
+        return tagNumberConfig;
     }
 
     @Override

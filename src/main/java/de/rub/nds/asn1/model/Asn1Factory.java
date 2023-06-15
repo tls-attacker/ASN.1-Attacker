@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.TagNumber;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 
 public class Asn1Factory {
 
@@ -20,9 +20,9 @@ public class Asn1Factory {
             int tagClassValue, boolean constructedValue, int tagNumberValue) {
         TagClass tagClass = TagClass.fromIntValue(tagClassValue);
         TagConstructed tagConstructed = TagConstructed.fromBooleanValue(constructedValue);
-        TagNumber tagNumber = TagNumber.fromIntValue(tagNumberValue);
+        UniversalTagNumber tagNumber = UniversalTagNumber.fromIntValue(tagNumberValue);
         if (tagClass != TagClass.UNIVERSAL || tagNumber == null) {
-            return new Asn1UnknownField("unknownField");
+            return new Asn1UnknownField("unknownField", tagClass, tagConstructed, tagNumberValue);
         }
         switch (tagNumber) {
             case BIT_STRING:
@@ -51,12 +51,8 @@ public class Asn1Factory {
                 throw new UnsupportedOperationException(
                         "Constructed Asn1EndOfContent not supported");
             case ENUMERATED:
-                if (tagConstructed == TagConstructed.PRIMITIVE) {
-                    return new Asn1Enumerated("field");
-                } else {
-                    throw new UnsupportedOperationException(
-                            "Constructed Asn1Enumerated not supported");
-                }
+                throw new UnsupportedOperationException("Asn1Enumerated not supported");
+
             case EXTERNAL:
                 throw new UnsupportedOperationException("Constructed Asn1External not supported");
             case GENERALIZEDTIME:
@@ -159,7 +155,8 @@ public class Asn1Factory {
                 throw new UnsupportedOperationException(
                         "Constructed Asn1VisibleString not supported");
             default:
-                return new Asn1UnknownField("unknownField");
+                return new Asn1UnknownField(
+                        "unknownField", tagClass, tagConstructed, tagNumberValue);
         }
     }
 }
