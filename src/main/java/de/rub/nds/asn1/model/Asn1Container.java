@@ -71,6 +71,11 @@ public abstract class Asn1Container extends Asn1Field implements ConstructedAsn1
         super(null, null, null, (UniversalTagNumber) null);
     }
 
+    public Asn1Container(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.CONSTRUCTED, implicitTagNumber);
+        this.children = new LinkedList<>();
+    }
+
     public ModifiableByteArray getEncodedChildren() {
         return encodedChildren;
     }

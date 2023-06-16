@@ -31,4 +31,8 @@ public abstract class Asn1Sequence extends Asn1Container {
                 TagConstructed.CONSTRUCTED,
                 UniversalTagNumber.SEQUENCE);
     }
+
+    public Asn1Sequence(String identifier, int implicitTagNumber) {
+        super(identifier, implicitTagNumber);
+    }
 }

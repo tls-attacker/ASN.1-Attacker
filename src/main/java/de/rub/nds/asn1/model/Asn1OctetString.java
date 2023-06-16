@@ -38,6 +38,10 @@ public class Asn1OctetString extends Asn1Field implements PrimitiveAsn1Field {
                 UniversalTagNumber.OCTET_STRING);
     }
 
+    public Asn1OctetString(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableByteArray getValue() {
         return value;
     }

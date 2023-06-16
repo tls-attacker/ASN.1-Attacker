@@ -37,6 +37,10 @@ public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field, TimeFi
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.UTCTIME);
     }
 
+    public Asn1UtcTime(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableString getValue() {
         return value;
     }

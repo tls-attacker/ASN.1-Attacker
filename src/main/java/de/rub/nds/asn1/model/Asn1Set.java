@@ -27,4 +27,8 @@ public abstract class Asn1Set extends Asn1Container {
     public Asn1Set(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, UniversalTagNumber.SET);
     }
+
+    public Asn1Set(String identifier, int implicitTagNumber) {
+        super(identifier, implicitTagNumber);
+    }
 }

@@ -27,4 +27,8 @@ public class Asn1Null extends Asn1Field implements PrimitiveAsn1Field {
     public Asn1Null(String identifier) {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.NULL);
     }
+
+    public Asn1Null(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
 }

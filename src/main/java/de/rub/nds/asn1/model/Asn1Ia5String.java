@@ -38,6 +38,10 @@ public class Asn1Ia5String extends Asn1Field implements PrimitiveAsn1Field {
                 UniversalTagNumber.IA5STRING);
     }
 
+    public Asn1Ia5String(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableString getValue() {
         return value;
     }

@@ -43,6 +43,10 @@ public class Asn1ObjectIdentifier extends Asn1Field implements PrimitiveAsn1Fiel
                 UniversalTagNumber.OBJECT_IDENTIFIER);
     }
 
+    public Asn1ObjectIdentifier(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableString getValue() {
         return value;
     }

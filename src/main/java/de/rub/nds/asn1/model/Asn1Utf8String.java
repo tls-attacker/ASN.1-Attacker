@@ -38,6 +38,10 @@ public class Asn1Utf8String extends Asn1Field implements PrimitiveAsn1Field {
                 UniversalTagNumber.UTF8STRING);
     }
 
+    public Asn1Utf8String(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableString getValue() {
         return value;
     }

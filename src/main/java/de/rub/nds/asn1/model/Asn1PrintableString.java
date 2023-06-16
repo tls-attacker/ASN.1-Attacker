@@ -42,6 +42,10 @@ public class Asn1PrintableString extends Asn1Field implements PrimitiveAsn1Field
                 UniversalTagNumber.PRINTABLESTRING);
     }
 
+    public Asn1PrintableString(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableString getValue() {
         return value;
     }

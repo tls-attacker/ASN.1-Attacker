@@ -98,19 +98,19 @@ public abstract class Asn1Field implements Asn1Encodable {
             String identifier,
             TagClass tagClassType,
             TagConstructed tagConstructedType,
-            Integer tagNumber) {
+            Integer implicitTagNumber) {
         assert (identifier != null);
         assert (tagClassType != null);
         assert (tagConstructedType != null);
         if (tagClassType == TagClass.UNIVERSAL) {
-            universalTagNumber = UniversalTagNumber.fromIntValue(tagNumber);
+            universalTagNumber = UniversalTagNumber.fromIntValue(implicitTagNumber);
         } else {
             universalTagNumber = null;
         }
         this.identifier = identifier;
         this.tagClassType = tagClassType;
         this.tagConstructedType = tagConstructedType;
-        this.tagNumberConfig = tagNumber;
+        this.tagNumberConfig = implicitTagNumber;
     }
 
     /** Private no-arg constructor to please JAXB */

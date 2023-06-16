@@ -34,6 +34,10 @@ public class Asn1Boolean extends Asn1Field implements PrimitiveAsn1Field {
         super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.BOOLEAN);
     }
 
+    public Asn1Boolean(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableBoolean getValue() {
         return value;
     }

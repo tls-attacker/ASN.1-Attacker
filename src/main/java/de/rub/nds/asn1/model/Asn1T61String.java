@@ -38,6 +38,10 @@ public class Asn1T61String extends Asn1Field implements PrimitiveAsn1Field {
                 UniversalTagNumber.T61STRING);
     }
 
+    public Asn1T61String(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableString getValue() {
         return value;
     }

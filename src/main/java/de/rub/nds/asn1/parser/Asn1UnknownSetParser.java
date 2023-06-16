@@ -14,7 +14,7 @@ import de.rub.nds.protocol.exception.ParserException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Asn1UnknownSetParser extends Asn1FieldParser<Asn1UnknownSet> {
+public class Asn1UnknownSetParser extends Asn1Parser<Asn1UnknownSet> {
 
     public Asn1UnknownSetParser(Asn1UnknownSet asn1Set) {
         super(asn1Set);
@@ -25,7 +25,7 @@ public class Asn1UnknownSetParser extends Asn1FieldParser<Asn1UnknownSet> {
         try {
             while (inputStream.available() > 0) {
                 Asn1UnknownField unknownFiled = new Asn1UnknownField("unknown", null, null, null);
-                parseStructure(unknownFiled, inputStream);
+                ParserHelper.parseStructure(unknownFiled, inputStream);
                 encodable.addChild(unknownFiled);
             }
         } catch (IOException e) {
