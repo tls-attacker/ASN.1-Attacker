@@ -14,6 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigInteger;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
@@ -22,9 +27,6 @@ import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.util.Modifiable;
-import java.math.BigInteger;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class Asn1FieldTest {
 
@@ -32,36 +34,35 @@ public class Asn1FieldTest {
 
     @BeforeEach
     public void setUp() {
-        field =
-                new Asn1FieldImpl(
-                        "field",
-                        TagClass.PRIVATE,
-                        TagConstructed.PRIMITIVE,
-                        UniversalTagNumber.BIT_STRING);
+        field = new Asn1FieldImpl(
+                "field",
+                TagClass.PRIVATE,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.BIT_STRING);
     }
 
     @Test
     public void testIsCompatible() {
         assertTrue(
                 field.matchesHeader(
-                        UniversalTagNumber.BIT_STRING.getIntValue(),
+                        TagClass.PRIVATE,
                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                        TagClass.PRIVATE.getIntValue()));
+                        UniversalTagNumber.BIT_STRING.getIntValue()));
         assertFalse(
                 field.matchesHeader(
-                        UniversalTagNumber.BMPSTRING.getIntValue(),
+                        TagClass.PRIVATE,
                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                        TagClass.PRIVATE.getIntValue()));
+                        UniversalTagNumber.BMPSTRING.getIntValue()));
         assertFalse(
                 field.matchesHeader(
-                        UniversalTagNumber.BIT_STRING.getIntValue(),
+                        TagClass.PRIVATE,
                         TagConstructed.CONSTRUCTED.getBooleanValue(),
-                        TagClass.PRIVATE.getIntValue()));
+                        UniversalTagNumber.BIT_STRING.getIntValue()));
         assertFalse(
                 field.matchesHeader(
-                        UniversalTagNumber.BIT_STRING.getIntValue(),
+                        TagClass.APPLICATION,
                         TagConstructed.PRIMITIVE.getBooleanValue(),
-                        TagClass.APPLICATION.getIntValue()));
+                        UniversalTagNumber.BIT_STRING.getIntValue()));
     }
 
     @Test

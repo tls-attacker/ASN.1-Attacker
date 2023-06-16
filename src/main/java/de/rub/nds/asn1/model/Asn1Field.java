@@ -8,6 +8,11 @@
  */
 package de.rub.nds.asn1.model;
 
+import java.math.BigInteger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
@@ -22,9 +27,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
-import java.math.BigInteger;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -56,27 +58,32 @@ public abstract class Asn1Field implements Asn1Encodable {
     @XmlElement(name = "lengthOctets")
     private ModifiableByteArray lengthOctets;
 
-    @XmlTransient private final TagClass tagClassType;
+    @XmlTransient
+    private final TagClass tagClassType;
 
-    @XmlTransient private final TagConstructed tagConstructedType;
+    @XmlTransient
+    private final TagConstructed tagConstructedType;
 
     /**
-     * Note that this field may be null. This is either the case if the tag number is not
+     * Note that this field may be null. This is either the case if the tag number
+     * is not
      * universally defined of if the tagClass is not UNIVERSAL.
      */
-    @XmlTransient private final UniversalTagNumber universalTagNumber;
+    @XmlTransient
+    private final UniversalTagNumber universalTagNumber;
 
     private final Integer tagNumberConfig;
 
-    @XmlTransient private boolean optional = false;
+    @XmlTransient
+    private boolean optional = false;
 
     /**
      * The constructor for universal asn1 fields
      *
-     * @param identifier The identifier of the field
-     * @param tagClassType The tag class of the field
+     * @param identifier         The identifier of the field
+     * @param tagClassType       The tag class of the field
      * @param tagConstructedType The tag constructed type of the field
-     * @param tagNumber The universal tag number of the field
+     * @param tagNumber          The universal tag number of the field
      */
     public Asn1Field(
             String identifier,
@@ -123,7 +130,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     @Override
-    public final boolean matchesHeader(Integer tagNumber, Boolean constructed, Integer classType) {
+    public final boolean matchesHeader(TagClass classType, Boolean constructed, Integer tagNumber) {
         if (tagNumber != tagNumberConfig) {
             LOGGER.debug(
                     "{} not compatible because of the tagNumber Expected "
@@ -142,7 +149,7 @@ public abstract class Asn1Field implements Asn1Encodable {
                     identifier);
             return false;
         }
-        if (classType != this.tagClassType.getIntValue()) {
+        if (classType != this.tagClassType) {
             LOGGER.debug(
                     "{} not compatible because of tag class type. Expected "
                             + this.tagClassType.getIntValue()
@@ -198,8 +205,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     public void setTagConstructed(boolean tagConstructed) {
-        this.tagConstructed =
-                ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
+        this.tagConstructed = ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
     }
 
     public ModifiableInteger getTagNumber() {
@@ -259,8 +265,7 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     public void setLengthOctets(final byte[] lengthOctets) {
-        this.lengthOctets =
-                ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
+        this.lengthOctets = ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
     }
 
     public Integer getTagNumberConfig() {

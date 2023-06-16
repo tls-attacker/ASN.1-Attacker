@@ -8,6 +8,8 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.constants.TagClass;
+
 public interface Asn1Encodable {
 
     public String getIdentifier();
@@ -17,5 +19,5 @@ public interface Asn1Encodable {
     public abstract boolean isOptional();
 
     public abstract boolean matchesHeader(
-            Integer tagNumber, Boolean constructed, Integer classType);
+            TagClass classType, Boolean constructed, Integer tagNumber);
 }

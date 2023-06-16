@@ -9,8 +9,11 @@
 package de.rub.nds.asn1.model;
 
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import de.rub.nds.asn1.constants.TagClass;
 
 public abstract class Asn1Choice implements Asn1Encodable {
 
@@ -52,9 +55,9 @@ public abstract class Asn1Choice implements Asn1Encodable {
     }
 
     @Override
-    public boolean matchesHeader(Integer tagNumber, Boolean constructed, Integer classType) {
+    public boolean matchesHeader(TagClass classType, Boolean constructed, Integer tagNumber) {
         for (Asn1Encodable asn1Encodable : selecteableEncodables) {
-            if (asn1Encodable.matchesHeader(tagNumber, constructed, classType)) {
+            if (asn1Encodable.matchesHeader(classType, constructed, tagNumber)) {
                 return true;
             }
         }
@@ -65,9 +68,9 @@ public abstract class Asn1Choice implements Asn1Encodable {
         return selectedChoice;
     }
 
-    public void makeSelection(Integer tagNumber, Boolean constructed, Integer classType) {
+    public void makeSelection(TagClass classType, Boolean constructed, Integer tagNumber) {
         for (Asn1Encodable asn1Encodable : selecteableEncodables) {
-            if (asn1Encodable.matchesHeader(tagNumber, constructed, classType)) {
+            if (asn1Encodable.matchesHeader(classType, constructed, tagNumber)) {
                 selectedChoice = asn1Encodable;
             }
         }
