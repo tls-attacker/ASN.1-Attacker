@@ -46,6 +46,16 @@ public class Asn1BitString extends Asn1Field implements PrimitiveAsn1Field {
                 UniversalTagNumber.BIT_STRING);
     }
 
+    /**
+     * A constructor for implicit asn1BitStrings
+     *
+     * @param identifier
+     * @param implicitTagNumber
+     */
+    public Asn1BitString(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
     public ModifiableByte getUnusedBits() {
         return unusedBits;
     }
