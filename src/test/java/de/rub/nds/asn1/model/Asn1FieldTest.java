@@ -14,11 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigInteger;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
@@ -27,6 +22,9 @@ import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.util.Modifiable;
+import java.math.BigInteger;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class Asn1FieldTest {
 
@@ -34,11 +32,12 @@ public class Asn1FieldTest {
 
     @BeforeEach
     public void setUp() {
-        field = new Asn1FieldImpl(
-                "field",
-                TagClass.PRIVATE,
-                TagConstructed.PRIMITIVE,
-                UniversalTagNumber.BIT_STRING);
+        field =
+                new Asn1FieldImpl(
+                        "field",
+                        TagClass.PRIVATE,
+                        TagConstructed.PRIMITIVE,
+                        UniversalTagNumber.BIT_STRING);
     }
 
     @Test

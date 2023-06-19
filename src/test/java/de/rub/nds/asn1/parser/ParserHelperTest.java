@@ -25,7 +25,7 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Asn1ParserTest {
+public class ParserHelperTest {
 
     /** Test of parseTagOctets method, of class Asn1Parser. */
     @Test

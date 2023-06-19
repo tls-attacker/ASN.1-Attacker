@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
 
     protected final Encodable encodable;

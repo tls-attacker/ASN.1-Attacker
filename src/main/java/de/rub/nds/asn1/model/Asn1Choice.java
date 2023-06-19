@@ -8,12 +8,10 @@
  */
 package de.rub.nds.asn1.model;
 
+import de.rub.nds.asn1.constants.TagClass;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import de.rub.nds.asn1.constants.TagClass;
 
 public abstract class Asn1Choice implements Asn1Encodable {
 

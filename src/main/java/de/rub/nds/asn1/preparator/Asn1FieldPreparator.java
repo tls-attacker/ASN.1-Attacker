@@ -25,6 +25,7 @@ import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
+import de.rub.nds.asn1.time.TimeField;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -220,6 +221,17 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
         prepareAfterContent(asn1GeneralizedTime);
         return asn1GeneralizedTime;
+    }
+
+    protected TimeField prepareField(TimeField timeField, DateTime time, TimeAccurracy accurracy) {
+        if (timeField instanceof Asn1UtcTime) {
+            return prepareField((Asn1UtcTime) timeField, time, accurracy);
+        } else if (timeField instanceof Asn1GeneralizedTime) {
+            return prepareField((Asn1GeneralizedTime) timeField, time, accurracy);
+        } else {
+            LOGGER.error("Unknown TimeField");
+            return null;
+        }
     }
 
     protected Asn1UtcTime prepareField(
