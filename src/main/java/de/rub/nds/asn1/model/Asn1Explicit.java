@@ -11,9 +11,9 @@ package de.rub.nds.asn1.model;
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 
-public abstract class Asn1Explicit<InnerField extends Asn1Field> extends Asn1Field {
+public abstract class Asn1Explicit<InnerField extends Asn1Encodable> extends Asn1Field {
 
-    private final InnerField innerField;
+    protected final InnerField innerField;
 
     public Asn1Explicit(String identifier, Integer expectedTagNumber, InnerField innerField) {
         super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.CONSTRUCTED, expectedTagNumber);

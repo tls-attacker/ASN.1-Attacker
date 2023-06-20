@@ -188,7 +188,7 @@ public class ParserHelper {
         }
     }
 
-    public static Asn1Field parseUnknown(PushbackInputStream inputStream) {
+    public static Asn1UnknownField parseUnknown(PushbackInputStream inputStream) {
         Asn1Header asn1Header = lookAhead(inputStream);
         Asn1UnknownField unknownField =
                 new Asn1UnknownField(
@@ -212,6 +212,19 @@ public class ParserHelper {
             }
         }
         return null;
+    }
+
+    public static boolean canParse(
+            PushbackInputStream inputStream, TagClass tagClass, int tagNumber) {
+        Asn1Header header = lookAhead(inputStream);
+        if (header.getTagClass() != tagClass) {
+            return false;
+        }
+        if (header.getTagNumber() == tagNumber) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
