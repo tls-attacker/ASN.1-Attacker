@@ -226,6 +226,7 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.length = ModifiableVariableFactory.safelySetValue(this.length, length);
     }
 
+    @Override
     public ModifiableByteArray getContent() {
         return content;
     }
@@ -238,6 +239,7 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.content = ModifiableVariableFactory.safelySetValue(this.content, content);
     }
 
+    @Override
     public ModifiableByteArray getTagOctets() {
         return tagOctets;
     }
@@ -250,6 +252,7 @@ public abstract class Asn1Field implements Asn1Encodable {
         this.tagOctets = ModifiableVariableFactory.safelySetValue(this.tagOctets, tagOctets);
     }
 
+    @Override
     public ModifiableByteArray getLengthOctets() {
         return lengthOctets;
     }

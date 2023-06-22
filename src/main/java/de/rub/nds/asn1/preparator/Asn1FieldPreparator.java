@@ -12,6 +12,8 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TimeAccurracy;
 import de.rub.nds.asn1.model.Asn1BitString;
 import de.rub.nds.asn1.model.Asn1Boolean;
+import de.rub.nds.asn1.model.Asn1Container;
+import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.model.Asn1GeneralizedTime;
 import de.rub.nds.asn1.model.Asn1Ia5String;
@@ -439,6 +441,20 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
                         + ArrayConverter.bytesToHexString(
                                 ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
         outputStream.writeBytes(ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true));
+        return outputStream.toByteArray();
+    }
+
+    protected byte[] encodeChildren(Asn1Container container) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        for (Asn1Encodable child : container.getChildren()) {
+            try {
+                outputStream.write(child.getTagOctets().getValue());
+                outputStream.write(child.getLengthOctets().getValue());
+                outputStream.write(child.getContent().getValue());
+            } catch (IOException e) {
+                throw new RuntimeException("Could not write tag octets to output stream", e);
+            }
+        }
         return outputStream.toByteArray();
     }
 }

@@ -9,6 +9,7 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 
 public interface Asn1Encodable {
 
@@ -20,4 +21,10 @@ public interface Asn1Encodable {
 
     public abstract boolean matchesHeader(
             TagClass classType, Boolean constructed, Integer tagNumber);
+
+    public abstract ModifiableByteArray getTagOctets();
+
+    public abstract ModifiableByteArray getLengthOctets();
+
+    public abstract ModifiableByteArray getContent();
 }
