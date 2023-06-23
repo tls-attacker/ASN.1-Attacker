@@ -11,6 +11,7 @@ package de.rub.nds.asn1.preparator;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.TimeAccurracy;
 import de.rub.nds.asn1.model.Asn1BitString;
+import de.rub.nds.asn1.model.Asn1BmpString;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1Container;
 import de.rub.nds.asn1.model.Asn1Encodable;
@@ -23,6 +24,7 @@ import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import de.rub.nds.asn1.model.Asn1OctetString;
 import de.rub.nds.asn1.model.Asn1PrintableString;
 import de.rub.nds.asn1.model.Asn1T61String;
+import de.rub.nds.asn1.model.Asn1UniversalString;
 import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
@@ -259,6 +261,28 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         return asn1PrintableString;
     }
 
+    protected Asn1BmpString prepareField(Asn1BmpString asn1BmpString, String value) {
+        if (asn1BmpString == null) {
+            asn1BmpString = new Asn1BmpString("bmpString");
+        }
+        asn1BmpString.setValue(value);
+        asn1BmpString.setContent(encodeBmpString(asn1BmpString.getValue().getValue()));
+        prepareAfterContent(asn1BmpString);
+        return asn1BmpString;
+    }
+
+    protected Asn1UniversalString prepareField(
+            Asn1UniversalString asn1UniversalString, String value) {
+        if (asn1UniversalString == null) {
+            asn1UniversalString = new Asn1UniversalString("universalString");
+        }
+        asn1UniversalString.setValue(value);
+        asn1UniversalString.setContent(
+                encodeUniversalString(asn1UniversalString.getValue().getValue()));
+        prepareAfterContent(asn1UniversalString);
+        return asn1UniversalString;
+    }
+
     protected Asn1Ia5String prepareField(Asn1Ia5String asn1Ia5String, String value) {
         if (asn1Ia5String == null) {
             asn1Ia5String = new Asn1Ia5String("ia5String");
@@ -362,6 +386,26 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
      * @return the encoded string
      */
     protected byte[] encodePrintableString(String tempString) {
+        return tempString.getBytes(StandardCharsets.US_ASCII);
+    }
+
+    /**
+     * TODO probably incorrect
+     *
+     * @param tempString
+     * @return
+     */
+    protected byte[] encodeBmpString(String tempString) {
+        return tempString.getBytes(StandardCharsets.US_ASCII);
+    }
+
+    /**
+     * TODO probably incorrect
+     *
+     * @param tempString
+     * @return
+     */
+    protected byte[] encodeUniversalString(String tempString) {
         return tempString.getBytes(StandardCharsets.US_ASCII);
     }
 
