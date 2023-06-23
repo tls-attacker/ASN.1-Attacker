@@ -8,10 +8,13 @@
  */
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.constants.TagClass;
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 
 public abstract class Asn1Choice implements Asn1Encodable {
 
@@ -91,5 +94,20 @@ public abstract class Asn1Choice implements Asn1Encodable {
         } else {
             throw new RuntimeException("Could not make selection");
         }
+    }
+
+    @Override
+    public ModifiableByteArray getTagOctets() {
+        return selectedChoice.getTagOctets();
+    }
+
+    @Override
+    public ModifiableByteArray getLengthOctets() {
+        return selectedChoice.getLengthOctets();
+    }
+
+    @Override
+    public ModifiableByteArray getContent() {
+        return selectedChoice.getContent();
     }
 }
