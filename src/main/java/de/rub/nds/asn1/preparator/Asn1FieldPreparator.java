@@ -448,13 +448,23 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         for (Asn1Encodable child : container.getChildren()) {
             try {
-                outputStream.write(child.getTagOctets().getValue());
-                outputStream.write(child.getLengthOctets().getValue());
-                outputStream.write(child.getContent().getValue());
+                outputStream.write(encode(child));
             } catch (IOException e) {
                 throw new RuntimeException("Could not write tag octets to output stream", e);
             }
         }
         return outputStream.toByteArray();
+    }
+
+    private byte[] encode(Asn1Encodable child) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(child.getTagOctets().getValue());
+            outputStream.write(child.getLengthOctets().getValue());
+            outputStream.write(child.getContent().getValue());
+            return outputStream.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Could not write tag octets to output stream", e);
+        }
     }
 }

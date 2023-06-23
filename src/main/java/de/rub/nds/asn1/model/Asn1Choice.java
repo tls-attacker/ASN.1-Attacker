@@ -83,4 +83,13 @@ public abstract class Asn1Choice implements Asn1Encodable {
                         + classType);
         selectedChoice = null;
     }
+
+    public void makeSelection(Asn1Encodable asn1Encodable) {
+        if (selecteableEncodables.stream()
+                .anyMatch(encodable -> encodable.getClass().equals(asn1Encodable.getClass()))) {
+            selectedChoice = asn1Encodable;
+        } else {
+            throw new RuntimeException("Could not make selection");
+        }
+    }
 }

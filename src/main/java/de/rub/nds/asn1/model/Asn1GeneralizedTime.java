@@ -57,6 +57,7 @@ public class Asn1GeneralizedTime extends Asn1Field implements PrimitiveAsn1Field
         this.value = value;
     }
 
+    @Override
     public void setValue(String value) {
         this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
     }

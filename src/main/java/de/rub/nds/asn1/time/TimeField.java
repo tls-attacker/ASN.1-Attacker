@@ -13,4 +13,6 @@ import org.joda.time.DateTime;
 
 public interface TimeField extends Asn1Encodable {
     public abstract DateTime getTimeValue();
+
+    public abstract void setValue(String timeValue);
 }
