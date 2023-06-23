@@ -13,6 +13,7 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.model.Asn1BitString;
 import de.rub.nds.asn1.model.Asn1Boolean;
+import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
 import de.rub.nds.asn1.model.Asn1GeneralizedTime;
 import de.rub.nds.asn1.model.Asn1Ia5String;
@@ -706,6 +707,36 @@ public class ParserHelper {
                             + " ("
                             + field.getTagNumber().getValue()
                             + ")");
+        }
+    }
+
+    public static void parseGenericField(Asn1Encodable encodable, PushbackInputStream inputStream) {
+        if (encodable instanceof Asn1Integer) {
+            parseAsn1Integer((Asn1Integer) encodable, inputStream);
+        } else if (encodable instanceof Asn1BitString) {
+            parseAsn1BitString((Asn1BitString) encodable, inputStream);
+        } else if (encodable instanceof Asn1Boolean) {
+            parseAsn1Boolean((Asn1Boolean) encodable, inputStream);
+        } else if (encodable instanceof Asn1GeneralizedTime) {
+            parseAsn1GeneralizedTime((Asn1GeneralizedTime) encodable, inputStream);
+        } else if (encodable instanceof Asn1Ia5String) {
+            parseAsn1Ia5String((Asn1Ia5String) encodable, inputStream);
+        } else if (encodable instanceof Asn1Null) {
+            parseAsn1Null((Asn1Null) encodable, inputStream);
+        } else if (encodable instanceof Asn1ObjectIdentifier) {
+            parseAsn1ObjectIdentifier((Asn1ObjectIdentifier) encodable, inputStream);
+        } else if (encodable instanceof Asn1OctetString) {
+            parseAsn1OctetString((Asn1OctetString) encodable, inputStream);
+        } else if (encodable instanceof Asn1PrintableString) {
+            parseAsn1PrintableString((Asn1PrintableString) encodable, inputStream);
+        } else if (encodable instanceof Asn1T61String) {
+            parseAsn1T61String((Asn1T61String) encodable, inputStream);
+        } else if (encodable instanceof Asn1UtcTime) {
+            parseAsn1UtcTime((Asn1UtcTime) encodable, inputStream);
+        } else if (encodable instanceof Asn1Utf8String) {
+            parseAsn1Utf8String((Asn1Utf8String) encodable, inputStream);
+        } else {
+            parseStructure((Asn1Field) encodable, inputStream);
         }
     }
 }
