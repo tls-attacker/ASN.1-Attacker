@@ -236,6 +236,7 @@ public class ParserHelper {
      */
     public static Asn1Header lookAhead(BufferedInputStream inputStream) {
         try {
+            LOGGER.debug("Looking ahead...");
             inputStream.mark(inputStream.available());
             byte[] tagOctets = parseTagOctets(inputStream);
             int tagClass = parseTagClass(tagOctets[0]);
@@ -246,6 +247,7 @@ public class ParserHelper {
 
             BigInteger parseLength = parseLength(lengthOctets);
             inputStream.reset();
+            LOGGER.debug("Resetting stream. Back to normal");
             return new Asn1Header(
                     TagClass.fromIntValue(tagClass),
                     parseTagNumber,
