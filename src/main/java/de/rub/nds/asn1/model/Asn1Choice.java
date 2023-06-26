@@ -71,6 +71,7 @@ public abstract class Asn1Choice implements Asn1Encodable {
         for (Asn1Encodable asn1Encodable : selecteableEncodables) {
             if (asn1Encodable.matchesHeader(classType, constructed, tagNumber)) {
                 selectedChoice = asn1Encodable;
+                return;
             }
         }
         LOGGER.warn(
