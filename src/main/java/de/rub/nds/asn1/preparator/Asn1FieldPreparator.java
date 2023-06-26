@@ -72,7 +72,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     }
 
     public void prepareTagOctets(Asn1Field field) {
-        field.setTagOctets(encodeIdentifier(field));
+        field.setTagOctets(encodeTag(field));
     }
 
     public void prepareTagNumber(Asn1Field field) {
@@ -105,7 +105,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
 
     protected abstract byte[] encodeContent();
 
-    private byte[] encodeIdentifier(Asn1Field field) {
+    private byte[] encodeTag(Asn1Field field) {
         byte firstIdentifierByte = 0;
         firstIdentifierByte =
                 this.encodeTagClass(firstIdentifierByte, this.field.getTagClass().getValue());
