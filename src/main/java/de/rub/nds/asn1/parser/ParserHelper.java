@@ -32,11 +32,11 @@ import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.util.Asn1Header;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.protocol.exception.ParserException;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PushbackInputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Objects;
@@ -61,7 +61,7 @@ public class ParserHelper {
      * @return the parsed field
      */
     public static Asn1Field parseTagNumberOrUnkownField(
-            PushbackInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
+            BufferedInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
         if (tagNumbers.length == 0) {
             throw new ParserException("No tag numbers provided");
         }
@@ -95,7 +95,7 @@ public class ParserHelper {
      * @return
      */
     public static Asn1Field parseTagNumberField(
-            PushbackInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
+            BufferedInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
         if (tagClass != TagClass.UNIVERSAL) {
             throw new ParserException("Cannot parse this tag number generically.");
         }
@@ -120,7 +120,7 @@ public class ParserHelper {
     }
 
     public static Asn1Field parseTagNumberField(
-            PushbackInputStream inputStream, UniversalTagNumber tagNumber) {
+            BufferedInputStream inputStream, UniversalTagNumber tagNumber) {
         switch (tagNumber) {
             case BIT_STRING:
                 Asn1BitString bitstring = new Asn1BitString("bitString");
@@ -189,7 +189,7 @@ public class ParserHelper {
         }
     }
 
-    public static Asn1UnknownField parseUnknown(PushbackInputStream inputStream) {
+    public static Asn1UnknownField parseUnknown(BufferedInputStream inputStream) {
         Asn1Header asn1Header = lookAhead(inputStream);
         Asn1UnknownField unknownField =
                 new Asn1UnknownField(
@@ -202,7 +202,7 @@ public class ParserHelper {
     }
 
     public static UniversalTagNumber canParse(
-            PushbackInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
+            BufferedInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
         Asn1Header header = lookAhead(inputStream);
         if (header.getTagClass() != tagClass) {
             return null;
@@ -216,7 +216,7 @@ public class ParserHelper {
     }
 
     public static boolean canParse(
-            PushbackInputStream inputStream, TagClass tagClass, int tagNumber) {
+            BufferedInputStream inputStream, TagClass tagClass, int tagNumber) {
         Asn1Header header = lookAhead(inputStream);
         if (header.getTagClass() != tagClass) {
             return false;
@@ -234,7 +234,7 @@ public class ParserHelper {
      * @param inputStream The stream to look ahead in.
      * @return The header of the next field.
      */
-    public static Asn1Header lookAhead(PushbackInputStream inputStream) {
+    public static Asn1Header lookAhead(BufferedInputStream inputStream) {
         try {
             inputStream.mark(inputStream.available());
             byte[] tagOctets = parseTagOctets(inputStream);
@@ -710,7 +710,7 @@ public class ParserHelper {
         }
     }
 
-    public static void parseGenericField(Asn1Encodable encodable, PushbackInputStream inputStream) {
+    public static void parseGenericField(Asn1Encodable encodable, BufferedInputStream inputStream) {
         if (encodable instanceof Asn1Integer) {
             parseAsn1Integer((Asn1Integer) encodable, inputStream);
         } else if (encodable instanceof Asn1BitString) {

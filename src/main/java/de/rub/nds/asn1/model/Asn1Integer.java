@@ -36,7 +36,7 @@ public class Asn1Integer extends Asn1Field implements PrimitiveAsn1Field {
     }
 
     public Asn1Integer(String identifier, int implicitTagNumber) {
-        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, implicitTagNumber);
     }
 
     public ModifiableBigInteger getValue() {
