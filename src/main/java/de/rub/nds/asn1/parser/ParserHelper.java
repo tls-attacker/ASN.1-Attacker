@@ -237,7 +237,8 @@ public class ParserHelper {
     public static Asn1Header lookAhead(BufferedInputStream inputStream) {
         try {
             LOGGER.debug("Looking ahead...");
-            inputStream.mark(inputStream.available());
+            // inputStream.mark(2);
+            System.out.println("after mark: " + inputStream.available());
             byte[] tagOctets = parseTagOctets(inputStream);
             int tagClass = parseTagClass(tagOctets[0]);
             boolean constructed = parseTagConstructed(tagOctets[0]);
@@ -246,8 +247,10 @@ public class ParserHelper {
             lengthOctets = parseLengthOctets(inputStream);
 
             BigInteger parseLength = parseLength(lengthOctets);
-            inputStream.reset();
-            LOGGER.debug("Resetting stream. Back to normal");
+            // inputStream.reset();
+            System.out.println("after reset: " + inputStream.available());
+
+            LOGGER.debug("Reset stream. Back to normal");
             return new Asn1Header(
                     TagClass.fromIntValue(tagClass),
                     parseTagNumber,
@@ -266,7 +269,7 @@ public class ParserHelper {
      * @param field
      * @param stream
      */
-    public static void parseStructure(Asn1Field field, InputStream stream) {
+    public static void parseStructure(Asn1Field field, BufferedInputStream stream) {
         try {
             field.setTagOctets(parseTagOctets(stream));
             field.setTagClass(parseTagClass(field.getTagOctets().getValue()[0]));
@@ -287,7 +290,7 @@ public class ParserHelper {
      * @param asn1Boolean
      * @param inputStream
      */
-    public static void parseAsn1Boolean(Asn1Boolean asn1Boolean, InputStream inputStream) {
+    public static void parseAsn1Boolean(Asn1Boolean asn1Boolean, BufferedInputStream inputStream) {
         parseStructure(asn1Boolean, inputStream);
         parseBooleanContent(asn1Boolean);
     }
@@ -298,7 +301,7 @@ public class ParserHelper {
      * @param asn1Integer
      * @param inputStream
      */
-    public static void parseAsn1Integer(Asn1Integer asn1Integer, InputStream inputStream) {
+    public static void parseAsn1Integer(Asn1Integer asn1Integer, BufferedInputStream inputStream) {
         parseStructure(asn1Integer, inputStream);
         parseIntegerContent(asn1Integer);
     }
@@ -309,7 +312,7 @@ public class ParserHelper {
      * @param asn1Null
      * @param inputStream
      */
-    public static void parseAsn1Null(Asn1Null asn1Null, InputStream inputStream) {
+    public static void parseAsn1Null(Asn1Null asn1Null, BufferedInputStream inputStream) {
         parseStructure(asn1Null, inputStream);
         parseNullContent(asn1Null);
     }
@@ -321,7 +324,7 @@ public class ParserHelper {
      * @param inputStream
      */
     public static void parseAsn1ObjectIdentifier(
-            Asn1ObjectIdentifier asn1ObjectIdentifier, InputStream inputStream) {
+            Asn1ObjectIdentifier asn1ObjectIdentifier, BufferedInputStream inputStream) {
         parseStructure(asn1ObjectIdentifier, inputStream);
         parseAsn1ObjectIdentifierContent(asn1ObjectIdentifier);
     }
@@ -332,7 +335,8 @@ public class ParserHelper {
      * @param asn1BitString
      * @param inputStream
      */
-    public static void parseAsn1BitString(Asn1BitString asn1BitString, InputStream inputStream) {
+    public static void parseAsn1BitString(
+            Asn1BitString asn1BitString, BufferedInputStream inputStream) {
         parseStructure(asn1BitString, inputStream);
         parseBitStringContent(asn1BitString);
     }
@@ -344,7 +348,7 @@ public class ParserHelper {
      * @param inputStream
      */
     public static void parseAsn1GeneralizedTime(
-            Asn1GeneralizedTime asn1GeneralizedTime, InputStream inputStream) {
+            Asn1GeneralizedTime asn1GeneralizedTime, BufferedInputStream inputStream) {
         parseStructure(asn1GeneralizedTime, inputStream);
         parseGeneralizedTimeContent(asn1GeneralizedTime);
     }
@@ -356,7 +360,8 @@ public class ParserHelper {
      * @param inputStream
      * @throws IOException
      */
-    public static void parseAsn1Ia5String(Asn1Ia5String asn1Ia5String, InputStream inputStream) {
+    public static void parseAsn1Ia5String(
+            Asn1Ia5String asn1Ia5String, BufferedInputStream inputStream) {
         parseStructure(asn1Ia5String, inputStream);
         parseIa5StringContent(asn1Ia5String);
     }
@@ -368,7 +373,7 @@ public class ParserHelper {
      * @param inputStream
      */
     public static void parseAsn1OctetString(
-            Asn1OctetString asn1OctetString, InputStream inputStream) {
+            Asn1OctetString asn1OctetString, BufferedInputStream inputStream) {
         parseStructure(asn1OctetString, inputStream);
         parseOctetStringContent(asn1OctetString);
     }
@@ -381,7 +386,7 @@ public class ParserHelper {
      * @throws IOException
      */
     public static void parseAsn1PrintableString(
-            Asn1PrintableString asn1PrintableString, InputStream inputStream) {
+            Asn1PrintableString asn1PrintableString, BufferedInputStream inputStream) {
         parseStructure(asn1PrintableString, inputStream);
         parsePrintableStringContent(asn1PrintableString);
     }
@@ -392,7 +397,8 @@ public class ParserHelper {
      * @param asn1T61String
      * @param inputStream
      */
-    public static void parseAsn1T61String(Asn1T61String asn1T61String, InputStream inputStream) {
+    public static void parseAsn1T61String(
+            Asn1T61String asn1T61String, BufferedInputStream inputStream) {
         parseStructure(asn1T61String, inputStream);
         parseT61StringContent(asn1T61String);
     }
@@ -403,7 +409,7 @@ public class ParserHelper {
      * @param asn1UtcTime
      * @param inputStream
      */
-    public static void parseAsn1UtcTime(Asn1UtcTime asn1UtcTime, InputStream inputStream) {
+    public static void parseAsn1UtcTime(Asn1UtcTime asn1UtcTime, BufferedInputStream inputStream) {
         parseStructure(asn1UtcTime, inputStream);
         parseUtcTimeContent(asn1UtcTime);
     }
@@ -414,7 +420,8 @@ public class ParserHelper {
      * @param asn1Utf8String
      * @param inputStream
      */
-    public static void parseAsn1Utf8String(Asn1Utf8String asn1Utf8String, InputStream inputStream) {
+    public static void parseAsn1Utf8String(
+            Asn1Utf8String asn1Utf8String, BufferedInputStream inputStream) {
         parseStructure(asn1Utf8String, inputStream);
         parseUtf8StringContent(asn1Utf8String);
     }
@@ -529,7 +536,7 @@ public class ParserHelper {
         return shiftInt.toByteArray();
     }
 
-    public static byte[] parseTagOctets(InputStream stream) throws IOException {
+    public static byte[] parseTagOctets(BufferedInputStream stream) throws IOException {
         if (stream.available() == 0) {
             throw new ParserException("Cannot read from empty stream");
         }
@@ -611,7 +618,7 @@ public class ParserHelper {
         return length;
     }
 
-    public static byte[] parseLengthOctets(InputStream inputStream)
+    public static byte[] parseLengthOctets(BufferedInputStream inputStream)
             throws ParserException, IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte lengthByte;
@@ -647,7 +654,7 @@ public class ParserHelper {
         }
     }
 
-    public static byte[] parseContentOctets(BigInteger length, InputStream inputStream)
+    public static byte[] parseContentOctets(BigInteger length, BufferedInputStream inputStream)
             throws IOException {
         if (inputStream.available() < length.intValue()) {
             throw new ParserException("Not enough bytes in stream");

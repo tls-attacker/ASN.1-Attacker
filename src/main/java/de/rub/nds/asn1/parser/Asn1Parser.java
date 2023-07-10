@@ -9,7 +9,7 @@
 package de.rub.nds.asn1.parser;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
-import java.io.InputStream;
+import java.io.BufferedInputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,5 +24,5 @@ public abstract class Asn1Parser<Encodable extends Asn1Encodable> {
         this.encodable = field;
     }
 
-    public abstract void parse(InputStream inputStream);
+    public abstract void parse(BufferedInputStream inputStream);
 }

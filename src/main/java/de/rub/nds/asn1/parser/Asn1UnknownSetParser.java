@@ -11,8 +11,8 @@ package de.rub.nds.asn1.parser;
 import de.rub.nds.asn1.model.Asn1UnknownField;
 import de.rub.nds.asn1.model.Asn1UnknownSet;
 import de.rub.nds.protocol.exception.ParserException;
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class Asn1UnknownSetParser extends Asn1Parser<Asn1UnknownSet> {
 
@@ -21,7 +21,7 @@ public class Asn1UnknownSetParser extends Asn1Parser<Asn1UnknownSet> {
     }
 
     @Override
-    public void parse(InputStream inputStream) {
+    public void parse(BufferedInputStream inputStream) {
         try {
             while (inputStream.available() > 0) {
                 Asn1UnknownField unknownFiled = new Asn1UnknownField("unknown", null, null, null);
