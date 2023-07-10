@@ -712,7 +712,8 @@ public class ParserHelper {
                             + (foundTagNumber == null ? "???" : foundTagNumber.name())
                             + " ("
                             + field.getTagNumber().getValue()
-                            + ")");
+                            + ") for "
+                            + field.getIdentifier());
         }
     }
 
