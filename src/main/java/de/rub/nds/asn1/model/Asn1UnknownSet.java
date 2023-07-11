@@ -9,14 +9,23 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.parser.Asn1UnknownSetParser;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Asn1UnknownSet extends Asn1Set {
 
+    private List<Asn1Encodable> children;
+
     public Asn1UnknownSet(String identifier) {
         super(identifier);
+        children = new ArrayList<>();
     }
 
     public Asn1UnknownSetParser getParser() {
         return new Asn1UnknownSetParser(this);
+    }
+
+    public void addChild(Asn1UnknownField unknownFiled) {
+        children.add(unknownFiled);
     }
 }
