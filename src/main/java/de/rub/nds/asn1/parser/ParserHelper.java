@@ -201,23 +201,12 @@ public class ParserHelper {
         return unknownField;
     }
 
-    public static UniversalTagNumber canParse(
-            BufferedInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
-        Asn1Header header = lookAhead(inputStream);
-        if (header.getTagClass() != tagClass) {
-            return null;
-        }
-        for (UniversalTagNumber tagNumber : tagNumbers) {
-            if (header.getTagNumber() == tagNumber.getIntValue()) {
-                return tagNumber;
-            }
-        }
-        return null;
-    }
-
     public static boolean canParse(
             BufferedInputStream inputStream, TagClass tagClass, int tagNumber) {
         Asn1Header header = lookAhead(inputStream);
+        if (header == null) {
+            return false;
+        }
         if (header.getTagClass() != tagClass) {
             return false;
         }
@@ -237,6 +226,10 @@ public class ParserHelper {
     public static Asn1Header lookAhead(BufferedInputStream inputStream) {
         try {
             LOGGER.debug("Looking ahead...");
+            if (inputStream.available() == 0) {
+                LOGGER.debug("Cannot look ahead, stream is empty");
+                return null;
+            }
             inputStream.mark(inputStream.available());
             byte[] tagOctets = parseTagOctets(inputStream);
             int tagClass = parseTagClass(tagOctets[0]);
