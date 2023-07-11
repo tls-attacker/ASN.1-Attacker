@@ -27,7 +27,11 @@ public class Asn1Enumerated extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableBigInteger value;
 
     public Asn1Enumerated(String identifier) {
-        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.ENUMERATED);
+        super(
+                identifier,
+                TagClass.UNIVERSAL,
+                TagConstructed.PRIMITIVE,
+                UniversalTagNumber.ENUMERATED);
     }
 
     /** Private no-arg constructor to please JAXB */

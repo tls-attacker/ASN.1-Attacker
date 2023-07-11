@@ -67,9 +67,6 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     private byte[] encode(Asn1Encodable encodable) {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            if (encodable.getTagOctets() == null || encodable.getTagOctets().getValue() == null) {
-                System.out.println("Stop");
-            }
             outputStream.write(encodable.getTagOctets().getValue());
             outputStream.write(encodable.getLengthOctets().getValue());
             outputStream.write(encodable.getContent().getValue());
