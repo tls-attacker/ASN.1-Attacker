@@ -130,7 +130,7 @@ public class Asn1PreparatorHelper {
      * Prepares all generic values in the field that are NOT the content. Expects that the content
      * is already set beforehand (to compute the length fields)
      *
-     * @param field
+     * @param field the field to prepare
      */
     public static void prepareAfterContent(Asn1Field field) {
         Asn1PreparatorHelper.prepareLength(field);
@@ -377,8 +377,8 @@ public class Asn1PreparatorHelper {
     /**
      * TODO probably incorrect
      *
-     * @param tempString
-     * @return
+     * @param tempString the String to encode
+     * @return the string encoded as a bmp string as a byte array
      */
     public static byte[] encodeBmpString(String tempString) {
         return tempString.getBytes(StandardCharsets.US_ASCII);
@@ -387,8 +387,8 @@ public class Asn1PreparatorHelper {
     /**
      * TODO probably incorrect
      *
-     * @param tempString
-     * @return
+     * @param tempString the String to encode
+     * @return the string encoded as a universal string as a byte array
      */
     public static byte[] encodeUniversalString(String tempString) {
         return tempString.getBytes(StandardCharsets.US_ASCII);

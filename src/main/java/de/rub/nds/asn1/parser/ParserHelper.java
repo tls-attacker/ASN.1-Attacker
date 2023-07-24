@@ -57,7 +57,7 @@ public class ParserHelper {
      *
      * @param inputStream the stream to parse from
      * @param tagClass the tag class to parse
-     * @param tagNumber the tag number to parse
+     * @param tagNumbers the tag numbers to potentially parse
      * @return the parsed field
      */
     public static Asn1Field parseTagNumberOrUnkownField(
@@ -92,7 +92,7 @@ public class ParserHelper {
      * @param inputStream the stream to parse from
      * @param tagClass the tag class to parse
      * @param tagNumbers The tag numbers to parse
-     * @return
+     * @return an Asn1Field that was parsed
      */
     public static Asn1Field parseTagNumberField(
             BufferedInputStream inputStream, TagClass tagClass, UniversalTagNumber... tagNumbers) {
@@ -256,8 +256,8 @@ public class ParserHelper {
      * the constants in the field and checks that the they match the expected ones. If not a
      * ParserException is thrown. Does not parse the content octets
      *
-     * @param field
-     * @param stream
+     * @param field Field where the parsed values should be written to
+     * @param stream The stream to read from
      */
     public static void parseStructure(Asn1Field field, BufferedInputStream stream) {
         try {
@@ -277,8 +277,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 Boolean field. Its structure and its content
      *
-     * @param asn1Boolean
-     * @param inputStream
+     * @param asn1Boolean the Asn1Boolean to write the parsed values into
+     * @param inputStream the InputStream to read the boolean from
      */
     public static void parseAsn1Boolean(Asn1Boolean asn1Boolean, BufferedInputStream inputStream) {
         parseStructure(asn1Boolean, inputStream);
@@ -288,8 +288,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 Integer field. Its structure and its content
      *
-     * @param asn1Integer
-     * @param inputStream
+     * @param asn1Integer the Asn1Integer to write the parsed values into
+     * @param inputStream the InputStream to read the integer from
      */
     public static void parseAsn1Integer(Asn1Integer asn1Integer, BufferedInputStream inputStream) {
         parseStructure(asn1Integer, inputStream);
@@ -299,8 +299,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 Null field. Its structure and its content
      *
-     * @param asn1Null
-     * @param inputStream
+     * @param asn1Null the Asn1Null to write the parsed values into
+     * @param inputStream the InputStream to read the null field from
      */
     public static void parseAsn1Null(Asn1Null asn1Null, BufferedInputStream inputStream) {
         parseStructure(asn1Null, inputStream);
@@ -310,8 +310,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 ObjectIdentifier field. Its structure and its content
      *
-     * @param asn1ObjectIdentifier
-     * @param inputStream
+     * @param asn1ObjectIdentifier the Asn1ObjectIdentifier to write the parsed values into
+     * @param inputStream the InputStream to read the object identifier from
      */
     public static void parseAsn1ObjectIdentifier(
             Asn1ObjectIdentifier asn1ObjectIdentifier, BufferedInputStream inputStream) {
@@ -322,8 +322,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 BitString field. Its structure and its content
      *
-     * @param asn1BitString
-     * @param inputStream
+     * @param asn1BitString the Asn1BitString to write the parsed values into
+     * @param inputStream the inputstream to read the bitstring from
      */
     public static void parseAsn1BitString(
             Asn1BitString asn1BitString, BufferedInputStream inputStream) {
@@ -334,8 +334,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 GeneralizedTime field. Its structure and its content
      *
-     * @param asn1GeneralizedTime
-     * @param inputStream
+     * @param asn1GeneralizedTime the Asn1GeneralizedTime to write the parsed values into
+     * @param inputStream the inputstream to read the generalized time from
      */
     public static void parseAsn1GeneralizedTime(
             Asn1GeneralizedTime asn1GeneralizedTime, BufferedInputStream inputStream) {
@@ -346,9 +346,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 IA5 String field. Its structure and its content
      *
-     * @param asn1Ia5String
-     * @param inputStream
-     * @throws IOException
+     * @param asn1Ia5String the Asn1Ia5String to write the parsed values into
+     * @param inputStream the inputstream to read the ia5 string from
      */
     public static void parseAsn1Ia5String(
             Asn1Ia5String asn1Ia5String, BufferedInputStream inputStream) {
@@ -359,8 +358,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 OctetString field. Its structure and its content
      *
-     * @param asn1OctetString
-     * @param inputStream
+     * @param asn1OctetString the Asn1OctetString to write the parsed values into
+     * @param inputStream the InputStream to read the octet string from
      */
     public static void parseAsn1OctetString(
             Asn1OctetString asn1OctetString, BufferedInputStream inputStream) {
@@ -371,9 +370,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 PrintableString field. Its structure and its content
      *
-     * @param asn1PrintableString
-     * @param inputStream
-     * @throws IOException
+     * @param asn1PrintableString the Asn1PrintableString to write the parsed values into
+     * @param inputStream the InputStream to read the printable string from
      */
     public static void parseAsn1PrintableString(
             Asn1PrintableString asn1PrintableString, BufferedInputStream inputStream) {
@@ -384,8 +382,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 T61String field. Its structure and its content
      *
-     * @param asn1T61String
-     * @param inputStream
+     * @param asn1T61String the Asn1T61String to write the parsed values into
+     * @param inputStream the InputStream to read the T61 string from
      */
     public static void parseAsn1T61String(
             Asn1T61String asn1T61String, BufferedInputStream inputStream) {
@@ -396,8 +394,8 @@ public class ParserHelper {
     /**
      * Parses an ASN.1 UTC Time field. Its structure and its content
      *
-     * @param asn1UtcTime
-     * @param inputStream
+     * @param asn1UtcTime the Asn1UtcTime to write the parsed values into
+     * @param inputStream the InputStream to read the utc time field from
      */
     public static void parseAsn1UtcTime(Asn1UtcTime asn1UtcTime, BufferedInputStream inputStream) {
         parseStructure(asn1UtcTime, inputStream);
@@ -407,8 +405,8 @@ public class ParserHelper {
     /**
      * Parses an Utf8String field. Its structure and its content
      *
-     * @param asn1Utf8String
-     * @param inputStream
+     * @param asn1Utf8String the Asn1Utf8String to write the parsed values into
+     * @param inputStream the InputStream to read the utf8 string from
      */
     public static void parseAsn1Utf8String(
             Asn1Utf8String asn1Utf8String, BufferedInputStream inputStream) {
@@ -657,7 +655,7 @@ public class ParserHelper {
     /**
      * Throws a ParserException if the header does not match the expected one
      *
-     * @param field
+     * @param field the field for which the constants should be validated
      */
     public static void validateConstants(Asn1Field field) {
         if (field.getTagClassType() != null
