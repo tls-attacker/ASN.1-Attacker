@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>asn1-attacker</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
 
     <name>ASN.1-Attacker</name>
     <description>ASN.1-Attacker is a project for creating arbitrary ASN.1 structures; including malformed ASN.1 structures.
