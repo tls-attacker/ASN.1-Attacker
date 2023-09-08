@@ -54,7 +54,8 @@ public class TimeDecoder {
                 DateTime dateTime = formatter.parseDateTime(utcTimeString);
                 return dateTime;
             } catch (IllegalArgumentException E) {
-                // Ignore
+                // Ignore. We are bruteforcing the format here. An illegal argument exception
+                // is only a problem when every format throws one.
             }
         }
         throw new ParserException("Cannot parse time: " + utcTimeString);
