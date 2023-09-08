@@ -29,6 +29,7 @@ import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
 import de.rub.nds.asn1.time.TimeField;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.protocol.exception.PreparationException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -212,8 +213,7 @@ public class Asn1PreparatorHelper {
         } else if (timeField instanceof Asn1GeneralizedTime) {
             return prepareField((Asn1GeneralizedTime) timeField, time, accurracy);
         } else {
-            LOGGER.error("Unknown TimeField");
-            return null;
+            throw new PreparationException("Unknown TimeField");
         }
     }
 
