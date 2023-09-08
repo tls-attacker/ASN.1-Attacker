@@ -531,7 +531,6 @@ public class ParserHelper {
         int read = stream.read();
         if ((read & 0x1F) == 0x1F) {
             // Long tag
-
             ByteArrayOutputStream tagByteStream = new ByteArrayOutputStream();
             tagByteStream.write(read);
             do {
