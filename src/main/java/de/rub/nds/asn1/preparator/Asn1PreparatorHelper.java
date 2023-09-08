@@ -105,12 +105,6 @@ public class Asn1PreparatorHelper {
                 resultStream.write(result);
             } else {
                 int longTagNumberBytes = getTagNumberByteCount(tagNumber);
-                // Quick Fix
-                if (longTagNumberBytes > 65535) {
-                    LOGGER.warn(
-                            "Fix von longTagNumberBytes: critical value: " + longTagNumberBytes);
-                    longTagNumberBytes = 65535;
-                }
                 byte[] longEncoding = encodeLongTagNumber(tagNumber);
                 if (longEncoding.length < longTagNumberBytes) {
                     longEncodingStream.write(new byte[longTagNumberBytes - longEncoding.length]);
