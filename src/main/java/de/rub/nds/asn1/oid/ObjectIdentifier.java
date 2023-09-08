@@ -44,11 +44,9 @@ public class ObjectIdentifier {
     public ObjectIdentifier(String id) {
         String[] splittedId = id.split("\\.");
         long[] idValues = new long[splittedId.length];
-        int i = 0;
         try {
-            for (String subId : splittedId) {
-                idValues[i] = Long.parseLong(subId);
-                i++;
+            for (int i = 0; i < splittedId.length; i++) {
+                idValues[i] = Long.parseLong(splittedId[i]);
             }
         } catch (RuntimeException E) {
             throw new ParserException("Could not parse OID \'" + id + "\'", E);
