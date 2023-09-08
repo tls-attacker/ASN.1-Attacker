@@ -457,7 +457,7 @@ public class Asn1PreparatorHelper {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int numberOfBytes = getLengthByteCount(length);
         outputStream.write(numberOfBytes | 0x80);
-        LOGGER.info(
+        LOGGER.debug(
                 "Encoding: "
                         + length
                         + " as "
