@@ -1,5 +1,5 @@
 /*
- * ASN.1-Attacker - A library for arbitrary ASN.1 structures
+ * ASN.1-Attacker - A Library for Arbitrary ASN.1 Structures
  *
  * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
