@@ -42,4 +42,17 @@ public final class Asn1Header {
     public TagConstructed getTagConstructed() {
         return tagConstructed;
     }
+
+    @Override
+    public String toString() {
+        return "Asn1Header [tagClass="
+                + tagClass
+                + ", tagNumber="
+                + tagNumber
+                + ", length="
+                + length
+                + ", tagConstructed="
+                + tagConstructed
+                + "]";
+    }
 }

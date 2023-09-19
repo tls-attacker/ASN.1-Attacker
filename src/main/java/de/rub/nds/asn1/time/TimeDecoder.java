@@ -17,10 +17,11 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class TimeDecoder {
 
-    @SuppressWarnings("unused")
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static DateTime decodeGeneralizedTimeUtc(String generalizedTimeString) {
+        LOGGER.debug("Decoding GeneralizedTimeUtc: {}", generalizedTimeString);
+
         String[] formats =
                 new String[] {
                     "yyyyMMddHH",
@@ -46,11 +47,12 @@ public class TimeDecoder {
     }
 
     public static DateTime decodeUtc(String utcTimeString) {
+        LOGGER.debug("Decoding UTC time: {}", utcTimeString);
         String[] formats =
                 new String[] {"yyMMddHHmm", "yyMMddHHmmss", "yyMMddHHmm'Z'", "yyMMddHHmmss'Z'"};
         for (String format : formats) {
             try {
-                DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
+                DateTimeFormatter formatter = DateTimeFormat.forPattern(format).withZoneUTC();
                 DateTime dateTime = formatter.parseDateTime(utcTimeString);
                 return dateTime;
             } catch (IllegalArgumentException E) {
