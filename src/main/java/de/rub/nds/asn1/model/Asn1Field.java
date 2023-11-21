@@ -23,6 +23,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import java.math.BigInteger;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -119,34 +120,31 @@ public abstract class Asn1Field implements Asn1Encodable {
 
     @Override
     public final boolean matchesHeader(TagClass classType, Boolean constructed, Integer tagNumber) {
-        if (tagNumber != tagNumberConfig) {
+        if (!Objects.equals(tagNumber, tagNumberConfig)) {
             LOGGER.debug(
-                    "{} not compatible because of the tagNumber Expected "
-                            + tagNumberConfig
-                            + " but found "
-                            + tagNumber,
-                    identifier);
+                    "{} not compatible because of the tagNumber Expected {} but found {}",
+                    identifier,
+                    tagNumberConfig,
+                    tagNumber);
             return false;
         }
         if (constructed != tagConstructedType.getBooleanValue()) {
             LOGGER.debug(
-                    "{} not compatible because of constructed type Expected "
-                            + this.tagConstructedType.getBooleanValue()
-                            + " but found "
-                            + constructed,
-                    identifier);
+                    "{} not compatible because of constructed type Expected {} but found {}",
+                    identifier,
+                    this.tagConstructedType.getBooleanValue(),
+                    constructed);
             return false;
         }
         if (classType != this.tagClassType) {
             LOGGER.debug(
-                    "{} not compatible because of tag class type. Expected "
-                            + this.tagClassType.getIntValue()
-                            + " but found "
-                            + classType,
-                    identifier);
+                    "{} not compatible because of tag class type. Expected {} but found {}",
+                    identifier,
+                    this.tagClassType.getIntValue(),
+                    classType);
             return false;
         } else {
-            LOGGER.debug("Asn1Field \'{}\' is compatible", identifier);
+            LOGGER.debug("Asn1Field '{}' is compatible", identifier);
             return true;
         }
     }
