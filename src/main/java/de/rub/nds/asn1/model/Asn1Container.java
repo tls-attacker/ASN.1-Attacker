@@ -33,7 +33,7 @@ public abstract class Asn1Container extends Asn1Field implements ConstructedAsn1
 
     /** Private no-arg constructor to please JAXB */
     private Asn1Container() {
-        super(null, null, null, (UniversalTagNumber) null);
+        super();
     }
 
     public Asn1Container(String identifier, int implicitTagNumber) {

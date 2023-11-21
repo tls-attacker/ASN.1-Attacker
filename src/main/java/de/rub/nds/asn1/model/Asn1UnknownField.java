@@ -10,7 +10,6 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
-import de.rub.nds.asn1.constants.UniversalTagNumber;
 
 public class Asn1UnknownField extends Asn1Field implements PrimitiveAsn1Field {
 
@@ -18,7 +17,7 @@ public class Asn1UnknownField extends Asn1Field implements PrimitiveAsn1Field {
 
     /** Private no-arg constructor to please JAXB */
     private Asn1UnknownField() {
-        super(null, null, null, (UniversalTagNumber) null);
+        super();
     }
 
     public Asn1UnknownField(
