@@ -13,18 +13,17 @@ import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 
 public interface Asn1Encodable {
 
-    public String getIdentifier();
+    String getIdentifier();
 
-    public void setIdentifier(final String identifier);
+    void setIdentifier(final String identifier);
 
-    public abstract boolean isOptional();
+    boolean isOptional();
 
-    public abstract boolean matchesHeader(
-            TagClass classType, Boolean constructed, Integer tagNumber);
+    boolean matchesHeader(TagClass classType, Boolean constructed, Integer tagNumber);
 
-    public abstract ModifiableByteArray getTagOctets();
+    ModifiableByteArray getTagOctets();
 
-    public abstract ModifiableByteArray getLengthOctets();
+    ModifiableByteArray getLengthOctets();
 
-    public abstract ModifiableByteArray getContent();
+    ModifiableByteArray getContent();
 }
