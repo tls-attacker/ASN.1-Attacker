@@ -1,31 +1,34 @@
-/**
- * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1-Attacker - A Library for Arbitrary ASN.1 Structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.TagClass;
-import de.rub.nds.asn1.TagNumber;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1Null extends Asn1Field {
+public class Asn1Null extends Asn1Field implements PrimitiveAsn1Field {
 
-    public static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Null() {
+        super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.NULL);
+    }
 
-    public static final boolean IS_CONSTRUCTED = false;
+    public Asn1Null(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.NULL);
+    }
 
-    public static final int TAG_NUMBER = TagNumber.NULL.getIntValue();
-
-    public Asn1Null() {
-        super(TAG_CLASS, IS_CONSTRUCTED, TAG_NUMBER);
+    public Asn1Null(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.PRIMITIVE, implicitTagNumber);
     }
 }

@@ -1,67 +1,178 @@
-/**
- * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1-Attacker - A Library for Arbitrary ASN.1 Structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.serializer.Asn1FieldSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import java.io.IOException;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.math.BigInteger;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.*;
-import javax.xml.stream.XMLStreamException;
+import java.util.Objects;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Asn1Field extends Asn1RawField {
+public abstract class Asn1Field implements Asn1Encodable {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @XmlElement(name = "tagClass")
-    private ModifiableInteger tagClass = new ModifiableInteger();
+    private ModifiableInteger tagClass;
 
     @XmlElement(name = "tagConstructed")
-    private ModifiableBoolean tagConstructed = new ModifiableBoolean();
-
-    @XmlElement(name = "longTagNumberBytes")
-    private ModifiableInteger longTagNumberBytes = new ModifiableInteger();
+    private ModifiableBoolean tagConstructed;
 
     @XmlElement(name = "tagNumber")
-    private ModifiableInteger tagNumber = new ModifiableInteger();
-
-    @XmlElement(name = "longLengthBytes")
-    private ModifiableInteger longLengthBytes = new ModifiableInteger();
+    private ModifiableInteger tagNumber;
 
     @XmlElement(name = "length")
-    private ModifiableBigInteger length = new ModifiableBigInteger();
+    private ModifiableBigInteger length;
 
     @XmlElement(name = "content")
-    private ModifiableByteArray content = new ModifiableByteArray();
+    private ModifiableByteArray content;
 
-    public Asn1Field() {
-        this(0, false, 0);
+    @XmlAttribute(name = "identifier")
+    private String identifier;
+
+    @XmlElement(name = "tagOctets")
+    private ModifiableByteArray tagOctets;
+
+    @XmlElement(name = "lengthOctets")
+    private ModifiableByteArray lengthOctets;
+
+    @XmlTransient private final TagClass tagClassType;
+
+    @XmlTransient private final TagConstructed tagConstructedType;
+
+    /**
+     * Note that this field may be null. This is either the case if the tag number is not
+     * universally defined of if the tagClass is not UNIVERSAL.
+     */
+    @XmlTransient private final UniversalTagNumber universalTagNumber;
+
+    private final Integer tagNumberConfig;
+
+    @XmlTransient private boolean optional = false;
+
+    /**
+     * The constructor for universal asn1 fields
+     *
+     * @param identifier The identifier of the field
+     * @param tagClassType The tag class of the field
+     * @param tagConstructedType The tag constructed type of the field
+     * @param tagNumber The universal tag number of the field
+     */
+    public Asn1Field(
+            String identifier,
+            TagClass tagClassType,
+            TagConstructed tagConstructedType,
+            UniversalTagNumber tagNumber) {
+        assert (identifier != null);
+        assert (tagClassType != null);
+        assert (tagClassType == TagClass.UNIVERSAL);
+        assert (tagConstructedType != null);
+        this.identifier = identifier;
+        this.tagClassType = tagClassType;
+        this.tagConstructedType = tagConstructedType;
+        this.universalTagNumber = tagNumber;
+        tagNumberConfig = tagNumber.getIntValue();
     }
 
-    public Asn1Field(final int tagClass, final boolean tagConstructed, final int tagNumber) {
-        this.tagClass.setOriginalValue(tagClass);
-        this.tagConstructed.setOriginalValue(tagConstructed);
-        this.tagNumber.setOriginalValue(tagNumber);
-        this.length.setOriginalValue(BigInteger.ZERO);
-        this.content.setOriginalValue(new byte[0]);
-        this.longLengthBytes.setOriginalValue(0);
-        this.longTagNumberBytes.setOriginalValue(0);
+    public Asn1Field(
+            String identifier,
+            TagClass tagClassType,
+            TagConstructed tagConstructedType,
+            Integer implicitTagNumber) {
+        assert (identifier != null);
+        assert (tagClassType != null);
+        assert (tagConstructedType != null);
+        if (tagClassType == TagClass.UNIVERSAL) {
+            universalTagNumber = UniversalTagNumber.fromIntValue(implicitTagNumber);
+        } else {
+            universalTagNumber = null;
+        }
+        this.identifier = identifier;
+        this.tagClassType = tagClassType;
+        this.tagConstructedType = tagConstructedType;
+        this.tagNumberConfig = implicitTagNumber;
+    }
+
+    /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
+    protected Asn1Field() {
+        this.tagClassType = null;
+        this.tagConstructedType = null;
+        this.tagNumberConfig = null;
+        this.universalTagNumber = null;
+    }
+
+    @Override
+    public final boolean matchesHeader(TagClass classType, Boolean constructed, Integer tagNumber) {
+        if (!Objects.equals(tagNumber, tagNumberConfig)) {
+            LOGGER.debug(
+                    "{} not compatible because of the tagNumber Expected {} but found {}",
+                    identifier,
+                    tagNumberConfig,
+                    tagNumber);
+            return false;
+        }
+        if (constructed != tagConstructedType.getBooleanValue()) {
+            LOGGER.debug(
+                    "{} not compatible because of constructed type Expected {} but found {}",
+                    identifier,
+                    this.tagConstructedType.getBooleanValue(),
+                    constructed);
+            return false;
+        }
+        if (classType != this.tagClassType) {
+            LOGGER.debug(
+                    "{} not compatible because of tag class type. Expected {} but found {}",
+                    identifier,
+                    this.tagClassType.getIntValue(),
+                    classType);
+            return false;
+        } else {
+            LOGGER.debug("Asn1Field '{}' is compatible", identifier);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean isOptional() {
+        return optional;
+    }
+
+    public void setOptional(boolean optional) {
+        this.optional = optional;
+    }
+
+    public TagClass getTagClassType() {
+        return tagClassType;
+    }
+
+    public TagConstructed getTagConstructedType() {
+        return tagConstructedType;
+    }
+
+    public UniversalTagNumber getUniversalTagNumberType() {
+        return universalTagNumber;
     }
 
     public ModifiableInteger getTagClass() {
@@ -76,10 +187,6 @@ public class Asn1Field extends Asn1RawField {
         this.tagClass = ModifiableVariableFactory.safelySetValue(this.tagClass, tagClass);
     }
 
-    public void setTagClassModification(int tagClass) {
-        this.tagClass.setModification(new IntegerExplicitValueModification(tagClass));
-    }
-
     public ModifiableBoolean getTagConstructed() {
         return tagConstructed;
     }
@@ -89,23 +196,8 @@ public class Asn1Field extends Asn1RawField {
     }
 
     public void setTagConstructed(boolean tagConstructed) {
-        this.tagConstructed = ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
-    }
-
-    public void setTagConstructedModification(boolean tagConstructed) {
-        this.tagConstructed.setModification(new BooleanExplicitValueModification(tagConstructed));
-    }
-
-    public ModifiableInteger getLongTagNumberBytes() {
-        return longTagNumberBytes;
-    }
-
-    public void setLongTagNumberBytes(ModifiableInteger longTagNumberBytes) {
-        this.longTagNumberBytes = longTagNumberBytes;
-    }
-
-    public void setLongTagNumberBytes(int longTagNumberBytes) {
-        this.longTagNumberBytes.setModification(new IntegerExplicitValueModification(longTagNumberBytes));
+        this.tagConstructed =
+                ModifiableVariableFactory.safelySetValue(this.tagConstructed, tagConstructed);
     }
 
     public ModifiableInteger getTagNumber() {
@@ -120,22 +212,6 @@ public class Asn1Field extends Asn1RawField {
         this.tagNumber = ModifiableVariableFactory.safelySetValue(this.tagNumber, tagNumber);
     }
 
-    public void setTagNumberModification(int tagNumber) {
-        this.tagNumber.setModification(new IntegerExplicitValueModification(tagNumber));
-    }
-
-    public ModifiableInteger getLongLengthBytes() {
-        return longLengthBytes;
-    }
-
-    public void setLongLengthBytes(ModifiableInteger longLengthBytes) {
-        this.longLengthBytes = longLengthBytes;
-    }
-
-    public void setLongLengthBytes(int longLengthBytes) {
-        this.longLengthBytes.setModification(new IntegerExplicitValueModification(longLengthBytes));
-    }
-
     public ModifiableBigInteger getLength() {
         return length;
     }
@@ -148,6 +224,7 @@ public class Asn1Field extends Asn1RawField {
         this.length = ModifiableVariableFactory.safelySetValue(this.length, length);
     }
 
+    @Override
     public ModifiableByteArray getContent() {
         return content;
     }
@@ -161,7 +238,43 @@ public class Asn1Field extends Asn1RawField {
     }
 
     @Override
-    public Asn1Serializer getSerializer() {
-        return new Asn1FieldSerializer(this);
+    public ModifiableByteArray getTagOctets() {
+        return tagOctets;
+    }
+
+    public void setTagOctets(final ModifiableByteArray tagOctets) {
+        this.tagOctets = tagOctets;
+    }
+
+    public void setTagOctets(final byte[] tagOctets) {
+        this.tagOctets = ModifiableVariableFactory.safelySetValue(this.tagOctets, tagOctets);
+    }
+
+    @Override
+    public ModifiableByteArray getLengthOctets() {
+        return lengthOctets;
+    }
+
+    public void setLengthOctets(final ModifiableByteArray lengthOctets) {
+        this.lengthOctets = lengthOctets;
+    }
+
+    public void setLengthOctets(final byte[] lengthOctets) {
+        this.lengthOctets =
+                ModifiableVariableFactory.safelySetValue(this.lengthOctets, lengthOctets);
+    }
+
+    public Integer getTagNumberConfig() {
+        return tagNumberConfig;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

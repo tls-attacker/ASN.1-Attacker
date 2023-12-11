@@ -1,52 +1,53 @@
-/**
- * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1-Attacker - A Library for Arbitrary ASN.1 Structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.TagClass;
-import de.rub.nds.asn1.TagConstructed;
-import de.rub.nds.asn1.TagNumber;
-import de.rub.nds.asn1.serializer.Asn1IntegerSerializer;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
-import java.math.BigInteger;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
+import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class Asn1Integer extends Asn1Field {
-
-    private static final int TAG_CLASS = TagClass.UNIVERSAL.getIntValue();
-
-    private static final boolean TAG_CONSTRUCTED = TagConstructed.PRIMITIVE.getBooleanValue();
-
-    private static final int TAG_NUMBER = TagNumber.INTEGER.getIntValue();
+public class Asn1Integer extends Asn1Field implements PrimitiveAsn1Field {
 
     @XmlElement(name = "value")
-    private BigInteger value = BigInteger.ZERO;
+    private ModifiableBigInteger value;
 
-    public Asn1Integer() {
-        super(TAG_CLASS, TAG_CONSTRUCTED, TAG_NUMBER);
+    public Asn1Integer(String identifier) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.INTEGER);
     }
 
-    public BigInteger getValue() {
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Integer() {
+        super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.INTEGER);
+    }
+
+    public Asn1Integer(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, implicitTagNumber);
+    }
+
+    public ModifiableBigInteger getValue() {
         return value;
     }
 
-    public void setValue(BigInteger value) {
+    public void setValue(ModifiableBigInteger value) {
         this.value = value;
     }
 
-    @Override
-    public Asn1Serializer getSerializer() {
-        return new Asn1IntegerSerializer(this);
+    public void setValue(BigInteger value) {
+        this.value = ModifiableVariableFactory.safelySetValue(this.value, value);
     }
 }

@@ -4,14 +4,14 @@
     <parent>
         <groupId>de.rub.nds</groupId>
         <artifactId>protocol-toolkit-bom</artifactId>
-        <version>3.5.17</version>
+        <version>4.0.0</version>
     </parent>
 
-    <artifactId>asn1-tool</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <artifactId>asn1-attacker</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
 
-    <name>ASN.1 Tool</name>
-    <description>ASN.1 Tool is a project for creating arbitrary ASN.1 structures; including malformed ASN.1 structures.
+    <name>ASN.1-Attacker</name>
+    <description>ASN.1-Attacker is a project for creating arbitrary ASN.1 structures; including malformed ASN.1 structures.
         Structures are defined in human-readable XML files and allow to specify modifications to the original encoding
         of data types.</description>
     <url>https://github.com/tls-attacker/ASN.1-Tool</url>
@@ -26,11 +26,11 @@
 
     <developers>
         <developer>
-            <id>nkafka</id>
-            <name>Nils Kafka</name>
-            <email>nils.kafka@rub.de</email>
-            <organization>NDS</organization>
-            <organizationUrl>https://informatik.rub.de/nds/</organizationUrl>
+            <id>ic0ns</id>
+            <name>Robert Merget</name>
+            <email>robert.merget@tii.ae</email>
+            <organization>TII</organization>
+            <organizationUrl>https://tii.ae/</organizationUrl>
             <roles>
                 <role>Architect</role>
                 <role>Developer</role>
@@ -63,8 +63,16 @@
             <artifactId>modifiable-variable</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.rub.nds</groupId>
+            <artifactId>protocol-attacker</artifactId>
+        </dependency>
+        <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -84,48 +92,21 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>ASN1Tool</finalName>
         <plugins>
-            <!--################## clean lifecycle plugins ##################-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-clean</id>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <!--suppress UnresolvedMavenProperty -->
-                                    <directory>${maven.multiModuleProjectDirectory}/apps</directory>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>clean-apps-folder</id>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                            <filesets>
-                                <fileset>
-                                    <!--suppress UnresolvedMavenProperty -->
-                                    <directory>${maven.multiModuleProjectDirectory}/apps</directory>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <!--################# default lifecycle plugins #################-->
             <!-- Formatting -->
             <plugin>
@@ -135,7 +116,7 @@
                     <java>
                         <!-- Introduce spotless using ratchetFrom to format files gradually on change.
                              Also avoid merge conflicts when merging into master due to one large format commit. -->
-                        <ratchetFrom>origin/master</ratchetFrom>
+                        <ratchetFrom>origin/main</ratchetFrom>
                         <lineEndings>GIT_ATTRIBUTES</lineEndings>
                         <trimTrailingWhitespace />
                         <endWithNewline />
@@ -222,7 +203,6 @@
                             <useUniqueVersions>false</useUniqueVersions>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>de.rub.nds.asn1tool.Asn1Tool</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -254,44 +234,6 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Copy artifacts to apps folder -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy</id>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>${project.packaging}</type>
-                                    <destFileName>${project.build.finalName}.${project.packaging}</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>${maven.multiModuleProjectDirectory}/apps</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <outputDirectory>${maven.multiModuleProjectDirectory}/apps/lib</outputDirectory>
-                            <!--Ensures only runnable dependencies are included-->
-                            <includeScope>compile</includeScope>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

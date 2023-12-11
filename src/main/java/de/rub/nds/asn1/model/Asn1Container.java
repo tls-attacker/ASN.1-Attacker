@@ -1,56 +1,55 @@
-/**
- * ASN.1 Tool - A project for creating arbitrary ASN.1 structures
+/*
+ * ASN.1-Attacker - A Library for Arbitrary ASN.1 Structures
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.asn1.model;
 
-import de.rub.nds.asn1.Asn1Encodable;
-import de.rub.nds.asn1.serializer.Asn1Serializer;
-import de.rub.nds.asn1.serializer.DefaultAsn1ContainerSerializer;
-import java.util.List;
+import de.rub.nds.asn1.constants.TagClass;
+import de.rub.nds.asn1.constants.TagConstructed;
+import de.rub.nds.asn1.constants.UniversalTagNumber;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Asn1Container extends Asn1Field {
+public abstract class Asn1Container extends Asn1Field implements ConstructedAsn1Field {
 
-    @XmlTransient
-    private byte[] encodedChildren = new byte[0];
+    private ModifiableByteArray encodedChildren;
 
-    public Asn1Container() {
-        this(0, false, 0);
+    public Asn1Container(
+            String identifier,
+            TagClass tagClassType,
+            TagConstructed tagConstructedType,
+            UniversalTagNumber tagNummerType) {
+        super(identifier, tagClassType, tagConstructedType, tagNummerType);
     }
 
-    public Asn1Container(final int tagClass, final boolean tagConstructed, final int tagNumber) {
-        super(tagClass, tagConstructed, tagNumber);
+    /** Private no-arg constructor to please JAXB */
+    private Asn1Container() {
+        super();
     }
 
-    public byte[] getEncodedChildren() {
+    public Asn1Container(String identifier, int implicitTagNumber) {
+        super(identifier, TagClass.CONTEXT_SPECIFIC, TagConstructed.CONSTRUCTED, implicitTagNumber);
+    }
+
+    public ModifiableByteArray getEncodedChildren() {
         return encodedChildren;
     }
 
-    public void setEncodedChildren(byte[] encodedChildren) {
+    public void setEncodedChildren(ModifiableByteArray encodedChildren) {
         this.encodedChildren = encodedChildren;
     }
 
-    public abstract void addChild(final Asn1Encodable child);
-
-    public abstract void setChildren(final List<Asn1Encodable> children);
-
-    public abstract List<Asn1Encodable> getChildren();
-
-    public abstract void clearChildren();
-
-    @Override
-    public Asn1Serializer getSerializer() {
-        return new DefaultAsn1ContainerSerializer(this);
+    public void setEncodedChildren(byte[] encodedChildren) {
+        this.encodedChildren =
+                ModifiableVariableFactory.safelySetValue(this.encodedChildren, encodedChildren);
     }
 }
