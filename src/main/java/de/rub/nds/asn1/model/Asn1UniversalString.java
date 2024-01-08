@@ -26,6 +26,7 @@ public class Asn1UniversalString extends Asn1Field implements PrimitiveAsn1Field
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1UniversalString() {
         super(
                 null,

@@ -26,6 +26,7 @@ public class Asn1Utf8String extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Utf8String() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.UTF8STRING);
     }

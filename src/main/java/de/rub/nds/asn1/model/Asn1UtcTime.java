@@ -29,6 +29,7 @@ public class Asn1UtcTime extends Asn1Field implements PrimitiveAsn1Field, TimeFi
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1UtcTime() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.UTCTIME);
     }

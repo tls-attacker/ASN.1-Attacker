@@ -27,6 +27,7 @@ public class Asn1ObjectIdentifier extends Asn1Field implements PrimitiveAsn1Fiel
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1ObjectIdentifier() {
         super(
                 null,

@@ -32,6 +32,7 @@ public abstract class Asn1Container extends Asn1Field implements ConstructedAsn1
     }
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Container() {
         super();
     }

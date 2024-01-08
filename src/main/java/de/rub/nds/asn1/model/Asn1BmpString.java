@@ -26,6 +26,7 @@ public class Asn1BmpString extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1BmpString() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.BMPSTRING);
     }

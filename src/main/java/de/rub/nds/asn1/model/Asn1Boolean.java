@@ -26,6 +26,7 @@ public class Asn1Boolean extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableBoolean value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Boolean() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.BOOLEAN);
     }
