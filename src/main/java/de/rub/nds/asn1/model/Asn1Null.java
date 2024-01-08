@@ -20,6 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class Asn1Null extends Asn1Field implements PrimitiveAsn1Field {
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Null() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.NULL);
     }

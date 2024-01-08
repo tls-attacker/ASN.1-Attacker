@@ -26,6 +26,7 @@ public class Asn1OctetString extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableByteArray value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1OctetString() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.OCTET_STRING);
     }

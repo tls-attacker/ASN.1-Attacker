@@ -31,6 +31,7 @@ public class Asn1Integer extends Asn1Field implements PrimitiveAsn1Field {
     }
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1Integer() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.INTEGER);
     }

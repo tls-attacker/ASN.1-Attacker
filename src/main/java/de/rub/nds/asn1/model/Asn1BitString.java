@@ -34,6 +34,7 @@ public class Asn1BitString extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableByte padding;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1BitString() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.BIT_STRING);
     }

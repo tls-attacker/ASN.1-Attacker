@@ -16,6 +16,7 @@ public class Asn1UnknownField extends Asn1Field implements PrimitiveAsn1Field {
     private byte[] contentConfig;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1UnknownField() {
         super();
     }

@@ -26,6 +26,7 @@ public class Asn1T61String extends Asn1Field implements PrimitiveAsn1Field {
     private ModifiableString value;
 
     /** Private no-arg constructor to please JAXB */
+    @SuppressWarnings("unused")
     private Asn1T61String() {
         super(null, TagClass.UNIVERSAL, TagConstructed.PRIMITIVE, UniversalTagNumber.T61STRING);
     }
