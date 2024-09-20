@@ -32,6 +32,7 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.protocol.exception.PreparationException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -369,23 +370,24 @@ public class Asn1PreparatorHelper {
     }
 
     /**
-     * TODO probably incorrect
-     *
      * @param tempString the String to encode
      * @return the string encoded as a bmp string as a byte array
      */
     public static byte[] encodeBmpString(String tempString) {
-        return tempString.getBytes(StandardCharsets.US_ASCII);
+        return tempString.getBytes(StandardCharsets.UTF_16);
     }
 
     /**
-     * TODO probably incorrect
-     *
      * @param tempString the String to encode
      * @return the string encoded as a universal string as a byte array
      */
     public static byte[] encodeUniversalString(String tempString) {
-        return tempString.getBytes(StandardCharsets.US_ASCII);
+        try {
+            return tempString.getBytes("UTF-32");
+        } catch (UnsupportedEncodingException e) {
+            throw new UnsupportedOperationException(
+                    "Could not encode Universal String with UTF-32, String empty", e);
+        }
     }
 
     public static byte[] encodeOctetString(byte[] bytes) {
