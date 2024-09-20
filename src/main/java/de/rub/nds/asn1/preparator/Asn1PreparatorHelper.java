@@ -404,12 +404,14 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte[] shiftLeft(byte[] input, int n) {
-        if (input.length == 0) {
+        if (input.length == 0 || n == 0) {
             return input;
         }
         BigInteger tempBigInt = new BigInteger(1, input);
         tempBigInt = tempBigInt.shiftLeft(n);
-        return tempBigInt.toByteArray();
+        byte[] signedByte = tempBigInt.toByteArray();
+        // remove sign byte after conversion
+        return Arrays.copyOfRange(signedByte, 1, signedByte.length);
     }
 
     private static byte[] encodeLongTagNumber(int tagNumber) {
