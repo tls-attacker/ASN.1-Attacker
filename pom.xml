@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>asn1-attacker</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
 
     <name>ASN.1-Attacker</name>
     <description>ASN.1-Attacker is a project for creating arbitrary ASN.1 structures; including malformed ASN.1 structures.
@@ -41,7 +41,7 @@
     <scm>
         <connection>scm:git:https://github.com/tls-attacker/ASN.1-Tool.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ASN.1-Tool-Development.git</developerConnection>
-        <tag>v3.0.0</tag>
+        <tag>v3.0.1</tag>
         <url>https://github.com/tls-attacker/ASN.1-Tool</url>
     </scm>
 
