@@ -9,11 +9,13 @@
 package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.parser.Asn1UnknownSequenceParser;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Asn1UnknownSequence extends Asn1Sequence {
 
+    @XmlAnyElement(lax = true)
     private List<Asn1Encodable> children;
 
     public Asn1UnknownSequence(String identifier) {
