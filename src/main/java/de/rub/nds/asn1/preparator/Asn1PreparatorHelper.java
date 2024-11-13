@@ -27,9 +27,7 @@ import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
-import de.rub.nds.asn1.time.TimeField;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.protocol.exception.PreparationException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -196,6 +194,43 @@ public class Asn1PreparatorHelper {
         return asn1BitString;
     }
 
+    public static Asn1GeneralizedTime prepareFieldGeneralizedTime(
+            Asn1GeneralizedTime asn1GeneralizedTime, DateTime time, TimeAccurracy accurracy) {
+        if (asn1GeneralizedTime == null) {
+            asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
+        }
+        asn1GeneralizedTime.setValue(new String(encodeGeneralizedTime(time, accurracy)));
+        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+        prepareAfterContent(asn1GeneralizedTime);
+        return asn1GeneralizedTime;
+    }
+
+    public static Asn1GeneralizedTime prepareFieldGeneralizedTimeUtc(
+            Asn1GeneralizedTime asn1GeneralizedTime, DateTime time, TimeAccurracy accurracy) {
+        if (asn1GeneralizedTime == null) {
+            asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
+        }
+        asn1GeneralizedTime.setValue(new String(encodeGeneralizedTimeUtc(time, accurracy)));
+        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+        prepareAfterContent(asn1GeneralizedTime);
+        return asn1GeneralizedTime;
+    }
+
+    public static Asn1GeneralizedTime prepareFieldGeneralizedTimeUtcDifferential(
+            Asn1GeneralizedTime asn1GeneralizedTime,
+            DateTime time,
+            TimeAccurracy accurracy,
+            int timeZoneOffset) {
+        if (asn1GeneralizedTime == null) {
+            asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
+        }
+        asn1GeneralizedTime.setValue(
+                new String(encodeGneralizedTimeUtcDifferential(time, accurracy, timeZoneOffset)));
+        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+        prepareAfterContent(asn1GeneralizedTime);
+        return asn1GeneralizedTime;
+    }
+
     public static Asn1GeneralizedTime prepareField(
             Asn1GeneralizedTime asn1GeneralizedTime, DateTime time, TimeAccurracy accurracy) {
         if (asn1GeneralizedTime == null) {
@@ -207,23 +242,25 @@ public class Asn1PreparatorHelper {
         return asn1GeneralizedTime;
     }
 
-    public static TimeField prepareField(
-            TimeField timeField, DateTime time, TimeAccurracy accurracy) {
-        if (timeField instanceof Asn1UtcTime) {
-            return prepareField((Asn1UtcTime) timeField, time, accurracy);
-        } else if (timeField instanceof Asn1GeneralizedTime) {
-            return prepareField((Asn1GeneralizedTime) timeField, time, accurracy);
-        } else {
-            throw new PreparationException("Unknown TimeField");
-        }
-    }
-
-    public static Asn1UtcTime prepareField(
+    public static Asn1UtcTime prepareFieldUtcTime(
             Asn1UtcTime asn1UtcTime, DateTime time, TimeAccurracy accurracy) {
         if (asn1UtcTime == null) {
             asn1UtcTime = new Asn1UtcTime("utcTime");
         }
         asn1UtcTime.setValue(new String(encodeFullUtcTime(time, accurracy)));
+        asn1UtcTime.setContent(asn1UtcTime.getValue().getValue().getBytes());
+        prepareAfterContent(asn1UtcTime);
+        return asn1UtcTime;
+    }
+
+    public static Asn1UtcTime prepareFieldUtcTimeDifferential(
+            Asn1UtcTime asn1UtcTime, DateTime time, TimeAccurracy accurracy, int timeZoneOffset) {
+        if (asn1UtcTime == null) {
+            asn1UtcTime = new Asn1UtcTime("utcTime");
+        }
+
+        asn1UtcTime.setValue(
+                new String(encodeUtcTimeDifferential(time, accurracy, timeZoneOffset)));
         asn1UtcTime.setContent(asn1UtcTime.getValue().getValue().getBytes());
         prepareAfterContent(asn1UtcTime);
         return asn1UtcTime;
@@ -351,8 +388,19 @@ public class Asn1PreparatorHelper {
         return TimeEncoder.encodeFullUtc(date, accurracy).getBytes();
     }
 
+    public static byte[] encodeUtcTimeDifferential(
+            DateTime date, TimeAccurracy accurracy, int timeZoneOffset) {
+        return TimeEncoder.encodeUtcWithDifferential(date, accurracy, timeZoneOffset).getBytes();
+    }
+
     public static byte[] encodeGeneralizedTimeUtc(DateTime date, TimeAccurracy accurracy) {
         return TimeEncoder.encodeGeneralizedTimeUtc(date, accurracy).getBytes();
+    }
+
+    public static byte[] encodeGneralizedTimeUtcDifferential(
+            DateTime date, TimeAccurracy accurracy, int timeZoneOffset) {
+        return TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(date, accurracy, timeZoneOffset)
+                .getBytes();
     }
 
     public static byte[] encodeIa5String(String tempString) {
