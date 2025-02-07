@@ -16,7 +16,7 @@ running:
 $ sudo apt-get install maven
 ```
 
-ASN.1-Tool currently needs Java JDK 11 to run. If you have the correct Java version you can install
+ASN.1-Tool currently needs Java JDK 21 to run. If you have the correct Java version you can install
 ASN.1-Tool as follows.
 
 ```bash
@@ -32,7 +32,7 @@ If you want to use this project as a dependency, you do not have to compile it y
 <dependency>
     <groupId>de.rub.nds</groupId>
     <artifactId>asn1-tool</artifactId>
-    <version>2.0.0</version>
+    <version>4.0.0</version>
 </dependency>
 ```
 
