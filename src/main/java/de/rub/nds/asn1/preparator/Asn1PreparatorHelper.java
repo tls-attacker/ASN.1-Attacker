@@ -85,9 +85,7 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte encodeIsConstructed(byte firstIdentifierByte, boolean isConstructed) {
-        return ((isConstructed == true)
-                ? (byte) (firstIdentifierByte | 0x20)
-                : firstIdentifierByte);
+        return (isConstructed ? (byte) (firstIdentifierByte | 0x20) : firstIdentifierByte);
     }
 
     private static byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
@@ -341,7 +339,7 @@ public class Asn1PreparatorHelper {
     }
 
     public static byte[] encodeBoolean(boolean value) {
-        if (value == true) {
+        if (value) {
             return new byte[] {(byte) 0xFF};
         } else {
             return new byte[1];
