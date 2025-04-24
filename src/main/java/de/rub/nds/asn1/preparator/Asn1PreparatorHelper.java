@@ -349,12 +349,7 @@ public class Asn1PreparatorHelper {
     }
 
     public static byte[] encodeInteger(BigInteger bigInt) {
-        int size = bigInt.toByteArray().length;
-        if (bigInt.testBit(size * 8)) {
-            return ArrayConverter.bigIntegerToByteArray(bigInt, size + 1, true);
-        } else {
-            return bigInt.toByteArray();
-        }
+        return bigInt.toByteArray();
     }
 
     public static byte[] encodeNull() {
