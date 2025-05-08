@@ -15,7 +15,6 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.util.Modifiable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,8 +34,6 @@ public class Asn1ContainerTest {
         assertArrayEquals(new byte[0], instance.getEncodedChildren().getValue());
         instance.setEncodedChildren((ModifiableByteArray) null);
         assertNull(instance.getEncodedChildren());
-        instance.setEncodedChildren(Modifiable.explicit(new byte[0]));
-        assertArrayEquals(new byte[0], instance.getEncodedChildren().getValue());
     }
 
     public class Asn1ContainerImpl extends Asn1Container {

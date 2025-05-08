@@ -21,7 +21,6 @@ import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import de.rub.nds.modifiablevariable.util.Modifiable;
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,7 +79,7 @@ public class Asn1FieldTest {
         assertEquals(0, field.getTagClass().getValue());
         field.setTagClass((ModifiableInteger) null);
         assertNull(field.getTagClass());
-        field.setTagClass(Modifiable.explicit(1));
+        field.setTagClass(1);
         assertEquals(1, field.getTagClass().getValue());
     }
 
@@ -91,7 +90,7 @@ public class Asn1FieldTest {
         assertEquals(true, field.getTagConstructed().getValue());
         field.setTagConstructed((ModifiableBoolean) null);
         assertNull(field.getTagConstructed());
-        field.setTagConstructed(Modifiable.explicit(false));
+        field.setTagConstructed(false);
         assertEquals(false, field.getTagConstructed().getValue());
     }
 
@@ -102,7 +101,7 @@ public class Asn1FieldTest {
         assertEquals(0, field.getTagNumber().getValue());
         field.setTagNumber((ModifiableInteger) null);
         assertNull(field.getTagNumber());
-        field.setTagNumber(Modifiable.explicit(1));
+        field.setTagNumber(1);
         assertEquals(1, field.getTagNumber().getValue());
     }
 
@@ -113,7 +112,7 @@ public class Asn1FieldTest {
         assertEquals(BigInteger.ZERO, field.getLength().getValue());
         field.setLength((ModifiableBigInteger) null);
         assertNull(field.getLength());
-        field.setLength(Modifiable.explicit(BigInteger.ONE));
+        field.setLength(BigInteger.ONE);
         assertEquals(BigInteger.ONE, field.getLength().getValue());
     }
 
@@ -124,7 +123,7 @@ public class Asn1FieldTest {
         assertArrayEquals(new byte[0], field.getContent().getValue());
         field.setContent((ModifiableByteArray) null);
         assertNull(field.getContent());
-        field.setContent(Modifiable.explicit(new byte[0]));
+        field.setContent(new byte[0]);
         assertArrayEquals(new byte[0], field.getContent().getValue());
     }
 
@@ -135,7 +134,7 @@ public class Asn1FieldTest {
         assertArrayEquals(new byte[0], field.getTagOctets().getValue());
         field.setTagOctets((ModifiableByteArray) null);
         assertNull(field.getTagOctets());
-        field.setTagOctets(Modifiable.explicit(new byte[0]));
+        field.setTagOctets(new byte[0]);
         assertArrayEquals(new byte[0], field.getTagOctets().getValue());
     }
 
@@ -146,7 +145,7 @@ public class Asn1FieldTest {
         assertArrayEquals(new byte[0], field.getLengthOctets().getValue());
         field.setLengthOctets((ModifiableByteArray) null);
         assertNull(field.getLengthOctets());
-        field.setLengthOctets(Modifiable.explicit(new byte[0]));
+        field.setLengthOctets(new byte[0]);
         assertArrayEquals(new byte[0], field.getLengthOctets().getValue());
     }
 
