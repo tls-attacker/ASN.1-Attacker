@@ -10,7 +10,7 @@ package de.rub.nds.asn1.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import de.rub.nds.modifiablevariable.util.Modifiable;
+import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,9 @@ public class Asn1IntegerTest {
     public void testSetValue_Modifiable() {
         asn1Integer.setValue(BigInteger.ONE);
         assertEquals(BigInteger.ONE, asn1Integer.getValue().getValue());
-        asn1Integer.setValue(Modifiable.explicit(BigInteger.TEN));
+        asn1Integer
+                .getValue()
+                .addModification(new BigIntegerExplicitValueModification(BigInteger.TEN));
         assertEquals(BigInteger.TEN, asn1Integer.getValue().getValue());
     }
 }
