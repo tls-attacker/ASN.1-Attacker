@@ -417,7 +417,7 @@ public class Asn1PreparatorHelper {
      * @return the string encoded as a bmp string as a byte array
      */
     public static byte[] encodeBmpString(String tempString) {
-        return tempString.getBytes(StandardCharsets.UTF_16);
+        return tempString.getBytes(StandardCharsets.UTF_16BE);
     }
 
     /**
