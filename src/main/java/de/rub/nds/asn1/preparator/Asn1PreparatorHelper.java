@@ -366,8 +366,10 @@ public class Asn1PreparatorHelper {
             outputStream.write(new byte[] {unusedBits});
             byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
             encodedContent = shiftLeft(encodedContent, unusedBits);
-            encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
-            encodedContent[encodedContent.length - 1] |= padding;
+            if (encodedContent.length > 0) {
+                encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
+                encodedContent[encodedContent.length - 1] |= padding;
+            }
             outputStream.write(encodedContent);
             return outputStream.toByteArray();
         } catch (IOException ex) {
