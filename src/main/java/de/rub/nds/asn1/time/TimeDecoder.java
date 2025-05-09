@@ -31,7 +31,11 @@ public class TimeDecoder {
                     "yyyyMMddHH'Z'",
                     "yyyyMMddHHmm'Z'",
                     "yyyyMMddHHmmss'Z'",
-                    "yyyyMMddHHmmss.SSS'Z'"
+                    "yyyyMMddHHmmss.SSS'Z'",
+                    "yyyyMMddHHZ",
+                    "yyyyMMddHHmmZ",
+                    "yyyyMMddHHmmssZ",
+                    "yyyyMMddHHmmss.SSSZ",
                 };
         for (String format : formats) {
             try {
@@ -49,7 +53,14 @@ public class TimeDecoder {
     public static DateTime decodeUtc(String utcTimeString) {
         LOGGER.debug("Decoding UTC time: {}", utcTimeString);
         String[] formats =
-                new String[] {"yyMMddHHmm", "yyMMddHHmmss", "yyMMddHHmm'Z'", "yyMMddHHmmss'Z'"};
+                new String[] {
+                    "yyMMddHHmm",
+                    "yyMMddHHmmss",
+                    "yyMMddHHmm'Z'",
+                    "yyMMddHHmmss'Z'",
+                    "yyMMddHHmmZ'",
+                    "yyMMddHHmmssZ'"
+                };
         for (String format : formats) {
             try {
                 DateTimeFormatter formatter = DateTimeFormat.forPattern(format).withZoneUTC();
