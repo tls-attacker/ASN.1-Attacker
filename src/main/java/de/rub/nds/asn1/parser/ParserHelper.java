@@ -460,7 +460,7 @@ public class ParserHelper {
             LOGGER.debug("Remaining bytes: {}", ArrayConverter.bytesToHexString(remainingBytes));
 
             asn1BitString.setUsedBits(
-                    shiftRight(remainingBytes, asn1BitString.getUnusedBits().getValue()));
+                    shiftRightUnsigned(remainingBytes, asn1BitString.getUnusedBits().getValue()));
             asn1BitString.setPadding(
                     extractBits(remainingBytes, asn1BitString.getUnusedBits().getValue()));
 
@@ -515,13 +515,23 @@ public class ParserHelper {
         return (byte) (input[input.length - 1] & mask);
     }
 
-    private static byte[] shiftRight(byte[] array, int n) {
+    private static byte[] shiftRightUnsigned(byte[] array, int n) {
         if (array.length == 0) {
             return array;
         }
-        BigInteger bigInt = new BigInteger(array);
+
+        // forces BigInt to always parse the array as unsigned
+        byte[] paddedArray = new byte[array.length + 1];
+        paddedArray[0] = 0;
+        System.arraycopy(array, 0, paddedArray, 1, array.length);
+
+        BigInteger bigInt = new BigInteger(paddedArray);
         BigInteger shiftInt = bigInt.shiftRight(n);
-        return shiftInt.toByteArray();
+        byte[] shiftedArray = shiftInt.toByteArray();
+        // return as many bytes as the original array
+        byte[] result = new byte[array.length];
+        System.arraycopy(shiftedArray, shiftedArray.length - array.length, result, 0, array.length);
+        return result;
     }
 
     public static byte[] parseTagOctets(BufferedInputStream stream) throws IOException {
