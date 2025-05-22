@@ -32,9 +32,9 @@ import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.util.Asn1Header;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.protocol.exception.ParserException;
+import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -541,7 +541,7 @@ public class ParserHelper {
         int read = stream.read();
         if ((read & 0x1F) == 0x1F) {
             // Long tag
-            ByteArrayOutputStream tagByteStream = new ByteArrayOutputStream();
+            SilentByteArrayOutputStream tagByteStream = new SilentByteArrayOutputStream();
             tagByteStream.write(read);
             do {
                 if (stream.available() == 0) {
@@ -617,7 +617,7 @@ public class ParserHelper {
 
     public static byte[] parseLengthOctets(BufferedInputStream inputStream)
             throws ParserException, IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
         byte lengthByte;
         try {
             lengthByte = (byte) (inputStream.read() & 0xFF);

@@ -10,12 +10,11 @@ package de.rub.nds.asn1.oid;
 
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import de.rub.nds.protocol.exception.ParserException;
+import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -82,18 +81,14 @@ public class ObjectIdentifier implements Serializable {
 
     private byte[] computeEncodedValue(long[] idValues) {
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream();
         //
         if (idValues.length == 1) {
             stream.write((int) (idValues[0] * 40));
         } else if (idValues.length >= 2) {
             stream.write((int) (idValues[0] * 40 + idValues[1]));
             for (int i = 2; i < idValues.length; i++) {
-                try {
-                    stream.write(encodeSingleIdValue(idValues[i]));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                stream.write(encodeSingleIdValue(idValues[i]));
             }
         }
 
@@ -121,14 +116,10 @@ public class ObjectIdentifier implements Serializable {
     }
 
     private byte[] encodeSingleIdValue(long idValue) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream();
         byte moreFlag = 0x00;
         do {
-            try {
-                stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
             idValue >>= 7;
             moreFlag = (byte) 0x80;
         } while (idValue > 0);

@@ -28,8 +28,7 @@ import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -91,31 +90,27 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
-        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-        ByteArrayOutputStream longEncodingStream = new ByteArrayOutputStream();
-        try {
-            if (tagNumber < 0) {
-                LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
-                tagNumber = 0;
-            }
-            if (tagNumber <= 0x1F) {
+        SilentByteArrayOutputStream resultStream = new SilentByteArrayOutputStream();
+        SilentByteArrayOutputStream longEncodingStream = new SilentByteArrayOutputStream();
+        if (tagNumber < 0) {
+            LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
+            tagNumber = 0;
+        }
+        if (tagNumber <= 0x1F) {
 
-                byte[] result = new byte[] {firstIdentifierByte};
-                result[0] |= (byte) (tagNumber & 0x1F);
-                resultStream.write(result);
-            } else {
-                int longTagNumberBytes = getTagNumberByteCount(tagNumber);
-                byte[] longEncoding = encodeLongTagNumber(tagNumber);
-                if (longEncoding.length < longTagNumberBytes) {
-                    longEncodingStream.write(new byte[longTagNumberBytes - longEncoding.length]);
-                    longEncodingStream.write(longEncoding);
-                }
-                firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-                resultStream.write(new byte[] {firstIdentifierByte});
-                resultStream.write(longEncoding);
+            byte[] result = new byte[] {firstIdentifierByte};
+            result[0] |= (byte) (tagNumber & 0x1F);
+            resultStream.write(result);
+        } else {
+            int longTagNumberBytes = getTagNumberByteCount(tagNumber);
+            byte[] longEncoding = encodeLongTagNumber(tagNumber);
+            if (longEncoding.length < longTagNumberBytes) {
+                longEncodingStream.write(new byte[longTagNumberBytes - longEncoding.length]);
+                longEncodingStream.write(longEncoding);
             }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
+            resultStream.write(new byte[] {firstIdentifierByte});
+            resultStream.write(longEncoding);
         }
         return resultStream.toByteArray();
     }
@@ -361,20 +356,16 @@ public class Asn1PreparatorHelper {
     }
 
     public static byte[] encodeBitString(byte[] usedBits, Byte unusedBits, Byte padding) {
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(new byte[] {unusedBits});
-            byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
-            encodedContent = shiftLeft(encodedContent, unusedBits);
-            if (encodedContent.length > 0) {
-                encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
-                encodedContent[encodedContent.length - 1] |= padding;
-            }
-            outputStream.write(encodedContent);
-            return outputStream.toByteArray();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
+        outputStream.write(new byte[] {unusedBits});
+        byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
+        encodedContent = shiftLeft(encodedContent, unusedBits);
+        if (encodedContent.length > 0) {
+            encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
+            encodedContent[encodedContent.length - 1] |= padding;
         }
+        outputStream.write(encodedContent);
+        return outputStream.toByteArray();
     }
 
     public static byte[] encodeGeneralizedTime(DateTime date, TimeAccurracy accurracy) {
@@ -503,7 +494,7 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte[] encodeLongLength(BigInteger length) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
         int numberOfBytes = getLengthByteCount(length);
         outputStream.write(numberOfBytes | 0x80);
         LOGGER.debug(

@@ -9,8 +9,7 @@
 package de.rub.nds.asn1.serializer;
 
 import de.rub.nds.asn1.model.Asn1Field;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,15 +24,11 @@ public class Asn1FieldSerializer {
     }
 
     public final byte[] serialize() {
-        try {
-            LOGGER.trace("Serializing: {} ", field.getIdentifier());
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            stream.writeBytes(field.getTagOctets().getValue());
-            stream.writeBytes(field.getLengthOctets().getValue());
-            stream.write(field.getContent().getValue());
-            return stream.toByteArray();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        LOGGER.trace("Serializing: {} ", field.getIdentifier());
+        SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream();
+        stream.writeBytes(field.getTagOctets().getValue());
+        stream.writeBytes(field.getLengthOctets().getValue());
+        stream.write(field.getContent().getValue());
+        return stream.toByteArray();
     }
 }
