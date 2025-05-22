@@ -10,8 +10,7 @@ package de.rub.nds.asn1.preparator;
 
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,40 +38,28 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     protected abstract byte[] encodeContent();
 
     protected byte[] encodeChildren(Asn1Encodable... children) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
         for (Asn1Encodable child : children) {
-            try {
-                LOGGER.debug("Encoding {}", child.getIdentifier());
-                outputStream.write(encode(child));
-            } catch (IOException e) {
-                throw new RuntimeException("Could not write tag octets to output stream", e);
-            }
+            LOGGER.debug("Encoding {}", child.getIdentifier());
+            outputStream.write(encode(child));
         }
         return outputStream.toByteArray();
     }
 
     protected byte[] encodeChildren(List<Asn1Encodable> children) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
         for (Asn1Encodable child : children) {
-            try {
-                LOGGER.debug("Encoding {}", child.getIdentifier());
-                outputStream.write(encode(child));
-            } catch (IOException e) {
-                throw new RuntimeException("Could not write tag octets to output stream", e);
-            }
+            LOGGER.debug("Encoding {}", child.getIdentifier());
+            outputStream.write(encode(child));
         }
         return outputStream.toByteArray();
     }
 
     private byte[] encode(Asn1Encodable encodable) {
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            outputStream.write(encodable.getTagOctets().getValue());
-            outputStream.write(encodable.getLengthOctets().getValue());
-            outputStream.write(encodable.getContent().getValue());
-            return outputStream.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException("Could not write tag octets to output stream", e);
-        }
+        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
+        outputStream.write(encodable.getTagOctets().getValue());
+        outputStream.write(encodable.getLengthOctets().getValue());
+        outputStream.write(encodable.getContent().getValue());
+        return outputStream.toByteArray();
     }
 }
