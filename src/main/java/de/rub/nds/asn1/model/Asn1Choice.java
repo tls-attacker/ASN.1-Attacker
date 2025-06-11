@@ -75,14 +75,11 @@ public abstract class Asn1Choice implements Asn1Encodable {
             }
         }
         LOGGER.warn(
-                "Could not make selection in "
-                        + getIdentifier()
-                        + " for tagNumber "
-                        + tagNumber
-                        + " constructed "
-                        + constructed
-                        + " classType "
-                        + classType);
+                "Could not make selection in {} for tagNumber {} constructed {} classType {}",
+                getIdentifier(),
+                tagNumber,
+                constructed,
+                classType);
         selectedChoice = null;
     }
 
