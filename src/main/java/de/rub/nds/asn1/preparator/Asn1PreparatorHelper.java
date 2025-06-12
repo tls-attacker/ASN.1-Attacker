@@ -498,11 +498,10 @@ public class Asn1PreparatorHelper {
         int numberOfBytes = getLengthByteCount(length);
         outputStream.write(numberOfBytes | 0x80);
         LOGGER.debug(
-                "Encoding: "
-                        + length
-                        + " as "
-                        + ArrayConverter.bytesToHexString(
-                                ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
+                "Encoding: {} as {}",
+                length,
+                ArrayConverter.bytesToHexString(
+                        ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
         outputStream.writeBytes(ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true));
         return outputStream.toByteArray();
     }
