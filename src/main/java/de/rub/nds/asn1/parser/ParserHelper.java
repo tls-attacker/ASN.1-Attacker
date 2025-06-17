@@ -603,7 +603,7 @@ public class ParserHelper {
         if ((lengthByte & 0xFF) < 128) {
             length = BigInteger.valueOf(lengthByte & 0xFF);
         } else {
-            int numberOfLengthBytes = (lengthByte & 0x7F);
+            int numberOfLengthBytes = lengthByte & 0x7F;
             if (inputStream.available() != numberOfLengthBytes) {
                 throw new ParserException("Length octets have incorrect length");
             }
@@ -635,7 +635,7 @@ public class ParserHelper {
             LOGGER.debug("Parsed (short) length octets: {}", outputStream.toByteArray());
             return outputStream.toByteArray();
         } else {
-            int numberOfLengthBytes = (lengthByte & 0x7F);
+            int numberOfLengthBytes = lengthByte & 0x7F;
             if (numberOfLengthBytes > inputStream.available()) {
                 throw new ParserException("Not enough bytes for length octets in stream");
             }
