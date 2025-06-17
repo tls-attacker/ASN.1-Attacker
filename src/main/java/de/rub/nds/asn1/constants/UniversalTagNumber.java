@@ -57,7 +57,7 @@ public enum UniversalTagNumber {
     }
 
     public static UniversalTagNumber fromIntValue(int intValue) {
-        for (UniversalTagNumber currentTagClass : UniversalTagNumber.values()) {
+        for (UniversalTagNumber currentTagClass : values()) {
             if (currentTagClass.getIntValue() == intValue) {
                 return currentTagClass;
             }
@@ -66,7 +66,7 @@ public enum UniversalTagNumber {
     }
 
     public static UniversalTagNumber fromStringValue(String stringValue) {
-        for (UniversalTagNumber currentTagClass : UniversalTagNumber.values()) {
+        for (UniversalTagNumber currentTagClass : values()) {
             if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
                 return currentTagClass;
             }
