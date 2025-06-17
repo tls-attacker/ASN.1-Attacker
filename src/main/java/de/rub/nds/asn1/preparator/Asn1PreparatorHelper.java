@@ -122,12 +122,12 @@ public class Asn1PreparatorHelper {
      * @param field the field to prepare
      */
     public static void prepareAfterContent(Asn1Field field) {
-        Asn1PreparatorHelper.prepareLength(field);
-        Asn1PreparatorHelper.prepareLengthOctets(field);
-        Asn1PreparatorHelper.prepareTagClass(field);
-        Asn1PreparatorHelper.prepareTagConstructed(field);
-        Asn1PreparatorHelper.prepareTagNumber(field);
-        Asn1PreparatorHelper.prepareTagOctets(field);
+        prepareLength(field);
+        prepareLengthOctets(field);
+        prepareTagClass(field);
+        prepareTagConstructed(field);
+        prepareTagNumber(field);
+        prepareTagOctets(field);
     }
 
     public static Asn1Boolean prepareField(Asn1Boolean asn1Boolean, boolean value) {

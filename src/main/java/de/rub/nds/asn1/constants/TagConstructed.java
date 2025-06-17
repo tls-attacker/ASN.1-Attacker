@@ -35,7 +35,7 @@ public enum TagConstructed {
     }
 
     public static TagConstructed fromIntValue(final int intValue) {
-        for (TagConstructed currentTagConstructed : TagConstructed.values()) {
+        for (TagConstructed currentTagConstructed : values()) {
             if (currentTagConstructed.getIntValue() == intValue) {
                 return currentTagConstructed;
             }
@@ -45,7 +45,7 @@ public enum TagConstructed {
     }
 
     public static TagConstructed fromBooleanValue(final boolean booleanValue) {
-        for (TagConstructed currentTagConstructed : TagConstructed.values()) {
+        for (TagConstructed currentTagConstructed : values()) {
             if (currentTagConstructed.getBooleanValue() == booleanValue) {
                 return currentTagConstructed;
             }

@@ -32,7 +32,7 @@ public enum TagClass {
     }
 
     public static TagClass fromIntValue(int intValue) {
-        for (TagClass currentTagClass : TagClass.values()) {
+        for (TagClass currentTagClass : values()) {
             if (currentTagClass.getIntValue() == intValue) {
                 return currentTagClass;
             }
@@ -41,7 +41,7 @@ public enum TagClass {
     }
 
     public static TagClass fromStringValue(String stringValue) {
-        for (TagClass currentTagClass : TagClass.values()) {
+        for (TagClass currentTagClass : values()) {
             if (currentTagClass.getStringValue().equalsIgnoreCase(stringValue)) {
                 return currentTagClass;
             }
