@@ -27,11 +27,11 @@ public final class Asn1Header {
         this.tagConstructed = tagConstructed;
     }
 
-    public final int getTagNumber() {
+    public int getTagNumber() {
         return tagNumber;
     }
 
-    public final BigInteger getLength() {
+    public BigInteger getLength() {
         return length;
     }
 
