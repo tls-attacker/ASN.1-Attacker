@@ -45,6 +45,7 @@ public class TimeDecoder {
             } catch (IllegalArgumentException E) {
                 // Ignore. We are bruteforcing the format here. An illegal argument exception
                 // is only a problem when every format throws one.
+                LOGGER.trace("Format {} failed for input {}", format, generalizedTimeString);
             }
         }
         throw new ParserException("Cannot parse time" + generalizedTimeString);
@@ -69,6 +70,7 @@ public class TimeDecoder {
             } catch (IllegalArgumentException E) {
                 // Ignore. We are bruteforcing the format here. An illegal argument exception
                 // is only a problem when every format throws one.
+                LOGGER.trace("Format {} failed for input {}", format, utcTimeString);
             }
         }
         throw new ParserException("Cannot parse time: " + utcTimeString);
