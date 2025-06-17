@@ -43,7 +43,7 @@ public enum UniversalTagNumber {
 
     private final String stringValue;
 
-    private UniversalTagNumber(Integer intValue, String stringValue) {
+    UniversalTagNumber(Integer intValue, String stringValue) {
         this.intValue = intValue;
         this.stringValue = stringValue;
     }

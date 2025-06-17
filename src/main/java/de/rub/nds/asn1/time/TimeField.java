@@ -12,7 +12,7 @@ import de.rub.nds.asn1.model.Asn1Encodable;
 import org.joda.time.DateTime;
 
 public interface TimeField extends Asn1Encodable {
-    public abstract DateTime getTimeValue();
+    DateTime getTimeValue();
 
-    public abstract void setValue(String timeValue);
+    void setValue(String timeValue);
 }
