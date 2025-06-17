@@ -84,9 +84,7 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte encodeIsConstructed(byte firstIdentifierByte, boolean isConstructed) {
-        return ((isConstructed == true)
-                ? (byte) (firstIdentifierByte | 0x20)
-                : firstIdentifierByte);
+        return isConstructed ? (byte) (firstIdentifierByte | 0x20) : firstIdentifierByte;
     }
 
     private static byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
