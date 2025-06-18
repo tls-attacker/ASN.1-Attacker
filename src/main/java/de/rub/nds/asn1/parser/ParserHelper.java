@@ -38,6 +38,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
@@ -477,11 +478,11 @@ public class ParserHelper {
     }
 
     public static void parseGeneralizedTimeContent(Asn1GeneralizedTime asn1GeneralizedTime) {
-        asn1GeneralizedTime.setValue(new String(asn1GeneralizedTime.getContent().getValue()));
+        asn1GeneralizedTime.setValue(new String(asn1GeneralizedTime.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseIa5StringContent(Asn1Ia5String asn1Ia5String) {
-        asn1Ia5String.setValue(new String(asn1Ia5String.getContent().getValue()));
+        asn1Ia5String.setValue(new String(asn1Ia5String.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseOctetStringContent(Asn1OctetString asn1OctetString) {
@@ -489,19 +490,19 @@ public class ParserHelper {
     }
 
     public static void parsePrintableStringContent(Asn1PrintableString asn1PrintableString) {
-        asn1PrintableString.setValue(new String(asn1PrintableString.getContent().getValue()));
+        asn1PrintableString.setValue(new String(asn1PrintableString.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseT61StringContent(Asn1T61String asn1t61String) {
-        asn1t61String.setValue(new String(asn1t61String.getContent().getValue()));
+        asn1t61String.setValue(new String(asn1t61String.getContent().getValue(), StandardCharsets.ISO_8859_1));
     }
 
     public static void parseUtcTimeContent(Asn1UtcTime asn1UtcTime) {
-        asn1UtcTime.setValue(new String(asn1UtcTime.getContent().getValue()));
+        asn1UtcTime.setValue(new String(asn1UtcTime.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseUtf8StringContent(Asn1Utf8String asn1Utf8String) {
-        asn1Utf8String.setValue(new String(asn1Utf8String.getContent().getValue()));
+        asn1Utf8String.setValue(new String(asn1Utf8String.getContent().getValue(), StandardCharsets.UTF_8));
     }
 
     private static byte extractBits(byte[] input, int n) {
