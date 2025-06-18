@@ -192,8 +192,10 @@ public class Asn1PreparatorHelper {
         if (asn1GeneralizedTime == null) {
             asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
         }
-        asn1GeneralizedTime.setValue(new String(encodeGeneralizedTime(time, accurracy)));
-        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+        asn1GeneralizedTime.setValue(
+                new String(encodeGeneralizedTime(time, accurracy), StandardCharsets.US_ASCII));
+        asn1GeneralizedTime.setContent(
+                asn1GeneralizedTime.getValue().getValue().getBytes(StandardCharsets.US_ASCII));
         prepareAfterContent(asn1GeneralizedTime);
         return asn1GeneralizedTime;
     }
@@ -203,8 +205,10 @@ public class Asn1PreparatorHelper {
         if (asn1GeneralizedTime == null) {
             asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
         }
-        asn1GeneralizedTime.setValue(new String(encodeGeneralizedTimeUtc(time, accurracy)));
-        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+        asn1GeneralizedTime.setValue(
+                new String(encodeGeneralizedTimeUtc(time, accurracy), StandardCharsets.US_ASCII));
+        asn1GeneralizedTime.setContent(
+                asn1GeneralizedTime.getValue().getValue().getBytes(StandardCharsets.US_ASCII));
         prepareAfterContent(asn1GeneralizedTime);
         return asn1GeneralizedTime;
     }
@@ -218,8 +222,11 @@ public class Asn1PreparatorHelper {
             asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
         }
         asn1GeneralizedTime.setValue(
-                new String(encodeGneralizedTimeUtcDifferential(time, accurracy, timeZoneOffset)));
-        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+                new String(
+                        encodeGneralizedTimeUtcDifferential(time, accurracy, timeZoneOffset),
+                        StandardCharsets.US_ASCII));
+        asn1GeneralizedTime.setContent(
+                asn1GeneralizedTime.getValue().getValue().getBytes(StandardCharsets.US_ASCII));
         prepareAfterContent(asn1GeneralizedTime);
         return asn1GeneralizedTime;
     }
@@ -229,8 +236,10 @@ public class Asn1PreparatorHelper {
         if (asn1GeneralizedTime == null) {
             asn1GeneralizedTime = new Asn1GeneralizedTime("generalizedTime");
         }
-        asn1GeneralizedTime.setValue(new String(encodeGeneralizedTime(time, accurracy)));
-        asn1GeneralizedTime.setContent(asn1GeneralizedTime.getValue().getValue().getBytes());
+        asn1GeneralizedTime.setValue(
+                new String(encodeGeneralizedTime(time, accurracy), StandardCharsets.US_ASCII));
+        asn1GeneralizedTime.setContent(
+                asn1GeneralizedTime.getValue().getValue().getBytes(StandardCharsets.US_ASCII));
         prepareAfterContent(asn1GeneralizedTime);
         return asn1GeneralizedTime;
     }
@@ -240,8 +249,10 @@ public class Asn1PreparatorHelper {
         if (asn1UtcTime == null) {
             asn1UtcTime = new Asn1UtcTime("utcTime");
         }
-        asn1UtcTime.setValue(new String(encodeFullUtcTime(time, accurracy)));
-        asn1UtcTime.setContent(asn1UtcTime.getValue().getValue().getBytes());
+        asn1UtcTime.setValue(
+                new String(encodeFullUtcTime(time, accurracy), StandardCharsets.US_ASCII));
+        asn1UtcTime.setContent(
+                asn1UtcTime.getValue().getValue().getBytes(StandardCharsets.US_ASCII));
         prepareAfterContent(asn1UtcTime);
         return asn1UtcTime;
     }
@@ -253,8 +264,11 @@ public class Asn1PreparatorHelper {
         }
 
         asn1UtcTime.setValue(
-                new String(encodeUtcTimeDifferential(time, accurracy, timeZoneOffset)));
-        asn1UtcTime.setContent(asn1UtcTime.getValue().getValue().getBytes());
+                new String(
+                        encodeUtcTimeDifferential(time, accurracy, timeZoneOffset),
+                        StandardCharsets.US_ASCII));
+        asn1UtcTime.setContent(
+                asn1UtcTime.getValue().getValue().getBytes(StandardCharsets.US_ASCII));
         prepareAfterContent(asn1UtcTime);
         return asn1UtcTime;
     }
@@ -367,26 +381,29 @@ public class Asn1PreparatorHelper {
     }
 
     public static byte[] encodeGeneralizedTime(DateTime date, TimeAccurracy accurracy) {
-        return TimeEncoder.encodeGeneralizedTimeLocalTime(date, accurracy).getBytes();
+        return TimeEncoder.encodeGeneralizedTimeLocalTime(date, accurracy)
+                .getBytes(StandardCharsets.US_ASCII);
     }
 
     public static byte[] encodeFullUtcTime(DateTime date, TimeAccurracy accurracy) {
-        return TimeEncoder.encodeFullUtc(date, accurracy).getBytes();
+        return TimeEncoder.encodeFullUtc(date, accurracy).getBytes(StandardCharsets.US_ASCII);
     }
 
     public static byte[] encodeUtcTimeDifferential(
             DateTime date, TimeAccurracy accurracy, int timeZoneOffset) {
-        return TimeEncoder.encodeUtcWithDifferential(date, accurracy, timeZoneOffset).getBytes();
+        return TimeEncoder.encodeUtcWithDifferential(date, accurracy, timeZoneOffset)
+                .getBytes(StandardCharsets.US_ASCII);
     }
 
     public static byte[] encodeGeneralizedTimeUtc(DateTime date, TimeAccurracy accurracy) {
-        return TimeEncoder.encodeGeneralizedTimeUtc(date, accurracy).getBytes();
+        return TimeEncoder.encodeGeneralizedTimeUtc(date, accurracy)
+                .getBytes(StandardCharsets.US_ASCII);
     }
 
     public static byte[] encodeGneralizedTimeUtcDifferential(
             DateTime date, TimeAccurracy accurracy, int timeZoneOffset) {
         return TimeEncoder.encodeGeneralizedTimeUtcWithDifferential(date, accurracy, timeZoneOffset)
-                .getBytes();
+                .getBytes(StandardCharsets.US_ASCII);
     }
 
     public static byte[] encodeIa5String(String tempString) {
