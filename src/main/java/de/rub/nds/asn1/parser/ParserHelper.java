@@ -478,11 +478,13 @@ public class ParserHelper {
     }
 
     public static void parseGeneralizedTimeContent(Asn1GeneralizedTime asn1GeneralizedTime) {
-        asn1GeneralizedTime.setValue(new String(asn1GeneralizedTime.getContent().getValue(), StandardCharsets.US_ASCII));
+        asn1GeneralizedTime.setValue(
+                new String(asn1GeneralizedTime.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseIa5StringContent(Asn1Ia5String asn1Ia5String) {
-        asn1Ia5String.setValue(new String(asn1Ia5String.getContent().getValue(), StandardCharsets.US_ASCII));
+        asn1Ia5String.setValue(
+                new String(asn1Ia5String.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseOctetStringContent(Asn1OctetString asn1OctetString) {
@@ -490,19 +492,23 @@ public class ParserHelper {
     }
 
     public static void parsePrintableStringContent(Asn1PrintableString asn1PrintableString) {
-        asn1PrintableString.setValue(new String(asn1PrintableString.getContent().getValue(), StandardCharsets.US_ASCII));
+        asn1PrintableString.setValue(
+                new String(asn1PrintableString.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseT61StringContent(Asn1T61String asn1t61String) {
-        asn1t61String.setValue(new String(asn1t61String.getContent().getValue(), StandardCharsets.ISO_8859_1));
+        asn1t61String.setValue(
+                new String(asn1t61String.getContent().getValue(), StandardCharsets.ISO_8859_1));
     }
 
     public static void parseUtcTimeContent(Asn1UtcTime asn1UtcTime) {
-        asn1UtcTime.setValue(new String(asn1UtcTime.getContent().getValue(), StandardCharsets.US_ASCII));
+        asn1UtcTime.setValue(
+                new String(asn1UtcTime.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     public static void parseUtf8StringContent(Asn1Utf8String asn1Utf8String) {
-        asn1Utf8String.setValue(new String(asn1Utf8String.getContent().getValue(), StandardCharsets.UTF_8));
+        asn1Utf8String.setValue(
+                new String(asn1Utf8String.getContent().getValue(), StandardCharsets.UTF_8));
     }
 
     private static byte extractBits(byte[] input, int n) {
