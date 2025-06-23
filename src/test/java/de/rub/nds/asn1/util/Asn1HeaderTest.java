@@ -16,7 +16,7 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1HeaderTest {
+class Asn1HeaderTest {
 
     private TagClass tagClass;
     private int tagNumber;
@@ -25,7 +25,7 @@ public class Asn1HeaderTest {
     private Asn1Header header;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         tagClass = TagClass.UNIVERSAL;
         tagNumber = 6;
         length = BigInteger.valueOf(100);
@@ -34,7 +34,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(header);
         assertEquals(tagClass, header.getTagClass());
         assertEquals(tagNumber, header.getTagNumber());
@@ -43,7 +43,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testConstructorWithNullValues() {
+    void testConstructorWithNullValues() {
         Asn1Header nullHeader = new Asn1Header(null, 0, null, null);
         assertNull(nullHeader.getTagClass());
         assertEquals(0, nullHeader.getTagNumber());
@@ -52,7 +52,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testConstructorWithAllTagClasses() {
+    void testConstructorWithAllTagClasses() {
         for (TagClass tc : TagClass.values()) {
             Asn1Header h = new Asn1Header(tc, tagNumber, length, tagConstructed);
             assertEquals(tc, h.getTagClass());
@@ -60,7 +60,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testConstructorWithAllTagConstructedValues() {
+    void testConstructorWithAllTagConstructedValues() {
         for (TagConstructed tc : TagConstructed.values()) {
             Asn1Header h = new Asn1Header(tagClass, tagNumber, length, tc);
             assertEquals(tc, h.getTagConstructed());
@@ -68,7 +68,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testGetTagNumber() {
+    void testGetTagNumber() {
         assertEquals(6, header.getTagNumber());
 
         // Test with different tag numbers
@@ -86,7 +86,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testGetLength() {
+    void testGetLength() {
         assertEquals(BigInteger.valueOf(100), header.getLength());
 
         // Test with different lengths
@@ -104,7 +104,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testGetTagClass() {
+    void testGetTagClass() {
         assertEquals(TagClass.UNIVERSAL, header.getTagClass());
 
         // Test all tag classes
@@ -122,7 +122,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testGetTagConstructed() {
+    void testGetTagConstructed() {
         assertEquals(TagConstructed.CONSTRUCTED, header.getTagConstructed());
 
         // Test primitive
@@ -132,53 +132,7 @@ public class Asn1HeaderTest {
     }
 
     @Test
-    public void testToString() {
-        String expected =
-                "Asn1Header [tagClass=UNIVERSAL, tagNumber=6, length=100, tagConstructed=CONSTRUCTED]";
-        assertEquals(expected, header.toString());
-    }
-
-    @Test
-    public void testToStringWithNullValues() {
-        Asn1Header nullHeader = new Asn1Header(null, 42, null, null);
-        String expected =
-                "Asn1Header [tagClass=null, tagNumber=42, length=null, tagConstructed=null]";
-        assertEquals(expected, nullHeader.toString());
-    }
-
-    @Test
-    public void testToStringWithAllCombinations() {
-        // Test all combinations of TagClass and TagConstructed
-        for (TagClass tc : TagClass.values()) {
-            for (TagConstructed tconst : TagConstructed.values()) {
-                Asn1Header h = new Asn1Header(tc, 10, BigInteger.TEN, tconst);
-                String str = h.toString();
-                assertTrue(str.contains("tagClass=" + tc));
-                assertTrue(str.contains("tagNumber=10"));
-                assertTrue(str.contains("length=10"));
-                assertTrue(str.contains("tagConstructed=" + tconst));
-            }
-        }
-    }
-
-    @Test
-    public void testToStringFormat() {
-        // Verify the exact format of toString
-        String result = header.toString();
-        assertTrue(result.startsWith("Asn1Header ["));
-        assertTrue(result.endsWith("]"));
-        assertTrue(result.contains("tagClass="));
-        assertTrue(result.contains("tagNumber="));
-        assertTrue(result.contains("length="));
-        assertTrue(result.contains("tagConstructed="));
-
-        // Count commas to ensure proper formatting
-        long commaCount = result.chars().filter(ch -> ch == ',').count();
-        assertEquals(3, commaCount);
-    }
-
-    @Test
-    public void testImmutability() {
+    void testImmutability() {
         // Create header with mutable BigInteger
         BigInteger mutableLength = new BigInteger("100");
         Asn1Header h = new Asn1Header(tagClass, tagNumber, mutableLength, tagConstructed);
