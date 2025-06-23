@@ -84,7 +84,6 @@ public abstract class Asn1Field implements Asn1Encodable {
             TagClass tagClassType,
             TagConstructed tagConstructedType,
             UniversalTagNumber tagNumber) {
-        assert identifier != null;
         assert tagClassType != null;
         assert tagClassType == TagClass.UNIVERSAL;
         assert tagConstructedType != null;
@@ -100,7 +99,6 @@ public abstract class Asn1Field implements Asn1Encodable {
             TagClass tagClassType,
             TagConstructed tagConstructedType,
             Integer implicitTagNumber) {
-        assert identifier != null;
         assert tagClassType != null;
         assert tagConstructedType != null;
         if (tagClassType == TagClass.UNIVERSAL) {
