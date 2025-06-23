@@ -28,6 +28,7 @@ import de.rub.nds.asn1.model.Asn1UnknownSequence;
 import de.rub.nds.asn1.model.Asn1UnknownSet;
 import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
+import de.rub.nds.asn1.model.Asn1VisibleString;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.util.Asn1Header;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
@@ -182,6 +183,10 @@ public class ParserHelper {
                 Asn1Utf8String asn1Utf8String = new Asn1Utf8String("utf8String");
                 parseAsn1Utf8String(asn1Utf8String, inputStream);
                 return asn1Utf8String;
+            case VISIBLESTRING:
+                Asn1VisibleString asn1VisibleString = new Asn1VisibleString("visibleString");
+                parseAsn1VisibleString(asn1VisibleString, inputStream);
+                return asn1VisibleString;
             default:
                 LOGGER.warn(
                         "Could theoretically parse tag number {} but this is not implemented yet. Parsing as unknown.",
@@ -415,6 +420,18 @@ public class ParserHelper {
         parseUtf8StringContent(asn1Utf8String);
     }
 
+    /**
+     * Parses a VisibleString field. Its structure and its content
+     *
+     * @param asn1VisibleString the Asn1VisibleString to write the parsed values into
+     * @param inputStream the InputStream to read the visible string from
+     */
+    public static void parseAsn1VisibleString(
+            Asn1VisibleString asn1VisibleString, BufferedInputStream inputStream) {
+        parseStructure(asn1VisibleString, inputStream);
+        parseVisibleStringContent(asn1VisibleString);
+    }
+
     public static void parseAsn1ObjectIdentifierContent(Asn1ObjectIdentifier asn1ObjectIdentifier) {
         ObjectIdentifier oid = new ObjectIdentifier(asn1ObjectIdentifier.getContent().getValue());
         asn1ObjectIdentifier.setValue(oid.toString());
@@ -509,6 +526,11 @@ public class ParserHelper {
     public static void parseUtf8StringContent(Asn1Utf8String asn1Utf8String) {
         asn1Utf8String.setValue(
                 new String(asn1Utf8String.getContent().getValue(), StandardCharsets.UTF_8));
+    }
+
+    public static void parseVisibleStringContent(Asn1VisibleString asn1VisibleString) {
+        asn1VisibleString.setValue(
+                new String(asn1VisibleString.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
     private static byte extractBits(byte[] input, int n) {
@@ -749,6 +771,8 @@ public class ParserHelper {
             parseAsn1UtcTime((Asn1UtcTime) encodable, inputStream);
         } else if (encodable instanceof Asn1Utf8String) {
             parseAsn1Utf8String((Asn1Utf8String) encodable, inputStream);
+        } else if (encodable instanceof Asn1VisibleString) {
+            parseAsn1VisibleString((Asn1VisibleString) encodable, inputStream);
         } else {
             parseStructure((Asn1Field) encodable, inputStream);
         }
