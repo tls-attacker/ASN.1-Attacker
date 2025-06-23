@@ -163,6 +163,30 @@ public class Asn1FieldTest {
         assertNull(field.getIdentifier());
     }
 
+    @Test
+    public void testNullIdentifierInConstructor() {
+        // Test that null identifier is allowed in constructor (regression test for issue #147)
+        Asn1Field fieldWithNullId =
+                new Asn1FieldImpl(
+                        null,
+                        TagClass.UNIVERSAL,
+                        TagConstructed.PRIMITIVE,
+                        UniversalTagNumber.BIT_STRING);
+        assertNull(fieldWithNullId.getIdentifier());
+
+        // Test that the field still works correctly with null identifier
+        assertTrue(
+                fieldWithNullId.matchesHeader(
+                        TagClass.UNIVERSAL,
+                        TagConstructed.PRIMITIVE.getBooleanValue(),
+                        UniversalTagNumber.BIT_STRING.getIntValue()));
+
+        // Also test the second constructor with null identifier
+        Asn1Field fieldWithNullId2 =
+                new Asn1FieldImpl2(null, TagClass.PRIVATE, TagConstructed.CONSTRUCTED, 42);
+        assertNull(fieldWithNullId2.getIdentifier());
+    }
+
     public class Asn1FieldImpl extends Asn1Field {
 
         public Asn1FieldImpl(
@@ -171,6 +195,17 @@ public class Asn1FieldTest {
                 TagConstructed tagConstructedType,
                 UniversalTagNumber tagNummerType) {
             super(identifier, tagClassType, tagConstructedType, tagNummerType.getIntValue());
+        }
+    }
+
+    public class Asn1FieldImpl2 extends Asn1Field {
+
+        public Asn1FieldImpl2(
+                String identifier,
+                TagClass tagClassType,
+                TagConstructed tagConstructedType,
+                Integer implicitTagNumber) {
+            super(identifier, tagClassType, tagConstructedType, implicitTagNumber);
         }
     }
 }
