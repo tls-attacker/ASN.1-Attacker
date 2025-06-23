@@ -33,7 +33,12 @@ public class Asn1Factory {
                             "Constructed Asn1BitStrings not supported");
                 }
             case BMPSTRING:
-                throw new UnsupportedOperationException("Asn1BmpString not supported");
+                if (tagConstructed == TagConstructed.PRIMITIVE) {
+                    return new Asn1BmpString("field");
+                } else {
+                    throw new UnsupportedOperationException(
+                            "Constructed Asn1BmpString not supported");
+                }
             case BOOLEAN:
                 if (tagConstructed == TagConstructed.PRIMITIVE) {
                     return new Asn1Boolean("field");
@@ -132,8 +137,12 @@ public class Asn1Factory {
                             "Constructed Asn1PrimitiveT61String not supported");
                 }
             case UNIVERSALSTRING:
-                throw new UnsupportedOperationException(
-                        "Constructed Asn1UniversalString not supported");
+                if (tagConstructed == TagConstructed.PRIMITIVE) {
+                    return new Asn1UniversalString("field");
+                } else {
+                    throw new UnsupportedOperationException(
+                            "Constructed Asn1UniversalString not supported");
+                }
             case UTCTIME:
                 if (tagConstructed == TagConstructed.PRIMITIVE) {
                     return new Asn1UtcTime("field");

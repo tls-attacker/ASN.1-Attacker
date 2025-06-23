@@ -446,10 +446,10 @@ public class Asn1PreparatorHelper {
      */
     public static byte[] encodeUniversalString(String tempString) {
         try {
-            return tempString.getBytes("UTF-32");
+            return tempString.getBytes("UTF-32BE");
         } catch (UnsupportedEncodingException e) {
             throw new UnsupportedOperationException(
-                    "Could not encode Universal String with UTF-32, String empty", e);
+                    "Could not encode Universal String with UTF-32BE", e);
         }
     }
 
@@ -458,8 +458,8 @@ public class Asn1PreparatorHelper {
     }
 
     public static byte[] encodeT61String(String tempString) {
-        /** TODO Not sure this is correct... */
-        return tempString.getBytes(StandardCharsets.UTF_8);
+        // T61String (TeletexString) uses ISO-8859-1 encoding
+        return tempString.getBytes(StandardCharsets.ISO_8859_1);
     }
 
     public static byte[] encodeUtf8String(String tempString) {

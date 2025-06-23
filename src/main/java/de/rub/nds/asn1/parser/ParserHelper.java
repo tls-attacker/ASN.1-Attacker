@@ -12,6 +12,7 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.model.Asn1BitString;
+import de.rub.nds.asn1.model.Asn1BmpString;
 import de.rub.nds.asn1.model.Asn1Boolean;
 import de.rub.nds.asn1.model.Asn1Encodable;
 import de.rub.nds.asn1.model.Asn1Field;
@@ -23,6 +24,7 @@ import de.rub.nds.asn1.model.Asn1ObjectIdentifier;
 import de.rub.nds.asn1.model.Asn1OctetString;
 import de.rub.nds.asn1.model.Asn1PrintableString;
 import de.rub.nds.asn1.model.Asn1T61String;
+import de.rub.nds.asn1.model.Asn1UniversalString;
 import de.rub.nds.asn1.model.Asn1UnknownField;
 import de.rub.nds.asn1.model.Asn1UnknownSequence;
 import de.rub.nds.asn1.model.Asn1UnknownSet;
@@ -187,6 +189,15 @@ public class ParserHelper {
                 Asn1VisibleString asn1VisibleString = new Asn1VisibleString("visibleString");
                 parseAsn1VisibleString(asn1VisibleString, inputStream);
                 return asn1VisibleString;
+            case BMPSTRING:
+                Asn1BmpString asn1BmpString = new Asn1BmpString("bmpString");
+                parseAsn1BmpString(asn1BmpString, inputStream);
+                return asn1BmpString;
+            case UNIVERSALSTRING:
+                Asn1UniversalString asn1UniversalString =
+                        new Asn1UniversalString("universalString");
+                parseAsn1UniversalString(asn1UniversalString, inputStream);
+                return asn1UniversalString;
             default:
                 LOGGER.warn(
                         "Could theoretically parse tag number {} but this is not implemented yet. Parsing as unknown.",
@@ -533,6 +544,32 @@ public class ParserHelper {
                 new String(asn1VisibleString.getContent().getValue(), StandardCharsets.US_ASCII));
     }
 
+    public static void parseAsn1BmpString(
+            Asn1BmpString asn1BmpString, BufferedInputStream inputStream) {
+        parseStructure(asn1BmpString, inputStream);
+        parseBmpStringContent(asn1BmpString);
+    }
+
+    public static void parseBmpStringContent(Asn1BmpString asn1BmpString) {
+        asn1BmpString.setValue(
+                new String(asn1BmpString.getContent().getValue(), StandardCharsets.UTF_16BE));
+    }
+
+    public static void parseAsn1UniversalString(
+            Asn1UniversalString asn1UniversalString, BufferedInputStream inputStream) {
+        parseStructure(asn1UniversalString, inputStream);
+        parseUniversalStringContent(asn1UniversalString);
+    }
+
+    public static void parseUniversalStringContent(Asn1UniversalString asn1UniversalString) {
+        try {
+            asn1UniversalString.setValue(
+                    new String(asn1UniversalString.getContent().getValue(), "UTF-32BE"));
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new ParserException("Could not parse Universal String with UTF-32BE", e);
+        }
+    }
+
     private static byte extractBits(byte[] input, int n) {
         if (input.length == 0) {
             return 0;
@@ -773,6 +810,10 @@ public class ParserHelper {
             parseAsn1Utf8String((Asn1Utf8String) encodable, inputStream);
         } else if (encodable instanceof Asn1VisibleString) {
             parseAsn1VisibleString((Asn1VisibleString) encodable, inputStream);
+        } else if (encodable instanceof Asn1BmpString) {
+            parseAsn1BmpString((Asn1BmpString) encodable, inputStream);
+        } else if (encodable instanceof Asn1UniversalString) {
+            parseAsn1UniversalString((Asn1UniversalString) encodable, inputStream);
         } else {
             parseStructure((Asn1Field) encodable, inputStream);
         }
