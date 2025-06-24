@@ -16,7 +16,7 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.model.Asn1BitString;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.protocol.exception.ParserException;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -32,8 +32,7 @@ class ParserHelperTest {
     void testParseTagOctetsShortTag() throws Exception {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(
-                                ArrayConverter.hexStringToByteArray("3003020109")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("3003020109")));
         byte[] tag = ParserHelper.parseTagOctets(inputStream);
         assertArrayEquals(new byte[] {0x30}, tag);
     }
@@ -43,7 +42,7 @@ class ParserHelperTest {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(
-                                ArrayConverter.hexStringToByteArray("5F1D8206493132333435363738")));
+                                DataConverter.hexStringToByteArray("5F1D8206493132333435363738")));
         byte[] tag = ParserHelper.parseTagOctets(inputStream);
         assertArrayEquals(new byte[] {0x5F, 0x1D}, tag);
     }
@@ -82,40 +81,40 @@ class ParserHelperTest {
     void testParseLength() {
         assertEquals(
                 new BigInteger("1"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("01")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("01")));
         assertEquals(
                 new BigInteger("2"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("02")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("02")));
         assertEquals(
                 new BigInteger("127"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("7F")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("7F")));
         assertEquals(
                 new BigInteger("128"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("8180")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("8180")));
         assertEquals(
                 new BigInteger("129"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("8181")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("8181")));
         assertEquals(
                 new BigInteger("255"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("81FF")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("81FF")));
         assertEquals(
                 new BigInteger("256"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("820100")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("820100")));
         assertEquals(
                 new BigInteger("513"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("820201")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("820201")));
         assertEquals(
                 new BigInteger("772"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("820304")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("820304")));
         assertEquals(
                 new BigInteger("1029"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("820405")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("820405")));
         assertEquals(
                 new BigInteger("21575960328"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("850506070708")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("850506070708")));
         assertEquals(
                 new BigInteger("6627269347851"),
-                ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("86060708090A0B")));
+                ParserHelper.parseLength(DataConverter.hexStringToByteArray("86060708090A0B")));
     }
 
     @Test
@@ -124,37 +123,37 @@ class ParserHelperTest {
                 ParserException.class,
                 () -> {
                     // Indefinite Length
-                    ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("80"));
+                    ParserHelper.parseLength(DataConverter.hexStringToByteArray("80"));
                 });
         assertThrows(
                 ParserException.class,
                 () -> {
                     // Reserved Value
-                    ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("FF"));
+                    ParserHelper.parseLength(DataConverter.hexStringToByteArray("FF"));
                 });
         assertThrows(
                 ParserException.class,
                 () -> {
                     // Too short
-                    ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("81"));
+                    ParserHelper.parseLength(DataConverter.hexStringToByteArray("81"));
                 });
         assertThrows(
                 ParserException.class,
                 () -> {
                     // Too short
-                    ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("8201"));
+                    ParserHelper.parseLength(DataConverter.hexStringToByteArray("8201"));
                 });
         assertThrows(
                 ParserException.class,
                 () -> {
                     // Too long
-                    ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("810101"));
+                    ParserHelper.parseLength(DataConverter.hexStringToByteArray("810101"));
                 });
         assertThrows(
                 ParserException.class,
                 () -> {
                     // Too long
-                    ParserHelper.parseLength(ArrayConverter.hexStringToByteArray("82010101"));
+                    ParserHelper.parseLength(DataConverter.hexStringToByteArray("82010101"));
                 });
     }
 
@@ -163,77 +162,77 @@ class ParserHelperTest {
     void testParseLengthOctets() throws IOException {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("01FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("01FF")));
         assertArrayEquals(new byte[] {0x01}, ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("7FFF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("7FFF")));
         assertArrayEquals(new byte[] {0x7F}, ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("8180FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("8180FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("8180"),
+                DataConverter.hexStringToByteArray("8180"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("8181FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("8181FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("8181"),
+                DataConverter.hexStringToByteArray("8181"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("81FFFF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("81FFFF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("81FF"),
+                DataConverter.hexStringToByteArray("81FF"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("820100FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("820100FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("820100"),
+                DataConverter.hexStringToByteArray("820100"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("820201FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("820201FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("820201"),
+                DataConverter.hexStringToByteArray("820201"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("820304FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("820304FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("820304"),
+                DataConverter.hexStringToByteArray("820304"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("820405FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("820405FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("820405"),
-                ParserHelper.parseLengthOctets(inputStream));
-
-        inputStream =
-                new BufferedInputStream(
-                        new ByteArrayInputStream(
-                                ArrayConverter.hexStringToByteArray("850506070708FF")));
-        assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("850506070708"),
+                DataConverter.hexStringToByteArray("820405"),
                 ParserHelper.parseLengthOctets(inputStream));
 
         inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(
-                                ArrayConverter.hexStringToByteArray("86060708090A0BFF")));
+                                DataConverter.hexStringToByteArray("850506070708FF")));
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("86060708090A0B"),
+                DataConverter.hexStringToByteArray("850506070708"),
+                ParserHelper.parseLengthOctets(inputStream));
+
+        inputStream =
+                new BufferedInputStream(
+                        new ByteArrayInputStream(
+                                DataConverter.hexStringToByteArray("86060708090A0BFF")));
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("86060708090A0B"),
                 ParserHelper.parseLengthOctets(inputStream));
     }
 
@@ -246,7 +245,7 @@ class ParserHelperTest {
                     ParserHelper.parseLengthOctets(
                             new BufferedInputStream(
                                     new ByteArrayInputStream(
-                                            ArrayConverter.hexStringToByteArray("80"))));
+                                            DataConverter.hexStringToByteArray("80"))));
                 });
         assertThrows(
                 ParserException.class,
@@ -255,7 +254,7 @@ class ParserHelperTest {
                     ParserHelper.parseLengthOctets(
                             new BufferedInputStream(
                                     new ByteArrayInputStream(
-                                            ArrayConverter.hexStringToByteArray("FF"))));
+                                            DataConverter.hexStringToByteArray("FF"))));
                 });
         assertThrows(
                 ParserException.class,
@@ -264,7 +263,7 @@ class ParserHelperTest {
                     ParserHelper.parseLengthOctets(
                             new BufferedInputStream(
                                     new ByteArrayInputStream(
-                                            ArrayConverter.hexStringToByteArray("81"))));
+                                            DataConverter.hexStringToByteArray("81"))));
                 });
         assertThrows(
                 ParserException.class,
@@ -273,7 +272,7 @@ class ParserHelperTest {
                     ParserHelper.parseLengthOctets(
                             new BufferedInputStream(
                                     new ByteArrayInputStream(
-                                            ArrayConverter.hexStringToByteArray("8201"))));
+                                            DataConverter.hexStringToByteArray("8201"))));
                 });
     }
 
@@ -282,17 +281,17 @@ class ParserHelperTest {
     void testParseContentOctets() throws IOException {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
-                        new ByteArrayInputStream(ArrayConverter.hexStringToByteArray("01FF")));
+                        new ByteArrayInputStream(DataConverter.hexStringToByteArray("01FF")));
         byte[] parseContentOctets = ParserHelper.parseContentOctets(BigInteger.ONE, inputStream);
-        assertArrayEquals(ArrayConverter.hexStringToByteArray("01"), parseContentOctets);
+        assertArrayEquals(DataConverter.hexStringToByteArray("01"), parseContentOctets);
 
         inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(
-                                ArrayConverter.hexStringToByteArray("01010101010101010101FF")));
+                                DataConverter.hexStringToByteArray("01010101010101010101FF")));
         parseContentOctets = ParserHelper.parseContentOctets(BigInteger.TEN, inputStream);
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("01010101010101010101"), parseContentOctets);
+                DataConverter.hexStringToByteArray("01010101010101010101"), parseContentOctets);
     }
 
     @Test
@@ -301,7 +300,7 @@ class ParserHelperTest {
         BufferedInputStream byteArrayInputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(
-                                ArrayConverter.hexStringToByteArray("0304066E5DC0")));
+                                DataConverter.hexStringToByteArray("0304066E5DC0")));
         ParserHelper.parseAsn1BitString(asn1PrimitiveBitString, byteArrayInputStream);
         Assertions.assertEquals(
                 UniversalTagNumber.BIT_STRING, asn1PrimitiveBitString.getUniversalTagNumberType());
@@ -309,17 +308,17 @@ class ParserHelperTest {
         Assertions.assertEquals(
                 TagConstructed.PRIMITIVE, asn1PrimitiveBitString.getTagConstructedType());
         Assertions.assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("03"),
+                DataConverter.hexStringToByteArray("03"),
                 asn1PrimitiveBitString.getTagOctets().getValue());
         Assertions.assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("04"),
+                DataConverter.hexStringToByteArray("04"),
                 asn1PrimitiveBitString.getLengthOctets().getValue());
         Assertions.assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("066E5DC0"),
+                DataConverter.hexStringToByteArray("066E5DC0"),
                 asn1PrimitiveBitString.getContent().getValue());
         Assertions.assertEquals((byte) 0x06, asn1PrimitiveBitString.getUnusedBits().getValue());
         Assertions.assertArrayEquals(
-                ArrayConverter.hexStringToByteArray("01B977"),
+                DataConverter.hexStringToByteArray("01B977"),
                 asn1PrimitiveBitString.getUsedBits().getValue());
         Assertions.assertEquals((byte) 0, asn1PrimitiveBitString.getPadding().getValue());
     }

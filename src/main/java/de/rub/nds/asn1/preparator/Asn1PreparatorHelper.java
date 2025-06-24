@@ -27,7 +27,7 @@ import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -515,9 +515,9 @@ public class Asn1PreparatorHelper {
         LOGGER.debug(
                 "Encoding: {} as {}",
                 length,
-                ArrayConverter.bytesToHexString(
-                        ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
-        outputStream.writeBytes(ArrayConverter.bigIntegerToByteArray(length, numberOfBytes, true));
+                DataConverter.bytesToHexString(
+                        DataConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
+        outputStream.writeBytes(DataConverter.bigIntegerToByteArray(length, numberOfBytes, true));
         return outputStream.toByteArray();
     }
 }

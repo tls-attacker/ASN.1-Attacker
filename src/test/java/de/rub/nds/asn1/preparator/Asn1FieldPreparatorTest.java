@@ -11,7 +11,7 @@ package de.rub.nds.asn1.preparator;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import de.rub.nds.asn1.model.Asn1Integer;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,16 +48,16 @@ class Asn1FieldPreparatorTest {
         Asn1FieldPreparatorImpl instance = new Asn1FieldPreparatorImpl(size);
         instance.prepare();
         assertArrayEquals(
-                ArrayConverter.hexStringToByteArray(expectedResult),
-                ArrayConverter.concatenate(
+                DataConverter.hexStringToByteArray(expectedResult),
+                DataConverter.concatenate(
                         instance.field.getTagOctets().getValue(),
                         instance.field.getLengthOctets().getValue(),
                         instance.field.getContent().getValue()),
                 "Expected: "
                         + expectedResult
                         + " Found: "
-                        + ArrayConverter.bytesToHexString(
-                                ArrayConverter.concatenate(
+                        + DataConverter.bytesToHexString(
+                                DataConverter.concatenate(
                                         instance.field.getTagOctets().getValue(),
                                         instance.field.getLengthOctets().getValue(),
                                         instance.field.getContent().getValue())));
