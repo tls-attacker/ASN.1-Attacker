@@ -32,7 +32,7 @@ import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.util.Asn1Header;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.protocol.exception.ParserException;
 import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
 import java.io.BufferedInputStream;
@@ -469,7 +469,7 @@ public class ParserHelper {
                     inputStream.readNBytes(asn1BitString.getLength().getValue().intValue() - 1);
 
             LOGGER.debug("Unused bits: {}", asn1BitString.getUnusedBits().getValue());
-            LOGGER.debug("Remaining bytes: {}", ArrayConverter.bytesToHexString(remainingBytes));
+            LOGGER.debug("Remaining bytes: {}", DataConverter.bytesToHexString(remainingBytes));
 
             asn1BitString.setUsedBits(
                     shiftRightUnsigned(remainingBytes, asn1BitString.getUnusedBits().getValue()));
@@ -478,10 +478,10 @@ public class ParserHelper {
 
             LOGGER.debug(
                     "Used bits: {}",
-                    ArrayConverter.bytesToHexString(asn1BitString.getUsedBits().getValue()));
+                    DataConverter.bytesToHexString(asn1BitString.getUsedBits().getValue()));
             LOGGER.debug(
                     "Padding: {}",
-                    ArrayConverter.bytesToHexString(
+                    DataConverter.bytesToHexString(
                             new byte[] {asn1BitString.getPadding().getValue()}));
         } catch (IOException e) {
             throw new ParserException("Could not parse BitString", e);
@@ -591,13 +591,13 @@ public class ParserHelper {
                 if (stream.available() == 0) {
                     throw new ParserException(
                             "Incomplete tag: "
-                                    + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
+                                    + DataConverter.bytesToHexString(tagByteStream.toByteArray()));
                 }
                 read = stream.read();
                 if (read == -1) {
                     throw new ParserException(
                             "Incomplete tag: "
-                                    + ArrayConverter.bytesToHexString(tagByteStream.toByteArray()));
+                                    + DataConverter.bytesToHexString(tagByteStream.toByteArray()));
                 }
                 tagByteStream.write(read);
             } while ((read & 0x80) > 0);
