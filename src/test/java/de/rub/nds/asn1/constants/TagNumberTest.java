@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class TagNumberTest {
+class TagNumberTest {
 
     /** Test of values method, of class TagNumber. */
     @Test
-    public void testValues() {
+    void testValues() {
         assertEquals(29, UniversalTagNumber.values().length);
     }
 
     /** Test of valueOf method, of class TagNumber. */
     @Test
-    public void testValueOf() {
+    void testValueOf() {
         assertEquals(
                 UniversalTagNumber.END_OF_CONTENT, UniversalTagNumber.valueOf("END_OF_CONTENT"));
         assertEquals(UniversalTagNumber.BOOLEAN, UniversalTagNumber.valueOf("BOOLEAN"));
@@ -67,7 +67,7 @@ public class TagNumberTest {
 
     /** Test of getIntValue method, of class TagNumber. */
     @Test
-    public void testGetIntValue() {
+    void testGetIntValue() {
         assertEquals(0, UniversalTagNumber.END_OF_CONTENT.getIntValue());
         assertEquals(1, UniversalTagNumber.BOOLEAN.getIntValue());
         assertEquals(2, UniversalTagNumber.INTEGER.getIntValue());
@@ -101,7 +101,7 @@ public class TagNumberTest {
 
     /** Test of getStringValue method, of class TagNumber. */
     @Test
-    public void testGetStringValue() {
+    void testGetStringValue() {
         assertEquals("end-of-content", UniversalTagNumber.END_OF_CONTENT.getStringValue());
         assertEquals("boolean", UniversalTagNumber.BOOLEAN.getStringValue());
         assertEquals("integer", UniversalTagNumber.INTEGER.getStringValue());
@@ -135,7 +135,7 @@ public class TagNumberTest {
 
     /** Test of fromIntValue method, of class TagNumber. */
     @Test
-    public void testFromIntValue() {
+    void testFromIntValue() {
         assertEquals(UniversalTagNumber.END_OF_CONTENT, UniversalTagNumber.fromIntValue(0));
         assertEquals(UniversalTagNumber.BOOLEAN, UniversalTagNumber.fromIntValue(1));
         assertEquals(UniversalTagNumber.INTEGER, UniversalTagNumber.fromIntValue(2));
@@ -173,7 +173,7 @@ public class TagNumberTest {
 
     /** Test of fromStringValue method, of class TagNumber. */
     @Test
-    public void testFromStringValue() {
+    void testFromStringValue() {
         assertEquals(
                 UniversalTagNumber.END_OF_CONTENT,
                 UniversalTagNumber.fromStringValue("end-of-content"));
@@ -239,7 +239,7 @@ public class TagNumberTest {
     }
 
     @Test
-    public void testFromIdentifierByte() {
+    void testFromIdentifierByte() {
         assertEquals(
                 UniversalTagNumber.END_OF_CONTENT,
                 UniversalTagNumber.fromIdentifierByte((byte) 0b00000000));

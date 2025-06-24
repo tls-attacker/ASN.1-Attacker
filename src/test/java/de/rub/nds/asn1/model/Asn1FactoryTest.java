@@ -15,10 +15,10 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import org.junit.jupiter.api.Test;
 
-public class Asn1FactoryTest {
+class Asn1FactoryTest {
 
     @Test
-    public void testCreateAsn1Element() {
+    void testCreateAsn1Element() {
         // Test Unsupported
         assertThrows(
                 UnsupportedOperationException.class,

@@ -14,17 +14,17 @@ import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1ObjectIdentifierTest {
+class Asn1ObjectIdentifierTest {
 
     private Asn1ObjectIdentifier asn1ObjectIdentifier;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         asn1ObjectIdentifier = new Asn1ObjectIdentifier("test");
     }
 
     @Test
-    public void testSetGetValue() {
+    void testSetGetValue() {
         asn1ObjectIdentifier.setValue("1.2.3.4");
         assertEquals("1.2.3.4", asn1ObjectIdentifier.getValue().getValue());
         asn1ObjectIdentifier.setValue("4.3.2.1");
@@ -32,7 +32,7 @@ public class Asn1ObjectIdentifierTest {
     }
 
     @Test
-    public void testSetValue_Modifiable() {
+    void testSetValue_Modifiable() {
         asn1ObjectIdentifier.setValue("1.2.3.4");
         assertEquals("1.2.3.4", asn1ObjectIdentifier.getValue().getValue());
         asn1ObjectIdentifier

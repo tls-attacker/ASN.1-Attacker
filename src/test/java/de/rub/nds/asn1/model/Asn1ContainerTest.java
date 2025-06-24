@@ -18,17 +18,17 @@ import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1ContainerTest {
+class Asn1ContainerTest {
 
     private Asn1Container instance;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         instance = new Asn1ContainerImpl();
     }
 
     @Test
-    public void testGetEncodedChildren() {
+    void testGetEncodedChildren() {
         assertNull(instance.getEncodedChildren());
         instance.setEncodedChildren(new byte[0]);
         assertArrayEquals(new byte[0], instance.getEncodedChildren().getValue());
@@ -36,9 +36,9 @@ public class Asn1ContainerTest {
         assertNull(instance.getEncodedChildren());
     }
 
-    public class Asn1ContainerImpl extends Asn1Container {
+    class Asn1ContainerImpl extends Asn1Container {
 
-        public Asn1ContainerImpl() {
+        Asn1ContainerImpl() {
             super("", TagClass.UNIVERSAL, TagConstructed.CONSTRUCTED, UniversalTagNumber.SEQUENCE);
         }
     }

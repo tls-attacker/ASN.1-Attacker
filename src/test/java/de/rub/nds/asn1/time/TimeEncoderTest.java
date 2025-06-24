@@ -16,15 +16,15 @@ import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
-public class TimeEncoderTest {
+class TimeEncoderTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public TimeEncoderTest() {}
+    TimeEncoderTest() {}
 
     /** Test of encodeGeneralizedTimeUtc method, of class TimeEncoder. */
     @Test
-    public void testEncodeGeneralizedTimeUtc() {
+    void testEncodeGeneralizedTimeUtc() {
         DateTime date = new DateTime(0);
         LOGGER.info("Encoding target: {}", date.toString());
         String time = TimeEncoder.encodeGeneralizedTimeUtc(date, TimeAccurracy.HOURS);
@@ -42,7 +42,7 @@ public class TimeEncoderTest {
     }
 
     @Test
-    public void testEncodeGeneralizedTimeLocalTime() {
+    void testEncodeGeneralizedTimeLocalTime() {
         DateTime date = new DateTime(0);
         LOGGER.info("Encoding target: {}", date.toString());
         String time = TimeEncoder.encodeGeneralizedTimeLocalTime(date, TimeAccurracy.HOURS);
@@ -61,7 +61,7 @@ public class TimeEncoderTest {
 
     /** Test of encodeGeneralizedTimeUtcWithDifferential method, of class TimeEncoder. */
     @Test
-    public void testEncodeGeneralizedTimeUtcWithDifferential() {
+    void testEncodeGeneralizedTimeUtcWithDifferential() {
         DateTime date = new DateTime(0);
         LOGGER.info("Encoding target: {}", date.toString());
         String time =
@@ -87,7 +87,7 @@ public class TimeEncoderTest {
     }
 
     @Test
-    public void testEncodeFullUtc() {
+    void testEncodeFullUtc() {
         DateTime date = new DateTime(0);
         LOGGER.info("Encoding target: {}", date.toString());
         String time = TimeEncoder.encodeFullUtc(date, TimeAccurracy.HOURS);
@@ -105,7 +105,7 @@ public class TimeEncoderTest {
     }
 
     @Test
-    public void testEncodeUtcWithDifferential() {
+    void testEncodeUtcWithDifferential() {
         DateTime date = new DateTime(0);
         LOGGER.info("Encoding target: {}", date.toString());
         String time = TimeEncoder.encodeUtcWithDifferential(date, TimeAccurracy.HOURS, 240);

@@ -15,17 +15,17 @@ import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1BooleanTest {
+class Asn1BooleanTest {
 
     private Asn1Boolean asn1Boolean;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         asn1Boolean = new Asn1Boolean("test");
     }
 
     @Test
-    public void testSetGetValue() {
+    void testSetGetValue() {
         asn1Boolean.setValue(true);
         assertTrue(asn1Boolean.getValue().getValue());
         asn1Boolean.setValue(false);
@@ -33,7 +33,7 @@ public class Asn1BooleanTest {
     }
 
     @Test
-    public void testSetValue_ModifiableBoolean() {
+    void testSetValue_ModifiableBoolean() {
         asn1Boolean.setValue(new ModifiableBoolean(true));
         assertTrue(asn1Boolean.getValue().getValue());
         asn1Boolean.setValue(new ModifiableBoolean(false));
