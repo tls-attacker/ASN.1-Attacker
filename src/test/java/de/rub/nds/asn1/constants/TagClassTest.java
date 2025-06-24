@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class TagClassTest {
+class TagClassTest {
 
     /** Test of values method, of class TagClass. */
     @Test
-    public void testValues() {
+    void testValues() {
         assertEquals(4, TagClass.values().length, "There exist 4 tag classes");
     }
 
     /** Test of valueOf method, of class TagClass. */
     @Test
-    public void testValueOf() {
+    void testValueOf() {
         assertEquals(TagClass.UNIVERSAL, TagClass.valueOf("UNIVERSAL"));
         assertEquals(TagClass.APPLICATION, TagClass.valueOf("APPLICATION"));
         assertEquals(TagClass.CONTEXT_SPECIFIC, TagClass.valueOf("CONTEXT_SPECIFIC"));
@@ -31,7 +31,7 @@ public class TagClassTest {
 
     /** Test of getIntValue method, of class TagClass. */
     @Test
-    public void testGetIntValue() {
+    void testGetIntValue() {
         assertEquals(0, TagClass.UNIVERSAL.getIntValue());
         assertEquals(1, TagClass.APPLICATION.getIntValue());
         assertEquals(2, TagClass.CONTEXT_SPECIFIC.getIntValue());
@@ -40,7 +40,7 @@ public class TagClassTest {
 
     /** Test of getStringValue method, of class TagClass. */
     @Test
-    public void testGetStringValue() {
+    void testGetStringValue() {
         assertEquals("universal", TagClass.UNIVERSAL.getStringValue());
         assertEquals("application", TagClass.APPLICATION.getStringValue());
         assertEquals("context-specific", TagClass.CONTEXT_SPECIFIC.getStringValue());
@@ -49,7 +49,7 @@ public class TagClassTest {
 
     /** Test of fromIntValue method, of class TagClass. */
     @Test
-    public void testFromIntValue() {
+    void testFromIntValue() {
         assertEquals(TagClass.UNIVERSAL, TagClass.fromIntValue(0));
         assertEquals(TagClass.APPLICATION, TagClass.fromIntValue(1));
         assertEquals(TagClass.CONTEXT_SPECIFIC, TagClass.fromIntValue(2));
@@ -58,7 +58,7 @@ public class TagClassTest {
 
     /** Test of fromStringValue method, of class TagClass. */
     @Test
-    public void testFromStringValue() {
+    void testFromStringValue() {
         assertEquals(TagClass.UNIVERSAL, TagClass.fromStringValue("universal"));
         assertEquals(TagClass.APPLICATION, TagClass.fromStringValue("application"));
         assertEquals(TagClass.CONTEXT_SPECIFIC, TagClass.fromStringValue("context-specific"));
@@ -67,7 +67,7 @@ public class TagClassTest {
 
     /** Test of fromIdentifierByte method, of class TagClass. */
     @Test
-    public void testFromIdentifierByte() {
+    void testFromIdentifierByte() {
         assertEquals(TagClass.UNIVERSAL, TagClass.fromIdentifierByte((byte) 0b00101010));
         assertEquals(TagClass.APPLICATION, TagClass.fromIdentifierByte((byte) 0b01101010));
         assertEquals(TagClass.CONTEXT_SPECIFIC, TagClass.fromIdentifierByte((byte) 0b10101010));

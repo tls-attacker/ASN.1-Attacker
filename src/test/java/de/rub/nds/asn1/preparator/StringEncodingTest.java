@@ -18,10 +18,10 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
-public class StringEncodingTest {
+class StringEncodingTest {
 
     @Test
-    public void testBmpStringEncoding() {
+    void testBmpStringEncoding() {
         // BmpString should use UTF-16BE encoding
         String testString = "Hello";
         Asn1BmpString bmpString = new Asn1BmpString("bmpString");
@@ -40,7 +40,7 @@ public class StringEncodingTest {
     }
 
     @Test
-    public void testUniversalStringEncoding() throws Exception {
+    void testUniversalStringEncoding() throws Exception {
         // UniversalString should use UTF-32BE encoding
         String testString = "Hello";
         Asn1UniversalString universalString = new Asn1UniversalString("universalString");
@@ -59,7 +59,7 @@ public class StringEncodingTest {
     }
 
     @Test
-    public void testT61StringEncodingConsistency() {
+    void testT61StringEncodingConsistency() {
         // T61String should use ISO-8859-1 for both encoding and parsing
         String testString = "Test\u00E4\u00F6\u00FC"; // Test äöü
 

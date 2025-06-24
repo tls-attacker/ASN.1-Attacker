@@ -25,12 +25,12 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1FieldTest {
+class Asn1FieldTest {
 
     private Asn1Field field;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         field =
                 new Asn1FieldImpl(
                         "field",
@@ -40,7 +40,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testIsCompatible() {
+    void testIsCompatible() {
         assertTrue(
                 field.matchesHeader(
                         TagClass.PRIVATE,
@@ -64,7 +64,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testIsAndSetOptional() {
+    void testIsAndSetOptional() {
         assertFalse(field.isOptional());
         field.setOptional(true);
         assertTrue(field.isOptional());
@@ -73,7 +73,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetTagClass() {
+    void testGetTagClass() {
         assertNull(field.getTagClass());
         field.setTagClass(0);
         assertEquals(0, field.getTagClass().getValue());
@@ -84,7 +84,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetTagConstructed() {
+    void testGetTagConstructed() {
         assertNull(field.getTagConstructed());
         field.setTagConstructed(true);
         assertEquals(true, field.getTagConstructed().getValue());
@@ -95,7 +95,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetTagNumber() {
+    void testGetTagNumber() {
         assertNull(field.getTagNumber());
         field.setTagNumber(0);
         assertEquals(0, field.getTagNumber().getValue());
@@ -106,7 +106,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetLength() {
+    void testGetLength() {
         assertNull(field.getLength());
         field.setLength(BigInteger.ZERO);
         assertEquals(BigInteger.ZERO, field.getLength().getValue());
@@ -117,7 +117,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetContent() {
+    void testGetContent() {
         assertNull(field.getContent());
         field.setContent(new byte[0]);
         assertArrayEquals(new byte[0], field.getContent().getValue());
@@ -128,7 +128,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetTagOctets() {
+    void testGetTagOctets() {
         assertNull(field.getTagOctets());
         field.setTagOctets(new byte[0]);
         assertArrayEquals(new byte[0], field.getTagOctets().getValue());
@@ -139,7 +139,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetLengthOctets() {
+    void testGetLengthOctets() {
         assertNull(field.getLengthOctets());
         field.setLengthOctets(new byte[0]);
         assertArrayEquals(new byte[0], field.getLengthOctets().getValue());
@@ -150,12 +150,12 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testGetIdentifier() {
+    void testGetIdentifier() {
         assertEquals("field", field.getIdentifier());
     }
 
     @Test
-    public void testSetIdentifier() {
+    void testSetIdentifier() {
         assertEquals("field", field.getIdentifier());
         field.setIdentifier("other");
         assertEquals("other", field.getIdentifier());
@@ -164,7 +164,7 @@ public class Asn1FieldTest {
     }
 
     @Test
-    public void testNullIdentifierInConstructor() {
+    void testNullIdentifierInConstructor() {
         // Test that null identifier is allowed in constructor (regression test for issue #147)
         Asn1Field fieldWithNullId =
                 new Asn1FieldImpl(
@@ -187,9 +187,9 @@ public class Asn1FieldTest {
         assertNull(fieldWithNullId2.getIdentifier());
     }
 
-    public class Asn1FieldImpl extends Asn1Field {
+    class Asn1FieldImpl extends Asn1Field {
 
-        public Asn1FieldImpl(
+        Asn1FieldImpl(
                 String identifier,
                 TagClass tagClassType,
                 TagConstructed tagConstructedType,
@@ -198,9 +198,9 @@ public class Asn1FieldTest {
         }
     }
 
-    public class Asn1FieldImpl2 extends Asn1Field {
+    class Asn1FieldImpl2 extends Asn1Field {
 
-        public Asn1FieldImpl2(
+        Asn1FieldImpl2(
                 String identifier,
                 TagClass tagClassType,
                 TagConstructed tagConstructedType,
