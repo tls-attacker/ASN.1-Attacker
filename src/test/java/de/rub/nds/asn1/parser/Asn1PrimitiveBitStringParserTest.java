@@ -8,7 +8,7 @@
  */
 package de.rub.nds.asn1.parser;
 
-public class Asn1PrimitiveBitStringParserTest {
+class Asn1PrimitiveBitStringParserTest {
 
     /** Test of parseIndividualContentFields method, of class Asn1PrimitiveBitStringParser. */
 }

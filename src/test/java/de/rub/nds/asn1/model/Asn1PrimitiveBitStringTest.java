@@ -16,17 +16,17 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1PrimitiveBitStringTest {
+class Asn1PrimitiveBitStringTest {
 
     private Asn1BitString asn1BitString;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         asn1BitString = new Asn1BitString("test");
     }
 
     @Test
-    public void testSetGetUsedBits() {
+    void testSetGetUsedBits() {
         asn1BitString.setUsedBits(new byte[0]);
         assertArrayEquals(new byte[0], asn1BitString.getUsedBits().getValue());
         asn1BitString.setUsedBits(new byte[1]);
@@ -34,7 +34,7 @@ public class Asn1PrimitiveBitStringTest {
     }
 
     @Test
-    public void testSetUsedBits_Modifiable() {
+    void testSetUsedBits_Modifiable() {
         asn1BitString.setUsedBits(new byte[0]);
         assertArrayEquals(new byte[0], asn1BitString.getUsedBits().getValue());
         asn1BitString
@@ -44,7 +44,7 @@ public class Asn1PrimitiveBitStringTest {
     }
 
     @Test
-    public void testSetGetUnusedBits() {
+    void testSetGetUnusedBits() {
         asn1BitString.setUnusedBits((byte) 0x1F);
         assertEquals((byte) 0x1F, asn1BitString.getUnusedBits().getValue());
         asn1BitString.setUnusedBits((byte) 0x1D);
@@ -52,7 +52,7 @@ public class Asn1PrimitiveBitStringTest {
     }
 
     @Test
-    public void testSetUnusedBits_Modifiable() {
+    void testSetUnusedBits_Modifiable() {
         asn1BitString.setUnusedBits((byte) 0x1F);
         assertEquals((byte) 0x1F, asn1BitString.getUnusedBits().getValue());
         asn1BitString
@@ -62,7 +62,7 @@ public class Asn1PrimitiveBitStringTest {
     }
 
     @Test
-    public void testSetGetPadding() {
+    void testSetGetPadding() {
         asn1BitString.setPadding((byte) 0x1F);
         assertEquals((byte) 0x1F, asn1BitString.getPadding().getValue());
         asn1BitString.setPadding((byte) 0x1D);
@@ -70,7 +70,7 @@ public class Asn1PrimitiveBitStringTest {
     }
 
     @Test
-    public void testSetPadding_Modifiable() {
+    void testSetPadding_Modifiable() {
         asn1BitString.setPadding((byte) 0x1F);
         assertEquals((byte) 0x1F, asn1BitString.getPadding().getValue());
         asn1BitString.getPadding().addModification(new ByteExplicitValueModification((byte) 0x1D));

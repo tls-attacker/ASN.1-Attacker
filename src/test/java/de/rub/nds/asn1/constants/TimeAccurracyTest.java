@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class TimeAccurracyTest {
+class TimeAccurracyTest {
 
     /** Test of values method, of class TimeAccurracy. */
     @Test
-    public void testValues() {
+    void testValues() {
         assertEquals(4, TimeAccurracy.values().length);
     }
 
     /** Test of valueOf method, of class TimeAccurracy. */
     @Test
-    public void testValueOf() {
+    void testValueOf() {
         assertEquals(TimeAccurracy.HOURS, TimeAccurracy.valueOf("HOURS"));
         assertEquals(TimeAccurracy.MILLISECONDS, TimeAccurracy.valueOf("MILLISECONDS"));
         assertEquals(TimeAccurracy.MINUTES, TimeAccurracy.valueOf("MINUTES"));

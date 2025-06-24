@@ -16,18 +16,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1FieldPreparatorTest {
+class Asn1FieldPreparatorTest {
 
-    public Asn1FieldPreparatorTest() {}
+    Asn1FieldPreparatorTest() {}
 
     @BeforeEach
-    public void setUp() {}
+    void setUp() {}
 
     @AfterEach
-    public void tearDown() {}
+    void tearDown() {}
 
     @Test
-    public void testPrepare() {
+    void testPrepare() {
         testSize(1, "020100");
         testSize(2, "02020000");
         testSize(
@@ -44,7 +44,7 @@ public class Asn1FieldPreparatorTest {
                 "0282010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
     }
 
-    public void testSize(int size, String expectedResult) {
+    void testSize(int size, String expectedResult) {
         Asn1FieldPreparatorImpl instance = new Asn1FieldPreparatorImpl(size);
         instance.prepare();
         assertArrayEquals(
@@ -63,11 +63,11 @@ public class Asn1FieldPreparatorTest {
                                         instance.field.getContent().getValue())));
     }
 
-    public class Asn1FieldPreparatorImpl extends Asn1FieldPreparator<Asn1Integer> {
+    class Asn1FieldPreparatorImpl extends Asn1FieldPreparator<Asn1Integer> {
 
         private final int size;
 
-        public Asn1FieldPreparatorImpl(int size) {
+        Asn1FieldPreparatorImpl(int size) {
             super(new Asn1Integer("testInteger"));
             this.size = size;
         }

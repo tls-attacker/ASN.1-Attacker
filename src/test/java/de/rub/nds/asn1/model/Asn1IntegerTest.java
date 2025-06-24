@@ -15,17 +15,17 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Asn1IntegerTest {
+class Asn1IntegerTest {
 
     private Asn1Integer asn1Integer;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         asn1Integer = new Asn1Integer("test");
     }
 
     @Test
-    public void testSetGetValue() {
+    void testSetGetValue() {
         asn1Integer.setValue(BigInteger.ONE);
         assertEquals(BigInteger.ONE, asn1Integer.getValue().getValue());
         asn1Integer.setValue(BigInteger.TWO);
@@ -33,7 +33,7 @@ public class Asn1IntegerTest {
     }
 
     @Test
-    public void testSetValue_Modifiable() {
+    void testSetValue_Modifiable() {
         asn1Integer.setValue(BigInteger.ONE);
         assertEquals(BigInteger.ONE, asn1Integer.getValue().getValue());
         asn1Integer

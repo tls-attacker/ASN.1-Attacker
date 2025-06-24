@@ -25,11 +25,11 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ParserHelperTest {
+class ParserHelperTest {
 
     /** Test of parseTagOctets method, of class Asn1Parser. */
     @Test
-    public void testParseTagOctetsShortTag() throws Exception {
+    void testParseTagOctetsShortTag() throws Exception {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(DataConverter.hexStringToByteArray("3003020109")));
@@ -38,7 +38,7 @@ public class ParserHelperTest {
     }
 
     @Test
-    public void testParseTagOctetsLongTag() throws Exception {
+    void testParseTagOctetsLongTag() throws Exception {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(
@@ -49,7 +49,7 @@ public class ParserHelperTest {
 
     /** Test of parseTagClass method, of class Asn1Parser. */
     @Test
-    public void testParseTagClass() {
+    void testParseTagClass() {
         assertEquals(TagClass.UNIVERSAL.getIntValue(), ParserHelper.parseTagClass((byte) 0x30));
         assertEquals(TagClass.APPLICATION.getIntValue(), ParserHelper.parseTagClass((byte) 0x41));
         assertEquals(TagClass.PRIVATE.getIntValue(), ParserHelper.parseTagClass((byte) 0xC1));
@@ -59,7 +59,7 @@ public class ParserHelperTest {
 
     /** Test of parseTagConstructed method, of class Asn1Parser. */
     @Test
-    public void testParseTagConstructed() {
+    void testParseTagConstructed() {
         assertEquals(
                 TagConstructed.CONSTRUCTED.getBooleanValue(),
                 ParserHelper.parseTagConstructed((byte) 0x30));
@@ -70,7 +70,7 @@ public class ParserHelperTest {
 
     /** Test of parseTagNumber method, of class Asn1Parser. */
     @Test
-    public void testParseTagNumber() {
+    void testParseTagNumber() {
         assertEquals(10, ParserHelper.parseTagNumber(new byte[] {0x0A}));
         assertEquals(31, ParserHelper.parseTagNumber(new byte[] {0x1F}));
         assertEquals(128, ParserHelper.parseTagNumber(new byte[] {(byte) 0x81, (byte) 0x80}));
@@ -78,7 +78,7 @@ public class ParserHelperTest {
 
     /** Test of parseLength method, of class Asn1Parser. */
     @Test
-    public void testParseLength() {
+    void testParseLength() {
         assertEquals(
                 new BigInteger("1"),
                 ParserHelper.parseLength(DataConverter.hexStringToByteArray("01")));
@@ -118,7 +118,7 @@ public class ParserHelperTest {
     }
 
     @Test
-    public void testParseLengthExceptions() {
+    void testParseLengthExceptions() {
         assertThrows(
                 ParserException.class,
                 () -> {
@@ -159,7 +159,7 @@ public class ParserHelperTest {
 
     /** Test of parseLengthOctets method, of class Asn1Parser. */
     @Test
-    public void testParseLengthOctets() throws IOException {
+    void testParseLengthOctets() throws IOException {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(DataConverter.hexStringToByteArray("01FF")));
@@ -237,7 +237,7 @@ public class ParserHelperTest {
     }
 
     @Test
-    public void testParseLengthOctetsExceptions() {
+    void testParseLengthOctetsExceptions() {
         assertThrows(
                 ParserException.class,
                 () -> {
@@ -278,7 +278,7 @@ public class ParserHelperTest {
 
     /** Test of parseContentOctets method, of class Asn1Parser. */
     @Test
-    public void testParseContentOctets() throws IOException {
+    void testParseContentOctets() throws IOException {
         BufferedInputStream inputStream =
                 new BufferedInputStream(
                         new ByteArrayInputStream(DataConverter.hexStringToByteArray("01FF")));
@@ -295,7 +295,7 @@ public class ParserHelperTest {
     }
 
     @Test
-    public void testParseIndividualContentFields() throws Exception {
+    void testParseIndividualContentFields() throws Exception {
         Asn1BitString asn1PrimitiveBitString = new Asn1BitString("test");
         BufferedInputStream byteArrayInputStream =
                 new BufferedInputStream(
