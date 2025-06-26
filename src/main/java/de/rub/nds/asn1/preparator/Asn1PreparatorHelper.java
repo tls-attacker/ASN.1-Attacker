@@ -25,6 +25,7 @@ import de.rub.nds.asn1.model.Asn1T61String;
 import de.rub.nds.asn1.model.Asn1UniversalString;
 import de.rub.nds.asn1.model.Asn1UtcTime;
 import de.rub.nds.asn1.model.Asn1Utf8String;
+import de.rub.nds.asn1.model.Asn1VisibleString;
 import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
 import de.rub.nds.modifiablevariable.util.DataConverter;
@@ -347,6 +348,17 @@ public class Asn1PreparatorHelper {
         return asn1Utf8String;
     }
 
+    public static Asn1VisibleString prepareField(
+            Asn1VisibleString asn1VisibleString, String value) {
+        if (asn1VisibleString == null) {
+            asn1VisibleString = new Asn1VisibleString("visibleString");
+        }
+        asn1VisibleString.setValue(value);
+        asn1VisibleString.setContent(encodeVisibleString(asn1VisibleString.getValue().getValue()));
+        prepareAfterContent(asn1VisibleString);
+        return asn1VisibleString;
+    }
+
     public static byte[] encodeBoolean(boolean value) {
         if (value == true) {
             return new byte[] {(byte) 0xFF};
@@ -452,6 +464,10 @@ public class Asn1PreparatorHelper {
 
     public static byte[] encodeUtf8String(String tempString) {
         return tempString.getBytes(StandardCharsets.UTF_8);
+    }
+
+    public static byte[] encodeVisibleString(String tempString) {
+        return tempString.getBytes(StandardCharsets.US_ASCII);
     }
 
     private static byte[] shiftLeft(byte[] input, int n) {
