@@ -607,24 +607,27 @@ public class ParserHelper {
         int read = stream.read();
         if ((read & 0x1F) == 0x1F) {
             // Long tag
-            SilentByteArrayOutputStream tagByteStream = new SilentByteArrayOutputStream();
-            tagByteStream.write(read);
-            do {
-                if (stream.available() == 0) {
-                    throw new ParserException(
-                            "Incomplete tag: "
-                                    + DataConverter.bytesToHexString(tagByteStream.toByteArray()));
-                }
-                read = stream.read();
-                if (read == -1) {
-                    throw new ParserException(
-                            "Incomplete tag: "
-                                    + DataConverter.bytesToHexString(tagByteStream.toByteArray()));
-                }
+            try (SilentByteArrayOutputStream tagByteStream = new SilentByteArrayOutputStream()) {
                 tagByteStream.write(read);
-            } while ((read & 0x80) > 0);
-            LOGGER.debug("Parsed (long) tag octets: {}", tagByteStream.toByteArray());
-            return tagByteStream.toByteArray();
+                do {
+                    if (stream.available() == 0) {
+                        throw new ParserException(
+                                "Incomplete tag: "
+                                        + DataConverter.bytesToHexString(
+                                                tagByteStream.toByteArray()));
+                    }
+                    read = stream.read();
+                    if (read == -1) {
+                        throw new ParserException(
+                                "Incomplete tag: "
+                                        + DataConverter.bytesToHexString(
+                                                tagByteStream.toByteArray()));
+                    }
+                    tagByteStream.write(read);
+                } while ((read & 0x80) > 0);
+                LOGGER.debug("Parsed (long) tag octets: {}", tagByteStream.toByteArray());
+                return tagByteStream.toByteArray();
+            }
         } else {
             // Short tag
             byte[] tag = new byte[] {(byte) read};
@@ -683,37 +686,38 @@ public class ParserHelper {
 
     public static byte[] parseLengthOctets(BufferedInputStream inputStream)
             throws ParserException, IOException {
-        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
-        byte lengthByte;
-        try {
-            lengthByte = (byte) (inputStream.read() & 0xFF);
-            outputStream.write(lengthByte & 0xFF);
-        } catch (IOException ex) {
-            throw new ParserException(ex);
-        }
-        if (lengthByte == (byte) 0x80) {
-            throw new ParserException("Indefinite lengths are currently not supported!");
-        }
-        if (lengthByte == (byte) 0xFF) {
-            throw new ParserException("Reserved length value!");
-        }
-        if ((lengthByte & 0xFF) < 128) {
-            LOGGER.debug("Parsed (short) length octets: {}", outputStream.toByteArray());
-            return outputStream.toByteArray();
-        } else {
-            int numberOfLengthBytes = lengthByte & 0x7F;
-            if (numberOfLengthBytes > inputStream.available()) {
-                throw new ParserException("Not enough bytes for length octets in stream");
+        try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
+            byte lengthByte;
+            try {
+                lengthByte = (byte) (inputStream.read() & 0xFF);
+                outputStream.write(lengthByte & 0xFF);
+            } catch (IOException ex) {
+                throw new ParserException(ex);
             }
-            for (int i = 0; i < numberOfLengthBytes; i++) {
-                try {
-                    outputStream.write(inputStream.read());
-                } catch (IOException ex) {
-                    throw new ParserException(ex);
+            if (lengthByte == (byte) 0x80) {
+                throw new ParserException("Indefinite lengths are currently not supported!");
+            }
+            if (lengthByte == (byte) 0xFF) {
+                throw new ParserException("Reserved length value!");
+            }
+            if ((lengthByte & 0xFF) < 128) {
+                LOGGER.debug("Parsed (short) length octets: {}", outputStream.toByteArray());
+                return outputStream.toByteArray();
+            } else {
+                int numberOfLengthBytes = lengthByte & 0x7F;
+                if (numberOfLengthBytes > inputStream.available()) {
+                    throw new ParserException("Not enough bytes for length octets in stream");
                 }
+                for (int i = 0; i < numberOfLengthBytes; i++) {
+                    try {
+                        outputStream.write(inputStream.read());
+                    } catch (IOException ex) {
+                        throw new ParserException(ex);
+                    }
+                }
+                LOGGER.debug("Parsed (long) length octets: {}", outputStream.toByteArray());
+                return outputStream.toByteArray();
             }
-            LOGGER.debug("Parsed (long) length octets: {}", outputStream.toByteArray());
-            return outputStream.toByteArray();
         }
     }
 

@@ -38,28 +38,31 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
     protected abstract byte[] encodeContent();
 
     protected byte[] encodeChildren(Asn1Encodable... children) {
-        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
-        for (Asn1Encodable child : children) {
-            LOGGER.debug("Encoding {}", child.getIdentifier());
-            outputStream.write(encode(child));
+        try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
+            for (Asn1Encodable child : children) {
+                LOGGER.debug("Encoding {}", child.getIdentifier());
+                outputStream.write(encode(child));
+            }
+            return outputStream.toByteArray();
         }
-        return outputStream.toByteArray();
     }
 
     protected byte[] encodeChildren(List<Asn1Encodable> children) {
-        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
-        for (Asn1Encodable child : children) {
-            LOGGER.debug("Encoding {}", child.getIdentifier());
-            outputStream.write(encode(child));
+        try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
+            for (Asn1Encodable child : children) {
+                LOGGER.debug("Encoding {}", child.getIdentifier());
+                outputStream.write(encode(child));
+            }
+            return outputStream.toByteArray();
         }
-        return outputStream.toByteArray();
     }
 
     private byte[] encode(Asn1Encodable encodable) {
-        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
-        outputStream.write(encodable.getTagOctets().getValue());
-        outputStream.write(encodable.getLengthOctets().getValue());
-        outputStream.write(encodable.getContent().getValue());
-        return outputStream.toByteArray();
+        try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
+            outputStream.write(encodable.getTagOctets().getValue());
+            outputStream.write(encodable.getLengthOctets().getValue());
+            outputStream.write(encodable.getContent().getValue());
+            return outputStream.toByteArray();
+        }
     }
 }

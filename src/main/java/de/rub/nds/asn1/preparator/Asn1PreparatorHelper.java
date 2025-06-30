@@ -89,29 +89,31 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte[] encodeTagNumber(byte firstIdentifierByte, int tagNumber) {
-        SilentByteArrayOutputStream resultStream = new SilentByteArrayOutputStream();
-        SilentByteArrayOutputStream longEncodingStream = new SilentByteArrayOutputStream();
-        if (tagNumber < 0) {
-            LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
-            tagNumber = 0;
-        }
-        if (tagNumber <= 0x1F) {
-
-            byte[] result = new byte[] {firstIdentifierByte};
-            result[0] |= (byte) (tagNumber & 0x1F);
-            resultStream.write(result);
-        } else {
-            int longTagNumberBytes = getTagNumberByteCount(tagNumber);
-            byte[] longEncoding = encodeLongTagNumber(tagNumber);
-            if (longEncoding.length < longTagNumberBytes) {
-                longEncodingStream.write(new byte[longTagNumberBytes - longEncoding.length]);
-                longEncodingStream.write(longEncoding);
+        try (SilentByteArrayOutputStream resultStream = new SilentByteArrayOutputStream();
+                SilentByteArrayOutputStream longEncodingStream =
+                        new SilentByteArrayOutputStream()) {
+            if (tagNumber < 0) {
+                LOGGER.warn("Tag number is smaller than zero. Defaulting to zero!");
+                tagNumber = 0;
             }
-            firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
-            resultStream.write(new byte[] {firstIdentifierByte});
-            resultStream.write(longEncoding);
+            if (tagNumber <= 0x1F) {
+
+                byte[] result = new byte[] {firstIdentifierByte};
+                result[0] |= (byte) (tagNumber & 0x1F);
+                resultStream.write(result);
+            } else {
+                int longTagNumberBytes = getTagNumberByteCount(tagNumber);
+                byte[] longEncoding = encodeLongTagNumber(tagNumber);
+                if (longEncoding.length < longTagNumberBytes) {
+                    longEncodingStream.write(new byte[longTagNumberBytes - longEncoding.length]);
+                    longEncodingStream.write(longEncoding);
+                }
+                firstIdentifierByte = (byte) (firstIdentifierByte | 0x1F);
+                resultStream.write(new byte[] {firstIdentifierByte});
+                resultStream.write(longEncoding);
+            }
+            return resultStream.toByteArray();
         }
-        return resultStream.toByteArray();
     }
 
     /**
@@ -381,16 +383,17 @@ public class Asn1PreparatorHelper {
     }
 
     public static byte[] encodeBitString(byte[] usedBits, Byte unusedBits, Byte padding) {
-        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
-        outputStream.write(new byte[] {unusedBits});
-        byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
-        encodedContent = shiftLeft(encodedContent, unusedBits);
-        if (encodedContent.length > 0) {
-            encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
-            encodedContent[encodedContent.length - 1] |= padding;
+        try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
+            outputStream.write(new byte[] {unusedBits});
+            byte[] encodedContent = Arrays.copyOf(usedBits, usedBits.length);
+            encodedContent = shiftLeft(encodedContent, unusedBits);
+            if (encodedContent.length > 0) {
+                encodedContent[encodedContent.length - 1] &= (0xFF - (1 << unusedBits - 1));
+                encodedContent[encodedContent.length - 1] |= padding;
+            }
+            outputStream.write(encodedContent);
+            return outputStream.toByteArray();
         }
-        outputStream.write(encodedContent);
-        return outputStream.toByteArray();
     }
 
     public static byte[] encodeGeneralizedTime(DateTime date, TimeAccurracy accurracy) {
@@ -526,15 +529,17 @@ public class Asn1PreparatorHelper {
     }
 
     private static byte[] encodeLongLength(BigInteger length) {
-        SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream();
-        int numberOfBytes = getLengthByteCount(length);
-        outputStream.write(numberOfBytes | 0x80);
-        LOGGER.debug(
-                "Encoding: {} as {}",
-                length,
-                DataConverter.bytesToHexString(
-                        DataConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
-        outputStream.writeBytes(DataConverter.bigIntegerToByteArray(length, numberOfBytes, true));
-        return outputStream.toByteArray();
+        try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
+            int numberOfBytes = getLengthByteCount(length);
+            outputStream.write(numberOfBytes | 0x80);
+            LOGGER.debug(
+                    "Encoding: {} as {}",
+                    length,
+                    DataConverter.bytesToHexString(
+                            DataConverter.bigIntegerToByteArray(length, numberOfBytes, true)));
+            outputStream.writeBytes(
+                    DataConverter.bigIntegerToByteArray(length, numberOfBytes, true));
+            return outputStream.toByteArray();
+        }
     }
 }

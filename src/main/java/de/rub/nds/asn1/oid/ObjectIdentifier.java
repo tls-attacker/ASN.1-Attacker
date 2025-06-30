@@ -81,18 +81,19 @@ public class ObjectIdentifier implements Serializable {
 
     private byte[] computeEncodedValue(long[] idValues) {
 
-        SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream();
-        //
-        if (idValues.length == 1) {
-            stream.write((int) (idValues[0] * 40));
-        } else if (idValues.length >= 2) {
-            stream.write((int) (idValues[0] * 40 + idValues[1]));
-            for (int i = 2; i < idValues.length; i++) {
-                stream.write(encodeSingleIdValue(idValues[i]));
+        try (SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream()) {
+            //
+            if (idValues.length == 1) {
+                stream.write((int) (idValues[0] * 40));
+            } else if (idValues.length >= 2) {
+                stream.write((int) (idValues[0] * 40 + idValues[1]));
+                for (int i = 2; i < idValues.length; i++) {
+                    stream.write(encodeSingleIdValue(idValues[i]));
+                }
             }
-        }
 
-        return stream.toByteArray();
+            return stream.toByteArray();
+        }
     }
 
     @Override
@@ -116,15 +117,16 @@ public class ObjectIdentifier implements Serializable {
     }
 
     private byte[] encodeSingleIdValue(long idValue) {
-        SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream();
-        byte moreFlag = 0x00;
-        do {
-            stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
-            idValue >>= 7;
-            moreFlag = (byte) 0x80;
-        } while (idValue > 0);
-        // we encoded the byte array in reverse order - we have to flip it again
-        return reverse(stream.toByteArray());
+        try (SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream()) {
+            byte moreFlag = 0x00;
+            do {
+                stream.write(new byte[] {(byte) (moreFlag | (idValue & 0x7F))});
+                idValue >>= 7;
+                moreFlag = (byte) 0x80;
+            } while (idValue > 0);
+            // we encoded the byte array in reverse order - we have to flip it again
+            return reverse(stream.toByteArray());
+        }
     }
 
     private byte[] reverse(byte[] array) {
