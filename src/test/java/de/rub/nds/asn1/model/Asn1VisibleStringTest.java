@@ -17,7 +17,7 @@ import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.parser.ParserHelper;
 import de.rub.nds.asn1.preparator.Asn1PreparatorHelper;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
@@ -52,12 +52,12 @@ public class Asn1VisibleStringTest {
 
         // VisibleString tag is 0x1A (26), length is 12, then the ASCII content
         byte[] expected =
-                ArrayConverter.concatenate(
+                DataConverter.concatenate(
                         new byte[] {0x1A, 0x0C}, // tag and length
                         testString.getBytes(StandardCharsets.US_ASCII));
 
         byte[] actual =
-                ArrayConverter.concatenate(
+                DataConverter.concatenate(
                         visibleString.getTagOctets().getValue(),
                         visibleString.getLengthOctets().getValue(),
                         visibleString.getContent().getValue());
@@ -70,7 +70,7 @@ public class Asn1VisibleStringTest {
     public void testParsing() throws Exception {
         String testString = "Test VisibleString 123!";
         byte[] encoded =
-                ArrayConverter.concatenate(
+                DataConverter.concatenate(
                         new byte[] {0x1A}, // VisibleString tag
                         new byte[] {(byte) testString.length()}, // length
                         testString.getBytes(StandardCharsets.US_ASCII));
@@ -97,7 +97,7 @@ public class Asn1VisibleStringTest {
     public void testParseViaHelper() throws Exception {
         String testString = "Another test!";
         byte[] encoded =
-                ArrayConverter.concatenate(
+                DataConverter.concatenate(
                         new byte[] {0x1A}, // VisibleString tag
                         new byte[] {(byte) testString.length()}, // length
                         testString.getBytes(StandardCharsets.US_ASCII));
