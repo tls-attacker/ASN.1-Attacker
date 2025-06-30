@@ -58,7 +58,7 @@ public class ObjectIdentifier implements Serializable {
         this.encoded = computeEncodedValue(idValues);
     }
 
-    private List<Long> decodeValue(final byte[] content) {
+    private static List<Long> decodeValue(final byte[] content) {
         List<Long> resultList = new LinkedList<>();
 
         if (content.length > 0) {
@@ -127,7 +127,7 @@ public class ObjectIdentifier implements Serializable {
         return reverse(stream.toByteArray());
     }
 
-    private byte[] reverse(byte[] array) {
+    private static byte[] reverse(byte[] array) {
         byte[] newArray = new byte[array.length];
         for (int i = 0; i < array.length; i++) {
             newArray[i] = array[array.length - (i + 1)];
