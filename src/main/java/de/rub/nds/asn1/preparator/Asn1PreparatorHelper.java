@@ -30,8 +30,8 @@ import de.rub.nds.asn1.oid.ObjectIdentifier;
 import de.rub.nds.asn1.time.TimeEncoder;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.protocol.util.SilentByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
@@ -449,12 +449,7 @@ public class Asn1PreparatorHelper {
      * @return the string encoded as a universal string as a byte array
      */
     public static byte[] encodeUniversalString(String tempString) {
-        try {
-            return tempString.getBytes("UTF-32BE");
-        } catch (UnsupportedEncodingException e) {
-            throw new UnsupportedOperationException(
-                    "Could not encode Universal String with UTF-32BE", e);
-        }
+        return tempString.getBytes(Charset.forName("UTF-32BE"));
     }
 
     public static byte[] encodeOctetString(byte[] bytes) {

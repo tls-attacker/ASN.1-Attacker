@@ -41,6 +41,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
@@ -562,12 +563,9 @@ public class ParserHelper {
     }
 
     public static void parseUniversalStringContent(Asn1UniversalString asn1UniversalString) {
-        try {
-            asn1UniversalString.setValue(
-                    new String(asn1UniversalString.getContent().getValue(), "UTF-32BE"));
-        } catch (java.io.UnsupportedEncodingException e) {
-            throw new ParserException("Could not parse Universal String with UTF-32BE", e);
-        }
+        asn1UniversalString.setValue(
+                new String(
+                        asn1UniversalString.getContent().getValue(), Charset.forName("UTF-32BE")));
     }
 
     private static byte extractBits(byte[] input, int n) {
