@@ -31,8 +31,8 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         Asn1PreparatorHelper.prepareAfterContent(field);
     }
 
-    public void prepareContent(Asn1Field field) {
-        field.setContent(encodeContent());
+    public void prepareContent(Asn1Field fieldToPrep) {
+        fieldToPrep.setContent(encodeContent());
     }
 
     protected abstract byte[] encodeContent();
@@ -57,7 +57,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         }
     }
 
-    private byte[] encode(Asn1Encodable encodable) {
+    private static byte[] encode(Asn1Encodable encodable) {
         try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
             outputStream.write(encodable.getTagOctets().getValue());
             outputStream.write(encodable.getLengthOctets().getValue());
