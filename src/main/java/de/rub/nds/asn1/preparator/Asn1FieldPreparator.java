@@ -57,7 +57,7 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         }
     }
 
-    private byte[] encode(Asn1Encodable encodable) {
+    private static byte[] encode(Asn1Encodable encodable) {
         try (SilentByteArrayOutputStream outputStream = new SilentByteArrayOutputStream()) {
             outputStream.write(encodable.getTagOctets().getValue());
             outputStream.write(encodable.getLengthOctets().getValue());
