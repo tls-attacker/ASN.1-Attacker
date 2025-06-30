@@ -478,8 +478,8 @@ public class ParserHelper {
         if (asn1BitString.getContent().getValue().length == 0) {
             throw new ParserException("No content in Asn1PrimitiveBitString");
         }
-        InputStream inputStream = new ByteArrayInputStream(asn1BitString.getContent().getValue());
-        try {
+        try (InputStream inputStream =
+                new ByteArrayInputStream(asn1BitString.getContent().getValue())) {
             asn1BitString.setUnusedBits((byte) inputStream.read());
             byte[] remainingBytes;
             remainingBytes =
@@ -650,38 +650,44 @@ public class ParserHelper {
         }
         int tagNumber = 0;
         byte nextByte;
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(encodedTag);
-        do {
-            nextByte = (byte) (inputStream.read() & 0xFF);
-            tagNumber = (tagNumber << 7) | (nextByte & 0x7F);
-        } while ((nextByte & 0x80) > 0 && inputStream.available() > 0);
+        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(encodedTag)) {
+            do {
+                nextByte = (byte) (inputStream.read() & 0xFF);
+                tagNumber = (tagNumber << 7) | (nextByte & 0x7F);
+            } while ((nextByte & 0x80) > 0 && inputStream.available() > 0);
+        } catch (IOException e) {
+            throw new ParserException("Could not parse tag number", e);
+        }
         return tagNumber;
     }
 
     public static BigInteger parseLength(byte[] lengthOctets) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(lengthOctets);
-        BigInteger length = BigInteger.ZERO;
-        byte lengthByte;
-        lengthByte = (byte) (inputStream.read() & 0xFF);
-        if (lengthByte == (byte) 0x80) {
-            throw new ParserException("Indefinite lengths are currently not supported!");
-        }
-        if (lengthByte == (byte) 0xFF) {
-            throw new ParserException("Reserved length value!");
-        }
-        if ((lengthByte & 0xFF) < 128) {
-            length = BigInteger.valueOf(lengthByte & 0xFF);
-        } else {
-            int numberOfLengthBytes = lengthByte & 0x7F;
-            if (inputStream.available() != numberOfLengthBytes) {
-                throw new ParserException("Length octets have incorrect length");
+        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(lengthOctets)) {
+            BigInteger length = BigInteger.ZERO;
+            byte lengthByte;
+            lengthByte = (byte) (inputStream.read() & 0xFF);
+            if (lengthByte == (byte) 0x80) {
+                throw new ParserException("Indefinite lengths are currently not supported!");
             }
-            for (int i = 0; i < numberOfLengthBytes; i++) {
-                length = length.shiftLeft(8);
-                length = length.or(BigInteger.valueOf(inputStream.read() & 0xFF));
+            if (lengthByte == (byte) 0xFF) {
+                throw new ParserException("Reserved length value!");
             }
+            if ((lengthByte & 0xFF) < 128) {
+                length = BigInteger.valueOf(lengthByte & 0xFF);
+            } else {
+                int numberOfLengthBytes = lengthByte & 0x7F;
+                if (inputStream.available() != numberOfLengthBytes) {
+                    throw new ParserException("Length octets have incorrect length");
+                }
+                for (int i = 0; i < numberOfLengthBytes; i++) {
+                    length = length.shiftLeft(8);
+                    length = length.or(BigInteger.valueOf(inputStream.read() & 0xFF));
+                }
+            }
+            return length;
+        } catch (IOException e) {
+            throw new ParserException("Could not parse length", e);
         }
-        return length;
     }
 
     public static byte[] parseLengthOctets(BufferedInputStream inputStream)
