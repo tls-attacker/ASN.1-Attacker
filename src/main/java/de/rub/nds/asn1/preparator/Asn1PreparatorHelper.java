@@ -150,12 +150,13 @@ public class Asn1PreparatorHelper {
     }
 
     public static Asn1Null prepareField(Asn1Null asn1Null) {
-        if (asn1Null == null) {
-            asn1Null = new Asn1Null("null");
+        Asn1Null result = asn1Null;
+        if (result == null) {
+            result = new Asn1Null("null");
         }
-        asn1Null.setContent(encodeNull());
-        prepareAfterContent(asn1Null);
-        return asn1Null;
+        result.setContent(encodeNull());
+        prepareAfterContent(result);
+        return result;
     }
 
     public static Asn1ObjectIdentifier prepareField(
