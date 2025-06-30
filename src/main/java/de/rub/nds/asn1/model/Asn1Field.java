@@ -122,13 +122,14 @@ public abstract class Asn1Field implements Asn1Encodable {
     }
 
     @Override
-    public final boolean matchesHeader(TagClass classType, Boolean constructed, Integer tagNumber) {
-        if (!Objects.equals(tagNumber, tagNumberConfig)) {
+    public final boolean matchesHeader(
+            TagClass classType, Boolean constructed, Integer receivedTagNumber) {
+        if (!Objects.equals(receivedTagNumber, tagNumberConfig)) {
             LOGGER.debug(
                     "{} not compatible because of the tagNumber Expected {} but found {}",
                     identifier,
                     tagNumberConfig,
-                    tagNumber);
+                    receivedTagNumber);
             return false;
         }
         if (constructed != tagConstructedType.getBooleanValue()) {

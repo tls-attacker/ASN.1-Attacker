@@ -31,8 +31,8 @@ public abstract class Asn1FieldPreparator<Field extends Asn1Field> {
         Asn1PreparatorHelper.prepareAfterContent(field);
     }
 
-    public void prepareContent(Asn1Field field) {
-        field.setContent(encodeContent());
+    public void prepareContent(Asn1Field fieldToPrep) {
+        fieldToPrep.setContent(encodeContent());
     }
 
     protected abstract byte[] encodeContent();
