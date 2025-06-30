@@ -25,10 +25,11 @@ public class Asn1FieldSerializer {
 
     public final byte[] serialize() {
         LOGGER.trace("Serializing: {} ", field.getIdentifier());
-        SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream();
-        stream.writeBytes(field.getTagOctets().getValue());
-        stream.writeBytes(field.getLengthOctets().getValue());
-        stream.write(field.getContent().getValue());
-        return stream.toByteArray();
+        try (SilentByteArrayOutputStream stream = new SilentByteArrayOutputStream()) {
+            stream.writeBytes(field.getTagOctets().getValue());
+            stream.writeBytes(field.getLengthOctets().getValue());
+            stream.write(field.getContent().getValue());
+            return stream.toByteArray();
+        }
     }
 }
