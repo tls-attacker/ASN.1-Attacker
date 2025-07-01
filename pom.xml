@@ -14,7 +14,7 @@
     <description>ASN.1-Attacker is a project for creating arbitrary ASN.1 structures; including malformed ASN.1 structures.
         Structures are defined in human-readable XML files and allow to specify modifications to the original encoding
         of data types.</description>
-    <url>https://github.com/tls-attacker/ASN.1-Tool</url>
+    <url>https://github.com/tls-attacker/ASN.1-Attacker</url>
 
     <licenses>
         <license>
@@ -39,10 +39,10 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/tls-attacker/ASN.1-Tool.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ASN.1-Tool-Development.git</developerConnection>
+        <connection>scm:git:https://github.com/tls-attacker/ASN.1-Attacker.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ASN.1-Attacker-Development.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/tls-attacker/ASN.1-Tool</url>
+        <url>https://github.com/tls-attacker/ASN.1-Attacker</url>
     </scm>
 
     <properties>
@@ -107,7 +107,7 @@
     </dependencies>
 
     <build>
-        <finalName>ASN1Tool</finalName>
+        <finalName>ASN1Attacker</finalName>
         <plugins>
             <!--################# default lifecycle plugins #################-->
             <!-- Formatting -->
