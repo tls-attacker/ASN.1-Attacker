@@ -10,7 +10,9 @@ package de.rub.nds.asn1.model;
 
 import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Asn1UnknownField extends Asn1Field implements PrimitiveAsn1Field {
 
     private byte[] contentConfig;
