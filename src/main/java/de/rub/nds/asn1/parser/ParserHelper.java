@@ -582,6 +582,7 @@ public class ParserHelper {
     /**
      * Shifts the given byte array to the right by n bits, treating the byte array as an unsigned
      * integer. The result is returned as a new byte array of the same length as the input array.
+     *
      * @param array the byte array to shift
      * @param n the number of bits to shift
      * @return the shifted byte array
@@ -606,7 +607,8 @@ public class ParserHelper {
         // return as many bytes as the original array
         byte[] result = new byte[array.length];
 
-        System.arraycopy(shiftedArray, 0, result, array.length - shiftedArray.length, shiftedArray.length);
+        System.arraycopy(
+                shiftedArray, 0, result, array.length - shiftedArray.length, shiftedArray.length);
         return result;
     }
 
