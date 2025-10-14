@@ -580,7 +580,7 @@ public class ParserHelper {
     }
 
     private static byte[] shiftRightUnsigned(byte[] array, int n) {
-        if (array.length == 0) {
+        if (array.length == 0 || n == 0) {
             return array;
         }
 
@@ -594,7 +594,12 @@ public class ParserHelper {
         byte[] shiftedArray = shiftInt.toByteArray();
         // return as many bytes as the original array
         byte[] result = new byte[array.length];
-        System.arraycopy(shiftedArray, shiftedArray.length - array.length, result, 0, array.length);
+
+        int srcPos = Math.max(0, shiftedArray.length - array.length);
+        int copyLen = Math.min(shiftedArray.length, array.length);
+        int dstPos = array.length - copyLen;
+
+        System.arraycopy(shiftedArray, srcPos, result, dstPos, copyLen);
         return result;
     }
 
