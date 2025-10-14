@@ -579,9 +579,20 @@ public class ParserHelper {
         return (byte) (input[input.length - 1] & mask);
     }
 
-    private static byte[] shiftRightUnsigned(byte[] array, int n) {
+    /**
+     * Shifts the given byte array to the right by n bits, treating the byte array as an unsigned
+     * integer. The result is returned as a new byte array of the same length as the input array.
+     * @param array the byte array to shift
+     * @param n the number of bits to shift
+     * @return the shifted byte array
+     * @throws IllegalArgumentException if n is negative
+     */
+    static byte[] shiftRightUnsigned(byte[] array, int n) {
         if (array.length == 0 || n == 0) {
             return array;
+        }
+        if (n < 0) {
+            throw new IllegalArgumentException("n must be non-negative");
         }
 
         // forces BigInt to always parse the array as unsigned
@@ -595,11 +606,7 @@ public class ParserHelper {
         // return as many bytes as the original array
         byte[] result = new byte[array.length];
 
-        int srcPos = Math.max(0, shiftedArray.length - array.length);
-        int copyLen = Math.min(shiftedArray.length, array.length);
-        int dstPos = array.length - copyLen;
-
-        System.arraycopy(shiftedArray, srcPos, result, dstPos, copyLen);
+        System.arraycopy(shiftedArray, 0, result, array.length - shiftedArray.length, shiftedArray.length);
         return result;
     }
 

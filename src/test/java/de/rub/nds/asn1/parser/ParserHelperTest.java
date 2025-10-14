@@ -16,6 +16,7 @@ import de.rub.nds.asn1.constants.TagClass;
 import de.rub.nds.asn1.constants.TagConstructed;
 import de.rub.nds.asn1.constants.UniversalTagNumber;
 import de.rub.nds.asn1.model.Asn1BitString;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.protocol.exception.ParserException;
 import java.io.BufferedInputStream;
@@ -26,6 +27,53 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ParserHelperTest {
+
+    @Test
+    void testShiftRightUnsigned() {
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("0000AA"),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray("AABBCC"), 16)
+        );
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("7FFFFF"),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray("FFFFFF"), 1)
+        );
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("0000FF"),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray("00FFFF"), 8)
+        );
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("00FFFF"),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray("00FFFF"), 0)
+        );
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("FFFFFF"),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray("FFFFFF"), 0)
+        );
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray(""),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray(""), 256)
+        );
+        assertArrayEquals(
+                DataConverter.hexStringToByteArray("000000"),
+                ParserHelper.shiftRightUnsigned(
+                        DataConverter.hexStringToByteArray("FFFFFF"), 256)
+        );
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    // Indefinite Length
+                    ParserHelper.shiftRightUnsigned(
+                            DataConverter.hexStringToByteArray("FFFFFFFF"), -1);
+                });
+
+    }
 
     /** Test of parseTagOctets method, of class Asn1Parser. */
     @Test
