@@ -18,6 +18,10 @@ public class Asn1UnknownSequence extends Asn1Sequence {
     @XmlAnyElement(lax = true)
     private List<Asn1Encodable> children;
 
+    public Asn1UnknownSequence() {
+        this("");
+    }
+
     public Asn1UnknownSequence(String identifier) {
         super(identifier);
         children = new ArrayList<>();
