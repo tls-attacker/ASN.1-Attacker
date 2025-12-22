@@ -9,15 +9,15 @@ The tool is not intended to be used directly, but by other software projects as 
 
 # Installation
 
-In order to compile and use ASN.1-Tool, you need to have Java and Maven installed. On Ubuntu you can install Maven by
+In order to compile and use ASN.1-Attacker, you need to have Java and Maven installed. On Ubuntu you can install Maven by
 running:
 
 ```bash
 $ sudo apt-get install maven
 ```
 
-ASN.1-Tool currently needs Java JDK 21 to run. If you have the correct Java version you can install
-ASN.1-Tool as follows.
+ASN.1-Attacker currently needs Java JDK 21 to run. If you have the correct Java version you can install
+ASN.1-Attacker as follows.
 
 ```bash
 $ git clone https://github.com/tls-attacker/ASN.1-Attacker.git
@@ -31,7 +31,7 @@ If you want to use this project as a dependency, you do not have to compile it y
 ```xml
 <dependency>
     <groupId>de.rub.nds</groupId>
-    <artifactId>asn1-tool</artifactId>
+    <artifactId>asn1-attacker</artifactId>
     <version>4.0.0</version>
 </dependency>
 ```
